@@ -1,63 +1,93 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc } from 'firebase/firestore'
 import { db, auth } from '../firebase';
-
-
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { Table } from 'react-bootstrap';
 function UserDashboard() {
 
     const { routeName } = useParams();
     const [data, setData] = useState([]);
 
-    const targetItemId = 'je2Pf6QPfgkBYAPO5xIB';
-    const user = auth.currentUser;
-    // const ref = collection(db,"user",user.uid,"url")
-    //collection(db,"user",user.uid,"url")
+    const [user] = useAuthState(auth); // Get the currently logged-in user
+    const [userData, setUserData] = useState(null);
+
+
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const collectionRef = collection(db, "user", "j3752Zk9OrYO4RGfTWsn0hZsQPD3", "url");
-                const snapshot = await getDocs(collectionRef);
-                const fetchedData = snapshot.docs.map(doc => doc.data());
-                setData(fetchedData);
-                console.log(data);
-            } catch (error) {
-                console.error('Error fetching data:', error);
+            if (user) {
+                try {
+                    const user = auth.currentUser;
+                    await getDocs(collection(db, "user", user.uid, "url"))
+                        .then((querySnapshot) => {
+                            const newData = querySnapshot.docs
+                                .map((doc) => ({ ...doc.data(), id: doc.id }));
+                            setData(newData);
+                            console.log(newData)
+                        })
+
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                }
+
+            }
+            else {
+                console.log('No user data available');
             }
         };
 
         fetchData();
-    }, []);
+    }, [user]);
 
 
-    // function changeUrlString(figma_url) {
-    //     let searchString = "https";
-    //     let replacementString = "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2F";
-    //     let newUrl = figma_url.replace(searchString, replacementString);
-    //     return newUrl;
-    // }
+    const handleDelete = async (id) => {
+        console.log({ id });
+        try {
+            await deleteDoc(doc(db, "user", user.uid, "url", id));
+            console.log('Document successfully deleted!');
+        } catch (error) {
+            console.error('Error removing document: ', error);
+        }
+    };
 
-    return (<>
-        <table>
-            <thead>
-                <tr>
-                    <th>Custom Url</th>
-                    <th>Figma Url</th>
-
-                    {/* Add more table headers for your data */}
-                </tr>
-            </thead>
-            <tbody>
-                {data.map(item => (
-                    <tr key={item.id}>
-                        <td>{item.customUrl}</td>
-                        {/* <td>{changeUrlString(item.figmaUrl)}</td> */}
+    return (
+        <div className='container'>
+            <Table>
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Title</th>
+                        <th>Custom Desktop Url</th>
+                        <th>Custom Mobile Url</th>
+                        <th>Figma Desktop Url</th>
+                        <th>Figma Mobile Url</th>
+                        <th>Update Data</th>
+                        <th>Delete Data</th>
+                        {/* Add more table headers for your data */}
                     </tr>
-                ))}
-            </tbody>
-        </table>
-    </>
+                </thead>
+                <tbody>
+                    {/* n(db, "user", user.uid, "url", "mobile", "url") */}
+                    {data.map(item => (
+                        <tr key={item.id}>
+                            <td>{item.id}</td>
+                            <td>{item.title}</td>
+                            <td>{item.data}</td>
+                            <td>{item.customMobileUrl}</td>
+                            <td>{item.figmaDesktopUrl}</td>
+                            <td>{item.desktopMobileUrl}</td>
+                            <td>
+                                <button onClick={() => handleDelete(item.id)}>Update</button>
+                            </td>
+                            <td>
+                                <button onClick={() => handleDelete(item.id)}>Delete</button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </Table>
+        </div>
     );
 }
 

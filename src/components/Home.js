@@ -1,36 +1,36 @@
 import React from 'react';
-import {  signOut } from "firebase/auth";
-import {auth} from '../firebase';
+import { signOut } from "firebase/auth";
+import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
-import UrlForm from '../pages/UrlForm';
+import UrlForm from '../pages/UlrForm/UrlForm';
 const Home = () => {
     const navigate = useNavigate();
- 
-    const handleLogout = () => {               
+
+    const handleLogout = () => {
         signOut(auth).then(() => {
-        // Sign-out successful.
+            // Sign-out successful.
             navigate("/");
             console.log("Signed out successfully")
         }).catch((error) => {
-        // An error happened.
+            // An error happened.
         });
     }
-   
-    return(
+
+    return (
         <>
             <nav>
                 <p>
                     Welcome Home
                 </p>
-                <UrlForm/>
+                <UrlForm />
                 <div>
-        			<button onClick={handleLogout}>
+                    <button onClick={handleLogout}>
                         Logout
                     </button>
-        		</div>
+                </div>
             </nav>
         </>
     )
 }
- 
+
 export default Home;
