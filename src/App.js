@@ -43,7 +43,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         {data.map((item) => (
-          < Route path={`/${item.customUrl}`} element={<DynamicPage url={item} />} />
+          < Route path={`/${item.generatedUrl}`} element={<DynamicPage url={item} />} />
         ))}
       </Routes>
     </div>

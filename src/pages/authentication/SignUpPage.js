@@ -13,7 +13,7 @@ const Signup = () => {
     const onSubmit = async (e) => {
         e.preventDefault()
 
-        if (password !== setConfirmPassword) {
+        if (password !== confirmPassword) {
             alert("retry password")
         } else {
             await createUserWithEmailAndPassword(auth, email, password)
@@ -68,7 +68,7 @@ const Signup = () => {
                             className='input'
                             type="password"
                             label="Confirm password"
-                            value={password}
+                            value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             required
                             placeholder="Confirm password"

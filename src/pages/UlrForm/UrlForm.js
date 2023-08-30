@@ -7,6 +7,7 @@ import './UrlForm.css'
 export default function Home() {
     const [figmaDesktopUrl, setDesktopCustomUrl] = useState('');
     const [figmaMobileUrl, setfigmaMobileUrl] = useState('');
+    const [generatedUrl, setGeneratedUrl] = useState('');
     const [title, setTitle] = useState('');
     const user = auth.currentUser;
 
@@ -14,12 +15,10 @@ export default function Home() {
     function generateRandomString(length) {
         const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         let result = '';
-
         for (let i = 0; i < length; i++) {
             const randomIndex = Math.floor(Math.random() * chars.length);
             result += chars[randomIndex];
         }
-
         return result;
     }
 
@@ -38,29 +37,18 @@ export default function Home() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const ref = collection(db, "user", user.uid, "url")
-        const refDesktopUrl = collection(db, "user", user.uid, "url", "desktop", "url")
-        const refMobileUrl = collection(db, "user", user.uid, "url", "mobile", "url")
-
-        var randomDesktopUrl = generateRandomString(6);
-        var randomMobileUrl = generateRandomString(6);
+        const refAllUrl = collection(db, "url")
+        var randomUrl = generateRandomString(6);
         let urlData = {
-            title: title
-        }
-
-        let desktopUrldata = {
-            figmaDesktopUrl: figmaDesktopUrl,
-            customDesktopUrl: randomDesktopUrl,
-        }
-
-        let mobileUrldata = {
-            figmaMobileUrl: figmaMobileUrl,
-            customMobileUrl: randomMobileUrl
+            title: title,
+            generatedUrl: randomUrl,
+            urls: { figmaDesktopUrl, figmaMobileUrl }
         }
 
         try {
             addDoc(ref, urlData)
-            addDoc(refDesktopUrl, desktopUrldata)
-            addDoc(refMobileUrl, mobileUrldata)
+            addDoc(refAllUrl, urlData)
+
         } catch (err) {
             console.log(err)
         }

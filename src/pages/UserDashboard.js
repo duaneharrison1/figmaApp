@@ -58,8 +58,7 @@ function UserDashboard() {
                     <tr>
                         <th>id</th>
                         <th>Title</th>
-                        <th>Custom Desktop Url</th>
-                        <th>Custom Mobile Url</th>
+                        <th>Custom Url</th>
                         <th>Figma Desktop Url</th>
                         <th>Figma Mobile Url</th>
                         <th>Update Data</th>
@@ -73,10 +72,9 @@ function UserDashboard() {
                         <tr key={item.id}>
                             <td>{item.id}</td>
                             <td>{item.title}</td>
-                            <td>{item.data}</td>
-                            <td>{item.customMobileUrl}</td>
-                            <td>{item.figmaDesktopUrl}</td>
-                            <td>{item.desktopMobileUrl}</td>
+                            <td>{item.generatedUrl}</td>
+                            <td>{item.urls.figmaDesktopUrl}</td>
+                            <td>{item.urls.figmaMobileUrl}</td>
                             <td>
                                 <button onClick={() => handleDelete(item.id)}>Update</button>
                             </td>
