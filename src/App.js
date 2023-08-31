@@ -37,7 +37,6 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/home" element={<Home />} />
         <Route path="/form" element={<UrlForm />} />
         <Route path="/dashboard" element={<UserDashboard />} />
         <Route path="/signup" element={<Signup />} />

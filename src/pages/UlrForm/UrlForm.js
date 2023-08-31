@@ -1,15 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { collection, addDoc, Timestamp, deleteDoc, updateDoc } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
+import { toast } from 'react-toastify';
 import './UrlForm.css'
-
 
 export default function Home() {
     const [figmaDesktopUrl, setDesktopCustomUrl] = useState('');
     const [figmaMobileUrl, setfigmaMobileUrl] = useState('');
     const [generatedUrl, setGeneratedUrl] = useState('');
     const [title, setTitle] = useState('');
-    const user = auth.currentUser;
+    const userId = auth.currentUser;
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            setUser(user); // Set the user state
+        });
+
+        return () => unsubscribe(); // Clean up the listener when component unmounts
+    }, []);
+
 
 
     function generateRandomString(length) {
@@ -36,7 +46,7 @@ export default function Home() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const ref = collection(db, "user", user.uid, "url")
+        const ref = collection(db, "user", userId.uid, "url")
         const refAllUrl = collection(db, "url")
         var randomUrl = generateRandomString(6);
         let urlData = {
@@ -48,7 +58,10 @@ export default function Home() {
         try {
             addDoc(ref, urlData)
             addDoc(refAllUrl, urlData)
-
+            window.open('https://thriving-chaja-a2ee84.netlify.app/' + randomUrl, '_blank');
+            toast.success('This is a success alert!', {
+                position: toast.POSITION.TOP_CENTER
+            });
         } catch (err) {
             console.log(err)
         }
@@ -57,102 +70,109 @@ export default function Home() {
     }
 
     return (
-        <div className='container'>
-            <h1 className='title'>General</h1>
-            <h2 className='sub-header'>Title</h2>
-            <input
-                className='input'
-                type="text"
-                placeholder='Title'
-                value={title}
-                onChange={handleTitle} />
+        <>
+            {!user ? (
+                <h1> Login to access this page</h1>
+            ) : (
+                <div className='container'>
+                    <h1 className='title'>General</h1>
+                    <input
+                        className='input'
+                        type="text"
+                        placeholder='Title'
+                        value={title}
+                        onChange={handleTitle} />
 
-            <form onSubmit={handleSubmit}>
-                <div className="container">
-                    <div className="row first-div">
-                        <div className="col-md-6">
-                            <div className="row">
-                                <h1 className='title'>Free domain</h1>
-                                <h2 className='sub-header'>Title</h2>
-                                <input
-                                    className='input'
-                                    type="text"
-                                    placeholder='Title'
-                                    value={title}
-                                    onChange={handleTitle} />
+                    <form onSubmit={handleSubmit}>
+                        <div className="container">
+                            <div className="row first-div">
+                                <div className="col-md-6">
+                                    <div className="row">
+                                        <h1 className='title'>Free domain</h1>
+                                        <h2 className='sub-header'>Title</h2>
+                                        <input
+                                            className='input'
+                                            type="text"
+                                            placeholder='Title'
+                                            value={title}
+                                            onChange={handleTitle} />
+                                    </div>
+                                </div>
+
+                                <div className="col-md-6">
+                                    <h1 className='title'>Custom domain</h1>
+                                    <div className="row">
+                                        <h2 className='sub-header'>Domain name</h2>
+                                        <input
+                                            className='input'
+                                            type="text"
+                                            placeholder='Domain name' />
+                                    </div>
+
+                                </div>
+                                <div className='container'>
+                                    <h4 className='add-dns-content'>
+                                        Add the DNS records to your domain name.A-record for @ (or yourdomain.com) and www to 5.161.34.112You can add a new record in your domain registrar DNS manager.Make sure you add an entry for both @ and www
+                                    </h4>
+                                </div>
                             </div>
                         </div>
 
-                        <div className="col-md-6">
-                            <h1 className='title'>Custom domain</h1>
-                            <div className="row">
-                                <h2 className='sub-header'>Domain name</h2>
-                                <input
-                                    className='input'
-                                    type="text"
-                                    placeholder='Domain name' />
-                            </div>
 
+                        <div className='container second-div'>
+                            <h1 className='title'>Enter figma prototype links</h1>
+
+                            <h3 className='automatically-point-content'> We’ll automatically point the site to the correct prototype.</h3>
                         </div>
-                        <div className='container'>
-                            <h4 className='add-dns-content'>
-                                Add the DNS records to your domain name.A-record for @ (or yourdomain.com) and www to 5.161.34.112You can add a new record in your domain registrar DNS manager.Make sure you add an entry for both @ and www
-                            </h4>
-                        </div>
-                    </div>
-                </div>
 
 
-                <div className='container second-div'>
-                    <h1 className='title'>Enter figma prototype links</h1>
-
-                    <h3 className='automatically-point-content'> We’ll automatically point the site to the correct prototype.</h3>
-                </div>
-
-
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-6">
+                        <div className="container">
                             <div className="row">
-                                <h2 className='sub-header'>
-                                    Desktop
-                                </h2>
+                                <div className="col-md-6">
+                                    <div className="row">
+                                        <h2 className='sub-header'>
+                                            Desktop
+                                        </h2>
 
 
-                                <input
-                                    className='input'
-                                    type="text"
-                                    placeholder='Custom Desktop Url'
-                                    value={figmaDesktopUrl}
-                                    onChange={handlefigmaDesktopUrl}
-                                />
+                                        <input
+                                            className='input'
+                                            type="text"
+                                            placeholder='Custom Desktop Url'
+                                            value={figmaDesktopUrl}
+                                            onChange={handlefigmaDesktopUrl}
+                                        />
 
+                                    </div>
+                                </div>
+
+                                <div className="col-md-6">
+                                    <div className="row">
+                                        <h2 className='sub-header'>
+                                            Mobile
+                                        </h2>
+                                        <input
+                                            className='input'
+                                            type="text"
+                                            placeholder='Custom Mobile Url'
+                                            value={figmaMobileUrl}
+                                            onChange={handlefigmaMobileUrl}
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <button
+                            className='btn-sign-in'
+                            type="submit">
+                            Save changes
+                        </button>
+                    </form >
+                </div >
+            )
+            }
+        </>
 
-                        <div className="col-md-6">
-                            <div className="row">
-                                <h2 className='sub-header'>
-                                    Mobile
-                                </h2>
-                                <input
-                                    className='input'
-                                    type="text"
-                                    placeholder='Custom Mobile Url'
-                                    value={figmaMobileUrl}
-                                    onChange={handlefigmaMobileUrl}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button
-                    className='btn-sign-in'
-                    type="submit">
-                    Save changes
-                </button>
-            </form >
-        </div >
     );
 };
 
