@@ -4,6 +4,7 @@ import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc } from 'fireb
 import { db, auth } from '../../firebase';
 import './EditForm.css';
 import Button from '../../components/Button/Button';
+import AlertModal from '../../components/AlertModal/AlertModal';
 
 export default function EditForm() {
     const location = useLocation();
@@ -12,12 +13,23 @@ export default function EditForm() {
     const [title, setTitle] = useState(location.state.object.title);
     const userId = auth.currentUser;
     const [user, setUser] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
+    const handleShowModal = () => {
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
+
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
-            setUser(user); // Set the user state
+            setUser(user);
         });
 
-        return () => unsubscribe(); // Clean up the listener when component unmounts
+        return () => unsubscribe();
     }, []);
 
     const handlefigmaDesktopUrl = (event) => {
@@ -41,8 +53,12 @@ export default function EditForm() {
                 title: title,
                 urls: { figmaDesktopUrl, figmaMobileUrl }
             });
+            setShowModal(true);
+            setModalMessage("Update successful")
             console.log('Document updated successfully');
         } catch (error) {
+            setShowModal(true);
+            setModalMessage("Error updating")
             console.error('Error updating document:', error);
         }
     };
@@ -50,7 +66,7 @@ export default function EditForm() {
     return (
 
         <>
-
+            <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
             <div className='container'>
                 <div className="card url-form">
                     <form onSubmit={handleUpdate}>

@@ -1,4 +1,4 @@
-// ModalComponent.js
+
 import React from 'react';
 import './DeleteModal.css';
 import { Modal, Button } from 'react-bootstrap';

@@ -92,6 +92,9 @@ function UserDashboard() {
         navigate('/editform', { state: { object } });
     }
 
+    const openFigmaApp = (randomUrl) => {
+        window.open('https://thriving-chaja-a2ee84.netlify.app/' + randomUrl, '_blank');
+    }
     return (
         <>
             {!user ? (
@@ -108,7 +111,7 @@ function UserDashboard() {
                     <div className='row'>
                         {data.map(item => (
                             <div className='col-sm-4'>
-                                <CardView siteTitle={item.title} />
+                                <CardView siteTitle={item.title} url={item.generatedUrl} />
                                 <button onClick={() => goToEdit(item)}>Update</button>
                                 <button onClick={handleShowModal}>Delete</button>
                                 <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} />

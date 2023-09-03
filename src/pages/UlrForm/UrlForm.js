@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { collection, addDoc, Timestamp, deleteDoc, updateDoc } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
-import { useNavigate, NavLink, useParams, Link } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import './UrlForm.css';
-import Alert from "react-bootstrap/Alert";
 import Button from '../../components/Button/Button';
 
 export default function UrlForm() {
@@ -17,24 +16,11 @@ export default function UrlForm() {
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
-            setUser(user); // Set the user state
+            setUser(user);
         });
 
-        return () => unsubscribe(); // Clean up the listener when component unmounts
+        return () => unsubscribe();
     }, []);
-
-
-
-    function generateRandomString(length) {
-        const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        let result = '';
-        for (let i = 0; i < length; i++) {
-            const randomIndex = Math.floor(Math.random() * chars.length);
-            result += chars[randomIndex];
-        }
-        return result;
-    }
-
 
     const handlefigmaDesktopUrl = (event) => {
         setDesktopCustomUrl(event.target.value);
@@ -47,39 +33,11 @@ export default function UrlForm() {
         setTitle(event.target.value);
     };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const ref = collection(db, "user", userId.uid, "url")
-        const refAllUrl = collection(db, "url")
-        var randomUrl = generateRandomString(6);
-        let urlData = {
-            title: title,
-            generatedUrl: randomUrl,
-            urls: { figmaDesktopUrl, figmaMobileUrl }
-        }
-
-        try {
-            addDoc(ref, urlData)
-            addDoc(refAllUrl, urlData)
-            window.open('https://thriving-chaja-a2ee84.netlify.app/' + randomUrl, '_blank');
-            <Alert variant="success" style={{ width: "42rem" }}>
-                <Alert.Heading>
-                    This is a success alert which has green background
-                </Alert.Heading>
-            </Alert>
-        } catch (err) {
-            console.log(err)
-        }
-        setDesktopCustomUrl("")
-        setfigmaMobileUrl("")
-    }
-
     const goToPreview = () => {
         navigate('/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl } });
     }
 
     return (
-
         <>
             <div className='container'>
                 <div className="card url-form">
@@ -158,8 +116,8 @@ export default function UrlForm() {
                             </div>
                         </div>
 
-                        <div className='container'>
-                            <Button label="Preview" />
+                        <div className='container preview-btn-container'>
+                            <Button className="preview-btn" label="Preview" />
                         </div>
 
                     </form >

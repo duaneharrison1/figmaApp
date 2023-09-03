@@ -4,12 +4,15 @@ import cardView from '../../assets/images/cardView.png'
 
 const CardView = (props) => {
     const siteTitle = props.siteTitle
+    const url = props.url
     return (
         <>
-            <div className="card">
-                <img src={cardView} alt="test" className="card-image" />
-            </div>
-            <h1 className='site-title'> {siteTitle}</h1>
+            <a href={url} >
+                <div className="card">
+                    <img src={cardView} alt="test" className="card-image" />
+                </div>
+                <h1 className='site-title'> {siteTitle}</h1>
+            </a>
         </>
 
     );
