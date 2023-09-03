@@ -13,7 +13,7 @@ export default function LandingPage() {
             <h4 className='figmalio'> Figmafolio</h4>
           </div>
           <div className="col-sm-4 d-flex justify-content-end">
-            <NavLink to="/form" >
+            <NavLink to="/auth" >
               <button className='btn-go-to-app' >Log in/ Sign up</button>
             </NavLink>
           </div>
