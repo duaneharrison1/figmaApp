@@ -5,14 +5,22 @@ import { auth } from '../../firebase';
 import './Auth.css';
 import TextField from './Components/TextField/TextField.js';
 import Button from '../../components/Button/Button.js';
+import AlertModal from '../../components/AlertModal/AlertModal';
 
 const Signup = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [showModal, setShowModal] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
+    const handleShowModal = () => {
+        setShowModal(true);
+    };
 
-
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
 
     const handleEmailChange = (email) => {
         setEmail(email);
@@ -38,7 +46,8 @@ const Signup = () => {
                 .then((userCredential) => {
                     // Signed in
                     const user = userCredential.user;
-                    console.log(user);
+                    setShowModal(true);
+                    setModalMessage("Sign up successful")
                     navigate("/login")
                     // ...
                 })
@@ -46,6 +55,7 @@ const Signup = () => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     console.log(errorCode, errorMessage);
+
                     // ..
                 });
         }
@@ -53,6 +63,7 @@ const Signup = () => {
 
     return (
         <>
+            <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
             <div className='container'>
                 <form className='form'>
                     <div>

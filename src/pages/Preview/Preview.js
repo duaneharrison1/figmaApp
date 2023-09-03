@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import { useLocation } from 'react-router-dom';
 import { collection, addDoc, Timestamp, deleteDoc, updateDoc } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
@@ -8,12 +9,22 @@ import Button from '../../components/Button/Button';
 import ButtonClear from '../../components/ButtonClear/ButtonClear';
 import Navbar from '../../components/NavBar/Navbar';
 import Form from 'react-bootstrap/Form';
+import AlertModal from '../../components/AlertModal/AlertModal';
 
 export default function Preview() {
     const [isMobile, setIsMobile] = useState(false);
     const location = useLocation();
     const userId = auth.currentUser;
     const [user, setUser] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
+    const handleShowModal = () => {
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -54,11 +65,13 @@ export default function Preview() {
 
         try {
             addDoc(ref, urlData)
-            // addDoc(refAllUrl, urlData)
-            console.log("Successful entry")
+            setShowModal(true);
+            setModalMessage("Added to draft")
 
         } catch (err) {
             console.log(err)
+            setShowModal(true);
+            setModalMessage("Error")
         }
     }
 
@@ -80,20 +93,18 @@ export default function Preview() {
         try {
             addDoc(ref, urlData)
             addDoc(refAllUrl, urlData)
-            console.log("Successful entry")
-            // window.open('https://thriving-chaja-a2ee84.netlify.app/' + randomUrl, '_blank');
-            // <Alert variant="success" style={{ width: "42rem" }}>
-            //     <Alert.Heading>
-            //         This is a success alert which has green background
-            //     </Alert.Heading>
-            // </Alert>
+            setShowModal(true);
+            setModalMessage("App saved")
         } catch (err) {
             console.log(err)
+            setShowModal(true);
+            setModalMessage("Error in saving")
         }
     }
 
     return (
         <>
+            <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-md-4">
