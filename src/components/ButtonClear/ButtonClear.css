@@ -1,0 +1,11 @@
+
+.btn-clear {
+    width: 100%;
+    margin-top: 50px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: 700;
+    border-color: #4D9F70;
+    color: #4D9F70;
+    background-color: white;
+}

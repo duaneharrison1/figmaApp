@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { NavLink, useNavigate } from 'react-router-dom'
 import './Auth.css';
+import TextField from './Components/TextField/TextField.js';
+import Button from '../../components/Button/Button.js';
 const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const handleEmailChange = (email) => {
+        setEmail(email);
+    };
+
+    const handlePasswordChange = (password) => {
+        setPassword(password);
+    };
     const onLogin = (e) => {
         e.preventDefault();
         signInWithEmailAndPassword(auth, email, password)
@@ -21,52 +30,43 @@ const Login = () => {
                 const errorMessage = error.message;
                 console.log(errorCode, errorMessage)
             });
-
     }
 
     return (
         <>
-
-
             <div className='container'>
-                <h1 className='header-text'> Sign in to Figmafolio</h1>
                 <form className='form'>
                     <div>
-                        <input className='input'
+                        <TextField
+                            formLabel="Email"
+                            errorMsg="Invalid email"
+                            className='input'
                             id="email-address"
                             name="email"
                             type="email"
-                            required
-                            placeholder="Email address"
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
+                            placeholder="Enter your email"
+                            onChange={handleEmailChange} />
                     </div>
                     <div>
-                        <input
+                        <TextField
+                            formLabel="Password"
+                            errorMsg="Wrong password"
                             className='input'
                             id="password"
                             name="password"
                             type="password"
-                            required
-                            placeholder="Password"
-                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Enter your password"
+                            onChange={handlePasswordChange} />
+                    </div>
+                    <NavLink className='forgot-password' to="/forgotpassword" >
+                        Forgot password
+                    </NavLink>
+                    <div>
+                        <Button
+                            label='Sign in'
+                            onClick={onLogin}
                         />
                     </div>
-
-                    <div>
-                        <button
-                            className='btn-sign-in'
-                            onClick={onLogin}>
-                            Sign in
-                        </button>
-                    </div>
-
-                    <p className="no-account-yet">
-                        No account yet? {' '}
-                        <NavLink to="/signup">
-                            Sign up
-                        </NavLink>
-                    </p>
                 </form>
 
 

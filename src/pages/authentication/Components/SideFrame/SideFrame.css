@@ -1,0 +1,17 @@
+.side-frame {
+    padding-top: 40px;
+    height: 100%;
+    text-align: center;
+    position:fixed;
+}
+.header {
+    padding-top: 50px;
+    font-size: 40px;
+    font-weight: 700;
+    color: #2D2B29;
+}
+.sub-header {
+    font-weight: 700;
+    font-size: 20px;
+    color: #9A8742;
+}

@@ -1,0 +1,11 @@
+
+.btn-block {
+    width: 100%;
+    margin-top: 50px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: 700;
+    color: white;
+    border: none;
+    background-color: #4D9F70;
+}

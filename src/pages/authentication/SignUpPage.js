@@ -3,6 +3,8 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase';
 import './Auth.css';
+import TextField from './Components/TextField/TextField.js';
+import Button from '../../components/Button/Button.js';
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -10,11 +12,27 @@ const Signup = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
+
+
+    const handleEmailChange = (email) => {
+        setEmail(email);
+    };
+
+    const handlePasswordChange = (password) => {
+        setPassword(password);
+    };
+
+
+    const handleConfirmPasswordChange = (confirmPassword) => {
+        setConfirmPassword(confirmPassword);
+    };
+
+
     const onSubmit = async (e) => {
         e.preventDefault()
 
         if (password !== confirmPassword) {
-            alert("retry password")
+            console.log("confirm password not match");
         } else {
             await createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
@@ -34,61 +52,48 @@ const Signup = () => {
     }
 
     return (
-
         <>
             <div className='container'>
-                <h1 className='header-text'> Sign up to Figmafolio </h1>
                 <form className='form'>
                     <div>
-                        <input
+                        <TextField
+                            formLabel='Email'
                             className='input'
+                            id="email-address"
+                            name="email"
                             type="email"
-                            label="Email address"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
                             required
-                            placeholder="Email"
-                        />
+                            placeholder="Email address"
+                            onChange={handleEmailChange} />
                     </div>
 
                     <div>
-                        <input
+                        <TextField
+                            formLabel='Password'
                             className='input'
+                            id="password"
+                            name="password"
                             type="password"
-                            label="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
                             placeholder="Password"
-                        />
+                            onChange={handlePasswordChange} />
                     </div>
 
                     <div>
-                        <input
+                        <TextField
+                            formLabel='Verify password'
                             className='input'
                             type="password"
                             label="Confirm password"
                             value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            required
-                            placeholder="Confirm password"
-                        />
+                            onChange={handleConfirmPasswordChange}
+                            placeholder="Confirm password" />
                     </div>
 
-                    <button
-                        className='btn-sign-in'
-                        type="submit"
-                        onClick={onSubmit}>
-                        Sign up
-                    </button>
-                    <p className="no-account-yet">
-                        Already have an account?{' '}
-                        <NavLink to="/login" >
-                            Sign in
-                        </NavLink>
-                    </p>
+                    <Button label='Continue'
+                        onClick={onSubmit}
+                    />
                 </form>
-            </div>
+            </div >
         </>
     );
 

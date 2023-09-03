@@ -1,20 +1,32 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import Home from './components/Home';
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UrlForm from './pages/UlrForm/UrlForm';
+import EditForm from './pages/EditForm/EditForm';
 import DynamicPage from './pages/DynamicPage';
-import Signup from './pages/authentication/SignUpPage';
-import Login from './pages/authentication/LoginInPage';
 import LandingPage from './pages/LandingPage/LandingPage';
 import UserDashboard from './pages/UserDashboard';
-import { db } from './firebase';
 import { collection, getDocs } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import { db, auth } from './firebase';
+import MainAuth from './pages/authentication/MainAuth';
+import ForgotPassword from './pages/authentication/ForgotPassword/ForgotPasswordPage';
+import Preview from './pages/Preview/Preview.js';
+
 
 function App() {
   const [data, setData] = useState([]);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user); // Set the user state
+    });
+
+    return () => unsubscribe(); // Clean up the listener when component unmounts
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -38,9 +50,11 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/form" element={<UrlForm />} />
+        <Route path="/editform" element={<EditForm />} />
         <Route path="/dashboard" element={<UserDashboard />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/preview" element={<Preview />} />
+        <Route path="/auth" element={<MainAuth />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
         {data.map((item) => (
           < Route path={`/${item.generatedUrl}`} element={<DynamicPage url={item} />} />
         ))}

@@ -2,26 +2,24 @@ h1 ,h2 {
     margin:0;
     padding:0;
   }
+
 .title {
-    font-family: 'Poppins', sans-serif;
     font-size: 29px;
     font-weight: 700;
 
 }
 
 .sub-header {
-    font-family: 'Poppins', sans-serif;
     font-size: 29px;
     font-weight: 500;
 }
 
 .add-dns-content {
-    font-family: 'Poppins', sans-serif;
     font-weight: 400;
     font-size: 18px;
 }
+
 .automatically-point-content{
-    font-family: 'Poppins', sans-serif;
     font-weight: 400;
     font-size: 18px;
 }
@@ -38,4 +36,8 @@ h1 ,h2 {
 
 .second-div{
     padding: 50px 0 50px 0;
+}
+
+.container .url-form{
+    border-radius: 16px;
 }

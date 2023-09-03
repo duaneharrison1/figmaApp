@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { collection, addDoc, Timestamp, deleteDoc, updateDoc } from 'firebase/firestore'
+import { useLocation } from 'react-router-dom';
+import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
-import { useNavigate, NavLink, useParams, Link } from 'react-router-dom';
-import './UrlForm.css';
-import Alert from "react-bootstrap/Alert";
+import './EditForm.css';
 import Button from '../../components/Button/Button';
 
-export default function UrlForm() {
-    const navigate = useNavigate();
-    const [figmaDesktopUrl, setDesktopCustomUrl] = useState('');
-    const [figmaMobileUrl, setfigmaMobileUrl] = useState('');
-    const [generatedUrl, setGeneratedUrl] = useState('');
-    const [title, setTitle] = useState('');
+export default function EditForm() {
+    const location = useLocation();
+    const [figmaDesktopUrl, setDesktopCustomUrl] = useState(location.state.object.urls.figmaMobileUrl);
+    const [figmaMobileUrl, setfigmaMobileUrl] = useState(location.state.object.urls.figmaMobileUrl);
+    const [title, setTitle] = useState(location.state.object.title);
     const userId = auth.currentUser;
     const [user, setUser] = useState(null);
-
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setUser(user); // Set the user state
@@ -22,19 +19,6 @@ export default function UrlForm() {
 
         return () => unsubscribe(); // Clean up the listener when component unmounts
     }, []);
-
-
-
-    function generateRandomString(length) {
-        const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        let result = '';
-        for (let i = 0; i < length; i++) {
-            const randomIndex = Math.floor(Math.random() * chars.length);
-            result += chars[randomIndex];
-        }
-        return result;
-    }
-
 
     const handlefigmaDesktopUrl = (event) => {
         setDesktopCustomUrl(event.target.value);
@@ -47,43 +31,29 @@ export default function UrlForm() {
         setTitle(event.target.value);
     };
 
-    const handleSubmit = async (event) => {
+
+    const handleUpdate = async (event) => {
         event.preventDefault();
-        const ref = collection(db, "user", userId.uid, "url")
-        const refAllUrl = collection(db, "url")
-        var randomUrl = generateRandomString(6);
-        let urlData = {
-            title: title,
-            generatedUrl: randomUrl,
-            urls: { figmaDesktopUrl, figmaMobileUrl }
-        }
-
+        console.log(userId.uid);
         try {
-            addDoc(ref, urlData)
-            addDoc(refAllUrl, urlData)
-            window.open('https://thriving-chaja-a2ee84.netlify.app/' + randomUrl, '_blank');
-            <Alert variant="success" style={{ width: "42rem" }}>
-                <Alert.Heading>
-                    This is a success alert which has green background
-                </Alert.Heading>
-            </Alert>
-        } catch (err) {
-            console.log(err)
+            const ref = doc(db, "user", userId.uid, "url", location.state.object.id)
+            await updateDoc(ref, {
+                title: title,
+                urls: { figmaDesktopUrl, figmaMobileUrl }
+            });
+            console.log('Document updated successfully');
+        } catch (error) {
+            console.error('Error updating document:', error);
         }
-        setDesktopCustomUrl("")
-        setfigmaMobileUrl("")
-    }
-
-    const goToPreview = () => {
-        navigate('/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl } });
-    }
+    };
 
     return (
 
         <>
+
             <div className='container'>
                 <div className="card url-form">
-                    <form onSubmit={goToPreview}>
+                    <form onSubmit={handleUpdate}>
                         <div className="container">
                             <div className="row first-div">
                                 <div className="col-md-6">
@@ -95,6 +65,7 @@ export default function UrlForm() {
                                             type="text"
                                             placeholder='Title'
                                             value={title}
+                                            // value={location.state.object.title}
                                             onChange={handleTitle} />
                                     </div>
                                 </div>
@@ -135,6 +106,7 @@ export default function UrlForm() {
                                                 type="text"
                                                 placeholder='Custom Desktop Url'
                                                 value={figmaDesktopUrl}
+                                                // value={location.state.object.urls.figmaDesktopUrl}
                                                 onChange={handlefigmaDesktopUrl}
                                             />
                                         </div>
@@ -150,6 +122,7 @@ export default function UrlForm() {
                                                 type="text"
                                                 placeholder='Custom Mobile Url'
                                                 value={figmaMobileUrl}
+                                                // value={location.state.object.urls.figmaMobileUrl}
                                                 onChange={handlefigmaMobileUrl}
                                             />
                                         </div>
@@ -157,15 +130,15 @@ export default function UrlForm() {
                                 </div>
                             </div>
                         </div>
-
                         <div className='container'>
-                            <Button label="Preview" />
+                            <Button label='Preview' type="submit" />
                         </div>
 
                     </form >
                 </div>
             </div>
         </>
+
         // <>
         //     {!user ? (
         //         <h1> Login to access this page</h1>

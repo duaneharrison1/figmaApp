@@ -1,10 +1,14 @@
+.main-landing-page {
+    background-color: #f1ece2;
+}
+
 .main-container {
     padding: 0 150px 0 150px;
     font-family: 'Poppins', sans-serif;
+    background-color: #f1ece2;
 }
 .nav-bar {
     padding: 20px;
-    border-bottom: 1px solid #C9C9C9;
 }
 .figmalio {
     font-family: 'Poppins', sans-serif;
