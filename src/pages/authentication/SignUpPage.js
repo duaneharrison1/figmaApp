@@ -48,7 +48,7 @@ const Signup = () => {
                     const user = userCredential.user;
                     setShowModal(true);
                     setModalMessage("Sign up successful")
-                    navigate("/login")
+                    navigate("/auth")
                     // ...
                 })
                 .catch((error) => {
