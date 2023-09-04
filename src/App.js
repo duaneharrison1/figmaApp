@@ -5,7 +5,7 @@ import UrlForm from './pages/UlrForm/UrlForm';
 import EditForm from './pages/EditForm/EditForm';
 import DynamicPage from './pages/DynamicPage';
 import LandingPage from './pages/LandingPage/LandingPage';
-import UserDashboard from './pages/UserDashboard';
+import UserDashboard from './pages/UserDashboard/UserDashboard';
 import { collection, getDocs } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";

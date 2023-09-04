@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { useLocation } from 'react-router-dom';
-import { collection, addDoc, Timestamp, deleteDoc, updateDoc } from 'firebase/firestore'
+import { collection, addDoc, doc, updateDoc } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
 import { toast } from 'react-toastify';
 import Alert from "react-bootstrap/Alert";
@@ -18,6 +18,8 @@ export default function Preview() {
     const [user, setUser] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
+    const fromEdit = location.state.fromEdit;
+
     const handleShowModal = () => {
         setShowModal(true);
     };
@@ -49,6 +51,25 @@ export default function Preview() {
         return result;
     }
 
+    function removeWordFromString(inputString, wordToRemove) {
+        // Create a regular expression to match the word with word boundaries
+        const regex = new RegExp(`\\b${wordToRemove}\\b`, 'gi');
+
+        // Use the replace method to remove all occurrences of the word
+        const resultString = inputString.replace(regex, '');
+
+        return resultString;
+    }
+
+
+    function editUrl(url) {
+        const originalString = url;
+        const wordToRemove = "https://";
+        const modifiedString = removeWordFromString(originalString, wordToRemove);
+        const newUrl = "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2F" + modifiedString + "&hide-ui=1"
+        return newUrl
+    }
+
     const handleDraft = async (event) => {
         event.preventDefault();
         const ref = collection(db, "user", userId.uid, "url")
@@ -75,6 +96,30 @@ export default function Preview() {
         }
     }
 
+    const handleUpdate = async (event) => {
+        event.preventDefault();
+        console.log(userId.uid);
+        try {
+            const ref = doc(db, "user", userId.uid, "url", location.state.docId)
+            await updateDoc(ref, {
+                title: location.state.title,
+                urls: {
+                    figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
+                    figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
+                }
+            });
+            setShowModal(true);
+            setModalMessage("Update successful")
+            console.log('Document updated successfully');
+            window.open('https://lively-puffpuff-ffda96.netlify.app/' + location.state.generatedUrl, '_blank');
+
+        } catch (error) {
+            setShowModal(true);
+            setModalMessage("Error updating")
+            console.error('Error updating document:', error);
+        }
+    };
+
     const handleSave = async (event) => {
         event.preventDefault();
         const ref = collection(db, "user", userId.uid, "url")
@@ -85,8 +130,8 @@ export default function Preview() {
             isDraft: "false",
             generatedUrl: randomUrl,
             urls: {
-                figmaDesktopUrl: location.state.figmaDesktopUrl,
-                figmaMobileUrl: location.state.figmaMobileUrl
+                figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
+                figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
             }
         }
 
@@ -95,6 +140,7 @@ export default function Preview() {
             addDoc(refAllUrl, urlData)
             setShowModal(true);
             setModalMessage("App saved")
+            window.open('https://lively-puffpuff-ffda96.netlify.app/' + randomUrl, '_blank');
         } catch (err) {
             console.log(err)
             setShowModal(true);
@@ -130,7 +176,14 @@ export default function Preview() {
                         <div className='container'>
                             <div className='row'>
                                 <div className='col-6'>  <ButtonClear label='Save as Draft' onClick={handleDraft} /></div>
-                                <div className='col-6'><Button label='Publish' onClick={handleSave} /></div>
+
+                                <div className='col-6'>
+                                    {fromEdit === true ? (
+                                        <Button label='Update' onClick={handleUpdate} />) :
+                                        (
+                                            <Button label='Publish' onClick={handleSave} />
+                                        )}
+                                </div>
 
                             </div>
                         </div>
@@ -140,7 +193,7 @@ export default function Preview() {
             </div>
 
             <iframe
-                src={isMobile ? location.state.figmaMobileUrl : location.state.figmaDesktopUrl}
+                src={isMobile ? editUrl(location.state.figmaMobileUrl) : editUrl(location.state.figmaDesktopUrl)}
                 allowFullScreen
                 style={{ width: '100%', height: '100vh' }}
                 className='figma_view'></iframe>

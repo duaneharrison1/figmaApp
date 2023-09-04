@@ -1,0 +1,20 @@
+.modal-backdrop {
+   
+    background-color: rgba(1,1,1,1) !important;
+}
+
+.delete-modal{
+    padding-top: 50px;
+    text-align: center;
+}
+
+.delete-header {
+    padding-top: 24px;
+font-weight: 500;
+font-size: 32px;
+}
+
+.delete-subheader {
+    font-weight: 400;
+    font-size: 16px;
+}

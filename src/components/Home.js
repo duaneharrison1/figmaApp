@@ -13,11 +13,7 @@ const Home = () => {
                     Welcome Home
                 </p>
                 <UrlForm />
-                <div>
-                    <button onClick={handleLogout}>
-                        Logout
-                    </button>
-                </div>
+                
             </nav> */}
         </>
     )

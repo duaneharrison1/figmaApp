@@ -2,25 +2,20 @@ import React from 'react';
 
 import { useState, useEffect } from 'react';
 import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc } from 'firebase/firestore'
-import { db, auth } from '../firebase';
+import { db, auth } from '../../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Table } from 'react-bootstrap';
-import { useNavigate, NavLink, useParams, Link } from 'react-router-dom';
+import { useNavigate, NavLink, useParams } from 'react-router-dom';
 import { signOut } from "firebase/auth";
-import CardView from '../components/CardView/CardView';
-import Button from '../components/Button/Button';
-
-import DeleteModal from '../pages/Modal/DeleteModal/DeleteModal';
-
+import CardView from '../../components/CardView/CardView';
+import Button from '../../components/Button/Button';
+import DeleteModal from '../../components/DeleteModal/DeleteModal';
+import './UserDashboard.css';
 
 function UserDashboard() {
     const navigate = useNavigate();
-    const { routeName } = useParams();
     const [data, setData] = useState([]);
-
     const [userId] = useAuthState(auth);
     const [user, setUser] = useState(null);
-
     const [showModal, setShowModal] = useState(false);
 
     const handleShowModal = () => {
@@ -35,7 +30,6 @@ function UserDashboard() {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setUser(user); // Set the user state
         });
-
         return () => unsubscribe(); // Clean up the listener when component unmounts
     }, []);
 
@@ -51,17 +45,14 @@ function UserDashboard() {
                             setData(newData);
                             console.log(newData)
                         })
-
                 } catch (error) {
                     console.error('Error fetching data:', error);
                 }
-
             }
             else {
                 console.log('No user data available');
             }
         };
-
         fetchData();
     }, [user]);
 
@@ -75,8 +66,6 @@ function UserDashboard() {
             console.error('Error removing document: ', error);
         }
     };
-
-
 
     const handleLogout = () => {
         signOut(auth).then(() => {
@@ -92,21 +81,29 @@ function UserDashboard() {
         navigate('/editform', { state: { object } });
     }
 
-    const openFigmaApp = (randomUrl) => {
-        window.open('https://thriving-chaja-a2ee84.netlify.app/' + randomUrl, '_blank');
-    }
+
     return (
         <>
             {!user ? (
                 <h1> Login to access this page</h1>
             ) : (
                 <div className='container'>
-                    <div className='row'>
-                        <div className='col-md-6'> </div>
-                        <div className='col-md-6'>
-                            <NavLink to="/form" >
-                                <Button label='+ New site' />
-                            </NavLink> </div>
+                    <div>
+                        <button onClick={handleLogout}>
+                            Logout
+                        </button>
+                    </div>
+                    <div className='container'>
+                        <div className='row'>
+                            <div className='col-sm-6'>
+                                <p>Published</p>
+                                <p>Draft</p>
+                            </div>
+                            <div className='col-sm-6 new-site-div'>
+                                <NavLink to="/form" >
+                                    <Button label='+ New site' className="new-site" />
+                                </NavLink> </div>
+                        </div>
                     </div>
                     <div className='row'>
                         {data.map(item => (
@@ -115,58 +112,13 @@ function UserDashboard() {
                                 <button onClick={() => goToEdit(item)}>Update</button>
                                 <button onClick={handleShowModal}>Delete</button>
                                 <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} />
-
                             </div>
-
                         ))}
                     </div>
-
                 </div >
             )
             }
         </>
-        // <>
-
-
-        //     <div className='container'>
-        //         <button onClick={handleLogout}>
-        //             Logout
-        //         </button>
-        //         <Table>
-        //             <thead>
-        //                 <tr>
-        //                     <th>id</th>
-        //                     <th>Title</th>
-        //                     <th>Custom Url</th>
-        //                     <th>Figma Desktop Url</th>
-        //                     <th>Figma Mobile Url</th>
-        //                     <th>Update Data</th>
-        //                     <th>Delete Data</th>
-        //                     {/* Add more table headers for your data */}
-        //                 </tr>
-        //             </thead>
-        //             <tbody>
-        //                 {/* n(db, "user", user.uid, "url", "mobile", "url") */}
-        //                 {data.map(item => (
-        //                     <tr key={item.id}>
-        //                         <td>{item.id}</td>
-        //                         <td>{item.title}</td>
-        //                         <td>{item.generatedUrl}</td>
-        //                         <td>{item.urls.figmaDesktopUrl}</td>
-        //                         <td>{item.urls.figmaMobileUrl}</td>
-        //                         <td>
-        //                             <button onClick={() => handleDelete(item.id)}>Update</button>
-        //                         </td>
-        //                         <td>
-        //                             <button onClick={() => handleDelete(item.id)}>Delete</button>
-        //                         </td>
-        //                     </tr>
-        //                 ))}
-        //             </tbody>
-        //         </Table>
-        //     </div>
-
-        // </>
     );
 }
 

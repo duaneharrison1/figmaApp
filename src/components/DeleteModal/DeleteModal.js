@@ -1,12 +1,14 @@
 
 import React from 'react';
 import './DeleteModal.css';
-import { Modal, Button } from 'react-bootstrap';
-import DeleteHeaderImage from '../../../assets/images/delete-header-img.png';
-import { db, auth } from '../../../firebase';
+import { Modal } from 'react-bootstrap';
+import DeleteHeaderImage from '../../assets/images/delete-header-img.png';
+import { db, auth } from '../../firebase';
 import { useState, useEffect } from 'react';
 import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth';
+import Button from '../Button/Button';
+import ButtonClear from '../ButtonClear/ButtonClear';
 
 const DeleteModal = (props) => {
     const { show, handleClose } = props;
@@ -16,43 +18,38 @@ const DeleteModal = (props) => {
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
-            setUser(user); // Set the user state
+            setUser(user);
         });
-
-        return () => unsubscribe(); // Clean up the listener when component unmounts
+        return () => unsubscribe();
     }, []);
 
     const handleDelete = async () => {
-        console.log("wew");
-        console.log(id);
         try {
             await deleteDoc(doc(db, "user", user.uid, "url", id));
             console.log('Document successfully deleted!');
+            window.location.reload();
         } catch (error) {
             console.error('Error removing document: ', error);
         }
     };
 
     return (
-
         <Modal className='delete-modal' show={show} onHide={handleClose}>
             <Modal.Body className='modal-body'>
                 <img src={DeleteHeaderImage} />
-                <h1> Delete site</h1>
-                <h2> Once being deleted, this file cannot be recover. Are you sure?</h2>
+                <h1 className='delete-header'> Delete site</h1>
+                <h2 className='delete-subheader'> Once being deleted, this file cannot be recover. Are you sure?</h2>
 
             </Modal.Body>
             <Modal.Footer>
                 <div className='container'>
-                    <button onClick={handleDelete}>
-                        Delete
-                    </button>
+                    <Button className="delete-btn" onClick={handleDelete} label="Delete" />
                 </div>
 
                 <div className='container'>
-                    <button onClick={handleClose}>
-                        Cancel
-                    </button>
+                    <ButtonClear className="cancel-delete-btn" onClick={handleClose} label="Cancel" />
+
+
                 </div>
 
 

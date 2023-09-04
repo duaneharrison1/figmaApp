@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useNavigate, NavLink, useParams } from 'react-router-dom';
 import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
 import './EditForm.css';
@@ -7,14 +8,22 @@ import Button from '../../components/Button/Button';
 import AlertModal from '../../components/AlertModal/AlertModal';
 
 export default function EditForm() {
+    const navigate = useNavigate();
     const location = useLocation();
     const [figmaDesktopUrl, setDesktopCustomUrl] = useState(location.state.object.urls.figmaMobileUrl);
     const [figmaMobileUrl, setfigmaMobileUrl] = useState(location.state.object.urls.figmaMobileUrl);
+    const [generatedUrl, setgeneratedUrl] = useState(location.state.object.generatedUrl);
     const [title, setTitle] = useState(location.state.object.title);
     const userId = auth.currentUser;
     const [user, setUser] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
+
+
+    const goToPreview = () => {
+        navigate('/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl, fromEdit: true, docId: location.state.object.id, generatedUrl: generatedUrl } });
+    }
+
     const handleShowModal = () => {
         setShowModal(true);
     };
@@ -44,24 +53,7 @@ export default function EditForm() {
     };
 
 
-    const handleUpdate = async (event) => {
-        event.preventDefault();
-        console.log(userId.uid);
-        try {
-            const ref = doc(db, "user", userId.uid, "url", location.state.object.id)
-            await updateDoc(ref, {
-                title: title,
-                urls: { figmaDesktopUrl, figmaMobileUrl }
-            });
-            setShowModal(true);
-            setModalMessage("Update successful")
-            console.log('Document updated successfully');
-        } catch (error) {
-            setShowModal(true);
-            setModalMessage("Error updating")
-            console.error('Error updating document:', error);
-        }
-    };
+
 
     return (
 
@@ -69,7 +61,7 @@ export default function EditForm() {
             <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
             <div className='container'>
                 <div className="card url-form">
-                    <form onSubmit={handleUpdate}>
+                    <form onSubmit={goToPreview}>
                         <div className="container">
                             <div className="row first-div">
                                 <div className="col-md-6">

@@ -1,18 +1,23 @@
 import React from 'react';
 import './CardView.css';
 import cardView from '../../assets/images/cardView.png'
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const CardView = (props) => {
     const siteTitle = props.siteTitle
     const url = props.url
     return (
         <>
-            <a href={url} >
-                <div className="card">
+
+            <div className="card">
+                <a href={url} target="_blank">
                     <img src={cardView} alt="test" className="card-image" />
-                </div>
+                </a >
                 <h1 className='site-title'> {siteTitle}</h1>
-            </a>
+                <i className="bi bi-three-dots-vertical"></i>
+            </div >
+
+
         </>
 
     );
