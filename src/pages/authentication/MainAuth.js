@@ -7,8 +7,9 @@ import Tab from 'react-bootstrap/Tab';
 import './Auth.css';
 import { auth } from '../../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import LoginPage from './LoginInPage.js';
-import SignUpPage from './SignUpPage.js';
+import SignUpPage from './SignUpPage.js'
+import LoginPage from './LoginInPage.js'
+
 
 
 export default function MainAuth() {

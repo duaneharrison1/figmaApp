@@ -5,7 +5,9 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import './Auth.css';
 import TextField from './Components/TextField/TextField.js';
 import Button from '../../components/Button/Button.js';
-const Login = () => {
+
+export default function LoginPage() {
+
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -79,4 +81,3 @@ const Login = () => {
     )
 }
 
-export default Login

@@ -7,7 +7,7 @@ import TextField from './Components/TextField/TextField.js';
 import Button from '../../components/Button/Button.js';
 import AlertModal from '../../components/AlertModal/AlertModal';
 
-const SignUpPage = () => {
+export default function SignUpPage() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
@@ -112,7 +112,7 @@ const SignUpPage = () => {
 
 }
 
-export default SignUpPage;
+
 
 
 
