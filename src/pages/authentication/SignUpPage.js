@@ -7,7 +7,7 @@ import TextField from './Components/TextField/TextField.js';
 import Button from '../../components/Button/Button.js';
 import AlertModal from '../../components/AlertModal/AlertModal';
 
-const Signup = () => {
+const SignUpPage = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
@@ -103,6 +103,7 @@ const Signup = () => {
 
                     <Button label='Continue'
                         onClick={onSubmit}
+                        className="btn-block"
                     />
                 </form>
             </div >
@@ -111,7 +112,7 @@ const Signup = () => {
 
 }
 
-export default Signup;
+export default SignUpPage;
 
 
 

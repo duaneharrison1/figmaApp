@@ -56,93 +56,94 @@ export default function EditForm() {
 
 
     return (
-
         <>
-            <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
-            <div className='container'>
-                <div className="card url-form">
-                    <form onSubmit={goToPreview}>
-                        <div className="container">
-                            <div className="row first-div">
-                                <div className="col-md-6">
-                                    <div className="row">
-                                        <h1 className='title'>General</h1>
-                                        <h2 className='sub-header'>Site Title</h2>
-                                        <input
-                                            className='input'
-                                            type="text"
-                                            placeholder='Title'
-                                            value={title}
-                                            // value={location.state.object.title}
-                                            onChange={handleTitle} />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className='container'>
-                                <div className='row'>
-                                    <div className='col-md-6'>
-                                        <h1 className='title'>Free domain</h1>
-                                        <h1 className='free-domain-name'>Figmafolio</h1>
-                                    </div>
-                                    <div className='col-md-6'>
-                                        <Button label='Upgrade plan' />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className='container'>
-                                <h4 className='add-dns-content'>
-                                    Add the DNS records to your domain name.A-record for @ (or yourdomain.com) and www to 5.161.34.112You can add a new record in your domain registrar DNS manager.Make sure you add an entry for both @ and www
-                                </h4>
-                            </div>
-
-                            <div className='container second-div'>
-                                <h1 className='title'>Enter figma prototype links</h1>
-                                <h3 className='automatically-point-content'> We’ll automatically point the site to the correct prototype.</h3>
-                            </div>
-
+            <div className='form'>
+                <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
+                <div className='container'>
+                    <div className="card url-form">
+                        <form onSubmit={goToPreview}>
                             <div className="container">
-                                <div className="row gx-5">
+                                <div className="row first-div">
                                     <div className="col-md-6">
                                         <div className="row">
-                                            <h2 className='sub-header'>
-                                                Desktop
-                                            </h2>
+                                            <h1 className='title'>General</h1>
+                                            <h2 className='sub-header'>Site Title</h2>
                                             <input
                                                 className='input'
                                                 type="text"
-                                                placeholder='Custom Desktop Url'
-                                                value={figmaDesktopUrl}
-                                                // value={location.state.object.urls.figmaDesktopUrl}
-                                                onChange={handlefigmaDesktopUrl}
-                                            />
+                                                placeholder='Title'
+                                                value={title}
+                                                // value={location.state.object.title}
+                                                onChange={handleTitle} />
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div className="col-md-6">
-                                        <div className="row">
-                                            <h2 className='sub-header'>
-                                                Mobile
-                                            </h2>
-                                            <input
-                                                className='input'
-                                                type="text"
-                                                placeholder='Custom Mobile Url'
-                                                value={figmaMobileUrl}
-                                                // value={location.state.object.urls.figmaMobileUrl}
-                                                onChange={handlefigmaMobileUrl}
-                                            />
+                                <div className='container'>
+                                    <div className='row'>
+                                        <div className='col-md-6'>
+                                            <h1 className='title'>Free domain</h1>
+                                            <h1 className='free-domain-name'>Figmafolio</h1>
+                                        </div>
+                                        <div className='col-md-6'>
+                                            <Button label='Upgrade plan' />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className='container'>
+                                    <h4 className='add-dns-content'>
+                                        Add the DNS records to your domain name.A-record for @ (or yourdomain.com) and www to 5.161.34.112You can add a new record in your domain registrar DNS manager.Make sure you add an entry for both @ and www
+                                    </h4>
+                                </div>
+
+                                <div className='container second-div'>
+                                    <h1 className='title'>Enter figma prototype links</h1>
+                                    <h3 className='automatically-point-content'> We’ll automatically point the site to the correct prototype.</h3>
+                                </div>
+
+                                <div className="container">
+                                    <div className="row gx-5">
+                                        <div className="col-md-6">
+                                            <div className="row">
+                                                <h2 className='sub-header'>
+                                                    Desktop
+                                                </h2>
+                                                <input
+                                                    className='input'
+                                                    type="text"
+                                                    placeholder='Custom Desktop Url'
+                                                    value={figmaDesktopUrl}
+                                                    // value={location.state.object.urls.figmaDesktopUrl}
+                                                    onChange={handlefigmaDesktopUrl}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <div className="row">
+                                                <h2 className='sub-header'>
+                                                    Mobile
+                                                </h2>
+                                                <input
+                                                    className='input'
+                                                    type="text"
+                                                    placeholder='Custom Mobile Url'
+                                                    value={figmaMobileUrl}
+                                                    // value={location.state.object.urls.figmaMobileUrl}
+                                                    onChange={handlefigmaMobileUrl}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className='container'>
-                            <Button label='Preview' type="submit" />
-                        </div>
+                            <div className='container'>
+                                <Button label='Preview' type="submit" className="preview-btn" />
+                            </div>
 
-                    </form >
+                        </form >
+                    </div>
                 </div>
             </div>
         </>

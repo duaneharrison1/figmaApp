@@ -1,20 +1,49 @@
-/* styles.css */
-
 .card {
-    margin: 16px;
-    border: none;
+  margin: 16px;
+  border: none !important;
   }
   
-  .card-image { 
-    width: 100%;
-    max-height: 100%;
-    object-fit:fill;
-  }
+.card-image { 
+  width: 100%;
+  max-height: 100%;
+  object-fit:fill;
+}
 
-  .site-title{
+.holder {
+  padding-top: 8px;
+}
+
+.site-title{
     font-size: 20px;
     font-weight: 600;
-  }
+}
   
+.btn {
+  width: 30px !important;
+  height: 30px !important;
+  padding: 0 !important;
+  border: none !important;
+}
 
+.dropdown-menu {
+  min-width: 70px !important;
   
+}
+
+.dropdown-item {
+  padding: 12px;
+  font-size: 12px !important;
+}
+
+.dropdown-menu>li>a {
+  font-weight: 500;
+  color: black;
+}
+
+.dropdown-menu>li>a:hover {
+  color: black;
+}
+
+.dropdown-menu>li>a:active {
+  background-color: none;
+}

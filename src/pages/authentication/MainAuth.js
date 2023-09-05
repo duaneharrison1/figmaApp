@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import LoginPage from '../authentication/LoginInPage';
-import SignUpPage from '../authentication/SignUpPage';
+
 import SideFrame from './Components/SideFrame/SideFrame.js';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import './Auth.css';
 import { auth } from '../../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import LoginPage from './LoginInPage.js';
+import SignUpPage from './SignUpPage.js';
 
 
 export default function MainAuth() {

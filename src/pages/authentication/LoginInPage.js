@@ -65,6 +65,7 @@ const Login = () => {
                         <Button
                             label='Sign in'
                             onClick={onLogin}
+                            className="btn-block"
                         />
                     </div>
                 </form>

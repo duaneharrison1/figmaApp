@@ -10,6 +10,7 @@ import CardView from '../../components/CardView/CardView';
 import Button from '../../components/Button/Button';
 import DeleteModal from '../../components/DeleteModal/DeleteModal';
 import './UserDashboard.css';
+import Navbar from '../../components/NavBar/Navbar';
 
 function UserDashboard() {
     const navigate = useNavigate();
@@ -87,35 +88,31 @@ function UserDashboard() {
             {!user ? (
                 <h1> Login to access this page</h1>
             ) : (
-                <div className='container'>
-                    <div>
-                        <button onClick={handleLogout}>
-                            Logout
-                        </button>
-                    </div>
+                <div>
+                    <Navbar onClickLogout={handleLogout} />
                     <div className='container'>
-                        <div className='row'>
-                            <div className='col-sm-6'>
-                                <p>Published</p>
-                                <p>Draft</p>
+                        <div className='container'>
+                            <div className='row'>
+                                <div className='col-sm-6  d-flex published-draft-holder'>
+                                    {/* <h1>Published</h1>
+                                <h1>Draft</h1> */}
+                                </div>
+                                <div className='col-sm-6 new-site-div'>
+                                    <NavLink to="/form" >
+                                        <Button label='+ New site' className="new-site" />
+                                    </NavLink> </div>
                             </div>
-                            <div className='col-sm-6 new-site-div'>
-                                <NavLink to="/form" >
-                                    <Button label='+ New site' className="new-site" />
-                                </NavLink> </div>
                         </div>
-                    </div>
-                    <div className='row'>
-                        {data.map(item => (
-                            <div className='col-sm-4'>
-                                <CardView siteTitle={item.title} url={item.generatedUrl} />
-                                <button onClick={() => goToEdit(item)}>Update</button>
-                                <button onClick={handleShowModal}>Delete</button>
-                                <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} />
-                            </div>
-                        ))}
-                    </div>
-                </div >
+                        <div className='row'>
+                            {data.map(item => (
+                                <div className='col-sm-4'>
+                                    <CardView siteTitle={item.title} url={item.generatedUrl} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item)} />
+                                    <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} />
+                                </div>
+                            ))}
+                        </div>
+                    </div >
+                </div>
             )
             }
         </>
