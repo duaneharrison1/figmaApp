@@ -10,7 +10,7 @@ import { collection, getDocs } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { db, auth } from './firebase';
-import ForgotPassword from './pages/Authentication/ForgotPassword/ForgotPasswordPage';
+import ForgotPassword from './pages/Authentication/ForgotPassword/ForgotpasswordPage';
 import Preview from './pages/Preview/Preview.js';
 import Mainauth from './pages/Authentication/MainAuth';
 
