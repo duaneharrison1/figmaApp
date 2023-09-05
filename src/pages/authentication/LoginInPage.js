@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { NavLink, useNavigate } from 'react-router-dom'
-import './Auth.css';
+import './Auths.css';
 import TextField from '../../components/TextField/TextField.js';
 import Button from '../../components/Button/Button.js';
 

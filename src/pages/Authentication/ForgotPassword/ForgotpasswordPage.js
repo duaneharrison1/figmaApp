@@ -4,7 +4,7 @@ import { auth } from '../../../firebase';
 import { sendPasswordResetEmail } from "firebase/auth"
 import Button from '../../../components/Button/Button.js';
 import './ForgotPasswordPage.css';
-import '../Auth.css';
+import '../Auths.css';
 import SideFrame from '../../../components/SideFrame/SideFrame';
 
 

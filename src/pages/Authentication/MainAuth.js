@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 import SideFrame from '../../components/SideFrame/SideFrame.js';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-import './Auth.css';
+import './Auths.css';
 import { auth } from '../../firebase.js';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import SignUpPage from './SignUpPage.js'
