@@ -91,12 +91,6 @@ export default function EditForm() {
                                     </div>
                                 </div>
 
-                                <div className='container'>
-                                    <h4 className='add-dns-content'>
-                                        Add the DNS records to your domain name.A-record for @ (or yourdomain.com) and www to 5.161.34.112You can add a new record in your domain registrar DNS manager.Make sure you add an entry for both @ and www
-                                    </h4>
-                                </div>
-
                                 <div className='container second-div'>
                                     <h1 className='title'>Enter figma prototype links</h1>
                                     <h3 className='automatically-point-content'> We’ll automatically point the site to the correct prototype.</h3>

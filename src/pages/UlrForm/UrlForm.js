@@ -4,6 +4,8 @@ import { db, auth } from '../../firebase';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import './UrlForm.css';
 import Button from '../../components/Button/Button';
+import { InfoCircle } from 'react-bootstrap-icons';
+import ButtonClear from '../../components/ButtonClear/ButtonClear';
 
 export default function UrlForm() {
     const navigate = useNavigate();
@@ -44,11 +46,11 @@ export default function UrlForm() {
                     <div className="card url-form">
                         <form onSubmit={goToPreview}>
                             <div className="container">
-                                <div className="row first-div">
-                                    <div className="col-md-6">
-                                        <div className="row">
-                                            <h1 className='title'>General</h1>
-                                            <h2 className='sub-header'>Site Title</h2>
+                                <div className='container'>
+                                    <div className='row first-div'>
+                                        <div className='col-md-6'>
+                                            <h1 className='form-title'>General</h1>
+                                            <h2 className='form-sub-header'>Site Title</h2>
                                             <input
                                                 className='input'
                                                 type="text"
@@ -56,37 +58,36 @@ export default function UrlForm() {
                                                 value={title}
                                                 onChange={handleTitle} />
                                         </div>
+                                        <div className='col-md-6'></div>
                                     </div>
-                                </div>
 
-                                <div className='container'>
-                                    <div className='row'>
-                                        <div className='col-md-6'>
-                                            <h1 className='title'>Free domain</h1>
-                                            <h1 className='free-domain-name'>Figmafolio</h1>
+                                    <div className='row second-div'>
+                                        <div className='col-md-6 '>
+                                            <h1 className='form-sub-header'>Free domain</h1>
+                                            <p>Duane/Figmafolio.com </p>
                                         </div>
                                         <div className='col-md-6'>
-                                            <Button label='Upgrade plan' />
+                                            <h2 className='form-sub-header'>Custom domain</h2>
+                                            <input
+                                                className='input'
+                                                type="text"
+                                                placeholder='Custom domain'
+                                            />
+                                            <ButtonClear label='Upgrade plan' className="upgrade-plan" />
                                         </div>
                                     </div>
-                                </div>
-
-                                <div className='container'>
-                                    <h4 className='add-dns-content'>
-                                        Add the DNS records to your domain name.A-record for @ (or yourdomain.com) and www to 5.161.34.112You can add a new record in your domain registrar DNS manager.Make sure you add an entry for both @ and www
-                                    </h4>
                                 </div>
 
                                 <div className='container second-div'>
-                                    <h1 className='title'>Enter figma prototype links</h1>
-                                    <h3 className='automatically-point-content'> We’ll automatically point the site to the correct prototype.</h3>
+                                    <h1 className='form-title'>Enter figma prototype links</h1>
+                                    <p> <InfoCircle /> You should hide hide hotspot hints by selecting the Options menu in the prototype of Figma for a better experience</p>
                                 </div>
 
                                 <div className="container">
                                     <div className="row gx-5">
                                         <div className="col-md-6">
                                             <div className="row">
-                                                <h2 className='sub-header'>
+                                                <h2 className='form-sub-header'>
                                                     Desktop
                                                 </h2>
                                                 <input
@@ -101,7 +102,7 @@ export default function UrlForm() {
 
                                         <div className="col-md-6">
                                             <div className="row">
-                                                <h2 className='sub-header'>
+                                                <h2 className='form-sub-header'>
                                                     Mobile
                                                 </h2>
                                                 <input
