@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase';
 import './Auth.css';
-import TextField from './Components/TextField/TextField.js';
+import TextField from '../../components/TextField/TextField.js';
 import Button from '../../components/Button/Button.js';
 import AlertModal from '../../components/AlertModal/AlertModal';
 

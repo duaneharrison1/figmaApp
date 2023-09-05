@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { auth } from '../../../firebase';
 import { sendPasswordResetEmail } from "firebase/auth"
-import SideFrame from '../Components/SideFrame/SideFrame.js';
-import TextField from '../Components/TextField/TextField';
 import Button from '../../../components/Button/Button.js';
 import './ForgotPasswordPage.css';
 import '../Auth.css';
+import SideFrame from '../../../components/SideFrame/SideFrame';
 
 
 

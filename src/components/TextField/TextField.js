@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './TextField.css';
 
-export default function MainAuth(props) {
+export default function TextField(props) {
     const label = props.label
     const className = props.className
     const id = props.id

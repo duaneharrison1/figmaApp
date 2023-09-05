@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './SideFrame.css';
-import landing_page from './../../../../assets/images/landing_page.png'
+import landing_page from '../../assets/images/landing_page.png'
 
 export default function SideFrame(props) {
     return (

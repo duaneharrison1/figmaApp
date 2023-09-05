@@ -3,7 +3,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { NavLink, useNavigate } from 'react-router-dom'
 import './Auth.css';
-import TextField from './Components/TextField/TextField.js';
+import TextField from '../../components/TextField/TextField.js';
 import Button from '../../components/Button/Button.js';
 
 export default function LoginPage() {

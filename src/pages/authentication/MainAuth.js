@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import SideFrame from './Components/SideFrame/SideFrame.js';
+import SideFrame from '../../components/SideFrame/SideFrame.js';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import './Auth.css';
