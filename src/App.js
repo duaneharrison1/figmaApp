@@ -12,7 +12,8 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import { db, auth } from './firebase';
 import ForgotPassword from './pages/Authentication/ForgotPassword/ForgotPasswordPage';
 import Preview from './pages/Preview/Preview.js';
-import MainAuth from './pages/Authentication/MainAuth.js';
+import Mainauth from './pages/Authentication/Mainauth';
+
 
 
 function App() {
@@ -53,7 +54,7 @@ function App() {
         <Route path="/editform" element={<EditForm />} />
         <Route path="/dashboard" element={<UserDashboard />} />
         <Route path="/preview" element={<Preview />} />
-        <Route path="/auth" element={<MainAuth />} />
+        <Route path="/auth" element={<Mainauth />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         {data.map((item) => (
           < Route path={`/${item.generatedUrl}`} element={<DynamicPage url={item} />} />
