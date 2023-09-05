@@ -12,7 +12,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import { db, auth } from './firebase';
 import ForgotPassword from './pages/Authentication/ForgotPassword/ForgotPasswordPage';
 import Preview from './pages/Preview/Preview.js';
-import MainAuth from './pages/Authentication/MainAuth';
+import MainAuth from './pages/Authentication/MainAuth.js';
 
 
 function App() {
