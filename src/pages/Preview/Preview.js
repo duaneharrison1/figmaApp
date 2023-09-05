@@ -111,7 +111,7 @@ export default function Preview() {
             setShowModal(true);
             setModalMessage("Update successful")
             console.log('Document updated successfully');
-            window.open('https://lively-puffpuff-ffda96.netlify.app/' + location.state.generatedUrl, '_blank');
+            window.open('https://main--willowy-platypus-08dacb.netlify.app/' + location.state.generatedUrl, '_blank');
 
         } catch (error) {
             setShowModal(true);
@@ -140,7 +140,7 @@ export default function Preview() {
             addDoc(refAllUrl, urlData)
             setShowModal(true);
             setModalMessage("App saved")
-            window.open('https://lively-puffpuff-ffda96.netlify.app/' + randomUrl, '_blank');
+            window.open('https://main--willowy-platypus-08dacb.netlify.app/' + randomUrl, '_blank');
         } catch (err) {
             console.log(err)
             setShowModal(true);
