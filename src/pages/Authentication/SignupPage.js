@@ -14,6 +14,9 @@ export default function SignupPage() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
+    const [errorConfirmPassword, setErrorConfirmPassword] = useState(null);
+    const isButtonActive = email && password && confirmPassword;
+
     const handleShowModal = () => {
         setShowModal(true);
     };
@@ -40,7 +43,7 @@ export default function SignupPage() {
         e.preventDefault()
 
         if (password !== confirmPassword) {
-            console.log("confirm password not match");
+            setConfirmPassword("Password not match");
         } else {
             await createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
@@ -54,9 +57,21 @@ export default function SignupPage() {
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
-                    console.log(errorCode, errorMessage);
-                    setShowModal(true);
-                    setModalMessage(errorMessage)
+                    console.log(errorMessage);
+                    // setShowModal(true);
+                    // setModalMessage(errorMessage)
+
+                    if (error.message == "Firebase: Password should be at least 6 characters (auth/weak-password).") {
+                        setErrorConfirmPassword("Password should be at least 6 characters");
+                    }
+
+                    if (error.message == "Firebase: Error (auth/email-already-in-use).") {
+                        setErrorConfirmPassword("Email Already registered");
+                    }
+
+
+
+                    // Password should be at least 6 characters (auth/weak-password).
                     // ..
                 });
         }
@@ -66,7 +81,7 @@ export default function SignupPage() {
         <>
             <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
             <div className='container'>
-                <form className='form'>
+                <form className='sign-up'>
                     <div>
                         <TextField
                             formLabel='Email'
@@ -99,12 +114,21 @@ export default function SignupPage() {
                             value={confirmPassword}
                             onChange={handleConfirmPasswordChange}
                             placeholder="Confirm password" />
+                        {errorConfirmPassword && < p className='error-message'>{errorConfirmPassword}</p>}
                     </div>
 
-                    <Button label='Continue'
-                        onClick={onSubmit}
-                        className="btn-block"
-                    />
+                    {isButtonActive ?
+                        <Button
+                            label='Continue'
+                            onClick={onSubmit}
+                            className="btn-block"
+                        />
+                        :
+                        <Button
+                            className="disabled"
+                            label='Continue'
+                            disabled
+                        />}
                 </form>
             </div >
         </>

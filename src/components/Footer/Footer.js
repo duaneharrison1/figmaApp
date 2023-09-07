@@ -9,13 +9,13 @@ export default function Footer() {
             <div className="container">
                 <div className="row">
                     <div className="col-md-4">
-                        <h1> Figmafolio</h1>
+                        <h1 className='footer-figmafolio'> Figmafolio</h1>
                     </div>
                     <div className="col-md-4">
                         <div className="row">
-                            <div className="col-md-4"> <h1> Terms</h1></div>
-                            <div className="col-md-4"> <h1> Privacy</h1></div>
-                            <div className="col-md-4"> <h1> Cookies</h1></div>
+                            <div className="col-md-4"> <h1 className='footer-center'> Terms</h1></div>
+                            <div className="col-md-4"> <h1 className='footer-center'> Privacy</h1></div>
+                            <div className="col-md-4"> <h1 className='footer-center'> Cookies</h1></div>
                         </div>
                     </div>
                     <div className="col-md-4">

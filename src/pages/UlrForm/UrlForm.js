@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { collection, addDoc, Timestamp, deleteDoc, updateDoc } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
+import { signOut } from "firebase/auth";
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import './UrlForm.css';
 import Button from '../../components/Button/Button';
 import { InfoCircle } from 'react-bootstrap-icons';
 import ButtonClear from '../../components/ButtonClear/ButtonClear';
+import Navbar from '../../components/NavBar/Navbar';
+import Footer from '../../components/Footer/Footer';
 
 export default function UrlForm() {
     const navigate = useNavigate();
@@ -13,16 +16,7 @@ export default function UrlForm() {
     const [figmaMobileUrl, setfigmaMobileUrl] = useState('');
     const [generatedUrl, setGeneratedUrl] = useState('');
     const [title, setTitle] = useState('');
-    const userId = auth.currentUser;
-    const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((user) => {
-            setUser(user);
-        });
-
-        return () => unsubscribe();
-    }, []);
+    const user = auth.currentUser;
 
     const handlefigmaDesktopUrl = (event) => {
         setDesktopCustomUrl(event.target.value);
@@ -39,8 +33,19 @@ export default function UrlForm() {
         navigate('/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl } });
     }
 
+    const handleLogout = () => {
+        signOut(auth).then(() => {
+            // Sign-out successful.
+            navigate("/");
+            console.log("Signed out successfully")
+        }).catch((error) => {
+            // An error happened.
+        });
+    }
+
     return (
         <>
+            <Navbar email={user.email} onClickLogout={handleLogout} />
             <div className='form'>
                 <div className='container'>
                     <div className="card url-form">
@@ -126,109 +131,8 @@ export default function UrlForm() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
-        // <>
-        //     {!user ? (
-        //         <h1> Login to access this page</h1>
-        //     ) : (
-        //         <div className='container'>
-        //             <h1 className='title'>General</h1>
-        //             <input
-        //                 className='input'
-        //                 type="text"
-        //                 placeholder='Title'
-        //                 value={title}
-        //                 onChange={handleTitle} />
-
-        //             <form onSubmit={handleSubmit}>
-        //                 <div className="container">
-        //                     <div className="row first-div">
-        //                         <div className="col-md-6">
-        //                             <div className="row">
-        //                                 <h1 className='title'>Free domain</h1>
-        //                                 <h2 className='sub-header'>Title</h2>
-        //                                 <input
-        //                                     className='input'
-        //                                     type="text"
-        //                                     placeholder='Title'
-        //                                     value={title}
-        //                                     onChange={handleTitle} />
-        //                             </div>
-        //                         </div>
-
-        //                         <div className="col-md-6">
-        //                             <h1 className='title'>Custom domain</h1>
-        //                             <div className="row">
-        //                                 <h2 className='sub-header'>Domain name</h2>
-        //                                 <input
-        //                                     className='input'
-        //                                     type="text"
-        //                                     placeholder='Domain name' />
-        //                             </div>
-
-        //                         </div>
-        //                         <div className='container'>
-        //                             <h4 className='add-dns-content'>
-        //                                 Add the DNS records to your domain name.A-record for @ (or yourdomain.com) and www to 5.161.34.112You can add a new record in your domain registrar DNS manager.Make sure you add an entry for both @ and www
-        //                             </h4>
-        //                         </div>
-        //                     </div>
-        //                 </div>
-
-
-        //                 <div className='container second-div'>
-        //                     <h1 className='title'>Enter figma prototype links</h1>
-
-        //                     <h3 className='automatically-point-content'> We’ll automatically point the site to the correct prototype.</h3>
-        //                 </div>
-
-
-        //                 <div className="container">
-        //                     <div className="row">
-        //                         <div className="col-md-6">
-        //                             <div className="row">
-        //                                 <h2 className='sub-header'>
-        //                                     Desktop
-        //                                 </h2>
-
-
-        //                                 <input
-        //                                     className='input'
-        //                                     type="text"
-        //                                     placeholder='Custom Desktop Url'
-        //                                     value={figmaDesktopUrl}
-        //                                     onChange={handlefigmaDesktopUrl}
-        //                                 />
-
-        //                             </div>
-        //                         </div>
-
-        //                         <div className="col-md-6">
-        //                             <div className="row">
-        //                                 <h2 className='sub-header'>
-        //                                     Mobile
-        //                                 </h2>
-        //                                 <input
-        //                                     className='input'
-        //                                     type="text"
-        //                                     placeholder='Custom Mobile Url'
-        //                                     value={figmaMobileUrl}
-        //                                     onChange={handlefigmaMobileUrl}
-        //                                 />
-        //                             </div>
-        //                         </div>
-        //                     </div>
-        //                 </div>
-        //                 <button
-        //                     className='btn-sign-in'
-        //                     type="submit">
-        //                     Save changes
-        //                 </button>
-        //             </form >
-        //         </div >
-        //     )
-        //     }
-        // </>
 
     );
 };

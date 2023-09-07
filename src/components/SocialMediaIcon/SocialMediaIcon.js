@@ -1,8 +1,9 @@
 import React from 'react';
 import { Facebook, Twitter, Instagram } from 'react-bootstrap-icons';
+import './SocialMediaIcon.css';
 export default function SocialMediaIcons() {
     return (
-        <div className="social-media-icons">
+        <div className="flex-container">
             <a href="https://www.facebook.com/yourpage">
                 <Facebook className="icon" />
             </a>
@@ -10,7 +11,7 @@ export default function SocialMediaIcons() {
                 <Twitter className="icon" />
             </a>
             <a href="https://www.instagram.com/yourpage">
-                <Instagram className="icon" />
+                <Instagram className="icon " />
             </a>
         </div>
     );

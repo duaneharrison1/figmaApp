@@ -89,7 +89,7 @@ function UserDashboard() {
                 <h1> Login to access this page</h1>
             ) : (
                 <div>
-                    <Navbar onClickLogout={handleLogout} />
+                    <Navbar email={user.email} onClickLogout={handleLogout} />
                     <div className='container'>
                         <div className='container'>
                             <div className='row'>

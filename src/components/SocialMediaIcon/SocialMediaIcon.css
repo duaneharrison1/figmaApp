@@ -1,0 +1,9 @@
+.flex-container {
+    display: flex;
+    justify-content: end; 
+  /* Adjust this based on your spacing needs */
+  }
+  .icon {
+    color: gray;
+    margin: 0 10px 0 10px;
+  }

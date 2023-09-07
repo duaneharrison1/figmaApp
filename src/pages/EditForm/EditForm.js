@@ -3,9 +3,14 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate, NavLink, useParams } from 'react-router-dom';
 import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
+import { signOut } from "firebase/auth";
 import './EditForm.css';
 import Button from '../../components/Button/Button';
 import AlertModal from '../../components/AlertModal/AlertModal';
+import Footer from '../../components/Footer/Footer';
+import Navbar from '../../components/NavBar/Navbar';
+import { InfoCircle } from 'react-bootstrap-icons';
+import ButtonClear from '../../components/ButtonClear/ButtonClear';
 
 export default function EditForm() {
     const navigate = useNavigate();
@@ -14,8 +19,7 @@ export default function EditForm() {
     const [figmaMobileUrl, setfigmaMobileUrl] = useState(location.state.object.urls.figmaMobileUrl);
     const [generatedUrl, setgeneratedUrl] = useState(location.state.object.generatedUrl);
     const [title, setTitle] = useState(location.state.object.title);
-    const userId = auth.currentUser;
-    const [user, setUser] = useState(null);
+    const user = auth.currentUser;
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
 
@@ -33,13 +37,7 @@ export default function EditForm() {
     };
 
 
-    useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((user) => {
-            setUser(user);
-        });
 
-        return () => unsubscribe();
-    }, []);
 
     const handlefigmaDesktopUrl = (event) => {
         setDesktopCustomUrl(event.target.value);
@@ -52,199 +50,111 @@ export default function EditForm() {
         setTitle(event.target.value);
     };
 
+    const handleLogout = () => {
+        signOut(auth).then(() => {
+            // Sign-out successful.
+            navigate("/");
+            console.log("Signed out successfully")
+        }).catch((error) => {
+            // An error happened.
+        });
+    }
 
 
 
     return (
         <>
+            <Navbar email={user.email} onClickLogout={handleLogout} />
             <div className='form'>
                 <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
                 <div className='container'>
                     <div className="card url-form">
                         <form onSubmit={goToPreview}>
                             <div className="container">
-                                <div className="row first-div">
-                                    <div className="col-md-6">
-                                        <div className="row">
-                                            <h1 className='title'>General</h1>
-                                            <h2 className='sub-header'>Site Title</h2>
-                                            <input
-                                                className='input'
-                                                type="text"
-                                                placeholder='Title'
-                                                value={title}
-                                                // value={location.state.object.title}
-                                                onChange={handleTitle} />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className='container'>
-                                    <div className='row'>
-                                        <div className='col-md-6'>
-                                            <h1 className='title'>Free domain</h1>
-                                            <h1 className='free-domain-name'>Figmafolio</h1>
-                                        </div>
-                                        <div className='col-md-6'>
-                                            <Button label='Upgrade plan' />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className='container second-div'>
-                                    <h1 className='title'>Enter figma prototype links</h1>
-                                    <h3 className='automatically-point-content'> We’ll automatically point the site to the correct prototype.</h3>
-                                </div>
-
                                 <div className="container">
-                                    <div className="row gx-5">
+                                    <div className="row first-div">
                                         <div className="col-md-6">
                                             <div className="row">
-                                                <h2 className='sub-header'>
-                                                    Desktop
-                                                </h2>
+                                                <h1 className='form-title'>General</h1>
+                                                <h2 className='form-sub-header'>Site Title</h2>
                                                 <input
                                                     className='input'
                                                     type="text"
-                                                    placeholder='Custom Desktop Url'
-                                                    value={figmaDesktopUrl}
-                                                    // value={location.state.object.urls.figmaDesktopUrl}
-                                                    onChange={handlefigmaDesktopUrl}
-                                                />
+                                                    placeholder='Title'
+                                                    value={title}
+                                                    onChange={handleTitle} />
                                             </div>
+                                            <div className='col-md-6'></div>
                                         </div>
 
-                                        <div className="col-md-6">
-                                            <div className="row">
-                                                <h2 className='sub-header'>
-                                                    Mobile
-                                                </h2>
+                                        <div className='row second-div'>
+                                            <div className='col-md-6 '>
+                                                <h1 className='form-sub-header'>Free domain</h1>
+                                                <p>Duane/Figmafolio.com </p>
+                                            </div>
+                                            <div className='col-md-6'>
+                                                <h2 className='form-sub-header'>Custom domain</h2>
                                                 <input
                                                     className='input'
                                                     type="text"
-                                                    placeholder='Custom Mobile Url'
-                                                    value={figmaMobileUrl}
-                                                    // value={location.state.object.urls.figmaMobileUrl}
-                                                    onChange={handlefigmaMobileUrl}
+                                                    placeholder='Custom domain'
                                                 />
+                                                <ButtonClear label='Upgrade plan' className="upgrade-plan" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className='container second-div'>
+                                        <h1 className='form-title'>Enter figma prototype links</h1>
+                                        <p> <InfoCircle /> You should hide hide hotspot hints by selecting the Options menu in the prototype of Figma for a better experience</p>
+                                    </div>
+
+                                    <div className="container">
+                                        <div className="row gx-5">
+                                            <div className="col-md-6">
+                                                <div className="row">
+                                                    <h2 className='form-sub-header'>
+                                                        Desktop
+                                                    </h2>
+                                                    <input
+                                                        className='input'
+                                                        type="text"
+                                                        placeholder='Custom Desktop Url'
+                                                        value={figmaDesktopUrl}
+                                                        // value={location.state.object.urls.figmaDesktopUrl}
+                                                        onChange={handlefigmaDesktopUrl}
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="col-md-6">
+                                                <div className="row">
+                                                    <h2 className='form-sub-header'>
+                                                        Mobile
+                                                    </h2>
+                                                    <input
+                                                        className='input'
+                                                        type="text"
+                                                        placeholder='Custom Mobile Url'
+                                                        value={figmaMobileUrl}
+                                                        // value={location.state.object.urls.figmaMobileUrl}
+                                                        onChange={handlefigmaMobileUrl}
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className='container'>
-                                <Button label='Preview' type="submit" className="preview-btn" />
+                            <div className='container preview-btn-container'>
+                                <Button className="preview-btn" label="Preview" />
                             </div>
-
                         </form >
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
-
-        // <>
-        //     {!user ? (
-        //         <h1> Login to access this page</h1>
-        //     ) : (
-        //         <div className='container'>
-        //             <h1 className='title'>General</h1>
-        //             <input
-        //                 className='input'
-        //                 type="text"
-        //                 placeholder='Title'
-        //                 value={title}
-        //                 onChange={handleTitle} />
-
-        //             <form onSubmit={handleSubmit}>
-        //                 <div className="container">
-        //                     <div className="row first-div">
-        //                         <div className="col-md-6">
-        //                             <div className="row">
-        //                                 <h1 className='title'>Free domain</h1>
-        //                                 <h2 className='sub-header'>Title</h2>
-        //                                 <input
-        //                                     className='input'
-        //                                     type="text"
-        //                                     placeholder='Title'
-        //                                     value={title}
-        //                                     onChange={handleTitle} />
-        //                             </div>
-        //                         </div>
-
-        //                         <div className="col-md-6">
-        //                             <h1 className='title'>Custom domain</h1>
-        //                             <div className="row">
-        //                                 <h2 className='sub-header'>Domain name</h2>
-        //                                 <input
-        //                                     className='input'
-        //                                     type="text"
-        //                                     placeholder='Domain name' />
-        //                             </div>
-
-        //                         </div>
-        //                         <div className='container'>
-        //                             <h4 className='add-dns-content'>
-        //                                 Add the DNS records to your domain name.A-record for @ (or yourdomain.com) and www to 5.161.34.112You can add a new record in your domain registrar DNS manager.Make sure you add an entry for both @ and www
-        //                             </h4>
-        //                         </div>
-        //                     </div>
-        //                 </div>
-
-
-        //                 <div className='container second-div'>
-        //                     <h1 className='title'>Enter figma prototype links</h1>
-
-        //                     <h3 className='automatically-point-content'> We’ll automatically point the site to the correct prototype.</h3>
-        //                 </div>
-
-
-        //                 <div className="container">
-        //                     <div className="row">
-        //                         <div className="col-md-6">
-        //                             <div className="row">
-        //                                 <h2 className='sub-header'>
-        //                                     Desktop
-        //                                 </h2>
-
-
-        //                                 <input
-        //                                     className='input'
-        //                                     type="text"
-        //                                     placeholder='Custom Desktop Url'
-        //                                     value={figmaDesktopUrl}
-        //                                     onChange={handlefigmaDesktopUrl}
-        //                                 />
-
-        //                             </div>
-        //                         </div>
-
-        //                         <div className="col-md-6">
-        //                             <div className="row">
-        //                                 <h2 className='sub-header'>
-        //                                     Mobile
-        //                                 </h2>
-        //                                 <input
-        //                                     className='input'
-        //                                     type="text"
-        //                                     placeholder='Custom Mobile Url'
-        //                                     value={figmaMobileUrl}
-        //                                     onChange={handlefigmaMobileUrl}
-        //                                 />
-        //                             </div>
-        //                         </div>
-        //                     </div>
-        //                 </div>
-        //                 <button
-        //                     className='btn-sign-in'
-        //                     type="submit">
-        //                     Save changes
-        //                 </button>
-        //             </form >
-        //         </div >
-        //     )
-        //     }
-        // </>
-
     );
 };
 

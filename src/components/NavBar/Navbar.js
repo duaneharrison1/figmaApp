@@ -1,20 +1,23 @@
 
 import React, { useState } from 'react';
 import './Navbar.css';
-import PreviewSwitch from '../PreviewSwitch/PreviewSwitch';
+
 
 export default function Navbar(props) {
+
     const onClickLogout = props.onClickLogout
+    const email = props.email
     return (
+
         <nav class="navbar navbar-light custom-navbar">
             <div className='container'>
-                <a class="navbar-brand" href="#">Figmafolio</a>
+                <a class="navbar-brand" href="/">Figmafolio</a>
                 <div class="navbar-center">
                     <a class="navbar-brand">Your Library</a>
                 </div>
                 <div class="nav-item ml-auto">
                     <div className='d-flex'>
-                        <a class="nav-link" href="#">AccountName</a>
+                        <a class="nav-link">{email}</a>
                         <div className="dropdown">
                             <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <svg width="12" height="14" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">

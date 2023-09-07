@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { collection, addDoc, doc, updateDoc } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
-import { toast } from 'react-toastify';
-import Alert from "react-bootstrap/Alert";
+import { signOut } from "firebase/auth";
 import Button from '../../components/Button/Button';
 import ButtonClear from '../../components/ButtonClear/ButtonClear';
 import Navbar from '../../components/NavBar/Navbar';
-import Form from 'react-bootstrap/Form';
 import AlertModal from '../../components/AlertModal/AlertModal';
-
+import Footer from '../../components/Footer/Footer';
+import './Preview.css';
 export default function Preview() {
+    const navigate = useNavigate();
     const [isMobile, setIsMobile] = useState(false);
     const location = useLocation();
-    const userId = auth.currentUser;
-    const [user, setUser] = useState(null);
+    const user = auth.currentUser;
+
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
     const fromEdit = location.state.fromEdit;
@@ -27,15 +27,6 @@ export default function Preview() {
     const handleCloseModal = () => {
         setShowModal(false);
     };
-
-    useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((user) => {
-            setUser(user); // Set the user state
-        });
-
-        return () => unsubscribe(); // Clean up the listener when component unmounts
-    }, []);
-
 
     const handleSwitchChange = () => {
         setIsMobile(!isMobile);
@@ -72,7 +63,7 @@ export default function Preview() {
 
     const handleDraft = async (event) => {
         event.preventDefault();
-        const ref = collection(db, "user", userId.uid, "url")
+        const ref = collection(db, "user", user.uid, "url")
         const refAllUrl = collection(db, "url")
         // var randomUrl = generateRandomString(6);
         let urlData = {
@@ -98,9 +89,8 @@ export default function Preview() {
 
     const handleUpdate = async (event) => {
         event.preventDefault();
-        console.log(userId.uid);
         try {
-            const ref = doc(db, "user", userId.uid, "url", location.state.docId)
+            const ref = doc(db, "user", user.uid, "url", location.state.docId)
             await updateDoc(ref, {
                 title: location.state.title,
                 urls: {
@@ -122,7 +112,7 @@ export default function Preview() {
 
     const handleSave = async (event) => {
         event.preventDefault();
-        const ref = collection(db, "user", userId.uid, "url")
+        const ref = collection(db, "user", user.uid, "url")
         const refAllUrl = collection(db, "url")
         var randomUrl = generateRandomString(6);
         let urlData = {
@@ -148,12 +138,22 @@ export default function Preview() {
         }
     }
 
+    const handleLogout = () => {
+        signOut(auth).then(() => {
+            // Sign-out successful.
+            navigate("/");
+            console.log("Signed out successfully")
+        }).catch((error) => {
+            // An error happened.
+        });
+    }
+
     return (
         <>
+            <Navbar email={user.email} onClickLogout={handleLogout} />
             <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-md-4">
+
+            {/* <div className="col-md-4">
                         <h1>Figmafolio</h1>
                     </div>
                     <div className="col-md-4">
@@ -169,27 +169,14 @@ export default function Preview() {
                             <p> Mobile</p>
 
                         </div>
-
-
-                    </div>
-                    <div className="col-md-4">
-                        <div className='container'>
-                            <div className='row'>
-                                <div className='col-6'>  <ButtonClear label='Save as Draft' onClick={handleDraft} /></div>
-
-                                <div className='col-6'>
-                                    {fromEdit === true ? (
-                                        <Button label='Update' onClick={handleUpdate} />) :
-                                        (
-                                            <Button label='Publish' onClick={handleSave} />
-                                        )}
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+                    </div> */}
+            <div className='draft-publish-container'>
+                <ButtonClear className="save-as-draft" label='Save as Draft' onClick={handleDraft} />
+                {fromEdit === true ? (
+                    <Button className="update-btn" label='Update' onClick={handleUpdate} />) :
+                    (
+                        <Button className="update-btn" label='Publish' onClick={handleSave} />
+                    )}
             </div>
 
             <iframe
@@ -198,6 +185,7 @@ export default function Preview() {
                 style={{ width: '100%', height: '100vh' }}
                 className='figma_view'></iframe>
 
+            <Footer />
         </>
     );
 };
