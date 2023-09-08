@@ -168,7 +168,7 @@ export default function Preview() {
             ) : (
                 <div className='container'>
 
-                    <Navbar email={user.email} onClickLogout={handleLogout} />
+                    <Navbar email={user.email} onClickLogout={handleLogout} isPreviewPage={true} />
                     <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
                     < div className='draft-publish-container'>
                         <ButtonClear className="save-as-draft" label='Save as Draft' onClick={handleDraft} />

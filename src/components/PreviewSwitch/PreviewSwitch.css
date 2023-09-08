@@ -1,0 +1,28 @@
+.preview-switch-header {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.switch-container {
+    display: flex;
+    justify-content: center; 
+    width: 100%;
+}
+
+.preview-switch-container{
+    text-align: center;
+}
+
+
+.custom-control-label::before {
+    background-color: #28a745;
+}
+
+.custom-switch .custom-control-label::after {
+    background-color: white;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+    background-color: red;
+}

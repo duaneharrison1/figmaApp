@@ -1,19 +1,22 @@
 
 import React, { useState } from 'react';
 import './Navbar.css';
+import PreviewSwitch from '../PreviewSwitch/PreviewSwitch';
 
 
 export default function Navbar(props) {
 
     const onClickLogout = props.onClickLogout
     const email = props.email
+    const isPreviewPage = props.isPreviewPage
     return (
 
         <nav class="navbar navbar-light custom-navbar">
             <div className='container'>
                 <a class="navbar-brand" href="/">Figmafolio</a>
                 <div class="navbar-center">
-                    <a class="navbar-brand">Your Library</a>
+                    {isPreviewPage ? <PreviewSwitch /> : <a class="navbar-brand">Your Library</a>}
+
                 </div>
                 <div class="nav-item ml-auto">
                     <div className='d-flex'>
@@ -29,12 +32,7 @@ export default function Navbar(props) {
                             </ul>
                         </div>
                     </div>
-
-
-
-
                 </div>
-
             </div>
 
         </nav >
