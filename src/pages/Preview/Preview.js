@@ -14,11 +14,22 @@ export default function Preview() {
     const navigate = useNavigate();
     const [isMobile, setIsMobile] = useState(false);
     const location = useLocation();
-    const user = auth.currentUser;
+    const userId = auth.currentUser;
 
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
-    const fromEdit = location.state.fromEdit;
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            setUser(user); // Set the user state
+        });
+
+        return () => unsubscribe(); // Clean up the listener when component unmounts
+    }, []);
+
+
+
 
     const handleShowModal = () => {
         setShowModal(true);
@@ -63,7 +74,7 @@ export default function Preview() {
 
     const handleDraft = async (event) => {
         event.preventDefault();
-        const ref = collection(db, "user", user.uid, "url")
+        const ref = collection(db, "user", userId.uid, "url")
         const refAllUrl = collection(db, "url")
         // var randomUrl = generateRandomString(6);
         let urlData = {
@@ -112,7 +123,7 @@ export default function Preview() {
 
     const handleSave = async (event) => {
         event.preventDefault();
-        const ref = collection(db, "user", user.uid, "url")
+        const ref = collection(db, "user", userId.uid, "url")
         const refAllUrl = collection(db, "url")
         var randomUrl = generateRandomString(6);
         let urlData = {
@@ -150,42 +161,34 @@ export default function Preview() {
 
     return (
         <>
-            <Navbar email={user.email} onClickLogout={handleLogout} />
-            <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
 
-            {/* <div className="col-md-4">
-                        <h1>Figmafolio</h1>
-                    </div>
-                    <div className="col-md-4">
-                        <div className='container'>
-                            <p> Desktop</p>
-                            <Form.Check
-                                type="switch"
-                                id="custom-switch"
-                                label="Toggle Switch"
-                                checked={isMobile}
-                                onChange={handleSwitchChange}
-                            />
-                            <p> Mobile</p>
+            {!user || !location.state ? (
+                navigate("/")
 
-                        </div>
-                    </div> */}
-            <div className='draft-publish-container'>
-                <ButtonClear className="save-as-draft" label='Save as Draft' onClick={handleDraft} />
-                {fromEdit === true ? (
-                    <Button className="update-btn" label='Update' onClick={handleUpdate} />) :
-                    (
-                        <Button className="update-btn" label='Publish' onClick={handleSave} />
-                    )}
-            </div>
+            ) : (
+                <div className='container'>
 
-            <iframe
-                src={isMobile ? editUrl(location.state.figmaMobileUrl) : editUrl(location.state.figmaDesktopUrl)}
-                allowFullScreen
-                style={{ width: '100%', height: '100vh' }}
-                className='figma_view'></iframe>
+                    <Navbar email={user.email} onClickLogout={handleLogout} />
+                    <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
+                    < div className='draft-publish-container'>
+                        <ButtonClear className="save-as-draft" label='Save as Draft' onClick={handleDraft} />
+                        {location.state.fromEdit === true ? (
+                            <Button className="update-btn" label='Update' onClick={handleUpdate} />) :
+                            (
+                                <Button className="update-btn" label='Publish' onClick={handleSave} />
+                            )}
+                    </div >
 
-            <Footer />
+                    <iframe
+                        src={isMobile ? editUrl(location.state.figmaMobileUrl) : editUrl(location.state.figmaDesktopUrl)}
+                        allowFullScreen
+                        style={{ width: '100%', height: '100vh' }}
+                        className='figma_view'></iframe>
+
+                    <Footer />
+                </div>
+            )
+            }
         </>
     );
 };

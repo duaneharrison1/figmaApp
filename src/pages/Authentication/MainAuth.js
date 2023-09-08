@@ -13,7 +13,6 @@ import LoginPage from './LoginPage.js'
 
 
 export default function MainAuth() {
-    const [userId] = useAuthState(auth);
     const [user, setUser] = useState(null);
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -28,7 +27,6 @@ export default function MainAuth() {
 
         {user ? (<Navigate to="/dashboard" />) : (
             <div className='container'>
-
                 <div className='row'>
                     <div className='col-6 tab-view'>
                         <h1 className='header-text'>Welcome to Figmafolio</h1>
