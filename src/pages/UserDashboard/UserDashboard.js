@@ -18,10 +18,12 @@ function UserDashboard() {
     const [userId] = useAuthState(auth);
     const [user, setUser] = useState(null);
     const [showModal, setShowModal] = useState(false);
-
+    const [draftCount, setDraftCount] = useState(0);
+    const [publishCount, setPublishCount] = useState(0);
     const handleShowModal = () => {
         setShowModal(true);
     };
+
 
     const handleCloseModal = () => {
         setShowModal(false);
@@ -39,13 +41,30 @@ function UserDashboard() {
             if (user) {
                 try {
                     const user = auth.currentUser;
+                    var publish = 0;
+                    var draft = 0
                     await getDocs(collection(db, "user", userId.uid, "url"))
                         .then((querySnapshot) => {
+
                             const newData = querySnapshot.docs
                                 .map((doc) => ({ ...doc.data(), id: doc.id }));
                             setData(newData);
-                            console.log(newData)
+
+                            newData.forEach((value) => {
+                                if (value.isDraft === "true") {
+
+
+                                    console.log(draft++)
+                                    setDraftCount(draft)
+                                } else {
+                                    setPublishCount(publish++)
+                                }
+                            });
                         })
+
+
+
+
                 } catch (error) {
                     console.error('Error fetching data:', error);
                 }
@@ -55,7 +74,11 @@ function UserDashboard() {
             }
         };
         fetchData();
-    }, [user]);
+    }, [user, draftCount, publishCount]);
+
+
+
+
 
 
     const handleDelete = async (id) => {
@@ -93,9 +116,9 @@ function UserDashboard() {
                     <div className='container'>
                         <div className='container'>
                             <div className='row'>
-                                <div className='col-sm-6  d-flex published-draft-holder'>
-                                    {/* <h1>Published</h1>
-                                <h1>Draft</h1> */}
+                                <div className='col-sm-6 published-draft-holder'>
+                                    <p> Publish {publishCount} Draft {draftCount}</p>
+
                                 </div>
                                 <div className='col-sm-6 new-site-div'>
                                     <NavLink to="/form" >

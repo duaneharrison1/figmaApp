@@ -3,5 +3,10 @@
 }
 
 .published-draft-holder {
-    text-align: end;
+    position: relative;
+
+}
+.published-draft-holder p {
+position: absolute;
+    bottom: 0;
 }

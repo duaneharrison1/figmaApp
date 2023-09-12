@@ -11,18 +11,18 @@ export default function Navbar(props) {
     const isPreviewPage = props.isPreviewPage
     return (
 
-        <nav class="navbar navbar-light custom-navbar">
+        <nav className="navbar navbar-light custom-navbar">
             <div className='container'>
-                <a class="navbar-brand" href="/">Figmafolio</a>
-                <div class="navbar-center">
+                <a className="navbar-brand" href="/">Figmafolio</a>
+                <div className="navbar-center">
                     {isPreviewPage ? <PreviewSwitch /> : <a class="navbar-brand">Your Library</a>}
 
                 </div>
-                <div class="nav-item ml-auto">
+                <div className="nav-item ml-auto">
                     <div className='d-flex'>
-                        <a class="nav-link">{email}</a>
+                        <a clclassNameass="nav-link">{email}</a>
                         <div className="dropdown">
-                            <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button className="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <svg width="12" height="14" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
                                     <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
                                 </svg>
