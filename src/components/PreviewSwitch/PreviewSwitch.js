@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import './PreviewSwitch.css';
-import Switch from 'react-bootstrap/Switch';
 import Form from 'react-bootstrap/Form';
 export default function PreviewSwitch() {
     const [isChecked, setIsChecked] = useState(false);
@@ -20,15 +19,15 @@ export default function PreviewSwitch() {
                         type="switch"
                         id="custom-switch"
                         checked={isChecked}
-                        className={isChecked ? 'checked' : ''}
                         onChange={handleSwitchChange}
+                        className="custom-switch"
                         custom
                     />
                 </div>
-
                 <p> Mobile</p>
             </div>
         </div>
+
 
     );
 }
