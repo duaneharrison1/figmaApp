@@ -166,25 +166,26 @@ export default function Preview() {
                 navigate("/")
 
             ) : (
-                <div className='container'>
+                <div>
 
                     <Navbar email={user.email} onClickLogout={handleLogout} isPreviewPage={true} />
                     <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
-                    < div className='draft-publish-container'>
-                        <ButtonClear className="save-as-draft" label='Save as Draft' onClick={handleDraft} />
-                        {location.state.fromEdit === true ? (
-                            <Button className="update-btn" label='Update' onClick={handleUpdate} />) :
-                            (
-                                <Button className="update-btn" label='Publish' onClick={handleSave} />
-                            )}
-                    </div >
+                    <div className='container'>
+                        < div className='draft-publish-container'>
+                            <ButtonClear className="save-as-draft" label='Save as Draft' onClick={handleDraft} />
+                            {location.state.fromEdit === true ? (
+                                <Button className="update-btn" label='Update' onClick={handleUpdate} />) :
+                                (
+                                    <Button className="update-btn" label='Publish' onClick={handleSave} />
+                                )}
+                        </div >
 
-                    <iframe
-                        src={isMobile ? editUrl(location.state.figmaMobileUrl) : editUrl(location.state.figmaDesktopUrl)}
-                        allowFullScreen
-                        style={{ width: '100%', height: '100vh' }}
-                        className='figma_view'></iframe>
-
+                        <iframe
+                            src={isMobile ? editUrl(location.state.figmaMobileUrl) : editUrl(location.state.figmaDesktopUrl)}
+                            allowFullScreen
+                            style={{ width: '100%', height: '100vh' }}
+                            className='figma_view'></iframe>
+                    </div>
                     <Footer />
                 </div>
             )

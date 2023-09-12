@@ -15,18 +15,17 @@ export default function PreviewSwitch() {
             <h1 className='preview-switch-header'>Preview</h1>
             <div className='switch-container'>
                 <p>Desktop</p>
-                {/* <Form.Check
-                    type="switch"
-                    id="custom-switch"
-                    checked={isChecked}
-                    onChange={handleSwitchChange}
-                /> */}
+                <div className='container'>
+                    <Form.Check
+                        type="switch"
+                        id="custom-switch"
+                        checked={isChecked}
+                        className={isChecked ? 'checked' : ''}
+                        onChange={handleSwitchChange}
+                        custom
+                    />
+                </div>
 
-                <Form.Check
-                    type="switch"
-                    id="custom-switch"
-
-                />
                 <p> Mobile</p>
             </div>
         </div>

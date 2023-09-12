@@ -14,15 +14,34 @@
     text-align: center;
 }
 
-
-.custom-control-label::before {
-    background-color: #28a745;
+.form-check-input{
+    padding: 10px 20px 10px 20px;   
 }
 
-.custom-switch .custom-control-label::after {
-    background-color: white;
-}
-
-.custom-control-input:checked~.custom-control-label::before {
-    background-color: red;
-}
+.custom-control-input:focus~.custom-control-label::before {
+    border-color: red !important;
+    box-shadow: 0 0 0 0.2rem rgba(255, 47, 69, 0.25) !important;
+  }
+  
+  .custom-control-input:checked~.custom-control-label::before {
+    border-color: red !important;
+    background-color: red !important;
+  }
+  
+  .custom-control-input:active~.custom-control-label::before {
+    background-color: red !important;
+    border-color: red !important;
+  }
+  
+  .custom-control-input:focus:not(:checked)~.custom-control-label::before {
+    border-color: red !important;
+  }
+  
+  .custom-control-input-green:not(:disabled):active~.custom-control-label::before {
+    background-color: red !important;
+    border-color: red !important;
+  }
+  
+  
+  
+  
