@@ -13,6 +13,7 @@ import { db, auth } from './firebase';
 import ForgotPassword from './pages/Authentication/ForgotPassword/ForgotpasswordPage';
 import Preview from './pages/Preview/Preview.js';
 import Mainauth from './pages/Authentication/MainAuth';
+import ChangePassword from './pages/ChangePassword/ChangePassword';
 
 
 
@@ -56,6 +57,7 @@ function App() {
         <Route path="/preview" element={<Preview />} />
         <Route path="/auth" element={<Mainauth />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/changepassword" element={<ChangePassword />} />
         {data.map((item) => (
           < Route path={`/${item.generatedUrl}`} element={<DynamicPage url={item} />} />
         ))}
