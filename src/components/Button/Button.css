@@ -62,3 +62,15 @@
         color: grey;
         border: none;
 }
+
+.start-for-free-btn{
+    font-size: 20px;
+    margin: 10px;
+    width: 70%;
+    padding: 12px 20px;
+    border-radius: 40px;
+    font-weight: 700;
+    color: white;
+    border: none;
+    background-color: #4D9F70;
+}
