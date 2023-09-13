@@ -17,6 +17,11 @@
     font-size: 20px;
     font-weight: 600;
 }
+.site-title-draft{
+  color: gray;
+  font-size: 20px;
+  font-weight: 600;
+}
   
 .btn {
   width: 30px !important;

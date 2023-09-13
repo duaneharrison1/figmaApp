@@ -52,8 +52,6 @@ function UserDashboard() {
 
                             newData.forEach((value) => {
                                 if (value.isDraft === "true") {
-
-
                                     console.log(draft++)
                                     setDraftCount(draft)
                                 } else {
@@ -129,7 +127,7 @@ function UserDashboard() {
                         <div className='row'>
                             {data.map(item => (
                                 <div className='col-sm-4'>
-                                    <CardView siteTitle={item.title} url={item.generatedUrl} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item)} />
+                                    <CardView siteTitle={item.title} url={item.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item)} />
                                     <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} />
                                 </div>
                             ))}

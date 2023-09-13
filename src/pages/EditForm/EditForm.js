@@ -17,6 +17,7 @@ export default function EditForm() {
     const location = useLocation();
     const [figmaDesktopUrl, setDesktopCustomUrl] = useState(location.state.object.urls.figmaMobileUrl);
     const [figmaMobileUrl, setfigmaMobileUrl] = useState(location.state.object.urls.figmaMobileUrl);
+    const [isDraft, setIsDraft] = useState(location.state.object.urls.isDraft);
     const [generatedUrl, setgeneratedUrl] = useState(location.state.object.generatedUrl);
     const [title, setTitle] = useState(location.state.object.title);
     const user = auth.currentUser;
@@ -25,8 +26,10 @@ export default function EditForm() {
 
 
     const goToPreview = () => {
-        navigate('/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl, fromEdit: true, docId: location.state.object.id, generatedUrl: generatedUrl } });
+        navigate('/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl, fromEdit: true, isDraft: location.state.object.isDraft, docId: location.state.object.id, generatedUrl: generatedUrl } });
     }
+
+
 
     const handleShowModal = () => {
         setShowModal(true);

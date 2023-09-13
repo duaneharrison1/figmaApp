@@ -18,6 +18,7 @@ export default function Preview() {
 
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
+    const [dradt, setDraft] = useState(null)
     const [user, setUser] = useState(null);
 
     useEffect(() => {
@@ -112,8 +113,9 @@ export default function Preview() {
             setShowModal(true);
             setModalMessage("Update successful")
             console.log('Document updated successfully');
-            window.open('https://main--willowy-platypus-08dacb.netlify.app/' + location.state.generatedUrl, '_blank');
-
+            if (location.state.isDraft == 'false') {
+                window.open('https://main--willowy-platypus-08dacb.netlify.app/' + location.state.generatedUrl, '_blank');
+            }
         } catch (error) {
             setShowModal(true);
             setModalMessage("Error updating")
@@ -172,7 +174,7 @@ export default function Preview() {
                     <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
                     <div className='container'>
                         < div className='draft-publish-container'>
-                            <ButtonClear className="save-as-draft" label='Save as Draft' onClick={handleDraft} />
+                            <ButtonClear className="save-as-draft" label='Save as Draft' onClick={location.state.fromEdit === true ? handleUpdate : handleDraft} />
                             {location.state.fromEdit === true ? (
                                 <Button className="update-btn" label='Update' onClick={handleUpdate} />) :
                                 (
