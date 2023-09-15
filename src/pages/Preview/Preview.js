@@ -7,7 +7,6 @@ import { db, auth } from '../../firebase';
 import { signOut } from "firebase/auth";
 import Button from '../../components/Button/Button';
 import ButtonClear from '../../components/ButtonClear/ButtonClear';
-import Navbar from '../../components/NavBar/Navbar';
 import AlertModal from '../../components/AlertModal/AlertModal';
 import Footer from '../../components/Footer/Footer';
 import './Preview.css';
@@ -19,9 +18,7 @@ export default function Preview() {
 
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
-    const [dradt, setDraft] = useState(null)
     const [user, setUser] = useState(null);
-    const [weatherData, setWeatherData] = useState([]);
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setUser(user); // Set the user state
@@ -31,21 +28,12 @@ export default function Preview() {
     }, []);
 
 
-
-
-
-    const handleShowModal = () => {
-        setShowModal(true);
-    };
-
     const handleCloseModal = () => {
         setShowModal(false);
     };
 
     const handleSwitchChange = () => {
         setIsMobile(!isMobile);
-        console.log("wewew")
-        console.log(isMobile)
     };
 
     function generateRandomString(length) {
