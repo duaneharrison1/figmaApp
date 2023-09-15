@@ -5,21 +5,23 @@ import PreviewSwitch from '../PreviewSwitch/PreviewSwitch';
 
 
 export default function Navbar(props) {
-
+    const handleSwitchChange = props.handleSwitchChange
     const onClickLogout = props.onClickLogout
     const email = props.email
     const isPreviewPage = props.isPreviewPage
+    const [weatherData, setWeatherData] = useState([]);
     return (
 
         <nav className="navbar navbar-light custom-navbar">
             <div className='container'>
-                <a className="navbar-brand" href="/">Figmafolio</a>
+                <a className="navbar-brand" href="/"> Figmafolio</a>
                 <div className="navbar-center">
-                    {isPreviewPage ? <PreviewSwitch /> : <a class="navbar-brand">Your Library</a>}
 
+                    <a class="navbar-brand">Your Library</a>
                 </div>
                 <div className="nav-item ml-auto">
                     <div className='d-flex'>
+
                         <a clclassNameass="nav-link">{email}</a>
                         <div className="dropdown">
                             <button className="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">

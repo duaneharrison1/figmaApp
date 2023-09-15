@@ -2,11 +2,13 @@
 import React, { useState } from 'react';
 import './PreviewSwitch.css';
 import Form from 'react-bootstrap/Form';
-export default function PreviewSwitch() {
+export default function PreviewSwitch({ setWeatherData }) {
     const [isChecked, setIsChecked] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
     const handleSwitchChange = () => {
         setIsChecked(!isChecked);
-        console.log(isChecked)
+        setWeatherData(isChecked);
     };
 
     return (

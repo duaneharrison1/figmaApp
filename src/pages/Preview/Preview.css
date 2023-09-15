@@ -3,3 +3,38 @@
     justify-content: end; 
     width: 100%;
 }
+
+.preview-switch-header {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.switch-container {
+    display: flex;
+    justify-content: center; 
+    width: 100%;
+}
+
+.preview-switch-container{
+    text-align: center;
+}
+
+.form-check-input{
+    padding: 10px 20px 10px 20px;  
+   
+}
+.form-switch .form-check-input {
+    width: 3em !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='4' fill='white'/%3e%3c/svg%3e") !important;
+}
+
+
+
+.form-check-input, .form-check-input:checked {
+background-color: #4D9F70 !important;
+border-color: #4D9F70 !important;
+}
+  
+
+  

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+import Form from 'react-bootstrap/Form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { collection, addDoc, doc, updateDoc } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
@@ -20,7 +21,7 @@ export default function Preview() {
     const [modalMessage, setModalMessage] = useState('');
     const [dradt, setDraft] = useState(null)
     const [user, setUser] = useState(null);
-
+    const [weatherData, setWeatherData] = useState([]);
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setUser(user); // Set the user state
@@ -28,6 +29,7 @@ export default function Preview() {
 
         return () => unsubscribe(); // Clean up the listener when component unmounts
     }, []);
+
 
 
 
@@ -42,6 +44,8 @@ export default function Preview() {
 
     const handleSwitchChange = () => {
         setIsMobile(!isMobile);
+        console.log("wewew")
+        console.log(isMobile)
     };
 
     function generateRandomString(length) {
@@ -170,7 +174,50 @@ export default function Preview() {
             ) : (
                 <div>
 
-                    <Navbar email={user.email} onClickLogout={handleLogout} isPreviewPage={true} />
+                    {/* <Navbar setWeatherData={setWeatherData} email={user.email} onClickLogout={handleLogout} isPreviewPage={true} /> */}
+
+                    <nav className="navbar navbar-light custom-navbar">
+                        <div className='container'>
+                            <a className="navbar-brand" href="/"> Figmafolio</a>
+                            <div className="navbar-center">
+
+                                <div container="preview-switch-container">
+                                    <h1 className='preview-switch-header'>Preview</h1>
+                                    <div className='switch-container'>
+                                        <p>Desktop</p>
+                                        <div className='container'>
+                                            <Form.Check
+                                                type="switch"
+                                                id="custom-switch"
+
+                                                checked={isMobile}
+                                                onChange={handleSwitchChange}
+                                            />
+                                        </div>
+                                        <p> Mobile</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="nav-item ml-auto">
+                                <div className='d-flex'>
+
+                                    <a clclassNameass="nav-link">{user.email}</a>
+                                    <div className="dropdown">
+                                        <button className="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <svg width="12" height="14" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                                                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                                            </svg>
+                                        </button>
+                                        <ul className="dropdown-menu dropdown-menu-dark bg-light">
+                                            <li><a className="dropdown-item" onClick={handleLogout}>Logout</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </nav >
+
                     <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
                     <div className='container'>
                         < div className='draft-publish-container'>
@@ -181,8 +228,9 @@ export default function Preview() {
                                     <Button className="update-btn" label='Publish' onClick={handleSave} />
                                 )}
                         </div >
-
+                        {isMobile ? <h1>Mobile</h1> : <h1> Desktop</h1>}
                         <iframe
+
                             src={isMobile ? editUrl(location.state.figmaMobileUrl) : editUrl(location.state.figmaDesktopUrl)}
                             allowFullScreen
                             style={{ width: '100%', height: '100vh' }}
