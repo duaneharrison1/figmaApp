@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { collection, addDoc } from 'firebase/firestore'
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { db, auth } from '../../firebase';
 import './Auths.css';
 import TextField from '../../components/TextField/TextField.js';
 import ButtonColored from '../../components/ButtonColored/ButtonColored';
@@ -10,6 +11,7 @@ import AlertModal from '../../components/AlertModal/AlertModal';
 export default function SignupPage() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showModal, setShowModal] = useState(false);
@@ -27,6 +29,10 @@ export default function SignupPage() {
 
     const handleEmailChange = (email) => {
         setEmail(email);
+    };
+
+    const handleNameChange = (name) => {
+        setName(name);
     };
 
     const handlePasswordChange = (password) => {
@@ -48,11 +54,22 @@ export default function SignupPage() {
             await createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     // Signed in
-                    const user = userCredential.user;
-                    setShowModal(true);
-                    setModalMessage("Sign up successful")
-                    navigate("/auth")
-                    // ...
+                    try {
+                        const user = userCredential.user;
+                        console.log(user.uid)
+                        const ref = collection(db, "user", user.uid, "profile")
+                        let userData = {
+                            name: name,
+                            email: user.email,
+                        }
+                        addDoc(ref, userData)
+                        setShowModal(true);
+                        setModalMessage("Sign up successful")
+                        navigate("/form")
+                    } catch (err) {
+                        console.log(err)
+
+                    }
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -92,6 +109,15 @@ export default function SignupPage() {
                             required
                             placeholder="Email address"
                             onChange={handleEmailChange} />
+
+                        <TextField
+                            formLabel='Name'
+                            className='input'
+                            id="email-address"
+                            name="email"
+                            required
+                            placeholder="Name"
+                            onChange={handleNameChange} />
                     </div>
 
                     <div>
