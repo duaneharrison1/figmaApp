@@ -66,7 +66,6 @@ const ChangePasswordModal = (props) => {
                 try {
                     await reauthenticateWithCredential(user, credential)
                     await updatePassword(user, confirmNewPassword);
-
                     signOut(auth).then(() => {
                         console.log("Signed out successfully")
                     }).catch((error) => {
@@ -129,7 +128,7 @@ const ChangePasswordModal = (props) => {
                     <ButtonColored
                         label='Change password'
                         className="btn-changepassword"
-                        onClick={handleShowModal}
+                        onClick={handleChangePassword}
                     />
                     :
                     <ButtonColored

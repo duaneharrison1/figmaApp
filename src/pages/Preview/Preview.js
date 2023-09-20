@@ -193,14 +193,10 @@ export default function Preview() {
 
             ) : (
                 <div>
-
-                    {/* <Navbar setWeatherData={setWeatherData} email={user.email} onClickLogout={handleLogout} isPreviewPage={true} /> */}
-
                     <nav className="navbar navbar-light custom-navbar">
                         <div className='container'>
-                            <a className="navbar-brand" href="/"> Figmafolio</a>
+                            <a className=" back-to-library" href="/dashboard"> &lt; Back to dashboard</a>
                             <div className="navbar-center">
-
                                 <div container="preview-switch-container">
                                     <h1 className='preview-switch-header'>Preview</h1>
                                     <div className='switch-container'>
@@ -209,7 +205,6 @@ export default function Preview() {
                                             <Form.Check
                                                 type="switch"
                                                 id="custom-switch"
-
                                                 checked={isMobile}
                                                 onChange={handleSwitchChange}
                                             />

@@ -44,8 +44,8 @@ export default function LandingPage() {
                   </div>
                   :
                   <div className="button-container">
-                    <Link to="/auth" className='login-link'>Login</Link>
-                    <Link to="/auth" >
+                    <Link to="/auth" className='login-link' state={{ "name": "tab1" }}>Login</Link>
+                    <Link to="/auth" state={{ "name": "tab2" }} >
                       <ButtonColored className="signup-btn" label='Sign Up' />
                     </Link>
                   </div>
@@ -53,7 +53,7 @@ export default function LandingPage() {
               </div>
             </div>
           </div>
-        </div>
+        </div >
 
 
         <div className='container'>

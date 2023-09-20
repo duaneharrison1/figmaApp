@@ -35,13 +35,8 @@ const SuccessModal = (props) => {
                 <img src={SuccessCheck} />
                 <h1 className='delete-header'> Password successfully reset</h1>
                 <h2 className='delete-subheader'> Please log in again</h2>
-
+                <ButtonColored className="btn-block" onClick={handleDelete} label="Login now" />
             </Modal.Body>
-            <Modal.Footer>
-                <div className='container'>
-                    <ButtonColored className="btn-block" onClick={handleDelete} label="Login now" />
-                </div>
-            </Modal.Footer >
         </Modal >
     );
 };

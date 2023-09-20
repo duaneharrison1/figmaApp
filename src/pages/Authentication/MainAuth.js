@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 import SideFrame from '../../components/SideFrame/SideFrame.js';
 import Tabs from 'react-bootstrap/Tabs';
@@ -12,7 +12,10 @@ import LoginPage from './LoginPage.js'
 
 
 
-export default function MainAuth() {
+export default function MainAuth(props) {
+    const location = useLocation();
+    const tab = useState(location.state.name);
+    console.log(tab[0])
     const [user, setUser] = useState(null);
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -30,7 +33,7 @@ export default function MainAuth() {
                 <div className='row'>
                     <div className='col-6 tab-view'>
                         <h1 className='header-text'>Welcome to Figmafolio</h1>
-                        <Tabs className='nav-pills' defaultActiveKey="tab1" id="tabs">
+                        <Tabs className='nav-pills' defaultActiveKey={tab[0]} id="tabs">
                             <Tab eventKey="tab1" title="Log in">
                                 <LoginPage />
                             </Tab>

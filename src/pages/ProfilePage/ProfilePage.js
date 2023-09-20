@@ -13,10 +13,6 @@ import SuccessModal from '../../components/SuccessModal/SuccessModal';
 
 export default function ProfilePage() {
     const navigate = useNavigate();
-    // const [figmaDesktopUrl, setDesktopCustomUrl] = useState('');
-    // const [figmaMobileUrl, setfigmaMobileUrl] = useState('');
-    // const [generatedUrl, setGeneratedUrl] = useState('');
-    // const [title, setTitle] = useState('');
     const user = auth.currentUser;
     const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
     const [showSuccessModal, setshowSuccessModal] = useState(false);
@@ -31,29 +27,14 @@ export default function ProfilePage() {
         setshowSuccessModal(true);
     };
 
-
     const handleShowSuccessModal = () => {
+        setShowChangePasswordModal(false);
         setshowSuccessModal(true);
     };
 
     const handleSuccessCloseModal = () => {
         setshowSuccessModal(false);
     };
-
-    // const handlefigmaDesktopUrl = (event) => {
-    //     setDesktopCustomUrl(event.target.value);
-    // };
-    // const handlefigmaMobileUrl = (event) => {
-    //     setfigmaMobileUrl(event.target.value);
-    // };
-
-    // const handleTitle = (event) => {
-    //     setTitle(event.target.value);
-    // };
-
-    // const goToPreview = () => {
-    //     navigate('/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl } });
-    // }
 
     const handleLogout = () => {
         signOut(auth).then(() => {
@@ -93,7 +74,7 @@ export default function ProfilePage() {
 
                         <div className='profile-card'>
                             <ButtonClear label='Change password' className="upgrade-plan" onClick={handleShowModal} />
-                            <ChangePasswordModal show={showChangePasswordModal} handleClose={handleCloseModal} />
+                            <ChangePasswordModal show={showChangePasswordModal} handleClose={handleShowSuccessModal} />
                             <SuccessModal show={showSuccessModal} handleClose={handleCloseModal} />
                         </div>
                     </div>
