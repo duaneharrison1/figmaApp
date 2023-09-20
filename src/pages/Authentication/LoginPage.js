@@ -4,7 +4,8 @@ import { auth } from '../../firebase';
 import { NavLink, useNavigate } from 'react-router-dom'
 import './Auths.css';
 import TextField from '../../components/TextField/TextField.js';
-import Button from '../../components/Button/Button.js';
+import ButtonColored from '../../components/ButtonColored/ButtonColored.js';
+import PasswordInput from '../../components/PasswordTextfield/wew';
 
 export default function LoginPage() {
     const [errorEmail, setErrorEmail] = useState(null);
@@ -84,6 +85,16 @@ export default function LoginPage() {
                             type="password"
                             placeholder="Enter your password"
                             onChange={handlePasswordChange} />
+                        {/* <PasswordInput
+                            formLabel="Password"
+                            errorMsg="Wrong password"
+                            className='input'
+                            id="password"
+                            name="password"
+                            type="password"
+                            placeholder="Enter your password"
+                            onChange={handlePasswordChange} /> */}
+
                         {errorPassword && < p className='error-message'>{errorPassword}</p>}
                     </div>
                     <NavLink className='forgot-password' to="/forgotpassword" >
@@ -91,18 +102,20 @@ export default function LoginPage() {
                     </NavLink>
                     <div>
                         {isButtonActive ?
-                            <Button
+                            <ButtonColored
                                 label='Sign in'
                                 onClick={onLogin}
                                 className="btn-block"
                             />
                             :
-                            <Button
+                            <ButtonColored
                                 className="disabled"
                                 label='Sign in'
                                 disabled
                             />}
                     </div>
+
+
                 </form>
 
 

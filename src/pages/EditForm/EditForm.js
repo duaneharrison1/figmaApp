@@ -5,7 +5,7 @@ import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc } from 'fireb
 import { db, auth } from '../../firebase';
 import { signOut } from "firebase/auth";
 import './EditForm.css';
-import Button from '../../components/Button/Button';
+import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import AlertModal from '../../components/AlertModal/AlertModal';
 import Footer from '../../components/Footer/Footer';
 import Navbar from '../../components/NavBar/Navbar';
@@ -67,7 +67,7 @@ export default function EditForm() {
 
     return (
         <>
-            <Navbar email={user.email} onClickLogout={handleLogout} />
+            <Navbar email={user.email} onClickLogout={handleLogout} isFromForm={true} />
             <div className='form'>
                 <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
                 <div className='container'>
@@ -150,13 +150,13 @@ export default function EditForm() {
                                 </div>
                             </div>
                             <div className='container preview-btn-container'>
-                                <Button className="preview-btn" label="Preview" />
+                                <ButtonColored className="preview-btn" label="Preview" />
                             </div>
                         </form >
                     </div>
                 </div>
             </div>
-            <Footer />
+
         </>
     );
 };

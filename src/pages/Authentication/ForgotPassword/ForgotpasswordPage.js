@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { auth } from '../../../firebase';
 import { sendPasswordResetEmail } from "firebase/auth"
-import Button from '../../../components/Button/Button.js';
+import ButtonColored from '../../../components/ButtonColored/ButtonColored';
 import './ForgotpasswordPage.css';
 import '../Auths.css';
 import SideFrame from '../../../components/SideFrame/SideFrame';
@@ -49,7 +49,7 @@ export default function ForgotpasswordPage() {
                                 required
                             />
                             {error && < p className='error-message'>{error}</p>}
-                            <Button label='Reset Password' type="submit" className='btn-block' />
+                            <ButtonColored label='Reset Password' type="submit" className='btn-block' />
                         </form>
                     </div>
                     )}

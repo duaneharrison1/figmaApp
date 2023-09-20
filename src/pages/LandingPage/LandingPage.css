@@ -60,27 +60,32 @@
 }
 
 .landing-header{
+    padding: 18px 0 18px 0;
     font-weight: 700;
     font-size: 56px;
 }
 
 .landing-subheader {
+    padding: 18px 0 18px 0;
     font-weight: 700;
     color: #9A8742;
     font-size: 32px;
 }
 
 .landing-sec-subheader{
+    padding: 18px 0 18px 0;
     font-size: 16px;
     font-weight: 400;
 }
 
 .guide-one-header{
+    padding: 18px 0 18px 0;
     font-weight: 700;
     font-size: 40px;
 }
 
 .guide-one-subheader{
+    padding: 18px 0 18px 0;
     font-weight: 400;
     font-size: 16px;
 }
@@ -89,3 +94,67 @@
     display: flex;
   align-items: end;
 }
+
+.step-one-img{
+   
+    object-fit: contain;
+    width: 67%;
+    padding: 20px 0 20px 0;
+}
+
+.guide-container{
+    margin: 50px 0 50px 0;
+}
+.main-header{
+    padding-top: 100px;
+}
+.img-container {
+    text-align: center;
+}
+
+.circular-background {
+    width: 62px; /* Set the width and height to create a circle */
+    height: 62px;
+    border-radius: 50%; /* Make it a circle */
+    background-color: #4D9F70; /* Background color of the circle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.step-text {
+    color: #ffffff; /* Text color */
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.button-container {
+    display: flex;
+}
+
+.login-link {
+    width: 100%;
+    padding-top: 24px;
+    color: #4D9F70;
+text-align: center;
+font-family: Poppins;
+font-size: 20px;
+font-style: normal;
+font-weight: 600;
+text-decoration: none;
+}
+
+.circular-container{
+    flex: 0.6;
+    margin-top: 50px;
+    width: 0px;
+}
+.guide-text-container {
+    flex: 9.4;
+}
+
+.header-guid-container {
+    display: flex;
+}
+
+

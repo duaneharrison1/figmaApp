@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-
 import Form from 'react-bootstrap/Form';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { collection, addDoc, doc, updateDoc } from 'firebase/firestore'
+import { collection, addDoc, doc, getDocs, updateDoc, QuerySnapshot } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
 import { signOut } from "firebase/auth";
-import Button from '../../components/Button/Button';
+import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import ButtonClear from '../../components/ButtonClear/ButtonClear';
 import AlertModal from '../../components/AlertModal/AlertModal';
 import Footer from '../../components/Footer/Footer';
@@ -18,6 +17,8 @@ export default function Preview() {
 
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
+    const [duplicate, setDuplicate] = useState('');
+    const [randomurl, setRandomUrl] = useState('');
     const [user, setUser] = useState(null);
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -115,15 +116,14 @@ export default function Preview() {
         }
     };
 
-    const handleSave = async (event) => {
-        event.preventDefault();
+    const handleSaveV2 = async () => {
         const ref = collection(db, "user", userId.uid, "url")
         const refAllUrl = collection(db, "url")
-        var randomUrl = generateRandomString(6);
+
         let urlData = {
             title: location.state.title,
             isDraft: "false",
-            generatedUrl: randomUrl,
+            generatedUrl: randomurl,
             urls: {
                 figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
                 figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
@@ -135,13 +135,45 @@ export default function Preview() {
             addDoc(refAllUrl, urlData)
             setShowModal(true);
             setModalMessage("App saved")
-            window.open('https://main--willowy-platypus-08dacb.netlify.app/' + randomUrl, '_blank');
+            window.open('https://main--willowy-platypus-08dacb.netlify.app/' + randomurl, '_blank');
         } catch (err) {
             console.log(err)
             setShowModal(true);
             setModalMessage("Error in saving")
         }
     }
+
+
+    useEffect(() => {
+        setRandomUrl(generateRandomString(10))
+        var testy = "helloworld"
+        const fetchData = async () => {
+            if (user) {
+                try {
+                    await getDocs(collection(db, "url"))
+                        .then((querySnapshot) => {
+                            const newData = querySnapshot.docs
+                                .map((doc) => ({ ...doc.data(), id: doc.id }));
+                            newData.forEach((value) => {
+                                console.log(value.generatedUrl)
+                                if (value.generatedUrl != randomurl) {
+                                    console.log("not exists");
+
+                                } else {
+                                    setDuplicate(true)
+                                    console.log(randomurl);
+                                    console.log("already exists");
+                                }
+                            });
+                        })
+                } catch (error) {
+                    console.error("error" + error);
+                }
+            }
+        };
+        fetchData();
+    }, [user]);
+
 
     const handleLogout = () => {
         signOut(auth).then(() => {
@@ -189,7 +221,7 @@ export default function Preview() {
                             <div className="nav-item ml-auto">
                                 <div className='d-flex'>
 
-                                    <a clclassNameass="nav-link">{user.email}</a>
+                                    <a className="nav-link">{user.email}</a>
                                     <div className="dropdown">
                                         <button className="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <svg width="12" height="14" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
@@ -211,9 +243,9 @@ export default function Preview() {
                         < div className='draft-publish-container'>
                             <ButtonClear className="save-as-draft" label='Save as Draft' onClick={location.state.fromEdit === true ? handleUpdate : handleDraft} />
                             {location.state.fromEdit === true ? (
-                                <Button className="update-btn" label='Update' onClick={handleUpdate} />) :
+                                <ButtonColored className="update-btn" label='Update' onClick={handleUpdate} />) :
                                 (
-                                    <Button className="update-btn" label='Publish' onClick={handleSave} />
+                                    <ButtonColored className="update-btn" label='Publish' onClick={handleSaveV2} />
                                 )}
                         </div >
                         {isMobile ? <h1>Mobile</h1> : <h1> Desktop</h1>}

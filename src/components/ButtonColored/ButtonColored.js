@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react';
-import './Button.css';
+import './ButtonColored.css';
 
-export default function Button(props) {
+export default function ButtonColored(props) {
     const onClick = props.onClick
     const label = props.label
     const isDisabled = props.isDisabled

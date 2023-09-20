@@ -1,4 +1,13 @@
-
+.btn-changepassword {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px 25px;
+    border-radius: 40px;
+    font-weight: 700;
+    color: white;
+    border: none;
+    background-color: #4D9F70;
+}
 .btn-block {
     width: 100%;
     margin-top: 50px;
@@ -10,7 +19,7 @@
     background-color: #4D9F70;
 }
 .preview-btn {
-    width: 50%;
+    width: 40%;
     margin-top: 50px;
     padding: 12px 20px;
     border-radius: 40px;
@@ -32,11 +41,11 @@
 
 .new-site{
     font-size: 16px;
-    width: 50%;
+    width: 15%;
     margin-top: 50px;
     padding: 12px 20px;
     border-radius: 40px;
-    font-weight: 400;
+    font-weight: 500;
     color: white;
     border: none;
     background-color: #4D9F70;
@@ -53,6 +62,15 @@
     background-color: #4D9F70;
 }
 
+.disabled-btn-changepassword {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px 20px;
+    border-radius: 40px;
+    font-weight: 700;
+    color: grey;
+    border: none;
+}
 .disabled {
         width: 100%;
         margin-top: 50px;
@@ -67,6 +85,31 @@
     font-size: 20px;
     margin: 10px;
     width: 70%;
+    padding: 12px 20px;
+    border-radius: 40px;
+    font-weight: 700;
+    color: white;
+    border: none;
+    background-color: #4D9F70;
+}
+
+.start-for-free-btn-second {
+    font-size: 20px;
+    margin: 10px;
+    width: 30%;
+    padding: 12px 20px;
+    border-radius: 40px;
+    font-weight: 700;
+    color: white;
+    border: none;
+    background-color: #4D9F70; 
+}
+
+
+.signup-btn{
+    font-size: 20px;
+    margin: 10px;
+    width: 150px;
     padding: 12px 20px;
     border-radius: 40px;
     font-weight: 700;

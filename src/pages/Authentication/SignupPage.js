@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase';
 import './Auths.css';
 import TextField from '../../components/TextField/TextField.js';
-import Button from '../../components/Button/Button.js';
+import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import AlertModal from '../../components/AlertModal/AlertModal';
 
 export default function SignupPage() {
@@ -118,13 +118,13 @@ export default function SignupPage() {
                     </div>
 
                     {isButtonActive ?
-                        <Button
+                        <ButtonColored
                             label='Continue'
                             onClick={onSubmit}
                             className="btn-block"
                         />
                         :
-                        <Button
+                        <ButtonColored
                             className="disabled"
                             label='Continue'
                             disabled

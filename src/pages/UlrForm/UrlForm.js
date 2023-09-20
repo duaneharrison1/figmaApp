@@ -4,7 +4,7 @@ import { db, auth } from '../../firebase';
 import { signOut } from "firebase/auth";
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import './UrlForm.css';
-import Button from '../../components/Button/Button';
+import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import { InfoCircle } from 'react-bootstrap-icons';
 import ButtonClear from '../../components/ButtonClear/ButtonClear';
 import Navbar from '../../components/NavBar/Navbar';
@@ -45,7 +45,7 @@ export default function UrlForm() {
 
     return (
         <>
-            <Navbar email={user.email} onClickLogout={handleLogout} />
+            <Navbar email={user.email} onClickLogout={handleLogout} isFromForm={true} />
             <div className='form'>
                 <div className='container'>
                     <div className="card url-form">
@@ -124,14 +124,14 @@ export default function UrlForm() {
                             </div>
 
                             <div className='container preview-btn-container'>
-                                <Button className="preview-btn" label="Preview" />
+                                <ButtonColored className="preview-btn" label="Preview" />
                             </div>
 
                         </form >
                     </div>
                 </div>
             </div>
-            <Footer />
+
         </>
 
     );

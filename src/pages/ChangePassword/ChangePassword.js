@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom'
 import { getAuth, updatePassword, reauthenticateWithCredential, EmailAuthProvider } from "firebase/auth";
 import TextField from '../../components/TextField/TextField.js';
-import Button from '../../components/Button/Button.js';
+import ButtonColored from '../../components/ButtonColored/ButtonColored.js';
 import { auth as FirebaseAuth } from '../../firebase';
 export default function ChangePassword() {
     const [newPassword, setNewPassword] = useState('');

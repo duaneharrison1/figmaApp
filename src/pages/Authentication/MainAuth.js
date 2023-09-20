@@ -26,7 +26,7 @@ export default function MainAuth() {
     return (<>
 
         {user ? (<Navigate to="/dashboard" />) : (
-            <div className='container'>
+            <div className='container main-auth-container'>
                 <div className='row'>
                     <div className='col-6 tab-view'>
                         <h1 className='header-text'>Welcome to Figmafolio</h1>
@@ -40,7 +40,7 @@ export default function MainAuth() {
                         </Tabs>
                     </div>
 
-                    <div className='col-6'>
+                    <div className='col-6' >
                         <SideFrame />
                     </div>
                 </div>

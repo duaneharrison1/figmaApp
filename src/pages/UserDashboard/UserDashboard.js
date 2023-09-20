@@ -7,7 +7,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate, NavLink, useParams } from 'react-router-dom';
 import { signOut } from "firebase/auth";
 import CardView from '../../components/CardView/CardView';
-import Button from '../../components/Button/Button';
+import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import DeleteModal from '../../components/DeleteModal/DeleteModal';
 import './UserDashboard.css';
 import Navbar from '../../components/NavBar/Navbar';
@@ -51,7 +51,7 @@ function UserDashboard() {
                             setData(newData);
 
                             newData.forEach((value) => {
-                                if (value.isDraft === "true") {
+                                if (value.isDraft == "true") {
                                     console.log(draft++)
                                     setDraftCount(draft)
                                 } else {
@@ -59,10 +59,6 @@ function UserDashboard() {
                                 }
                             });
                         })
-
-
-
-
                 } catch (error) {
                     console.error('Error fetching data:', error);
                 }
@@ -110,20 +106,14 @@ function UserDashboard() {
                 <h1> Login to access this page</h1>
             ) : (
                 <div>
-                    <Navbar email={user.email} onClickLogout={handleLogout} />
+                    <Navbar email={user.email} onClickLogout={handleLogout} isFromForm={false} />
                     <div className='container'>
                         <div className='container'>
-                            <div className='row'>
-                                <div className='col-sm-6 published-draft-holder'>
-                                    <p> Publish {publishCount} Draft {draftCount}</p>
-
-                                </div>
-                                <div className='col-sm-6 new-site-div'>
-                                    <NavLink to="/form" >
-                                        <Button label='+ New site' className="new-site" />
-                                    </NavLink> </div>
-                            </div>
+                            <NavLink to="/form" >
+                                <ButtonColored label='+ New site' className="new-site" />
+                            </NavLink>
                         </div>
+
                         <div className='row'>
                             {data.map(item => (
                                 <div className='col-sm-4'>

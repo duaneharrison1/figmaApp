@@ -16,9 +16,9 @@ const CardView = (props) => {
                     <img src={cardView} alt="test" className="card-image" />
                 </a >
                 <div className="holder d-flex justify-content-between">
-                    <div>
-                        {isDraft == false ? <h1 className='site-title'> {siteTitle}</h1> : <h1 className='site-title-draft'> {siteTitle + " (Draft)"}</h1>}
-
+                    <div className='container d-flex'>
+                        <h1 className='site-title'> {siteTitle}</h1>
+                        {isDraft == "false" ? <h1 className='published'> Published</h1> : <h1 className='draft'> Draft</h1>}
                     </div>
                     <div>
                         <div className="dropdown">
