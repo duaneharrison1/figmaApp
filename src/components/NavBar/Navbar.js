@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react';
 import './Navbar.css';
-import PreviewSwitch from '../PreviewSwitch/PreviewSwitch';
-
+import ProfileIcon from '../../assets/images/profileicon.png';
+import { Link } from 'react-router-dom';
 
 export default function Navbar(props) {
     const handleSwitchChange = props.handleSwitchChange
@@ -22,8 +22,12 @@ export default function Navbar(props) {
                     <a class="navbar-brand">Your Library</a>
                 </div>
                 <div className="nav-item ml-auto">
-                    <div className='d-flex'>
+                    <div className='d-flex justify-content-center align-items-center'>
                         <a className="nav-link">{email}</a>
+                        <Link to="/profile" >
+                            <img src={ProfileIcon} alt="test" />
+                        </Link>
+
                         <div className="dropdown">
                             <button className="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <svg width="12" height="14" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">

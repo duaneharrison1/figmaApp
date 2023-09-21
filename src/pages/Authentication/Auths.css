@@ -6,26 +6,12 @@
     padding-top: 50px;
     background-color: white;
 }
-.nav-pills{
-    margin-top: 20px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    border-radius: 50px;
-}
+
 .nav-tabs {
     border: none;
 }
 
-.nav-pills .nav-link.active {
-    color: white;
-    background-color: #4D9F70 !important;
-}
 
-.nav-pills .nav-link {
-    color: #A0A0A0;
-    
-}
 
 .header-text {
     margin-top: 50px;

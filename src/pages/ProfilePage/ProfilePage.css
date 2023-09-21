@@ -1,5 +1,134 @@
 .profile-card {
-    border: 2px solid black; 
-    padding: 16px 16px 16px 16px;
-    border-radius: 16px;
+    border: 1px solid #DEDEDE;
+    padding: 24px 24px 24px 24px;
+    border-radius: 24px;
+}
+.profile-img-container {
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .outer {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 150px !important; /* any size */
+    max-height: 150px !important; /* any size */
+    margin: auto;
+    background-color: #6eafd4;
+    border-radius: 100%;
+    position: relative;
+    }
+    
+  .inner {
+    background-color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+  
+  .inner:hover {
+    background-color: grey;
+  }
+  .inputfile {
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: 1;
+      width: 50px;
+      height: 50px;
+  }
+  .inputfile + label {
+      font-size: 1.25rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: inline-block;
+      overflow: hidden;
+      width: 50px;
+      height: 50px;
+      pointer-events: none;
+      cursor: pointer;
+      line-height: 50px;
+      text-align: center;
+  }
+  .inputfile + label svg {
+      fill: #fff;
+  }
+
+  .security-container{
+    text-align: center;
+    margin-top: 24px;
+    border: 1px solid #DEDEDE;
+    padding: 24px 24px 24px 24px;
+    border-radius: 24px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+
+.change-password{
+    width: 40%;
+    padding: 12px 8px 12px 8px;
+    border-radius: 40px;
+    font-weight: 500;
+    border-color: #4D9F70;
+    color: #4D9F70;
+    background-color: white;
+}
+.profile-headers {
+    color: #000;
+
+font-size: 20px;
+font-style: normal;
+font-weight: 500;
+line-height: 150%;
+}
+
+.profile-sub-headers{
+    color: #000;
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 150%; 
+}
+
+.profile-values{
+    color: #000;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 150%;
+}
+
+.container-personal-information {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #DEDEDE;/* Adjust border width and color as needed */
+    padding-bottom: 16px;
+    margin-bottom: 32px;
+}
+.main-profile-container {
+    margin-top: 50px;
+}
+.profile-buttons-container{
+
+    display: flex;
+    flex-direction: row; /* Arrange items vertically */
+    justify-content: flex-end;
+}
+
+.edit-cancel-save-btn{
+    font-size: 16px;
+    width: 20%;
+    margin:0 10px 0 10px;
+    padding: 12px 24px;
+    border-radius: 40px;
+    font-weight: 500;
+    color: white;
+    border: none;
+    background-color: #4D9F70;
 }

@@ -9,11 +9,13 @@ import { signOut } from "firebase/auth";
 import ButtonColored from '../ButtonColored/ButtonColored';
 import TextField from '../../components/TextField/TextField.js';
 import './ChangePasswordModal.css'
-import SuccessModal from '../SuccessModal/SuccessModal';
+import SuccessCheck from '../../assets/images/success-check.png';
+import { NavLink, useNavigate, Link } from 'react-router-dom';
+
 const ChangePasswordModal = (props) => {
     const { show, handleClose } = props;
-    const [userId] = useAuthState(auth);
     const [user, setUser] = useState(null);
+    const [isChangePasswordSuccessful, setIsChangePasswordSuccessful] = useState(false);
     const [errorPassword, setErrorPassword] = useState(null);
     const [errorFirebase, setErrorFirebase] = useState(null);
     const id = props.id;
@@ -21,13 +23,19 @@ const ChangePasswordModal = (props) => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
     const isButtonActive = password && newPassword && confirmNewPassword;
-    const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
-    const handleShowModal = () => {
-        setShowChangePasswordModal(true);
-    };
 
-    const handleCloseModal = () => {
-        setShowChangePasswordModal(false);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            setUser(user);
+        });
+        return () => unsubscribe();
+    }, []);
+
+    const handleDelete = async () => {
+        navigate("/");
+        console.log("Signed out successfully")
     };
 
     useEffect(() => {
@@ -67,12 +75,12 @@ const ChangePasswordModal = (props) => {
                     await reauthenticateWithCredential(user, credential)
                     await updatePassword(user, confirmNewPassword);
                     signOut(auth).then(() => {
+                        setIsChangePasswordSuccessful(true)
                         console.log("Signed out successfully")
                     }).catch((error) => {
                         // An error happened.
                     });
                     console.log("successfull change")
-                    handleClose();
                 } catch (error) {
                     console.log(error.message);
 
@@ -92,54 +100,72 @@ const ChangePasswordModal = (props) => {
 
 
     return (
-        <Modal className='changepassword-modal' show={show} onHide={handleClose}>
-            <Modal.Body className='modal-body'>
-                <h1 className='delete-header'>Change password</h1>
-                <TextField
-                    formLabel='Current Password'
-                    className='input'
-                    id="password"
-                    name="password"
-                    type="password"
-                    placeholder="Enter your current password"
-                    onChange={handlePasswordChange} />
+        <>
+            {isChangePasswordSuccessful ? (
+                <Modal className='delete-modal' show={show} onHide={handleClose}>
+                    <Modal.Body className='modal-body'>
+                        <img src={SuccessCheck} />
+                        <h1 className='delete-header'> Password successfully reset</h1>
+                        <h2 className='delete-subheader'> Please log in again</h2>
+                        <ButtonColored className="btn-block" onClick={handleDelete} label="Login now" />
+                    </Modal.Body>
+                </Modal >
+            ) : (
+                < Modal className='changepassword-modal' show={show} onHide={handleClose} >
+                    <Modal.Body className='modal-body' >
+                        <h1 className='delete-header'>Change password</h1 >
+                        <TextField
+                            formLabel='Current Password'
+                            className='input'
+                            id="password"
+                            name="password"
+                            type="password"
+                            placeholder="Enter your current password"
+                            onChange={handlePasswordChange} />
 
-                {errorFirebase && < p className='error-message'>{errorFirebase}</p>}
+                        {errorFirebase && < p className='error-message'>{errorFirebase}</p>}
 
-                <TextField
-                    formLabel='New password'
-                    className='input'
-                    id="password"
-                    name="password"
-                    type="password"
-                    placeholder="Create your new password"
-                    onChange={handleNewPasswordChange} />
+                        <TextField
+                            formLabel='New password'
+                            className='input'
+                            id="password"
+                            name="password"
+                            type="password"
+                            placeholder="Create your new password"
+                            onChange={handleNewPasswordChange} />
 
-                <TextField
-                    formLabel='Verify new password'
-                    className='input'
-                    id="password"
-                    name="password"
-                    type="password"
-                    placeholder="Verify your new password"
-                    onChange={handleConfirmNewPasswordChange} />
-                {errorPassword && < p className='error-message'>{errorPassword}</p>}
-                {isButtonActive ?
-                    <ButtonColored
-                        label='Change password'
-                        className="btn-changepassword"
-                        onClick={handleChangePassword}
-                    />
-                    :
-                    <ButtonColored
-                        className="disabled-btn-changepassword"
-                        label='Change password'
-                        disabled
-                    />}
+                        <TextField
+                            formLabel='Verify new password'
+                            className='input'
+                            id="password"
+                            name="password"
+                            type="password"
+                            placeholder="Verify your new password"
+                            onChange={handleConfirmNewPasswordChange} />
+                        {errorPassword && < p className='error-message'>{errorPassword}</p>}
+                        {
+                            isButtonActive ?
+                                <ButtonColored
+                                    label='Change password'
+                                    className="btn-changepassword"
+                                    onClick={handleChangePassword}
+                                />
+                                :
+                                <ButtonColored
+                                    className="disabled-btn-changepassword"
+                                    label='Change password'
+                                    disabled
+                                />
+                        }
+                    </Modal.Body >
+                </Modal >
+            )}
 
-            </Modal.Body>
-        </Modal >
-    );
+        </>
+
+
+
+    )
 };
 
 export default ChangePasswordModal;

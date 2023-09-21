@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { useState, useEffect } from 'react';
 import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
@@ -59,9 +58,23 @@ function UserDashboard() {
                                 }
                             });
                         })
+
+                    // await getDocs(collection(db, "user", userId.uid, "profile"))
+                    //     .then((querySnapshot) => {
+                    //         const userProfile = querySnapshot.docs
+                    //             .map((doc) => ({ ...doc.data(), id: doc.id }));
+                    //         setData(userProfile);
+
+                    //         userProfile.forEach((value) => {
+                    //             console.log("aaa" + value)
+                    //         });
+                    //     })
+
                 } catch (error) {
                     console.error('Error fetching data:', error);
                 }
+
+
             }
             else {
                 console.log('No user data available');
