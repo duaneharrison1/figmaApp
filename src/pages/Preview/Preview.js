@@ -20,6 +20,8 @@ export default function Preview() {
     const [duplicate, setDuplicate] = useState('');
     const [randomurl, setRandomUrl] = useState('');
     const [user, setUser] = useState(null);
+
+    console.log("wewewew" + location.state.figmaDesktopUrl)
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setUser(user); // Set the user state
@@ -61,8 +63,22 @@ export default function Preview() {
     function editUrl(url) {
         const originalString = url;
         const wordToRemove = "https://";
+        const hideUi = "&hide-ui=1"
+        const embedHost = "www.figma.com/embed?embed_host=share&url=https%3A%2F%2F"
+        var newUrl = ""
         const modifiedString = removeWordFromString(originalString, wordToRemove);
-        const newUrl = "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2F" + modifiedString + "&hide-ui=1"
+        if (!modifiedString.includes(embedHost)) {
+            newUrl = "https://" + embedHost + modifiedString
+        } else {
+            newUrl = "https://" + modifiedString
+        }
+
+        if (!modifiedString.includes(hideUi)) {
+            newUrl = "https://" + embedHost + modifiedString + hideUi
+        } else {
+            newUrl = "https://" + modifiedString
+        }
+
         return newUrl
     }
 
@@ -107,7 +123,7 @@ export default function Preview() {
             setModalMessage("Update successful")
             console.log('Document updated successfully');
             if (location.state.isDraft == 'false') {
-                window.open('https://main--willowy-platypus-08dacb.netlify.app/' + location.state.generatedUrl, '_blank');
+                window.open('https://figmafolio.com/' + location.state.generatedUrl, '_blank');
             }
         } catch (error) {
             setShowModal(true);
@@ -135,7 +151,7 @@ export default function Preview() {
             addDoc(refAllUrl, urlData)
             setShowModal(true);
             setModalMessage("App saved")
-            window.open('https://main--willowy-platypus-08dacb.netlify.app/' + randomurl, '_blank');
+            window.open('https://figmafolio.com/' + randomurl, '_blank');
         } catch (err) {
             console.log(err)
             setShowModal(true);
