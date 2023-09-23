@@ -136,14 +136,15 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className='container guide-container'>
+          <div className='container guide-container-plan'>
             <h3 className='guide-one-header'>Plan</h3>
           </div>
 
         </div>
 
-        <Footer />
+
       </div >
+      <Footer />
     </>
   )
 

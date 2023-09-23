@@ -6,7 +6,7 @@ import SocialMediaIcons from '../SocialMediaIcon/SocialMediaIcon';
 export default function Footer() {
     return (
         <footer className="footer">
-            <div className="container">
+            <div className="container-fluid main-footer-container">
                 <div className="row">
                     <div className="col-md-4">
                         <h1 className='footer-figmafolio'> Figmafolio</h1>
@@ -25,5 +25,6 @@ export default function Footer() {
                 </div>
             </div>
         </footer>
+
     )
 }

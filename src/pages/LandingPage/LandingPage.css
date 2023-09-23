@@ -105,6 +105,10 @@
 .guide-container{
     margin: 50px 0 50px 0;
 }
+
+.guide-container-plan {
+    margin: 0;
+}
 .main-header{
     padding-top: 100px;
 }

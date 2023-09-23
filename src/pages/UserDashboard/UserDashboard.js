@@ -123,7 +123,9 @@ function UserDashboard() {
                     <div className='container'>
                         <div className='container'>
                             <NavLink to="/form" >
-                                <ButtonColored label='+ New site' className="new-site" />
+                                <ButtonColored label='+ New site' className="new-site" >
+
+                                </ButtonColored>
                             </NavLink>
                         </div>
 

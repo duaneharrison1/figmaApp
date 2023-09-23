@@ -15,7 +15,7 @@ export default function Navbar(props) {
         <nav className="navbar navbar-light custom-navbar">
             <div className='container main-nav-container'>
                 {!isFromForm ? (<a className="navbar-brand" href="/"> Figmafolio</a>)
-                    : (<a className=" back-to-library" href="/dashboard"> &lt; Back to your library </a>)}
+                    : (<a className="back-to-library" href="/dashboard"> &lt; Back to your library </a>)}
 
                 <div className="navbar-center">
 
@@ -24,8 +24,9 @@ export default function Navbar(props) {
                 <div className="nav-item ml-auto">
                     <div className='d-flex justify-content-center align-items-center'>
                         <a className="nav-link">{email}</a>
+
                         <Link to="/profile" >
-                            <img src={ProfileIcon} alt="test" />
+                            <img src={ProfileIcon} alt="test" className='nav-avatar-icon' />
                         </Link>
 
                         <div className="dropdown">
