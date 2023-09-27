@@ -83,7 +83,7 @@ export default function EditForm() {
                                                 <input
                                                     className='input'
                                                     type="text"
-                                                    placeholder='Title'
+                                                    placeholder='Enter your site name'
                                                     value={title}
                                                     onChange={handleTitle} />
                                             </div>
@@ -91,7 +91,7 @@ export default function EditForm() {
                                         </div>
 
                                         <div className='row second-div'>
-                                            <div className='col-md-6 '>
+                                            <div className='col-6 align-items-start'>
                                                 <h1 className='form-sub-header'>Free domain</h1>
                                                 <p>Duane/Figmafolio.com </p>
                                             </div>
@@ -102,6 +102,9 @@ export default function EditForm() {
                                                     type="text"
                                                     placeholder='Custom domain'
                                                 />
+                                                <p className='note'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                    <path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#424242" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                </svg> You have to upgrade plan to have Custom domain</p>
                                                 <ButtonClear label='Upgrade plan' className="upgrade-plan" />
                                             </div>
                                         </div>
@@ -109,7 +112,9 @@ export default function EditForm() {
 
                                     <div className='container second-div'>
                                         <h1 className='form-title'>Enter figma prototype links</h1>
-                                        <p> <InfoCircle /> You should hide hide hotspot hints by selecting the Options menu in the prototype of Figma for a better experience</p>
+                                        <p className='note'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#424242" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg> You should hide hide hotspot hints by selecting the Options menu in the prototype of Figma for a better experience</p>
                                     </div>
 
                                     <div className="container">

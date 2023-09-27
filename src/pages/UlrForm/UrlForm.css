@@ -19,6 +19,7 @@ h1 ,h2 {
 }
 
 .form-sub-header {
+    padding-top:24px;
     font-size: 16px;
     font-weight: 500;
 }
@@ -43,9 +44,6 @@ h1 ,h2 {
     padding-top: 50px;
 }
 
-.second-div{
-    padding: 50px 0 50px 0;
-}
 
 .container .url-form{
     margin: 16px 16px 16px 16px;
@@ -53,6 +51,17 @@ h1 ,h2 {
 }
 
 .preview-btn-container {
+    padding-top: 48px;
     text-align: center;
-    margin-bottom: 24px;
+    padding-bottom: 40px;
+}
+.note{
+color: #424242;
+font-size: 14px;
+font-style: normal;
+font-weight: 500;
+}
+
+.second-div {
+    padding-bottom: 48px;
 }
