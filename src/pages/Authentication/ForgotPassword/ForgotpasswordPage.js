@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { auth } from '../../../firebase';
 import { sendPasswordResetEmail } from "firebase/auth"
@@ -7,9 +7,11 @@ import './ForgotpasswordPage.css';
 import '../Auths.css';
 import SideFrame from '../../../components/SideFrame/SideFrame';
 
-
-
 export default function ForgotpasswordPage() {
+    const [userIsDesktop, setUserIsDesktop] = useState(true);
+    useEffect(() => {
+        window.innerWidth > 1280 ? setUserIsDesktop(true) : setUserIsDesktop(false);
+    }, [userIsDesktop]);
 
     const [email, setEmail] = useState("");
     const [resetEmailSent, setResetEmailSent] = useState(false);
@@ -31,37 +33,69 @@ export default function ForgotpasswordPage() {
     };
 
     return (<>
-        <div className='container'>
 
-            <div className='row'>
-                <div className='col-6 tab-view'>
-                    <h1 className='header-text'>Welcome to Figmafolio</h1>
-                    {resetEmailSent ? (
-                        <p>An email with a password reset link has been sent to your email address.</p>
-                    ) : (<div className='container forgot-password-form'>
-                        <form onSubmit={handleResetPassword}>
-                            <input
-                                className='input'
-                                type="email"
-                                placeholder="Enter your email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                            />
-                            {error && < p className='error-message'>{error}</p>}
-                            <ButtonColored label='Reset Password' type="submit" className='btn-block' />
-                        </form>
+        {!userIsDesktop ? (
+            <div className='container'>
+                < div className='container mobile-main-auth-container'>
+                    <h1 className='mobile-header-text'>Figmafolio</h1>
+                    <div className='mobile-card'>
+                        <h1 className='header-text'>Welcome to Figmafolio</h1>
+                        {resetEmailSent ? (
+                            <p>An email with a password reset link has been sent to your email address.</p>
+                        ) : (<div className='container forgot-password-form'>
+                            <form onSubmit={handleResetPassword}>
+                                <input
+                                    className='input'
+                                    type="email"
+                                    placeholder="Enter your email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
+                                {error && < p className='error-message'>{error}</p>}
+                                <ButtonColored label='Reset Password' type="submit" className='btn-block' />
+                            </form>
+                        </div>
+                        )}
                     </div>
-                    )}
-                </div>
-
-                <div className='col-6'>
-                    <SideFrame />
                 </div>
             </div>
-        </div>
 
+        ) :
+            (
+                <div className='container'>
+                    <div className='row'>
+                        <div className='col-6 tab-view'>
+                            <h1 className='header-text'>Welcome to Figmafolio</h1>
+                            {resetEmailSent ? (
+                                <p>An email with a password reset link has been sent to your email address.</p>
+                            ) : (<div className='container forgot-password-form'>
+                                <form onSubmit={handleResetPassword}>
+                                    <input
+                                        className='input'
+                                        type="email"
+                                        placeholder="Enter your email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        required
+                                    />
+                                    {error && < p className='error-message'>{error}</p>}
+                                    <ButtonColored label='Reset Password' type="submit" className='btn-block' />
+                                </form>
+                            </div>
+                            )}
+                        </div>
+
+                        <div className='col-6'>
+                            <SideFrame />
+                        </div>
+                    </div>
+                </div>
+            )}
 
     </>
     )
 }
+
+
+

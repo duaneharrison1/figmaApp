@@ -98,24 +98,32 @@ export default function LandingPage() {
           </div>
 
           <div className='container guide-container'>
-            <div className='container-fluid header-guid-container'>
-              <div className='container second-guide d-flex align-items-center'>
+            <div className='container-fluid'>
 
-                <div class="circular-background">
-                  <div class="step-text">2</div>
+              <div className='row'>
+                <div className='col-4 wew'>
+                  <div className="circular-background">
+                    <div className="step-text">2</div>
+                  </div>
                 </div>
-                <div className='container'>
-                  <h3 className='guide-one-header '>Custome domain and website title</h3>
-                  <h4 className='guide-one-subheader '> You are free to create your website name and domain!</h4>
+                <div className='col-8'>
+                  <div className='container-fluid guide-two'>
+                    <h3 className='guide-two-header '>Custome domain and website title</h3>
+                    <h4 className='guide-two-subheader '> You are free to create your website name and domain!</h4>
+                  </div>
                 </div>
+
+
               </div>
-            </div>
 
-            <div className='img-container'>
-              <img src={stepTwo} className='step-one-img' />
+
             </div>
           </div>
 
+
+          {/* <div className='img-container'>
+            <img src={stepTwo} className='step-one-img' />
+          </div> */}
           <div className='container guide-container'>
             <div className='container header-guid-container'>
               <div className='circular-container'>
