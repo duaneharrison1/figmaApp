@@ -23,3 +23,15 @@
 .nav-avatar-icon {
     padding-left: 8px;
 }
+
+
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 12px  !important;
+        font-weight: 700;
+    }
+    .center-title{
+        font-size: 14px  !important;
+    }
+    
+  }

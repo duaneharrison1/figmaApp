@@ -14,12 +14,11 @@ export default function Navbar(props) {
 
         <nav className="navbar navbar-light custom-navbar">
             <div className='container main-nav-container'>
-                {!isFromForm ? (<a className="navbar-brand" href="/"> Figmafolio</a>)
+                {!isFromForm ? (<a className="navbar-brand mb-0" href="/"> Figmafolio</a>)
                     : (<a className="back-to-library" href="/dashboard"> &lt; Back to your library </a>)}
 
                 <div className="navbar-center">
-
-                    <a class="navbar-brand">Your Library</a>
+                    <a class="navbar-brand center-title">Your Library</a>
                 </div>
                 <div className="nav-item ml-auto">
                     <div className='d-flex justify-content-center align-items-center'>
