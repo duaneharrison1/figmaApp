@@ -68,3 +68,13 @@
 .dropdown-menu>li>a:active {
   background-color: none;
 }
+
+.figmaThumbnail{
+  border-radius: 16px;
+  width: 388px;
+  height: 208px;
+}
+.dashboard-figma-view{
+  border-radius: 16px;
+  pointer-events: none;
+}

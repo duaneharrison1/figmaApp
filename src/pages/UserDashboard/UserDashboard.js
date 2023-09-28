@@ -141,7 +141,7 @@ function UserDashboard() {
                         <div className='row'>
                             {data.map(item => (
                                 <div className='col-sm-4'>
-                                    <CardView siteTitle={item.title} url={item.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item)} />
+                                    <CardView figmaMobileUrl={item.urls.figmaMobileUrl} figmaDesktopUrl={item.urls.figmaDesktopUrl} siteTitle={item.title} url={item.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item)} />
                                     <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} />
                                 </div>
                             ))}

@@ -15,7 +15,7 @@ import ButtonClear from '../../components/ButtonClear/ButtonClear';
 export default function EditForm() {
     const navigate = useNavigate();
     const location = useLocation();
-    const [figmaDesktopUrl, setDesktopCustomUrl] = useState(location.state.object.urls.figmaMobileUrl);
+    const [figmaDesktopUrl, setDesktopCustomUrl] = useState(location.state.object.urls.figmaDesktopUrl);
     const [figmaMobileUrl, setfigmaMobileUrl] = useState(location.state.object.urls.figmaMobileUrl);
     const [isDraft, setIsDraft] = useState(location.state.object.urls.isDraft);
     const [generatedUrl, setgeneratedUrl] = useState(location.state.object.generatedUrl);

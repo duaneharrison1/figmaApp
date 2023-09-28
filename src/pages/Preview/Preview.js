@@ -67,18 +67,27 @@ export default function Preview() {
         const embedHost = "www.figma.com/embed?embed_host=share&url=https%3A%2F%2F"
         var newUrl = ""
         const modifiedString = removeWordFromString(originalString, wordToRemove);
-        if (!modifiedString.includes(embedHost)) {
-            newUrl = "https://" + embedHost + modifiedString
-        } else {
-            newUrl = "https://" + modifiedString
-        }
+        if (url != '') {
+            console.log("wentherev1")
+            if (!modifiedString.includes(embedHost)) {
+                newUrl = "https://" + embedHost + modifiedString
+                console.log("wentherev2")
+            } else {
+                newUrl = "https://" + modifiedString
+                console.log("wentherev3")
+            }
 
-        if (!modifiedString.includes(hideUi)) {
-            newUrl = "https://" + embedHost + modifiedString + hideUi
+            if (!modifiedString.includes(hideUi)) {
+                newUrl = "https://" + embedHost + modifiedString + hideUi
+                console.log("wentherev4")
+            } else {
+                newUrl = "https://" + modifiedString
+                console.log("wentherev5")
+            }
         } else {
-            newUrl = "https://" + modifiedString
+            newUrl = ""
         }
-
+        console.log("wentherev6" + newUrl)
         return newUrl
     }
 
@@ -133,6 +142,7 @@ export default function Preview() {
     };
 
     const handleSaveV2 = async () => {
+        console.log(editUrl(location.state.figmaDesktopUrl))
         const ref = collection(db, "user", userId.uid, "url")
         const refAllUrl = collection(db, "url")
 
@@ -247,16 +257,13 @@ export default function Preview() {
                     </nav >
 
                     <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
-                    <div className='container'>
+                    <iframe
 
-                        {isMobile ? <h1>Mobile</h1> : <h1> Desktop</h1>}
-                        <iframe
+                        src={isMobile ? editUrl(location.state.figmaMobileUrl) : editUrl(location.state.figmaDesktopUrl)}
+                        allowFullScreen
+                        style={{ width: '100%', height: '100vh' }}
+                        className='figma_view'></iframe>
 
-                            src={isMobile ? editUrl(location.state.figmaMobileUrl) : editUrl(location.state.figmaDesktopUrl)}
-                            allowFullScreen
-                            style={{ width: '100%', height: '100vh' }}
-                            className='figma_view'></iframe>
-                    </div>
                     <Footer />
                 </div>
             )
