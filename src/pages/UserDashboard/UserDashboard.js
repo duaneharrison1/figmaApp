@@ -10,7 +10,7 @@ import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import DeleteModal from '../../components/DeleteModal/DeleteModal';
 import './UserDashboard.css';
 import Navbar from '../../components/NavBar/Navbar';
-import urlMetadata from 'url-metadata';
+
 
 function UserDashboard() {
     const [userIsDesktop, setUserIsDesktop] = useState(true);
