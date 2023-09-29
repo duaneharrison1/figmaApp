@@ -22,12 +22,12 @@ function DynamicPage({ url }) {
   console.log("wew2" + url.urls.figmaMobileUrl);
 
   return (
-    <div>{isMobile ? <p>Mobile View</p> : <p>Desktop View</p>}
-      <iframe
-        src={isMobile ? url.urls.figmaMobileUrl : url.urls.figmaDesktopUrl}
-        allowFullScreen
-        style={{ width: '100%', height: '100vh' }}
-        className='figma_view'></iframe> </div>
+
+    <iframe
+      src={isMobile ? url.urls.figmaMobileUrl : url.urls.figmaDesktopUrl}
+      allowFullScreen
+      style={{ width: '100%', height: '100vh' }}
+      className='figma_view'></iframe>
 
   );
 }
