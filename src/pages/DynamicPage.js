@@ -11,31 +11,22 @@ function DynamicPage({ url }) {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-
-
     handleResize();
-
-
     window.addEventListener('resize', handleResize);
-
-
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
 
-
   console.log("wew1" + url.urls.figmaDesktopUrl);
   console.log("wew2" + url.urls.figmaMobileUrl);
-
-  { isMobile ? <p>Mobile View</p> : <p>Desktop View</p> }
 
   return (
     <div>{isMobile ? <p>Mobile View</p> : <p>Desktop View</p>}
       <iframe
         src={isMobile ? url.urls.figmaMobileUrl : url.urls.figmaDesktopUrl}
         allowFullScreen
-        style={{ width: '100vh', height: '100vh' }}
+        style={{ width: '100%', height: '100vh' }}
         className='figma_view'></iframe> </div>
 
   );
