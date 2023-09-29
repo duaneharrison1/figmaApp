@@ -1,18 +1,15 @@
 import React from 'react';
-import { Facebook, Twitter, Instagram } from 'react-bootstrap-icons';
 import './SocialMediaIcon.css';
+import Linkedin from '../../assets/images/Linkedin.png';
+import Facebook from '../../assets/images/Facebook.png';
+import Twitter from '../../assets/images/Twitter.png';
 export default function SocialMediaIcons() {
     return (
-        <div className="flex-container">
-            <a href="https://www.facebook.com/yourpage">
-                <Facebook className="icon" />
-            </a>
-            <a href="https://twitter.com/yourpage">
-                <Twitter className="icon" />
-            </a>
-            <a href="https://www.instagram.com/yourpage">
-                <Instagram className="icon " />
-            </a>
+        <div className="flex-container icon-container">
+
+            <img className='icon-img' src={Linkedin} />
+            <img className='icon-img' src={Facebook} />
+            <img className='icon-img' src={Twitter} />
         </div>
     );
 }

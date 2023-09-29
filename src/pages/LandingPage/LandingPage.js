@@ -31,6 +31,7 @@ export default function LandingPage() {
   useEffect(() => {
     window.innerWidth > 1280 ? setUserIsDesktop(true) : setUserIsDesktop(false);
   }, [userIsDesktop]);
+
   return (
     <>
 
