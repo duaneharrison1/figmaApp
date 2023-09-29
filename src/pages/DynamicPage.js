@@ -31,11 +31,13 @@ function DynamicPage({ url }) {
   { isMobile ? <p>Mobile View</p> : <p>Desktop View</p> }
 
   return (
-    <iframe
-      src={isMobile ? url.urls.figmaMobileUrl : url.urls.figmaDesktopUrl}
-      allowFullScreen
-      style={{ width: '100vh', height: '100vh' }}
-      className='figma_view'></iframe>
+    <div>{isMobile ? <p>Mobile View</p> : <p>Desktop View</p>}
+      <iframe
+        src={isMobile ? url.urls.figmaMobileUrl : url.urls.figmaDesktopUrl}
+        allowFullScreen
+        style={{ width: '100vh', height: '100vh' }}
+        className='figma_view'></iframe> </div>
+
   );
 }
 
