@@ -66,7 +66,7 @@ export default function LandingPage() {
             <h1 className='landing-subheader'> No coding required</h1>
             <h1 className='landing-sec-subheader'>With our platform, you can effortlessly combine your desktop and mobile prototypes created in Figma into a cohesive showcase, all under your own custom URL. Ditch the hassle of separate links and enjoy a seamless browsing experience on both desktop and mobile devices.</h1>
 
-            <ButtonColored className="start-for-free-btn" label='Start for Free &rarr;' />
+            <ButtonColored className="start-for-free-btn" label='Start for Free' />
             <ButtonClear className="guide-btn" label='Guide &darr;' />
 
             <img className="landing-page-img" src={landing_page} />
