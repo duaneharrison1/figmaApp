@@ -10,3 +10,7 @@
 position: absolute;
     bottom: 0;
 }
+
+.dashboard-view{
+    padding: 40px 120px;
+}

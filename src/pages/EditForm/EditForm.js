@@ -20,6 +20,7 @@ export default function EditForm() {
     const [isDraft, setIsDraft] = useState(location.state.object.urls.isDraft);
     const [generatedUrl, setgeneratedUrl] = useState(location.state.object.generatedUrl);
     const [title, setTitle] = useState(location.state.object.title);
+    const [domain, setDomain] = useState(location.state.object.generatedUrl);
     const user = auth.currentUser;
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
@@ -81,7 +82,7 @@ export default function EditForm() {
                                                 <h1 className='form-title'>General</h1>
                                                 <h2 className='form-sub-header'>Site Title</h2>
                                                 <input
-                                                    className='input'
+                                                    className='form-input'
                                                     type="text"
                                                     placeholder='Enter your site name'
                                                     value={title}
@@ -93,7 +94,7 @@ export default function EditForm() {
                                         <div className='row second-div'>
                                             <div className='col-6 align-items-start'>
                                                 <h1 className='form-sub-header'>Free domain</h1>
-                                                <p>Duane/Figmafolio.com </p>
+                                                <p> figmafolio.com/{domain} </p>
                                             </div>
                                             <div className='col-md-6'>
                                                 <h2 className='form-sub-header'>Custom domain</h2>

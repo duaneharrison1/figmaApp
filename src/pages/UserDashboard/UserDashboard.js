@@ -129,8 +129,8 @@ function UserDashboard() {
             ) : (
                 <div>
                     <Navbar email={user.email} onClickLogout={handleLogout} isFromForm={false} />
-                    <div className='container'>
-                        <div className='container'>
+                    <div className='dashboard-view'>
+                        <div>
                             <NavLink to="/form" >
                                 <ButtonColored label='+ New site' className="new-site" >
 

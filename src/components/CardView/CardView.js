@@ -22,7 +22,7 @@ const CardView = (props) => {
         <>
             <div className="card">
                 <a href={url} target="_blank">
-                    <div className='container figmaThumbnail'>
+                    <div className='figmaThumbnail'>
                         <iframe
                             src={figmaDesktopUrl}
                             allowFullScreen

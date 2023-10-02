@@ -1,7 +1,16 @@
 .main-landing-page {
+    margin: 0px;
+    padding: 0px;
     background-color: #f1ece2;
 }
+.navbar-container{
+  
+    padding: 36px 120px 0px 120px;
+}
 
+.page-content-container {
+    padding: 0px 120px 0px 120px;
+}
 .main-container {
     padding: 0 150px 0 150px;
     font-family: 'Poppins', sans-serif;
@@ -79,6 +88,7 @@
 }
 
 .guide-one-header{
+    text-align: start;
     padding: 0px 0 24px 0;
     font-weight: 700;
     font-size: 40px;
@@ -149,6 +159,11 @@ text-align: end;
 .button-container {
     display: flex;
 }
+.step-one{
+    height: 62px;
+    width: 62px;
+    
+ }
 
 .login-link {
     width: 100%;
@@ -177,7 +192,20 @@ text-decoration: none;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 5%;
+}
+.circle-img-container-two{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: end;
+}
+.landing-page-img{
+    padding: 24px 24px 39px 24px ;
+    width: 100%;
+}
+.landing-page-guide-container{
+    padding: 0px 120px 0px 120px;
 }
 /* MOBILE VIEW */
 
@@ -186,6 +214,26 @@ text-decoration: none;
 }
 
 @media only screen and (max-width: 1280px) {
+
+    .login-link {
+        padding: 4px 12px;
+        font-family: Poppins;
+        font-size: 16px;
+        font-style: normal;
+        color:#2D2B29 ;
+        font-weight: 600;
+        border-radius: 40px;
+        border: 1px solid #2D2B29;
+    }
+    .navbar-container{
+        
+        padding: 29px 24px 0px 24px;
+    }
+
+    .figmalio{
+    padding-top: 6px;
+        font-size: 16px;
+    }
     .landing-header{
         padding: 48px 24px 16px 24px;
         font-weight: 700;
