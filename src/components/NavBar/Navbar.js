@@ -14,15 +14,15 @@ export default function Navbar(props) {
 
         <nav className="custom-navbar">
             <div className="row">
-                <div className="col-sm">
-                    {!isFromForm ? (<a className="navbar-brand" href="/"> Figmafolio</a>)
+                <div className="col-sm d-flex  align-items-center">
+                    {!isFromForm ? (<a className="nav-title" href="/"> Figmafolio</a>)
                         : (<a className="back-to-library" href="/dashboard"> &lt; Back to your library </a>)}
                 </div>
-                <div className="col-sm text-center">
-                    <a className="navbar-brand">Your Library</a>
+                <div className="col-sm d-flex align-items-center justify-content-center">
+                    <a className="nav-title">Your Library</a>
                 </div>
                 <div className="col-sm">
-                    <div className='d-flex justify-content-end '>
+                    <div className='d-flex justify-content-end align-items-center'>
                         <a className="nav-link">{email}</a>
                         <Link to="/profile" >
                             <img src={ProfileIcon} alt="test" className='nav-avatar-icon' />
