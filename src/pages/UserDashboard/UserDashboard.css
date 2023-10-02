@@ -14,3 +14,10 @@ position: absolute;
 .dashboard-view{
     padding: 40px 120px;
 }
+
+
+@media only screen and (max-width: 1280px) {
+    .dashboard-view{
+        padding: 24px 24px;
+    }
+}
