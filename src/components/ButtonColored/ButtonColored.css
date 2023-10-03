@@ -118,7 +118,6 @@
 
 .signup-btn{
     font-size: 20px;
-    margin: 10px;
     width: 150px;
     padding: 12px 20px;
     border-radius: 40px;
@@ -165,7 +164,16 @@
         border: none;
         background-color: #4D9F70;
     }
-    
+    .signup-btn{
+        font-size: 16px;
+        width: 100%;
+        padding: 4px 12px;
+        border-radius: 40px;
+        font-weight: 700;
+        color: white;
+        border: none;
+        background-color: #4D9F70;
+    }
     .preview-btn {
         width: 85%;
         margin-top: 0;

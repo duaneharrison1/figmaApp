@@ -19,12 +19,20 @@
 .nav-bar {
     padding: 20px;
 }
-.figmalio {
-    padding-top: 20px;
+.figmalio-logged {
+    padding-top: 12px;
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
     font-size: 29px;
 }
+
+.figmalio-guest{
+    padding-top: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 29px;
+}
+
 .header-container {
     text-align: center;
     margin-top: 50px;
@@ -167,9 +175,10 @@ text-align: end;
  }
 
 .login-link {
-    width: 100%;
-    padding-top: 24px;
-    color: #4D9F70;
+width: 100%;
+padding-top: 12px;
+margin-right: 20px;
+color: #4D9F70;
 text-align: center;
 font-family: Poppins;
 font-size: 20px;
@@ -215,6 +224,22 @@ text-decoration: none;
 }
 
 @media only screen and (max-width: 1280px) {
+    .login-link {
+        width: 100%;
+        padding-top: 12px;
+        margin: 0px;
+        color: #4D9F70;
+        text-align: center;
+        font-family: Poppins;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        text-decoration: none;
+        }
+    .button-container {
+        display: flex;
+        justify-content: end;
+    }
 
     .login-link {
         padding: 4px 12px;
@@ -231,10 +256,16 @@ text-decoration: none;
         padding: 29px 24px 0px 24px;
     }
 
-    .figmalio{
-    padding-top: 30px;
+    .figmalio-guest{
+    padding-top: 8px;
         font-size: 16px;
     }
+
+    .figmalio-logged{
+        padding-top: 8px;
+            font-size: 16px;
+        }
+
     .landing-header{
         padding: 48px 24px 16px 24px;
         font-weight: 700;

@@ -42,9 +42,13 @@ export default function LandingPage() {
           <div className='navbar-container'>
             <div class="row">
               <div class="col m-0 p-0">
-                <h4 className='figmalio'> Figmafolio</h4 >
+                {user ?
+                  <h4 className='figmalio-logged'> Figmafolio</h4 >
+                  :
+                  <h4 className='figmalio-guest'> Figmafolio</h4 >
+                }
               </div>
-              <div class="col m-0 p-0 ">
+              <div class="col m-0 p-0">
                 {user ?
                   <div className="button-container">
                     <Link to="/dashboard" >
@@ -52,7 +56,7 @@ export default function LandingPage() {
                     </Link>
                   </div>
                   :
-                  <div className="button-container ">
+                  <div className="button-container">
                     <Link to="/auth" className='login-link' state={{ "name": "tab1" }}>Sign in/ Sign up</Link>
                   </div>
                 }
@@ -134,7 +138,11 @@ export default function LandingPage() {
           <div className='navbar-container'>
             <div className="row">
               <div className="col-sm-8">
-                <h4 className='figmalio'> Figmafolio</h4 >
+                {user ?
+                  <h4 className='figmalio-logged'> Figmafolio</h4 >
+                  :
+                  <h4 className='figmalio-guest'> Figmafolio</h4 >
+                }
               </div >
               <div className="col-sm-4 d-flex justify-content-end">
                 {user ?
