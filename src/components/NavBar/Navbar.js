@@ -15,9 +15,13 @@ export default function Navbar(props) {
         <nav className="custom-navbar">
             <div className="row">
                 <div className="col d-flex  align-items-center">
-                    {!isFromForm ? (<a className="nav-title" href="/"> Figmafolio</a>)
-                        : (<a className="back-to-library" href="/dashboard"> &lt; Back to your library </a>)}
+                    {!isFromForm ? (
+                        <a className="nav-title" href="/"> Figmafolio</a>
+                    )
+                        : (
+                            <a className="back-to-library" href="/dashboard"> &lt; Back to your library </a>)}
                 </div>
+
                 <div className="col d-flex align-items-center justify-content-center">
                     <a className="nav-title">Your Library</a>
                 </div>

@@ -1,7 +1,6 @@
 .form {
     background-color: #F2EFE5;
     padding: 24px 120px;
-    border-radius: 16px;
 }
 
 h1 ,h2 {
@@ -80,4 +79,27 @@ font-weight: 500;
 
 .second-div {
     padding-bottom: 48px;
+}
+
+@media only screen and (max-width: 1280px) {
+    .form {
+        background-color: #F2EFE5;
+        padding: 24px 24px;
+
+    }
+    
+    .preview-btn-container {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+    
+    .form-container{
+        margin: 0px 24px;
+    }
+
+    .url-form{
+        margin: 0;
+        padding-top: 24px;
+    }
+    
 }

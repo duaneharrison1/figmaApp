@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, addDoc, Timestamp, deleteDoc, updateDoc } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
 import { signOut } from "firebase/auth";
-import { useNavigate, useParams, Link } from 'react-router-dom';
+import { useNavigate, useParams, Link, useLocation } from 'react-router-dom';
 import './UrlForm.css';
 import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import ButtonClear from '../../components/ButtonClear/ButtonClear';
@@ -11,6 +11,7 @@ import Navbar from '../../components/NavBar/Navbar';
 
 export default function UrlForm() {
     const navigate = useNavigate();
+    const location = useLocation();
     const [figmaDesktopUrl, setDesktopCustomUrl] = useState('');
     const [figmaMobileUrl, setfigmaMobileUrl] = useState('');
     const [generatedUrl, setGeneratedUrl] = useState('');
@@ -46,7 +47,7 @@ export default function UrlForm() {
         <>
             <Navbar email={user.email} onClickLogout={handleLogout} isFromForm={true} />
             <div className='form'>
-                <div className="card url-form">
+                <div className="url-form">
                     <form onSubmit={goToPreview}>
                         <div className='form-container'>
 
@@ -131,7 +132,7 @@ export default function UrlForm() {
                             </div>
                         </div>
 
-                        <div className='container preview-btn-container'>
+                        <div className='preview-btn-container'>
                             <ButtonColored className="preview-btn" label="Preview" />
                         </div>
 

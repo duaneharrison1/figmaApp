@@ -23,6 +23,7 @@ function UserDashboard() {
 
     const navigate = useNavigate();
     const [data, setData] = useState([]);
+    const [profile, setProfile] = useState([]);
     const [userId] = useAuthState(auth);
     const [user, setUser] = useState(null);
     const [showModal, setShowModal] = useState(false);
@@ -68,16 +69,13 @@ function UserDashboard() {
                             });
                         })
 
-                    // await getDocs(collection(db, "user", userId.uid, "profile"))
-                    //     .then((querySnapshot) => {
-                    //         const userProfile = querySnapshot.docs
-                    //             .map((doc) => ({ ...doc.data(), id: doc.id }));
-                    //         setData(userProfile);
-
-                    //         userProfile.forEach((value) => {
-                    //             console.log("aaa" + value)
-                    //         });
-                    //     })
+                    await getDocs(collection(db, "user", userId.uid, "profile"))
+                        .then((querySnapshot) => {
+                            const userProfile = querySnapshot.docs
+                                .map((doc) => ({ ...doc.data(), id: doc.id }));
+                            setProfile(userProfile);
+                            console.log("wwwww" + userProfile)
+                        })
 
                 } catch (error) {
                     console.error('Error fetching data:', error);
@@ -117,10 +115,14 @@ function UserDashboard() {
         });
     }
 
-    const goToEdit = (object) => {
-        navigate('/editform', { state: { object } });
+    const goToEdit = (object, profile) => {
+        navigate('/editform', { state: { object, profile } });
     }
 
+    const goToNewForm = (profile) => {
+        // navigate('/form', { state: { profile } });
+        navigate('/form');
+    }
 
     return (
         <>
@@ -128,20 +130,22 @@ function UserDashboard() {
                 <h1> Login to access this page</h1>
             ) : (
                 <div>
-                    <Navbar email={user.email} onClickLogout={handleLogout} isFromForm={false} />
+                    {profile.map(profile => (
+                        < Navbar email={profile.name} onClickLogout={handleLogout} isFromForm={false} />
+                    ))}
                     <div className='dashboard-view'>
                         <div>
-                            <NavLink to="/form" >
-                                <ButtonColored label='+ New site' className="new-site" >
 
-                                </ButtonColored>
-                            </NavLink>
+                            <ButtonColored label='+ New site' className="new-site" onClick={goToNewForm}>
+
+                            </ButtonColored>
+
                         </div>
 
                         <div className='row'>
                             {data.map(item => (
                                 <div className='col-sm-4'>
-                                    <CardView figmaMobileUrl={item.urls.figmaMobileUrl} figmaDesktopUrl={item.urls.figmaDesktopUrl} siteTitle={item.title} url={item.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item)} />
+                                    <CardView figmaMobileUrl={item.urls.figmaMobileUrl} figmaDesktopUrl={item.urls.figmaDesktopUrl} siteTitle={item.title} url={item.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item, profile)} />
                                     <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} />
                                 </div>
                             ))}
