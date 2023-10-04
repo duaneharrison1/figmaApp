@@ -126,35 +126,30 @@ function UserDashboard() {
 
     return (
         <>
-            {!user ? (
-                <h1> Login to access this page</h1>
-            ) : (
-                <div>
-                    {profile.map(profile => (
-                        < Navbar email={profile.name} onClickLogout={handleLogout} isFromForm={false} />
-                    ))}
-                    <div className='dashboard-view'>
-                        <div>
 
-                            <ButtonColored label='+ New site' className="new-site" onClick={goToNewForm}>
+            <div>
+                {profile.map(profile => (
+                    < Navbar email={profile.name} onClickLogout={handleLogout} isFromForm={false} />
+                ))}
+                <div className='dashboard-view'>
+                    <div>
 
-                            </ButtonColored>
+                        <ButtonColored label='+ New site' className="new-site" onClick={goToNewForm}>
 
-                        </div>
+                        </ButtonColored>
 
-                        <div className='row'>
-                            {data.map(item => (
-                                <div className='col-sm-4'>
-                                    <CardView figmaMobileUrl={item.urls.figmaMobileUrl} figmaDesktopUrl={item.urls.figmaDesktopUrl} siteTitle={item.title} url={item.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item, profile)} />
-                                    <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} />
-                                </div>
-                            ))}
-                        </div>
-                    </div >
-                </div>
-            )
-            }
+                    </div>
 
+                    <div className='row'>
+                        {data.map(item => (
+                            <div className='col-sm-4'>
+                                <CardView figmaMobileUrl={item.urls.figmaMobileUrl} figmaDesktopUrl={item.urls.figmaDesktopUrl} siteTitle={item.title} url={item.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item, profile)} />
+                                <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} />
+                            </div>
+                        ))}
+                    </div>
+                </div >
+            </div>
 
         </>
     );

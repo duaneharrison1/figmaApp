@@ -232,7 +232,7 @@ export default function Preview() {
                 <div>
                     {!userIsDesktop ? (
                         <div>
-                            <div className=" mobile-nav-container">
+                            <div className=" mobile-nav-container m-0">
                                 <div className="row">
                                     <div className="col m-0 p-0">
                                         <a className="back-to-library" href="/dashboard"> &lt; Back to dashboard</a>
@@ -279,7 +279,7 @@ export default function Preview() {
                         <div>
 
 
-                            <div class="row nav-container">
+                            <div class="row nav-container  m-0 ">
                                 <div class="col m-0 p-0">
                                     <a className="back-to-library" href="/dashboard"> &lt; Back to dashboard</a>
                                 </div>
