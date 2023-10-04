@@ -36,14 +36,15 @@
 }
 
 .save-as-draft{   
-    margin: 10px;
-    width: 167px;
-    padding: 12px 24px;
-    border-radius: 40px;
-    font-weight: 700;
-    border-color: #4D9F70;
-    color: #4D9F70;
-    background-color: white;
+        margin: 0;
+       
+        padding: 8px 24px;
+        border-radius: 40px;
+        border:solid;
+        font-weight: 700;
+        border-color: #4D9F70;
+        color: #4D9F70;
+        background-color: white;
 }
 
 .guide-btn{
@@ -73,6 +74,19 @@
         border-color: #4D9F70;
         color: #4D9F70;
         background-color: transparent;
+    }
+
+
+    .save-as-draft{   
+        margin: 0;
+        width: 100%;
+        padding: 8px 24px;
+        border-radius: 40px;
+        border:solid;
+        font-weight: 700;
+        border-color: #4D9F70;
+        color: #4D9F70;
+        background-color: white;
     }
      
 }

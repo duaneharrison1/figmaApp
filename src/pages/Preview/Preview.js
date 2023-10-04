@@ -21,6 +21,13 @@ export default function Preview() {
     const [randomurl, setRandomUrl] = useState('');
     const [user, setUser] = useState(null);
 
+
+    const [userIsDesktop, setUserIsDesktop] = useState(true);
+    useEffect(() => {
+        window.innerWidth > 1280 ? setUserIsDesktop(true) : setUserIsDesktop(false);
+    }, [userIsDesktop]);
+
+
     console.log("wewewew" + location.state.figmaDesktopUrl)
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -211,6 +218,10 @@ export default function Preview() {
         });
     }
 
+    useEffect(() => {
+        window.scrollTo(0, 0); // Scroll to the top of the page
+    }, []);
+
     return (
         <>
 
@@ -219,52 +230,100 @@ export default function Preview() {
 
             ) : (
                 <div>
-                    <nav className="navbar navbar-light custom-navbar">
-                        <div className='container'>
-                            <a className=" back-to-library" href="/dashboard"> &lt; Back to dashboard</a>
-                            <div className="navbar-center">
-                                <div container="preview-switch-container">
-                                    <h1 className='preview-switch-header'>Preview</h1>
-                                    <div className='switch-container'>
-                                        <p className='desktop-mobile-label'>Desktop</p>
-                                        <div className='container'>
-                                            <Form.Check
-                                                className='form-switch'
-                                                type="switch"
-                                                id="custom-switch"
-                                                checked={isMobile}
-                                                onChange={handleSwitchChange}
-                                            />
+                    {!userIsDesktop ? (
+                        <div>
+                            <div className=" mobile-nav-container">
+                                <div className="row">
+                                    <div className="col m-0 p-0">
+                                        <a className="back-to-library" href="/dashboard"> &lt; Back to dashboard</a>
+                                    </div>
+                                    <div className="col m-0 p-0">
+                                        <div className='switch-container'>
+                                            <p className='desktop-mobile-label'>Desktop</p>
+                                            <div className='form-switch-container'>
+                                                <Form.Check
+                                                    className='form-switch'
+                                                    type="switch"
+                                                    id="custom-switch"
+                                                    checked={isMobile}
+                                                    onChange={handleSwitchChange}
+                                                />
+                                            </div>
+                                            <p className='desktop-mobile-label'> Mobile</p>
                                         </div>
-                                        <p className='desktop-mobile-label'> Mobile</p>
                                     </div>
                                 </div>
                             </div>
-                            <div className="nav-item ml-auto">
 
-                                < div className='draft-publish-container'>
-                                    <ButtonClear className="save-as-draft" label='Save as Draft' onClick={location.state.fromEdit === true ? handleUpdate : handleDraft} />
-                                    {location.state.fromEdit === true ? (
-                                        <ButtonColored className="update-btn" label='Update' onClick={handleUpdate} />) :
-                                        (
-                                            <ButtonColored className="update-btn" label='Publish' onClick={handleSaveV2} />
-                                        )}
-                                </div >
+                            <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
+                            <iframe
+                                src={isMobile ? editUrl(location.state.figmaMobileUrl) : editUrl(location.state.figmaDesktopUrl)}
+                                allowFullScreen
+                                style={{ width: '100%', height: '100vh' }}
+                                className='figma_view'>
+                            </iframe>
+
+                            <div className='mobile-button-container'>
+
+                                <ButtonClear className="save-as-draft" label='Save as Draft' onClick={location.state.fromEdit === true ? handleUpdate : handleDraft} />
+
+                                {location.state.fromEdit === true ? (
+                                    <ButtonColored className="update-btn" label='Update' onClick={handleUpdate} />) :
+                                    (
+                                        <ButtonColored className="update-btn" label='Publish' onClick={handleSaveV2} />
+                                    )}
 
                             </div>
-                        </div>
+                        </div >
+                    ) : (
+                        <div>
 
-                    </nav >
 
-                    <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
-                    <iframe
+                            <div class="row nav-container">
+                                <div class="col m-0 p-0">
+                                    <a className="back-to-library" href="/dashboard"> &lt; Back to dashboard</a>
+                                </div>
+                                <div class="col m-0 p-0 ">
+                                    <div className='switch-container'>
+                                        <div container="preview-switch-container">
+                                            <h1 className='preview-switch-header'>Preview</h1>
+                                            <div className='switch-container'>
+                                                <p className='desktop-mobile-label'>Desktop</p>
+                                                <div className='container'>
+                                                    <Form.Check
+                                                        className='form-switch'
+                                                        type="switch"
+                                                        id="custom-switch"
+                                                        checked={isMobile}
+                                                        onChange={handleSwitchChange}
+                                                    />
+                                                </div>
+                                                <p className='desktop-mobile-label'> Mobile</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col m-0 p-0">
+                                    < div className='draft-publish-container'>
+                                        <ButtonClear className="save-as-draft" label='Save as Draft' onClick={location.state.fromEdit === true ? handleUpdate : handleDraft} />
+                                        {location.state.fromEdit === true ? (
+                                            <ButtonColored className="update-btn" label='Update' onClick={handleUpdate} />) :
+                                            (
+                                                <ButtonColored className="update-btn" label='Publish' onClick={handleSaveV2} />
+                                            )}
+                                    </div >
+                                </div>
+                            </div>
 
-                        src={isMobile ? editUrl(location.state.figmaMobileUrl) : editUrl(location.state.figmaDesktopUrl)}
-                        allowFullScreen
-                        style={{ width: '100%', height: '100vh' }}
-                        className='figma_view'></iframe>
-
-                    <Footer />
+                            <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
+                            <iframe
+                                src={isMobile ? editUrl(location.state.figmaMobileUrl) : editUrl(location.state.figmaDesktopUrl)}
+                                allowFullScreen
+                                style={{ width: '100%', height: '100vh' }}
+                                className='figma_view'></iframe>
+                        </div >
+                    )
+                    }
                 </div>
             )
             }
