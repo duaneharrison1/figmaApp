@@ -1,78 +1,119 @@
 import React, { useState, useEffect } from 'react';
-import { db, auth, storage } from '../../firebase';
+import { db, auth, storage, upload, useAuth } from '../../firebase';
 import { Modal } from 'react-bootstrap';
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+
+
 import { useDropzone } from 'react-dropzone';
 import './UploadImage.css'
 import ButtonColored from '../ButtonColored/ButtonColored';
 const DragAndDropImageUpload = (props) => {
     const { show, handleClose } = props;
-    const [user, setUser] = useState(null);
     const [imgUrl, setImgUrl] = useState(null);
-    const [progresspercent, setProgresspercent] = useState(0);
     const userId = auth.currentUser;
+    const currentUser = useAuth();
 
-    // const handleDrop = async (e) => {
-    //     console.log("wewew" + userId)
-    //     e.preventDefault();
-    //     const file = e.target[0]?.files[0]
 
-    //     console.log(file)
-
-    //     if (!file) return;
-
-    //     const storageRef = ref(storage, `files/${userId / file}`);
-    //     const uploadTask = uploadBytesResumable(storageRef, file);
-
-    //     uploadTask.on("state_changed",
-    //         (snapshot) => {
-    //             const progress =
-    //                 Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-    //             setProgresspercent(progress);
-    //         },
-    //         (error) => {
-    //             alert(error);
-    //         },
-    //         () => {
-    //             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-    //                 setImgUrl(downloadURL)
-    //             });
-    //         }
-    //     );
-    // };
-
-    const [uploadedImage, setUploadedImage] = useState(null);
-
-    const onDrop = async (e) => {
+    const handleSubmit = (e) => {
+        e.preventDefault()
         const file = e.target[0]?.files[0]
-        console.log("wewew" + userId)
-        const storageRef = ref(storage, `files/${userId.uid + ".jpg"}`);
+        setImgUrl(e.target[0]?.files[0])
+        if (!file) return;
 
+        const storageRef = ref(storage, `files/${userId.uid}/${userId.uid}.${file.name.split('.').pop()}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
 
         uploadTask.on("state_changed",
             (snapshot) => {
-                const progress =
-                    Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-                setProgresspercent(progress);
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    console.log("success")
+                });
             },
             (error) => {
                 alert(error);
             },
-            () => {
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    setImgUrl(downloadURL)
-                });
-            }
+
         );
-    };
+    }
 
-    const { getRootProps, getInputProps } = useDropzone({ onDrop });
+    function handleClick() {
+        upload(imgUrl, currentUser);
+    }
+    // const onDrop = async (acceptedFiles) => {
+    //     const selectedImage = acceptedFiles.target.files[0];
+    //     setImage(selectedImage);
+    // };
 
+    // const uploadImage = async () => {
+    //     if (!image) return;
+
+    //     setUploading(true);
+
+    //     try {
+    //         const storageRef = ref(storage, `files/wew.jpg`);
+    //         const uploadTask = uploadBytesResumable(storageRef, file);
+    //         uploadTask.on("state_changed",
+    //             (snapshot) => {
+    //                 const progress =
+    //                     Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+    //                 setProgresspercent(progress);
+    //             },
+    //             (error) => {
+    //                 alert(error);
+    //             },
+
+    //             () => {
+    //                 console.log("success")
+    //                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+    //                     setImgUrl(downloadURL)
+    //                 });
+    //             }
+    //         );
+    //     } catch (error) {
+    //         console.error('Error uploading image:', error);
+    //     }
+
+    //     setUploading(false);
+    // };
+
+    // const { getRootProps, getInputProps } = useDropzone({
+    //     onDrop, accept: 'image/*', // Allow only image files
+    //     multiple: false,
+    // });
+    function handleChange(e) {
+        if (e.target.files[0]) {
+            setImgUrl(e.target.files[0])
+        }
+    }
     return (
         <Modal className='upload-image-modal' show={show} onHide={handleClose}>
             <Modal.Body className='modal-body'>
-                <h1> Change avatar</h1>
+                <div className="fields">
+                    <input type="file" onChange={handleChange} />
+                    <button onClick={handleClick}>Upload</button>
+
+                </div>
+                {/* <form onSubmit={handleClick} className='form'>
+                    <input type='file' />
+                    <button type='submit'>Upload</button>
+                </form> */}
+                {/* <div>
+                    <div {...getRootProps()}>
+                        <input {...getInputProps()} />
+                        <p>Drag & drop an image here, or click to select one</p>
+                    </div>
+                    {image && (
+                        <div>
+                            <h2>Selected Image:</h2>
+                            <img src={URL.createObjectURL(image)} alt="Selected" />
+                            <button onClick={uploadImage} disabled={uploading}>
+                                {uploading ? 'Uploading...' : 'Upload Image'}
+                            </button>
+                        </div>
+                    )}
+                </div> */}
+
+                {/* <h1> Change avatar</h1>
                 <div className="drag-drop-container">
 
                     <div {...getRootProps()} className="dropzone">
@@ -85,28 +126,11 @@ const DragAndDropImageUpload = (props) => {
                             </div>
                         )}
                         <p>Drag & drop or</p>
-                        <ButtonColored className="btn-upload-image" onClick={onDrop} label="Upload Image" />
-
-                    </div>
+                        {/* <ButtonColored className="btn-upload-image" onClick={onDrop} label="Upload Image" /> */}
 
 
-                    {/* <form onSubmit={handleDrop} className='form'>
-                        <input type='file' />
-                        <button type='submit'>Upload</button>
-                    </form>
-                    {
-                        !imgUrl &&
-                        <div className='outerbar'>
-                            <div className='innerbar' style={{ width: `${progresspercent}%` }}>{progresspercent}%</div>
-                        </div>
-                    }
-                    {
-                        imgUrl &&
-                        <img src={imgUrl} alt='uploaded file' height={200} />
-                    } */}
-                </div>
 
-            </Modal.Body>
+            </Modal.Body >
         </Modal >
 
 

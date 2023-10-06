@@ -1,15 +1,25 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from "../../firebase";
 import './Navbar.css';
 import ProfileIcon from '../../assets/images/profileicon.png';
 import { Link } from 'react-router-dom';
 
 export default function Navbar(props) {
+    const currentUser = useAuth();
     const handleSwitchChange = props.handleSwitchChange
     const onClickLogout = props.onClickLogout
     const email = props.email
     const isFromForm = props.isFromForm
-    const [weatherData, setWeatherData] = useState([]);
+    const [photoURL, setPhotoURL] = useState();
+
+
+    useEffect(() => {
+        if (currentUser?.photoURL) {
+            setPhotoURL(currentUser.photoURL);
+        }
+    }, [currentUser])
+
     return (
 
         <nav className="custom-navbar">
@@ -31,7 +41,9 @@ export default function Navbar(props) {
 
                     <a className="username">{email}</a>
                     <Link to="/profile" >
-                        <img src={ProfileIcon} alt="test" className='nav-avatar-icon' />
+
+                        <img src={!photoURL ? ProfileIcon : photoURL} alt="Avatar" className="nav-avatar-icon" />
+
                     </Link>
 
                     <div className="dropdown">

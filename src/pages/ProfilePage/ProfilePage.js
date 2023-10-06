@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { collection, addDoc, Timestamp, deleteDoc, updateDoc } from 'firebase/firestore'
-import { db, auth } from '../../firebase';
+import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc } from 'firebase/firestore'
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { db, auth, useAuth } from '../../firebase';
 import { signOut } from "firebase/auth";
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import ButtonColored from '../../components/ButtonColored/ButtonColored';
@@ -11,19 +12,60 @@ import Navbar from '../../components/NavBar/Navbar';
 import ChangePasswordModal from '../../components/ChangePasswordModal/ChangePasswordModal';
 import SuccessModal from '../../components/SuccessModal/SuccessModal';
 import UploadImage from '../../components/UploadImage/UploadImage';
+import ProfileIcon from '../../assets/images/profileicon.png'
 
 export default function ProfilePage() {
     const navigate = useNavigate();
-    const user = auth.currentUser;
     const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
     const [showUploadImageModal, setShowUploadImageModal] = useState(false);
     const [showSuccessModal, setshowSuccessModal] = useState(false);
-    const [image, setImage] = useState(null);
+    const [user, setUser] = useState(null);
+    const [profile, setProfile] = useState([]);
+    const [photoURL, setPhotoURL] = useState();
+    const currentUser = useAuth();
 
-    const handleImageChange = (e) => {
-        const selectedImage = e.target.files[0];
-        setImage(selectedImage);
-    };
+    const userEmail = auth.currentUser;
+    useEffect(() => {
+        if (currentUser?.photoURL) {
+            setPhotoURL(currentUser.photoURL);
+        }
+    }, [currentUser])
+
+
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            setUser(user); // Set the user state
+        });
+        return () => unsubscribe(); // Clean up the listener when component unmounts
+    }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (user) {
+                try {
+
+
+                    await getDocs(collection(db, "user", user.uid, "profile"))
+                        .then((querySnapshot) => {
+                            const userProfile = querySnapshot.docs
+                                .map((doc) => ({ ...doc.data(), id: doc.id }));
+                            setProfile(userProfile);
+                            console.log('userProfile', userProfile);
+                            console.log('Profile', profile);
+                        })
+
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                }
+
+
+            }
+            else {
+                console.log('No user data available');
+            }
+        };
+        fetchData();
+    }, [user, profile]);
 
     const handleUpload = () => {
         console.log("Click")
@@ -43,9 +85,6 @@ export default function ProfilePage() {
         setShowChangePasswordModal(false);
     };
 
-    const handleSuccessCloseModal = () => {
-        setshowSuccessModal(false);
-    };
 
     const handleLogout = () => {
         signOut(auth).then(() => {
@@ -58,14 +97,25 @@ export default function ProfilePage() {
     }
 
 
+
+
+
     return (
         <>
-            <Navbar onClickLogout={handleLogout} isFromForm={false} />
+            {!profile ?
+                < Navbar email={" "} onClickLogout={handleLogout} isFromForm={false} />
+                :
+                <div>
+                    {profile.map(profile => (
+                        < Navbar email={profile.name} onClickLogout={handleLogout} isFromForm={false} />
+                    ))}
+                </div>
+            }
             <div className='container main-profile-container'>
                 <div className="row">
                     <div className="col-4">
                         <div className="profile-img-container">
-                            <div className="outer">
+                            <div className="outer" style={{ backgroundImage: `url(${!photoURL ? ProfileIcon : photoURL})` }}>
                                 <div className="inner" onClick={handleUpload}>
                                     <label>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -84,7 +134,7 @@ export default function ProfilePage() {
                                 </div>
                                 <div className='container profile-buttons-container'>
                                     <ButtonColored label='Edit' className="edit-cancel-save-btn" />
-                                    <ButtonColored label='Edit' className="edit-cancel-save-btn" />
+                                    {/* <ButtonColored label='Edit' className="edit-cancel-save-btn" /> */}
                                     {/* <ButtonColored label='Cancel' className="new-site" />
                                     <ButtonClear label='Save' className="change-password" /> */}
                                 </div>
@@ -94,11 +144,25 @@ export default function ProfilePage() {
                                 <div className='row'>
                                     <div className='col-sm-6'>
                                         <h1 className='profile-sub-headers'>Name</h1>
-                                        <h1 className='profile-values'>Duane</h1>
+                                        {profile.map(profile => (
+                                            <input
+                                                className='form-input'
+                                                type="text"
+                                                placeholder='Custom Desktop Url'
+                                                value={!profile ? "" : profile.name}
+                                                disabled
+                                            />
+                                        ))}
                                     </div>
                                     <div className='col-sm-6'>
                                         <h1 className='profile-sub-headers'>Email</h1>
-                                        <h1 className='profile-values' >duane@gmail.com</h1>
+                                        <input
+                                            className='form-input'
+                                            type="text"
+                                            placeholder='Custom Desktop Url'
+                                            value={!userEmail ? "" : userEmail.email}
+                                            disabled
+                                        />
                                     </div>
                                 </div>
                             </div>

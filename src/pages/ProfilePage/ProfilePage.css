@@ -75,6 +75,7 @@
     padding: 12px 8px 12px 8px;
     border-radius: 40px;
     font-weight: 500;
+    border: solid;
     border-color: #4D9F70;
     color: #4D9F70;
     background-color: white;
@@ -123,7 +124,6 @@ line-height: 150%;
 
 .edit-cancel-save-btn{
     font-size: 16px;
-    width: 20%;
     margin:0 10px 0 10px;
     padding: 12px 24px;
     border-radius: 40px;

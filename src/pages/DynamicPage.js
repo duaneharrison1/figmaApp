@@ -5,6 +5,8 @@ import { collection, getDocs } from "firebase/firestore";
 import { db, auth } from '../firebase';
 
 function DynamicPage({ url }) {
+
+  document.title = url.title;
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {

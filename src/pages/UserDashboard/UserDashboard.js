@@ -24,7 +24,6 @@ function UserDashboard() {
     const navigate = useNavigate();
     const [data, setData] = useState([]);
     const [profile, setProfile] = useState([]);
-    const [userId] = useAuthState(auth);
     const [user, setUser] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [draftCount, setDraftCount] = useState(0);
@@ -49,10 +48,10 @@ function UserDashboard() {
         const fetchData = async () => {
             if (user) {
                 try {
-                    const user = auth.currentUser;
+
                     var publish = 0;
                     var draft = 0
-                    await getDocs(collection(db, "user", userId.uid, "url"))
+                    await getDocs(collection(db, "user", user.uid, "url"))
                         .then((querySnapshot) => {
 
                             const newData = querySnapshot.docs
@@ -69,12 +68,13 @@ function UserDashboard() {
                             });
                         })
 
-                    await getDocs(collection(db, "user", userId.uid, "profile"))
+                    await getDocs(collection(db, "user", user.uid, "profile"))
                         .then((querySnapshot) => {
                             const userProfile = querySnapshot.docs
                                 .map((doc) => ({ ...doc.data(), id: doc.id }));
                             setProfile(userProfile);
-                            console.log("wwwww" + userProfile)
+                            console.log('userProfile', userProfile);
+                            console.log('Profile', profile);
                         })
 
                 } catch (error) {
@@ -88,7 +88,7 @@ function UserDashboard() {
             }
         };
         fetchData();
-    }, [user, draftCount, publishCount]);
+    }, [user, draftCount, publishCount, profile]);
 
 
 
@@ -119,23 +119,30 @@ function UserDashboard() {
         navigate('/editform', { state: { object, profile } });
     }
 
-    const goToNewForm = (profile) => {
-        // navigate('/form', { state: { profile } });
+    const goToNewForm = () => {
         navigate('/form');
+        // navigate('/form', { state: { profile } });
     }
 
     return (
         <>
 
             <div>
-                {profile.map(profile => (
-                    < Navbar email={profile.name} onClickLogout={handleLogout} isFromForm={false} />
-                ))}
+
+                {!profile ?
+                    < Navbar email={" "} onClickLogout={handleLogout} isFromForm={false} />
+                    :
+                    <div>
+                        {profile.map(profile => (
+                            < Navbar email={profile.name} onClickLogout={handleLogout} isFromForm={false} />
+                        ))}
+                    </div>
+                }
+
                 <div className='dashboard-view'>
                     <div>
 
                         <ButtonColored label='+ New site' className="new-site" onClick={goToNewForm}>
-
                         </ButtonColored>
 
                     </div>
@@ -149,7 +156,7 @@ function UserDashboard() {
                         ))}
                     </div>
                 </div >
-            </div>
+            </div >
 
         </>
     );

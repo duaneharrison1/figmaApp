@@ -1,6 +1,6 @@
 .side-frame {
     padding-top: 50px;
-    height: 100%;
+    
     text-align: center;
     background-color: #F2EFE5;
     background-repeat: no-repeat;
@@ -17,4 +17,10 @@
     font-weight: 700;
     font-size: 20px;
     color: #9A8742;
+}
+.sideframe_img{
+    width: 100%;
+    height: 100%;
+    padding:72px 93px 53px 93px;
+ 
 }

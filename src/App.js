@@ -13,7 +13,7 @@ import { db, auth } from './firebase';
 import ForgotPassword from './pages/Authentication/ForgotPassword/ForgotpasswordPage';
 import Preview from './pages/Preview/Preview.js';
 import Mainauth from './pages/Authentication/MainAuth';
-import ChangePassword from './pages/ChangePassword/ChangePassword';
+
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 
 
@@ -30,6 +30,7 @@ function App() {
     return () => unsubscribe(); // Clean up the listener when component unmounts
   }, []);
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -42,7 +43,6 @@ function App() {
         console.error('Error fetching data:', error);
       }
     };
-
     fetchData();
   }, []);
 
@@ -58,7 +58,6 @@ function App() {
         <Route path="/preview" element={<Preview />} />
         <Route path="/auth" element={<Mainauth />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
-        <Route path="/changepassword" element={<ChangePassword />} />
         <Route path="/profile" element={<ProfilePage />} />
         {data.map((item) => (
           < Route path={`/${item.generatedUrl}`} element={<DynamicPage url={item} />} />
