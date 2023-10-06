@@ -48,6 +48,9 @@
     margin-top:131px;
 }
 
+.dynamic_view_figma_view{
+    margin-top:0px;
+}
 
 .form-check-input, .form-check-input:checked {
 background-color: #4D9F70 !important;

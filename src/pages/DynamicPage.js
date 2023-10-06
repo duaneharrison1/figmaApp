@@ -29,7 +29,7 @@ function DynamicPage({ url }) {
       src={isMobile ? url.urls.figmaMobileUrl : url.urls.figmaDesktopUrl}
       allowFullScreen
       style={{ width: '100%', height: '100vh' }}
-      className='figma_view'></iframe>
+      className='dynamic_view_figma_view'></iframe>
 
   );
 }
