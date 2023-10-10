@@ -20,13 +20,13 @@ const CardView = (props) => {
 
     return (
         <>
-            <div className="card">
+            <div className="card preview-card">
                 <a href={url} target="_blank">
                     <div className='figmaThumbnail'>
                         <iframe
                             src={figmaDesktopUrl}
                             allowFullScreen
-                            style={{ width: '100%', height: '100%' }}
+
                             className='dashboard-figma-view'></iframe>
                     </div>
                     {/* <img src={cardView} alt="test" className="card-image" /> */}

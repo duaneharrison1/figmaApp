@@ -74,7 +74,7 @@
     align-self: center
   }
 .btn_column {
-    padding: 50px 0 50px 0;
+    padding: 56px 0 50px 0;
 }
 
 .landing-header{
@@ -92,21 +92,21 @@
 
 .landing-sec-subheader{
     padding: 18px 0 18px 0;
-    font-size: 16px;
+    font-size: 25px;
     font-weight: 400;
 }
 
 .guide-one-header{
     text-align: start;
-    padding: 0px 0 24px 0;
+    
     font-weight: 700;
     font-size: 40px;
 }
 
 .guide-one-subheader{
-    padding: 0px 0 24px 0;
+    padding: 46px 0 0px 0;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 26px;
 }
 
 
@@ -130,10 +130,12 @@ text-align: end;
 .step-one-img{
    
     object-fit: contain;
-    width: 67%;
-    padding: 20px 0 20px 0;
+    width: 100%;
+   
 }
-
+.guide-container-version-two {
+    margin-bottom: 300px;
+}
 .guide-container{
     margin: 50px 0 50px 0;
 }
@@ -211,11 +213,11 @@ text-decoration: none;
     align-items: end;
 }
 .landing-page-img{
-    padding: 24px 24px 39px 24px ;
+   
     width: 100%;
 }
 .landing-page-guide-container{
-    padding: 0px 120px 0px 120px;
+    padding: 300px 120px 0px 120px;
 }
 /* MOBILE VIEW */
 
