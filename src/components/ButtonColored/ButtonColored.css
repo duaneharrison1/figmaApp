@@ -130,6 +130,16 @@ padding: 0px 8px 0px 8px;
     background-color: #4D9F70;
 }
 
+.gotoapp{
+    font-size: 20px;
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 40px;
+    font-weight: 700;
+    color: white;
+    border: none;
+    background-color: #4D9F70;
+}
 /* MOBILE VIEW */
 @media only screen and (max-width: 1280px) {
     .start-for-free-btn{

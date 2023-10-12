@@ -2,7 +2,7 @@
     width: 100%;
     position: fixed;
     padding: 24px 120px;
-    background-color: #f1ece2;
+    background-color: #F8F6F0;
     display: flex;
 
     top: 0;
@@ -68,14 +68,14 @@ border-color: #4D9F70 !important;
         right: 0;
         width: 100%;
         position: fixed;
-        background-color: #f1ece2;
+        background-color: #F8F6F0;
      
     }
 
  
     
     .mobile-button-container {
-        background-color: #f1ece2;
+        background-color: #F8F6F0;
         display: flex;
         column-gap: 24px;
         padding: 24px 24px;

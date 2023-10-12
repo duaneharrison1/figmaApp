@@ -58,7 +58,7 @@ export default function LandingPage() {
               {user ?
                 <div className="button-container">
                   <Link to="/dashboard" >
-                    <ButtonColored className="signup-btn" label='Go to app' />
+                    <ButtonColored className="gotoapp" label='Go to app' />
                   </Link>
                 </div>
                 :
