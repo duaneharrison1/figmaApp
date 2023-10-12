@@ -45,7 +45,7 @@ export default function UrlForm() {
 
     return (
         <>
-            <Navbar email={user.email} onClickLogout={handleLogout} isFromForm={true} />
+            <Navbar className={"urlForm"} email={user.email} onClickLogout={handleLogout} isFromForm={true} />
             <div className='form'>
                 <div className="url-form">
                     <form onSubmit={goToPreview}>

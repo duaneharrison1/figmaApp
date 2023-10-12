@@ -130,11 +130,11 @@ function UserDashboard() {
             <div>
 
                 {!profile ?
-                    < Navbar email={" "} onClickLogout={handleLogout} isFromForm={false} />
+                    < Navbar className={"dashboardNavBar"} email={" "} onClickLogout={handleLogout} isFromForm={false} />
                     :
                     <div>
                         {profile.map(profile => (
-                            < Navbar email={profile.name} onClickLogout={handleLogout} isFromForm={false} />
+                            < Navbar className={"dashboardNavBar"} email={profile.name} onClickLogout={handleLogout} isFromForm={false} />
                         ))}
                     </div>
                 }

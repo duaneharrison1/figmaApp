@@ -10,6 +10,7 @@ export default function Navbar(props) {
     const handleSwitchChange = props.handleSwitchChange
     const onClickLogout = props.onClickLogout
     const email = props.email
+    const className = props.className
     const isFromForm = props.isFromForm
     const [photoURL, setPhotoURL] = useState();
 
@@ -22,7 +23,7 @@ export default function Navbar(props) {
 
     return (
 
-        <nav className="custom-navbar">
+        <nav className={className}>
             <div className="row">
                 <div className="col d-flex  align-items-center">
                     {!isFromForm ? (

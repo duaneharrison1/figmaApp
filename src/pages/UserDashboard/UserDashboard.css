@@ -12,7 +12,7 @@ position: absolute;
 }
 
 .dashboard-view{
-    background-color: #F8F6F0 ;
+    background-color:var(--neutral-white, #FFF);
     padding: 40px 120px;
 }
 
