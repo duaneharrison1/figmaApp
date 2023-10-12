@@ -78,7 +78,7 @@
     align-self: center
   }
 .btn_column {
-    padding: 56px 0 50px 0;
+    padding: 56px 0px 0px 0px;
 }
 
 .landing-header{
@@ -217,7 +217,7 @@ text-decoration: none;
 }
 .landing-page-guide-container{
     max-width: 1200px !important;
-    padding: 183px 0px 0px 0px;
+    padding: 161px 0px 0px 0px;
     margin: 0 auto;
 }
 /* MOBILE VIEW */
