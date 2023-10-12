@@ -69,11 +69,11 @@ export default function EditForm() {
     return (
         <>
             {!profile ?
-                < Navbar email={" "} onClickLogout={handleLogout} isFromForm={true} />
+                < Navbar className={"urlForm"} email={" "} onClickLogout={handleLogout} isFromForm={true} />
                 :
                 <div>
                     {profile.map(profile => (
-                        < Navbar email={profile.name} onClickLogout={handleLogout} isFromForm={true} />
+                        < Navbar className={"urlForm"} email={profile.name} onClickLogout={handleLogout} isFromForm={true} />
                     ))}
                 </div>
             }
