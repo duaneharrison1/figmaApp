@@ -9,7 +9,7 @@ import guideThree from './../../assets/images/guide_three_image.png';
 import one from './../../assets/images/one.png';
 import two from './../../assets/images/two.png';
 import three from './../../assets/images/three.png';
-import stepTwo from './../../assets/images/stepTwo.png';
+
 import stepThree from './../../assets/images/stepThree.png';
 import Footer from '../../components/Footer/Footer';
 import { NavLink, useNavigate, Link } from 'react-router-dom';
@@ -17,6 +17,8 @@ import { auth } from '../../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import ButtonClear from '../../components/ButtonClear/ButtonClear';
+import ButtonStartForFree from '../../components/ButtonStartForFree/ButtonStrartForFree';
+import ButtonGuide from '../../components/ButtonGuide/ButtonGuide';
 export default function LandingPage() {
   const divGuide = useRef(null);
   const navigate = useNavigate();
@@ -83,9 +85,11 @@ export default function LandingPage() {
               <div className='row btn_column  '>
                 <div className='col-md-10 m-0 p-0'>
                   <Link to="/auth" state={{ "name": "tab2" }} >
-                    <ButtonColored className="start-for-free-btn-second" label='Start for Free &darr;' />
+                    <ButtonStartForFree className="start-for-free-btn-second" label='Start for Free' />
+
                   </Link>
-                  <ButtonClear onClick={scrollToDiv} className="guide-btn" label='Guide &darr;' />
+                  <ButtonGuide onClick={scrollToDiv} className="guide-btn" label='Guide' />
+
                 </div>
               </div>
 
