@@ -106,7 +106,7 @@ export default function LandingPage() {
             <div className='col-md-6 col-md-push-6 order-2'>
               <img src={guideOne} className='step-one-img' />
             </div>
-            <div className='col-md-6 col-md-pull-6 order-1 guide-details'>
+            <div className='col-md-6 col-md-pull-6 order-1 guide-details' ref={divGuide}>
               <div className='row'>
                 <div className='col-2 guide-number '>
                   <img src={one} className='step-one' />
