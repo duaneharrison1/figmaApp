@@ -32,31 +32,17 @@ export default function MainAuth(props) {
     }, []);
 
 
-    return (<>
+    return (
 
-        {user ? (<Navigate to="/dashboard" />) : (
-            <div>
-                {!userIsDesktop ? (
+        <div className='main-auth-container m-0 p-0'>
 
-                    < div className='container mobile-main-auth-container'>
-                        <h1 className='mobile-header-text'>Figmafolio</h1>
-                        <div className='mobile-card'>
-                            <h1 className='header-text'>Welcome to Figmafolio</h1>
-                            <Tabs className='nav-pills' defaultActiveKey={tab[0]} id="tabs">
-                                <Tab eventKey="tab1" title="Log in">
-                                    <LoginPage />
-                                </Tab>
-                                <Tab eventKey="tab2" title="Sign up">
-                                    <SignUpPage />
-                                </Tab>
-                            </Tabs>
-                        </div>
-                    </div >
+            {user ? (<Navigate to="/dashboard" />) : (
+                <div>
+                    {!userIsDesktop ? (
 
-                ) : (
-                    < div className='container main-auth-container'>
-                        <div className='row'>
-                            <div className='col-6 tab-view'>
+                        < div className='container mobile-main-auth-container'>
+                            <h1 className='mobile-header-text'>Figmafolio</h1>
+                            <div className='mobile-card'>
                                 <h1 className='header-text'>Welcome to Figmafolio</h1>
                                 <Tabs className='nav-pills' defaultActiveKey={tab[0]} id="tabs">
                                     <Tab eventKey="tab1" title="Log in">
@@ -67,21 +53,40 @@ export default function MainAuth(props) {
                                     </Tab>
                                 </Tabs>
                             </div>
+                        </div >
 
-                            <div className='col-6' >
-                                <SideFrame />
+                    ) : (
+                        < div className='container main-auth-container'>
+
+                            <div className='row'>
+
+                                <div className='col-6 tab-view'>
+                                    <h1 className='main-title'>Figmafolio</h1>
+                                    <h1 className='header-text'>Welcome to Figmafolio</h1>
+                                    <Tabs className='nav-pills' defaultActiveKey={tab[0]} id="tabs">
+                                        <Tab eventKey="tab1" title="Log in">
+                                            <LoginPage />
+                                        </Tab>
+                                        <Tab eventKey="tab2" title="Sign up">
+                                            <SignUpPage />
+                                        </Tab>
+                                    </Tabs>
+                                </div>
+
+                                <div className='col-6 sideframe-view' >
+                                    <SideFrame />
+                                </div>
                             </div>
-                        </div>
-                    </div >
+                        </div >
 
-                )}
-            </div >
-
+                    )}
+                </div >
 
 
-        )
-        }
 
-    </>
+            )
+            }
+
+        </div>
     )
 }

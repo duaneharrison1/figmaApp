@@ -2,8 +2,16 @@
     background-color: white;
 }
 
+.main-title {
+    padding-top: 48px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+}
+
 .tab-view {
-    padding-top: 50px;
+   
+    padding-bottom: 251px;
     background-color: white;
 }
 
@@ -11,13 +19,6 @@
     border: none;
 }
 
-.mobile-header-text {
-    padding-top: 25px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-    font-size: 30px;
-    text-align: center;
-}
 
 .header-text {
     margin-top: 50px;
@@ -65,16 +66,49 @@
     color: #A0A0A0;
 }
 
-.mobile-card{
-    border-radius: 16px;
-    background: var(--neutral-white, #F8F6F0);
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    padding:37px 0px;
-    margin: 24px 24px;
-}
+
 
 .mobile-main-auth-container {
     height: 100vh;
     background-color: #F8F6F0;
   
+}
+
+@media only screen and (max-width: 1280px) { 
+    .main-auth-container {
+        background: #F2EFE5;
+    }
+    .mobile-card{
+        margin:0px 24px;
+        border-radius: 16px;
+        background: var(--neutral-white, #FFF);
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        padding: 37px 24px;
+    }
+    .mobile-header-text {
+        padding: 25px 0px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 30px;
+        text-align: center;
+    }
+    .header-text{
+        margin-top: 0px;
+        padding-bottom: 24px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 20px;
+        text-align: center;
+    }
+    .mobile-main-auth-container{
+        background: #F2EFE5;
+    }
+    
+.nav-pills{
+    padding-bottom: 48px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-radius: 50px;
+}
 }

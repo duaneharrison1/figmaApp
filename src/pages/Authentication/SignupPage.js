@@ -97,7 +97,8 @@ export default function SignupPage() {
     return (
         <>
             <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
-            <div className='container'>
+
+            <div className='container m-0 p-0'>
                 <form className='sign-up'>
                     <div>
                         <TextField
