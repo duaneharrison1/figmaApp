@@ -128,7 +128,16 @@ export default function Preview() {
         event.preventDefault();
         try {
             const ref = doc(db, "user", user.uid, "url", location.state.docId)
+            const refAllUrl = collection(db, "url")
             await updateDoc(ref, {
+                title: location.state.title,
+                urls: {
+                    figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
+                    figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
+                }
+            });
+
+            await updateDoc(refAllUrl, {
                 title: location.state.title,
                 urls: {
                     figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
