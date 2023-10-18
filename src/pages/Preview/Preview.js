@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { collection, addDoc, doc, getDocs, updateDoc, QuerySnapshot } from 'firebase/firestore'
+import { collection, addDoc, doc, getDocs, updateDoc, QuerySnapshot, query, where } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
 import { signOut } from "firebase/auth";
 import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import ButtonClear from '../../components/ButtonClear/ButtonClear';
 import AlertModal from '../../components/AlertModal/AlertModal';
-import Footer from '../../components/Footer/Footer';
+
 import './Preview.css';
 export default function Preview() {
     const navigate = useNavigate();
@@ -128,7 +128,7 @@ export default function Preview() {
         event.preventDefault();
         try {
             const ref = doc(db, "user", user.uid, "url", location.state.docId)
-            const refAllUrl = collection(db, "url")
+
             await updateDoc(ref, {
                 title: location.state.title,
                 urls: {
@@ -137,13 +137,38 @@ export default function Preview() {
                 }
             });
 
-            await updateDoc(refAllUrl, {
-                title: location.state.title,
-                urls: {
-                    figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
-                    figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
-                }
-            });
+            //         db.collection("automotive")
+            // .where("category == Vehicles")
+            // .orderBy("modelYear")
+            // .limit(5)
+            // .get()
+            // .then((collections) =>{
+            //     const auto = collections.docs.map((res) => res.data())
+            //     setResult(auto)
+            // });
+            const q = query(collection(db, "url"), where("generatedUrl", "==", location.state.generatedUrl));
+            const querySnapshot = await getDocs(q);
+            // const querySnapshot = db.collection('url')
+            //     .where('generatedUrl ==' + location.state.generatedUrl)
+            //     .get();
+
+            if (!q.empty) {
+                // Assuming there's only one matching document, update it
+                querySnapshot.forEach((document) => {
+                    // doc.data() is never undefined for query doc snapshots
+                    console.log(document.id, " => ", document.data());
+                    const docRef = doc(db, "url", document.id)
+                    updateDoc(docRef, {
+                        title: location.state.title,
+                        urls: {
+                            figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
+                            figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
+                        }
+                    });
+                });
+
+            }
+
             setShowModal(true);
             setModalMessage("Update successful")
             console.log('Document updated successfully');
@@ -188,7 +213,6 @@ export default function Preview() {
 
     useEffect(() => {
         setRandomUrl(generateRandomString(10))
-        var testy = "helloworld"
         const fetchData = async () => {
             if (user) {
                 try {
