@@ -67,6 +67,7 @@ export default function Preview() {
         const originalString = url;
         const wordToRemove = "https://";
         const hideUi = "&hide-ui=1"
+        const hotspot = "&hotspot-hints=0"
         const embedHost = "www.figma.com/embed?embed_host=share&url=https%3A%2F%2F"
 
         var newUrl = ""
@@ -87,6 +88,12 @@ export default function Preview() {
             } else {
                 newUrl = "https://" + modifiedString
                 console.log("wentherev5")
+            }
+
+            if (!modifiedString.includes(hotspot)) {
+                newUrl = "https://" + embedHost + modifiedString + hideUi + hotspot
+            } else {
+                newUrl = "https://" + modifiedString
             }
 
             if (modifiedString.includes("scaling=contain")) {
