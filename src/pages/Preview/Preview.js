@@ -57,12 +57,8 @@ export default function Preview() {
     }
 
     function removeWordFromString(inputString, wordToRemove) {
-        // Create a regular expression to match the word with word boundaries
         const regex = new RegExp(`\\b${wordToRemove}\\b`, 'gi');
-
-        // Use the replace method to remove all occurrences of the word
         const resultString = inputString.replace(regex, '');
-
         return resultString;
     }
 
@@ -72,6 +68,7 @@ export default function Preview() {
         const wordToRemove = "https://";
         const hideUi = "&hide-ui=1"
         const embedHost = "www.figma.com/embed?embed_host=share&url=https%3A%2F%2F"
+
         var newUrl = ""
         const modifiedString = removeWordFromString(originalString, wordToRemove);
         if (url != '') {
@@ -91,10 +88,18 @@ export default function Preview() {
                 newUrl = "https://" + modifiedString
                 console.log("wentherev5")
             }
+
+            if (modifiedString.includes("scaling=contain")) {
+                newUrl = modifiedString.replace("scaling=contain", "scaling=scale-down-width");
+            } else if (modifiedString.includes("scaling=min-zoom")) {
+                newUrl = modifiedString.replace("scaling=min-zoom", "scaling=scale-down-width");
+            } else if (modifiedString.includes("scaling=scale-down")) {
+                newUrl = modifiedString.replace("scaling=scale-down", "scaling=scale-down-width");
+            }
+
         } else {
             newUrl = ""
         }
-        console.log("wentherev6" + newUrl)
         return newUrl
     }
 
@@ -102,7 +107,6 @@ export default function Preview() {
         event.preventDefault();
         const ref = collection(db, "user", userId.uid, "url")
         const refAllUrl = collection(db, "url")
-        // var randomUrl = generateRandomString(6);
         let urlData = {
             title: location.state.title,
             isDraft: "true",
@@ -128,7 +132,6 @@ export default function Preview() {
         event.preventDefault();
         try {
             const ref = doc(db, "user", user.uid, "url", location.state.docId)
-
             await updateDoc(ref, {
                 title: location.state.title,
                 urls: {
@@ -136,26 +139,12 @@ export default function Preview() {
                     figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
                 }
             });
-
-            //         db.collection("automotive")
-            // .where("category == Vehicles")
-            // .orderBy("modelYear")
-            // .limit(5)
-            // .get()
-            // .then((collections) =>{
-            //     const auto = collections.docs.map((res) => res.data())
-            //     setResult(auto)
-            // });
             const q = query(collection(db, "url"), where("generatedUrl", "==", location.state.generatedUrl));
             const querySnapshot = await getDocs(q);
-            // const querySnapshot = db.collection('url')
-            //     .where('generatedUrl ==' + location.state.generatedUrl)
-            //     .get();
+
 
             if (!q.empty) {
-                // Assuming there's only one matching document, update it
                 querySnapshot.forEach((document) => {
-                    // doc.data() is never undefined for query doc snapshots
                     console.log(document.id, " => ", document.data());
                     const docRef = doc(db, "url", document.id)
                     updateDoc(docRef, {

@@ -12,11 +12,6 @@ const CardView = (props) => {
     const onClickDelete = props.onClickDelete
     const onClickUpdate = props.onClickUpdate
 
-    if (figmaDesktopUrl != null) {
-        console.log('sss')
-    } else {
-        console.log('aaa')
-    }
 
     return (
         <>
