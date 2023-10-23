@@ -21,7 +21,6 @@ export default function Preview() {
     const [randomurl, setRandomUrl] = useState('');
     const [user, setUser] = useState(null);
 
-
     const [userIsDesktop, setUserIsDesktop] = useState(true);
     useEffect(() => {
         window.innerWidth > 1280 ? setUserIsDesktop(true) : setUserIsDesktop(false);
@@ -71,6 +70,7 @@ export default function Preview() {
         const embedHost = "www.figma.com/embed?embed_host=share&url=https%3A%2F%2F"
 
         var newUrl = ""
+        var modifiedUrl = ""
         const modifiedString = removeWordFromString(originalString, wordToRemove);
         if (url != '') {
             console.log("wentherev1")
@@ -97,19 +97,24 @@ export default function Preview() {
             }
 
             if (modifiedString.includes("scaling=contain")) {
-                newUrl = modifiedString.replace("scaling=contain", "scaling=scale-down-width");
+                modifiedUrl = modifiedString.replace("scaling=contain", "scaling=scale-down-width");
+                newUrl = "https://" + embedHost + modifiedString + hideUi + hotspot + modifiedUrl
             } else if (modifiedString.includes("scaling=min-zoom")) {
-                newUrl = modifiedString.replace("scaling=min-zoom", "scaling=scale-down-width");
+                modifiedUrl = modifiedString.replace("scaling=min-zoom", "scaling=scale-down-width");
+                newUrl = "https://" + embedHost + modifiedString + hideUi + hotspot + modifiedUrl
             } else if (modifiedString.includes("scaling=scale-down")) {
-                newUrl = modifiedString.replace("scaling=scale-down", "scaling=scale-down-width");
+                modifiedUrl = modifiedString.replace("scaling=scale-down", "scaling=scale-down-width");
+                newUrl = "https://" + embedHost + modifiedString + hideUi + hotspot + modifiedUrl
             }
 
         } else {
             newUrl = ""
         }
+
         return newUrl
     }
-
+    console.log("wwww" + editUrl(location.state.figmaDesktopUrl))
+    console.log("wwww1" + editUrl(location.state.figmaMobileUrl))
     const handleDraft = async (event) => {
         event.preventDefault();
         const ref = collection(db, "user", userId.uid, "url")
@@ -346,10 +351,15 @@ export default function Preview() {
 
                             <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
                             <iframe
+                                // src='https://figma-app-tau.vercel.app/'
+                                // src='https://www.figma.com/proto/FouP0H3tNfWmBFSmY0Qk6B/Untitled?type=design&node-id=1-4&t=XsqRn07S9BSusHx0-1&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=1%3A4'
                                 src={isMobile ? editUrl(location.state.figmaMobileUrl) : editUrl(location.state.figmaDesktopUrl)}
                                 allowFullScreen
                                 style={{ width: '100%', height: '100vh' }}
                                 className='figma_view'></iframe>
+
+
+
                         </div >
                     )
                     }
