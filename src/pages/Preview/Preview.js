@@ -76,35 +76,30 @@ export default function Preview() {
             console.log("wentherev1")
             if (!modifiedString.includes(embedHost)) {
                 newUrl = "https://" + embedHost + modifiedString
+                console.log("wentherev1")
+            } else {
+                newUrl = url;
+            }
+
+            if (!newUrl.includes(hideUi)) {
+                newUrl += hideUi
                 console.log("wentherev2")
-            } else {
-                newUrl = "https://" + modifiedString
-                console.log("wentherev3")
             }
 
-            if (!modifiedString.includes(hideUi)) {
-                newUrl = "https://" + embedHost + modifiedString + hideUi
-                console.log("wentherev4")
-            } else {
-                newUrl = "https://" + modifiedString
-                console.log("wentherev5")
+            if (!newUrl.includes(hotspot)) {
+                newUrl += hotspot
             }
 
-            if (!modifiedString.includes(hotspot)) {
-                newUrl = "https://" + embedHost + modifiedString + hideUi + hotspot
-            } else {
-                newUrl = "https://" + modifiedString
-            }
 
-            if (modifiedString.includes("scaling=contain")) {
-                modifiedUrl = modifiedString.replace("scaling=contain", "scaling=scale-down-width");
-                newUrl = "https://" + embedHost + modifiedString + hideUi + hotspot + modifiedUrl
-            } else if (modifiedString.includes("scaling=min-zoom")) {
-                modifiedUrl = modifiedString.replace("scaling=min-zoom", "scaling=scale-down-width");
-                newUrl = "https://" + embedHost + modifiedString + hideUi + hotspot + modifiedUrl
-            } else if (modifiedString.includes("scaling=scale-down")) {
-                modifiedUrl = modifiedString.replace("scaling=scale-down", "scaling=scale-down-width");
-                newUrl = "https://" + embedHost + modifiedString + hideUi + hotspot + modifiedUrl
+            if (newUrl.includes("scaling=contain")) {
+                modifiedUrl = newUrl.replace(new RegExp("scaling=contain", 'g'), "scaling=scale-down-width");
+                newUrl = modifiedUrl
+            } else if (newUrl.includes("scaling=min-zoom")) {
+                modifiedUrl = newUrl.replace(new RegExp("scaling=min-zoom", 'g'), "scaling=scale-down-width");
+                newUrl = modifiedUrl
+            } else if (newUrl.includes("scaling=scale-down")) {
+                modifiedUrl = newUrl.replace(new RegExp("scaling=scale-down", 'g'), "scaling=scale-down-width");
+                newUrl = modifiedUrl
             }
 
         } else {
@@ -115,6 +110,7 @@ export default function Preview() {
     }
     console.log("wwww" + editUrl(location.state.figmaDesktopUrl))
     console.log("wwww1" + editUrl(location.state.figmaMobileUrl))
+
     const handleDraft = async (event) => {
         event.preventDefault();
         const ref = collection(db, "user", userId.uid, "url")
@@ -123,8 +119,8 @@ export default function Preview() {
             title: location.state.title,
             isDraft: "true",
             urls: {
-                figmaDesktopUrl: location.state.figmaDesktopUrl,
-                figmaMobileUrl: location.state.figmaMobileUrl
+                figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
+                figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
             }
         }
 
@@ -183,7 +179,8 @@ export default function Preview() {
         }
     };
 
-    const handleSaveV2 = async () => {
+    const handleSaveV2 = async (e) => {
+        e.preventDefault();
         console.log(editUrl(location.state.figmaDesktopUrl))
         const ref = collection(db, "user", userId.uid, "url")
         const refAllUrl = collection(db, "url")
@@ -351,15 +348,10 @@ export default function Preview() {
 
                             <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
                             <iframe
-                                // src='https://figma-app-tau.vercel.app/'
-                                // src='https://www.figma.com/proto/FouP0H3tNfWmBFSmY0Qk6B/Untitled?type=design&node-id=1-4&t=XsqRn07S9BSusHx0-1&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=1%3A4'
                                 src={isMobile ? editUrl(location.state.figmaMobileUrl) : editUrl(location.state.figmaDesktopUrl)}
                                 allowFullScreen
                                 style={{ width: '100%', height: '100vh' }}
                                 className='figma_view'></iframe>
-
-
-
                         </div >
                     )
                     }
