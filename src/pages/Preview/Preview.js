@@ -98,8 +98,10 @@ export default function Preview() {
                 modifiedUrl = newUrl.replace(new RegExp("scaling=min-zoom", 'g'), "scaling=scale-down-width");
                 newUrl = modifiedUrl
             } else if (newUrl.includes("scaling=scale-down")) {
-                modifiedUrl = newUrl.replace(new RegExp("scaling=scale-down", 'g'), "scaling=scale-down-width");
-                newUrl = modifiedUrl
+                if (!newUrl.includes("scaling=scale-down-width")) {
+                    modifiedUrl = newUrl.replace(new RegExp("scaling=scale-down", 'g'), "scaling=scale-down-width");
+                    newUrl = modifiedUrl
+                }
             }
 
         } else {
