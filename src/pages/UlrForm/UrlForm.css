@@ -82,6 +82,10 @@ font-weight: 500;
     padding-bottom: 48px;
 }
 
+.instruction {
+    list-style-type: disc;
+}
+
 @media only screen and (max-width: 1280px) {
     .form {
         background-color: #F8F6F0;

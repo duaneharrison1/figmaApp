@@ -44,7 +44,10 @@
 
 
   @media only screen and (max-width: 1280px) {
-    
+    .dashboardNavBar{
+        padding: 18px 24px 24px 24px;
+        background-color: #F8F6F0;
+    }
     .custom-navbar{
         padding: 18px 24px 24px 24px;
         background-color: #F2EFE5;

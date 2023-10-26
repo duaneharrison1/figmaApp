@@ -27,7 +27,6 @@ export default function Preview() {
     }, [userIsDesktop]);
 
 
-    console.log("wewewew" + location.state.figmaDesktopUrl)
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setUser(user); // Set the user state
@@ -110,8 +109,7 @@ export default function Preview() {
 
         return newUrl
     }
-    console.log("wwww" + editUrl(location.state.figmaDesktopUrl))
-    console.log("wwww1" + editUrl(location.state.figmaMobileUrl))
+
 
     const handleDraft = async (event) => {
         event.preventDefault();

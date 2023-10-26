@@ -7,6 +7,8 @@ import './UrlForm.css';
 import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import ButtonClear from '../../components/ButtonClear/ButtonClear';
 import Navbar from '../../components/NavBar/Navbar';
+import UpgradeAlertModal from '../../components/UpgradeAlert/UpgradeAlertModal';
+import { ShopWindow } from 'react-bootstrap-icons';
 
 
 export default function UrlForm() {
@@ -17,6 +19,14 @@ export default function UrlForm() {
     const [generatedUrl, setGeneratedUrl] = useState('');
     const [title, setTitle] = useState('');
     const user = auth.currentUser;
+    const [showModal, setShowModal] = useState(false);
+    const handleShowModal = () => {
+        setShowModal(true);
+    };
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
 
     const handlefigmaDesktopUrl = (event) => {
         setDesktopCustomUrl(event.target.value);
@@ -45,99 +55,109 @@ export default function UrlForm() {
 
     return (
         <>
-            <Navbar className={"urlForm"} email={user.email} onClickLogout={handleLogout} isFromForm={true} />
+            <Navbar className={"dashboardNavBar"} email={user.email} onClickLogout={handleLogout} isFromForm={true} />
+
             <div className='form'>
                 <div className="url-form">
-                    <form onSubmit={goToPreview}>
-                        <div className='form-container'>
 
-                            <div className='row first-div'>
-                                <div className='col-md-6'>
-                                    <h1 className='form-title'>General</h1>
-                                    <h2 className='form-sub-header'>Site Title</h2>
-                                    <input
-                                        className='input'
-                                        type="text"
-                                        placeholder='Enter your site name'
-                                        value={title}
-                                        onChange={handleTitle} />
-                                </div>
-                                <div className='col-md-6'></div>
+                    <div className='form-container'>
+
+                        <div className='row first-div'>
+                            <div className='col-md-6'>
+                                <h1 className='form-title'>General</h1>
+                                <h2 className='form-sub-header'>Site Title</h2>
+                                <input
+                                    className='input'
+                                    type="text"
+                                    placeholder='Enter your site name'
+                                    value={title}
+                                    onChange={handleTitle} />
                             </div>
+                            <div className='col-md-6'></div>
+                        </div>
 
-                            <div className='row second-div'>
-                                <div className='col-6 align-items-start'>
-                                    {/* <h1 className='form-sub-header'>Free domain</h1>
-                                    <p>Duane/Figmafolio.com </p> */}
-                                </div>
-                                <div className='col-md-6'>
-                                    <h2 className='form-sub-header'>Custom domain</h2>
-                                    <input
+                        <div className='row second-div'>
+                            <div className='col-6 align-items-start'>
+                                <h1 className='form-sub-header'>Free domain</h1>
+                                <p>This will be assigned after clicking ‘Publish’.</p>
+                            </div>
+                            <div className='col-md-6'>
+                                <h2 className='form-sub-header'>Custom domain</h2>
+                                {/* <input
                                         className='form-input-custom-domain'
                                         type="text"
                                         placeholder='Custom domain'
-                                    />
-                                    <p className='note'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#424242" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg> You have to upgrade plan to have Custom domain</p>
-                                    <ButtonClear label='Upgrade plan' className="upgrade-plan" />
-                                </div>
-                            </div>
-
-
-                            <div className='second-div'>
-                                <h1 className='form-title'>Enter figma prototype links</h1>
+                                    /> */}
                                 <p className='note'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                     <path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#424242" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg> You should hide hide hotspot hints by selecting the Options menu in the prototype of Figma for a better experience</p>
+                                </svg> You have to upgrade plan to have Custom domain</p>
+                                <ButtonClear label='Upgrade plan' className="upgrade-plan" onClick={handleShowModal} />
+
                             </div>
+                        </div>
 
-                            <div className="fifth-div">
-                                <div className="row">
-                                    <div className="col-md-6">
-                                        <div className="row">
-                                            <h2 className='form-sub-header'>
-                                                Desktop
-                                            </h2>
-                                            <div>
-                                                <input
-                                                    className='form-input'
-                                                    type="text"
-                                                    placeholder='Custom Desktop Url'
-                                                    value={figmaDesktopUrl}
-                                                    onChange={handlefigmaDesktopUrl}
-                                                />
-                                            </div>
 
+                        <div className='second-div'>
+                            <h1 className='form-title'>Enter figma prototype links</h1>
+                            {/* <p className='note'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#424242" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg> You should hide hide hotspot hints by selecting the Options menu in the prototype of Figma for a better experience</p> */}
+                            <p className='note'> Paste in the links of your desktop and mobile prototypes below to have them create your Figmafolio site. By adding separate desktop and mobile links, all viewers can easily preview your work on any device. We'll detect the device and load the appropriate prototype</p>
+                            <p className='note'> Here are some tips: </p>
+                            <ul className='instruction'>
+                                <li className='note'>Paste in the link to a prototype or specific prototype flow, not the full Figma file</li>
+                                <li className='note'>If you do not have a separate mobile prototype, you can paste in the desktop prototype link to show the desktop view on mobile.</li>
+                                <li className='note'>For best results, match prototype’s background colour to your sites background colour in Figma in prototype settings.</li>
+                            </ul>
+                        </div>
+
+                        <div className="fifth-div">
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="row">
+                                        <h2 className='form-sub-header'>
+                                            Desktop
+                                        </h2>
+                                        <div>
+                                            <input
+                                                className='form-input'
+                                                type="text"
+                                                placeholder='Custom Desktop Url'
+                                                value={figmaDesktopUrl}
+                                                onChange={handlefigmaDesktopUrl}
+                                            />
                                         </div>
-                                    </div>
 
-                                    <div className="col-md-6">
-                                        <div className="row">
-                                            <h2 className='form-sub-header'>
-                                                Mobile
-                                            </h2>
-                                            <div>
-                                                <input
-                                                    className='form-input'
-                                                    type="text"
-                                                    placeholder='Custom Mobile Url'
-                                                    value={figmaMobileUrl}
-                                                    onChange={handlefigmaMobileUrl}
-                                                />
-                                            </div>
+                                    </div>
+                                </div>
+
+                                <div className="col-md-6">
+                                    <div className="row">
+                                        <h2 className='form-sub-header'>
+                                            Mobile
+                                        </h2>
+                                        <div>
+                                            <input
+                                                className='form-input'
+                                                type="text"
+                                                placeholder='Custom Mobile Url'
+                                                value={figmaMobileUrl}
+                                                onChange={handlefigmaMobileUrl}
+                                            />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div className='preview-btn-container'>
-                            <ButtonColored className="preview-btn" label="Preview" />
-                        </div>
+                    <div className='preview-btn-container'>
+                        <ButtonColored className="preview-btn" label="Preview" onClick={goToPreview} />
+                    </div>
 
-                    </form >
+
                 </div>
+                <UpgradeAlertModal show={showModal} handleClose={handleCloseModal} />
             </div>
 
         </>
