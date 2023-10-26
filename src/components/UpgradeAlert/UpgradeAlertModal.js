@@ -15,14 +15,27 @@ const UpgradeAlertModal = (props) => {
         event.preventDefault();
         const ref = collection(db, "notifyUpgrade", user.uid, "email")
         const data = { email: user.email }
-        try {
-            addDoc(ref, data)
-            setIsSuccessful(true)
-            console.log("successful")
-            console.log(isSuccessful)
-        } catch (err) {
-            console.log(err)
-        }
+        const usersRef = collection(db, "notifyUpgrade", user.uid, "email")
+        await getDocs(collection(db, "notifyUpgrade", user.uid, "email"))
+            .then((querySnapshot) => {
+                if (querySnapshot.size == 0) {
+                    console.log("not null")
+                    try {
+                        addDoc(ref, data)
+                        setIsSuccessful(true)
+                        console.log("successful")
+                        console.log(isSuccessful)
+                    } catch (err) {
+                        console.log(err)
+                    }
+                } else {
+                    setIsSuccessful(true)
+                    console.log("null")
+                    console.log(isSuccessful)
+                }
+
+            })
+
     };
 
     return (
