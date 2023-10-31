@@ -15,25 +15,27 @@ function DynamicPage({ url }) {
       setIsMobile(window.innerWidth <= 768);
     };
     handleResize();
+    if (url.urls.figmaMobileUrl == "") {
+      setMobile(url.urls.figmaDesktopUrl)
+    } else {
+      setMobile(url.urls.figmaMobileUrl)
+    }
+
+    if (url.urls.figmaDesktopUrl == "") {
+      setDesktop(url.urls.figmaMobileUrl)
+    } else {
+      setDesktop(url.urls.figmaDesktopUrl)
+    }
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
     };
+
   }, []);
 
 
 
-  if (url.urls.figmaMobileUrl == "") {
-    setMobile(url.urls.figmaDesktopUrl)
-  } else {
-    setMobile(url.urls.figmaMobileUrl)
-  }
 
-  if (url.urls.figmaDesktopUrl == "") {
-    setDesktop(url.urls.figmaMobileUrl)
-  } else {
-    setDesktop(url.urls.figmaDesktopUrl)
-  }
   console.log("wew1" + url.urls.figmaDesktopUrl);
   console.log("wew2" + url.urls.figmaMobileUrl);
   console.log("wew3" + desktop);
