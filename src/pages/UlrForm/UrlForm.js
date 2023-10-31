@@ -64,8 +64,8 @@ export default function UrlForm() {
 
                         <div className='row first-div'>
                             <div className='col-md-6'>
-                                <h1 className='form-title'>General</h1>
-                                <h2 className='form-sub-header'>Site Title</h2>
+                                <h1 className='form-title'>New site</h1>
+                                <h2 className='form-sub-header'>Title</h2>
                                 <input
                                     className='input'
                                     type="text"
@@ -78,7 +78,7 @@ export default function UrlForm() {
 
                         <div className='row second-div'>
                             <div className='col-6 align-items-start'>
-                                <h1 className='form-sub-header'>Free domain</h1>
+                                <h1 className='form-sub-header'>Your domain</h1>
                                 <p>This will be assigned after clicking ‘Publish’.</p>
                             </div>
                             <div className='col-md-6'>
@@ -98,7 +98,7 @@ export default function UrlForm() {
 
 
                         <div className='second-div'>
-                            <h1 className='form-title'>Enter figma prototype links</h1>
+                            <h1 className='form-title'>Figma prototype links</h1>
                             {/* <p className='note'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                     <path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#424242" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg> You should hide hide hotspot hints by selecting the Options menu in the prototype of Figma for a better experience</p> */}
