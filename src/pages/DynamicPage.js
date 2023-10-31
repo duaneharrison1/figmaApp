@@ -8,7 +8,8 @@ function DynamicPage({ url }) {
 
   document.title = url.title;
   const [isMobile, setIsMobile] = useState(false);
-
+  const [mobile, setMobile] = useState("");
+  const [desktop, setDesktop] = useState("");
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -20,13 +21,27 @@ function DynamicPage({ url }) {
     };
   }, []);
 
+
+
+  if (url.urls.figmaMobileUrl == "") {
+    setMobile(url.urls.figmaDesktopUrl)
+  } else {
+    setMobile(url.urls.figmaMobileUrl)
+  }
+
+  if (url.urls.figmaDesktopUrl == "") {
+    setDesktop(url.urls.figmaMobileUrl)
+  } else {
+    setDesktop(url.urls.figmaDesktopUrl)
+  }
   console.log("wew1" + url.urls.figmaDesktopUrl);
   console.log("wew2" + url.urls.figmaMobileUrl);
-
+  console.log("wew3" + desktop);
+  console.log("wew4" + mobile);
   return (
 
     <iframe
-      src={isMobile ? url.urls.figmaMobileUrl : url.urls.figmaDesktopUrl}
+      src={isMobile ? mobile : desktop}
       allowFullScreen
       style={{ width: '100%', height: '100vh' }}
       className='dynamic_view_figma_view'></iframe>
