@@ -73,8 +73,6 @@ function UserDashboard() {
                             const userProfile = querySnapshot.docs
                                 .map((doc) => ({ ...doc.data(), id: doc.id }));
                             setProfile(userProfile);
-                            console.log('userProfile', userProfile);
-                            console.log('Profile', profile);
                         })
 
                 } catch (error) {
@@ -89,21 +87,6 @@ function UserDashboard() {
         };
         fetchData();
     }, [user, draftCount, publishCount, profile]);
-
-
-
-
-
-
-    const handleDelete = async (id) => {
-        console.log({ id });
-        try {
-            await deleteDoc(doc(db, "user", user.uid, "url", id));
-            console.log('Document successfully deleted!');
-        } catch (error) {
-            console.error('Error removing document: ', error);
-        }
-    };
 
     const handleLogout = () => {
         signOut(auth).then(() => {
@@ -151,7 +134,7 @@ function UserDashboard() {
                         {data.map(item => (
                             <div className='col-sm-4'>
                                 <CardView figmaMobileUrl={item.urls.figmaMobileUrl} figmaDesktopUrl={item.urls.figmaDesktopUrl} siteTitle={item.title} url={item.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item, profile)} />
-                                <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} />
+                                <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} generatedUrl={item.generatedUrl} />
                             </div>
                         ))}
                     </div>
