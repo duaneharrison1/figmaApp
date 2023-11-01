@@ -5,7 +5,8 @@ import { Modal } from 'react-bootstrap';
 import DeleteHeaderImage from '../../assets/images/delete-header-img.png';
 import { db, auth } from '../../firebase';
 import { useState, useEffect } from 'react';
-import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc } from 'firebase/firestore'
+import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc, query, where } from 'firebase/firestore'
+
 import { useAuthState } from 'react-firebase-hooks/auth';
 import ButtonColored from '../ButtonColored/ButtonColored';
 import ButtonClear from '../ButtonClear/ButtonClear';
@@ -15,6 +16,7 @@ const DeleteModal = (props) => {
     const [userId] = useAuthState(auth);
     const [user, setUser] = useState(null);
     const id = props.id;
+    const generatedUrl = props.generatedUrl;
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -26,8 +28,19 @@ const DeleteModal = (props) => {
     const handleDelete = async () => {
         try {
             await deleteDoc(doc(db, "user", user.uid, "url", id));
-            console.log('Document successfully deleted!');
-            window.location.reload();
+            const q = query(collection(db, "url"), where("generatedUrl", "==", generatedUrl));
+            const querySnapshot = await getDocs(q);
+            try {
+                if (!q.empty) {
+                    querySnapshot.forEach((document) => {
+                        deleteDoc(doc(db, "url", document.id));
+                    });
+                    console.log('Document successfully deleted!');
+                    window.location.reload();
+                }
+            } catch (error) {
+                console.error('Error removing document: ', error);
+            }
         } catch (error) {
             console.error('Error removing document: ', error);
         }
