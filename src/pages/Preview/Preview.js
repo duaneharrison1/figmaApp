@@ -20,12 +20,31 @@ export default function Preview() {
     const [duplicate, setDuplicate] = useState('');
     const [randomurl, setRandomUrl] = useState('');
     const [user, setUser] = useState(null);
-
     const [userIsDesktop, setUserIsDesktop] = useState(true);
+
+    const [mobile, setMobile] = useState("");
+    const [desktop, setDesktop] = useState("");
+
+
+
     useEffect(() => {
+        if (location.state.figmaMobileUrl == "") {
+            setMobile(location.state.figmaDesktopUrl)
+        } else {
+            setMobile(location.state.figmaMobileUrl)
+        }
+
+        if (location.state.figmaDesktopUrl == "") {
+            setDesktop(location.state.figmaMobileUrl)
+        } else {
+            setDesktop(location.state.figmaDesktopUrl)
+        }
         window.innerWidth > 1280 ? setUserIsDesktop(true) : setUserIsDesktop(false);
     }, [userIsDesktop]);
 
+    console.log("mobile " + mobile)
+    console.log("desktop " + desktop)
+    console.log("isMobile " + isMobile)
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -72,17 +91,14 @@ export default function Preview() {
         var modifiedUrl = ""
         const modifiedString = removeWordFromString(originalString, wordToRemove);
         if (url != '') {
-            console.log("wentherev1")
             if (!modifiedString.includes(embedHost)) {
                 newUrl = "https://" + embedHost + modifiedString
-                console.log("wentherev1")
             } else {
                 newUrl = url;
             }
 
             if (!newUrl.includes(hideUi)) {
                 newUrl += hideUi
-                console.log("wentherev2")
             }
 
             if (!newUrl.includes(hotspot)) {
@@ -153,7 +169,6 @@ export default function Preview() {
 
             if (!q.empty) {
                 querySnapshot.forEach((document) => {
-                    console.log(document.id, " => ", document.data());
                     const docRef = doc(db, "url", document.id)
                     updateDoc(docRef, {
                         title: location.state.title,
@@ -181,7 +196,6 @@ export default function Preview() {
 
     const handleSaveV2 = async (e) => {
         e.preventDefault();
-        console.log(editUrl(location.state.figmaDesktopUrl))
         const ref = collection(db, "user", userId.uid, "url")
         const refAllUrl = collection(db, "url")
 
@@ -219,14 +233,10 @@ export default function Preview() {
                             const newData = querySnapshot.docs
                                 .map((doc) => ({ ...doc.data(), id: doc.id }));
                             newData.forEach((value) => {
-                                console.log(value.generatedUrl)
-                                if (value.generatedUrl != randomurl) {
-                                    console.log("not exists");
 
+                                if (value.generatedUrl != randomurl) {
                                 } else {
                                     setDuplicate(true)
-                                    console.log(randomurl);
-                                    console.log("already exists");
                                 }
                             });
                         })
@@ -288,7 +298,7 @@ export default function Preview() {
 
                             <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
                             <iframe
-                                src={isMobile ? editUrl(location.state.figmaMobileUrl) : editUrl(location.state.figmaDesktopUrl)}
+                                src={isMobile ? editUrl(mobile) : editUrl(desktop)}
                                 allowFullScreen
                                 style={{ width: '100%', height: '100vh' }}
                                 className='figma_view'>
@@ -348,7 +358,7 @@ export default function Preview() {
 
                             <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
                             <iframe
-                                src={isMobile ? editUrl(location.state.figmaMobileUrl) : editUrl(location.state.figmaDesktopUrl)}
+                                src={isMobile ? editUrl(mobile) : editUrl(desktop)}
                                 allowFullScreen
                                 style={{ width: '100%', height: '100vh' }}
                                 className='figma_view'></iframe>

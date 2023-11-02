@@ -15,6 +15,7 @@ function DynamicPage({ url }) {
       setIsMobile(window.innerWidth <= 768);
     };
     handleResize();
+
     if (url.urls.figmaMobileUrl == "") {
       setMobile(url.urls.figmaDesktopUrl)
     } else {
@@ -26,6 +27,7 @@ function DynamicPage({ url }) {
     } else {
       setDesktop(url.urls.figmaDesktopUrl)
     }
+
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
