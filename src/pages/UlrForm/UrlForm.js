@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { collection, addDoc, Timestamp, deleteDoc, updateDoc } from 'firebase/firestore'
+import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc, query, where } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
+import firebase from '../../firebase';
 import { signOut } from "firebase/auth";
 import { useNavigate, useParams, Link, useLocation } from 'react-router-dom';
 import './UrlForm.css';
@@ -9,17 +10,43 @@ import ButtonClear from '../../components/ButtonClear/ButtonClear';
 import Navbar from '../../components/NavBar/Navbar';
 import UpgradeAlertModal from '../../components/UpgradeAlert/UpgradeAlertModal';
 import { ShopWindow } from 'react-bootstrap-icons';
-
+import { loadStripe } from '@stripe/stripe-js';
 
 export default function UrlForm() {
     const navigate = useNavigate();
     const location = useLocation();
     const [figmaDesktopUrl, setDesktopCustomUrl] = useState('');
     const [figmaMobileUrl, setfigmaMobileUrl] = useState('');
-    const [generatedUrl, setGeneratedUrl] = useState('');
     const [title, setTitle] = useState('');
     const user = auth.currentUser;
     const [showModal, setShowModal] = useState(false);
+    const [products, setProducts] = useState([])
+    const dbFirestore = firebase.firestore();
+
+    useEffect(() => {
+
+        dbFirestore.collection('products').where('active', '==', true).get().then(snapshot => {
+
+            const products = {}
+            snapshot.forEach(async productDoc => {
+                products[productDoc.id] = productDoc.data()
+                setProducts(products)
+
+                const priceSnapshot = await productDoc.ref.collection('prices').get();
+                priceSnapshot.forEach(priceDoc => {
+                    products[productDoc.id].prices = {
+                        priceId: priceDoc.id,
+                        priceData: priceDoc.data()
+
+                    }
+                })
+            })
+        })
+
+    });
+
+
+
     const handleShowModal = () => {
         setShowModal(true);
     };
@@ -52,7 +79,25 @@ export default function UrlForm() {
             // An error happened.
         });
     }
-
+    const checkout = async (priceId) => {
+        console.log("click")
+        const docRef = await dbFirestore.collection('customers').doc(user.uid).collection
+            ("checkout_sessions").add({
+                price: priceId,
+                success_url: window.location.origin,
+                cancel_url: window.location.origin
+            })
+        docRef.onSnapshot(async (snap) => {
+            const { error, sessionId } = snap.data();
+            if (error) {
+                alert(error.message)
+            }
+            if (sessionId) {
+                const stripe = await loadStripe("pk_test_51INDFjJyvkMmBNuRd0cSUQ1FAor7U14SiicXSS10rMm2SyZC0pmW2BBkLUYI43iNhJ6dwkoQuvQ0h1qOBbI0VA3y00terg14Yz");
+                stripe.redirectToCheckout({ sessionId })
+            }
+        })
+    }
     return (
         <>
             <Navbar className={"dashboardNavBar"} email={user.email} onClickLogout={handleLogout} isFromForm={true} />
@@ -91,8 +136,17 @@ export default function UrlForm() {
                                 <p className='note'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                     <path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#424242" stroke-width="2" stroke-linecap="round" strokeLinejoin="round" />
                                 </svg> You have to upgrade account to have Custom domain</p>
-                                <ButtonClear label='Upgrade account' className="upgrade-plan" onClick={handleShowModal} />
+                                <ButtonClear label='Upgrade account' className="upgrade-plan" onClick={() => checkout("price_1OCDfLJyvkMmBNuRrErMN5YD")} />
+                                {/* {Object.entries(products).map(([productId, productData]) => {
+                                    return (
+                                        <div className="plans" key={productId}>
+                                            <div> {productData.name}</div>
 
+                                            <button onClick={() => checkout("price_1OCDfLJyvkMmBNuRrErMN5YD")}>Subscribe</button>
+                                        </div>
+
+                                    )
+                                })} */}
                             </div>
                         </div>
 
