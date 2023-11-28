@@ -161,7 +161,8 @@ export default function Preview() {
                 urls: {
                     figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
                     figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
-                }
+                },
+                updatedAt: new Date(),
             });
             const q = query(collection(db, "url"), where("generatedUrl", "==", location.state.generatedUrl));
             const querySnapshot = await getDocs(q);
@@ -206,7 +207,8 @@ export default function Preview() {
             urls: {
                 figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
                 figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
-            }
+            },
+            createdAt: new Date(),
         }
 
         try {
