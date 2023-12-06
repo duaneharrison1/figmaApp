@@ -2,40 +2,62 @@
 import React, { useState } from 'react';
 import './UpgradeAlertModal.css';
 import { Modal } from 'react-bootstrap';
-
+import firebase from '../../firebase';
 import ButtonColored from '../ButtonColored/ButtonColored';
 import ButtonClear from '../ButtonClear/ButtonClear';
 import { db, auth } from '../../firebase';
 import { collection, addDoc, doc, getDocs, updateDoc, QuerySnapshot, query, where } from 'firebase/firestore'
+import MostPopular from '../../assets/images/popular.png';
+import { loadStripe } from '@stripe/stripe-js';
+import Check from '../../assets/images/check.png';
+
 const UpgradeAlertModal = (props) => {
     const { show, handleClose } = props;
     const user = auth.currentUser;
     const [isSuccessful, setIsSuccessful] = useState(false);
+    const dbFirestore = firebase.firestore();
+    const stripeKey = String(process.env.KEY)
+    const MonthlyPayment = async (priceId) => {
+        const docRef = await dbFirestore.collection('customers').doc(user.uid).collection
+            ("checkout_sessions").add({
+                price: priceId,
+                success_url: window.location.origin,
+                cancel_url: window.location.origin
+            })
+        docRef.onSnapshot(async (snap) => {
+            const { error, sessionId } = snap.data();
+            if (error) {
+                alert(error.message)
+            }
+            if (sessionId) {
+                const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
+                stripe.redirectToCheckout({ sessionId })
+            }
+        })
+    }
+    const yearlyPayment = async (priceId) => {
+        console.log("click")
+        const docRef = await dbFirestore.collection('customers').doc(user.uid).collection
+            ("checkout_sessions").add({
+                price: priceId,
+                success_url: window.location.origin,
+                cancel_url: window.location.origin
+            })
+        docRef.onSnapshot(async (snap) => {
+            const { error, sessionId } = snap.data();
+            if (error) {
+                alert(error.message)
+            }
+            if (sessionId) {
+                const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
+                stripe.redirectToCheckout({ sessionId })
+            }
+        })
+    }
     const handleNotifyMe = async (event) => {
         event.preventDefault();
-        const ref = collection(db, "notifyUpgrade", user.uid, "email")
-        const data = { email: user.email }
-        const usersRef = collection(db, "notifyUpgrade", user.uid, "email")
-        await getDocs(collection(db, "notifyUpgrade", user.uid, "email"))
-            .then((querySnapshot) => {
-                if (querySnapshot.size == 0) {
-                    console.log("not null")
-                    try {
-                        addDoc(ref, data)
-                        setIsSuccessful(true)
-                        console.log("successful")
-                        console.log(isSuccessful)
-                    } catch (err) {
-                        console.log(err)
-                    }
-                } else {
-                    setIsSuccessful(true)
-                    console.log("null")
-                    console.log(isSuccessful)
-                }
-
-            })
-
+        setIsSuccessful(true)
+        console.log("issuccess" + isSuccessful)
     };
 
     return (
@@ -43,22 +65,90 @@ const UpgradeAlertModal = (props) => {
 
 
 
-            {isSuccessful ? (
+            {!isSuccessful ? (
                 <Modal className='upgrade-modal' show={show} onHide={handleClose}>
                     <Modal.Body className='modal-body'>
-                        <h1 className='upgrade-header'> Thanks for your patience!</h1>
-                        <h2 className='upgrade-subheader'> We'll send an email as soon as custom domains is live.</h2>
-                        <ButtonColored className="btn-notify-me" label="Okay" onClick={handleClose} />
+                        <h1 className='upgrade-header'> You've reached your limit on websites</h1>
+                        <h2 className='upgrade-subheader'> looks like youve hit your website limit. Please upgrade your plan to create a new project/website.</h2>
+                        <ButtonColored className="btn-notify-me" label="Upgrade plan" onClick={handleNotifyMe} />
+                        <ButtonClear className="btn-cancel" onClick={handleClose} label="Cancel" />
                     </Modal.Body >
                 </Modal >
             ) : (
-                <Modal className='upgrade-modal' show={show} onHide={handleClose}>
-                    <Modal.Body className='modal-body'>
-                        <h1 className='upgrade-header'> We’re very sorry, this feature is not ready yet</h1>
-                        <h2 className='upgrade-subheader'> This feature will be available in an upcoming update. Do you want to be notified when this feature is available?</h2>
-                        <ButtonColored className="btn-notify-me" label="Notify Me" onClick={handleNotifyMe} />
-                        <ButtonClear className="btn-cancel" onClick={handleClose} label="Cancel" />
-                    </Modal.Body>
+                <Modal dialogClassName='payment-selection-modal' show={show} onHide={handleClose} >
+                    <Modal.Body dialogClassName='payment-modal-body' >
+                        <h1 className='payment-modal-header'>Pick a plan to suit your needs</h1>
+                        <h2 className='payment-modal-subheader'> All plans are available with full functionality, please choose the right plan according to your needs</h2>
+                        <div className='row'>
+                            <div className='col-md-4'>
+                                <div className='regular-card'>
+                                    <h1 className='payment-modal-selection-title'> Free</h1>
+                                    <div className='amount-per-month'>
+                                        <span className='amount'>$0 </span>
+                                        <span className='month'>/month</span>
+                                    </div>
+                                    <h4 className='bill-desc'> Billed monthly at $0 </h4>
+                                    <div className="payment-feature">
+                                        <img className='check-icon' src={Check} />
+                                        <h4 className='payment-feature-text'>5 projects/ websites</h4>
+                                    </div>
+                                    <div className="payment-feature">
+                                        <img src={Check} />
+                                        <h4 className='payment-feature-text'> Preset domains</h4>
+                                    </div>
+                                    <ButtonColored className="btn-current-plan" label="Current plan" />
+
+                                </div>
+                            </div>
+                            <div className='col-md-4'>
+                                <div className='regular-card'>
+                                    <h1 className='payment-modal-selection-title'> Monthly plan</h1>
+                                    <div className='amount-per-month'>
+                                        <span className='amount'>$5.0 </span>
+                                        <span className='month'>/month</span>
+                                    </div>
+                                    <h4 className='bill-desc'> Billed monthly at $5.0 </h4>
+                                    <div className="payment-feature">
+                                        <img className='check-icon' src={Check} />
+                                        <h4 className='payment-feature-text'>5 projects/ websites</h4>
+                                    </div>
+                                    <div className="payment-feature">
+                                        <img className='check-icon' src={Check} />
+                                        <h4 className='payment-feature-text'> Preset domains</h4>
+                                    </div>
+                                    <ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={MonthlyPayment} />
+                                </div>
+                            </div>
+                            <div className='col-md-4'>
+                                <div className='green-card'>
+                                    <div className="heading-container">
+                                        <h1 className='payment-modal-selection-title'> Annual plan</h1>
+                                        <img className='most-popular' src={MostPopular} />
+                                    </div>
+
+                                    <div className='amount-per-month'>
+                                        <span className='amount'>$4.1 </span>
+                                        <span className='month'>/month</span>
+                                    </div>
+                                    <h4 className='bill-desc'> Billed at one payment of $49</h4>
+                                    <div className="payment-feature">
+                                        <img className='check-icon' src={Check} />
+                                        <h4 className='payment-feature-text'>Unlimited projects/websites</h4>
+                                    </div>
+                                    <div className="payment-feature">
+                                        <img className='check-icon' src={Check} />
+                                        <h4 className='payment-feature-text'>Use custom domains</h4>
+                                    </div>
+                                    <div className="payment-feature">
+                                        <img className='check-icon' src={Check} />
+                                        <h4 className='payment-feature-text'>priority technical and product support</h4>
+                                    </div>
+                                    <ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={yearlyPayment} />
+                                </div>
+
+                            </div>
+                        </div>
+                    </Modal.Body >
                 </Modal >
             )}
         </>

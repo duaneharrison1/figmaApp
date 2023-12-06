@@ -1,4 +1,4 @@
-.btn-notify-me{
+.btn-notify-me {
     width: 100%;
     margin-top: 24px;
     margin-bottom: 12px;
@@ -8,7 +8,34 @@
     color: white;
     border: none;
     background-color: #4D9F70;
+}
 
+.btn-upgrade-plan {
+    width: 206px;
+    padding: 12px 24px;
+    border-radius: 40px;
+    font-weight: 400;
+    color: white;
+    font-size: 16px;
+    border: none;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 20px;
+    background-color: #4D9F70;
+}
+
+.btn-current-plan {
+    width: 206px;
+    padding: 12px 24px;
+    border-radius: 40px;
+    font-weight: 400;
+    color: #A0A0A0;
+    font-size: 16px;
+    border: none;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 20px;
+    background: #F2F2F2;
 }
 
 .btn-changepassword {
@@ -21,6 +48,7 @@
     border: none;
     background-color: #4D9F70;
 }
+
 .btn-block {
     width: 100%;
     margin-top: 50px;
@@ -41,6 +69,7 @@
     border: none;
     background-color: #4D9F70;
 }
+
 .preview-btn {
     width: 510px;
     padding: 12px 24px;
@@ -50,7 +79,8 @@
     border: none;
     background-color: #4D9F70;
 }
-.delete-btn{
+
+.delete-btn {
     width: 100%;
     margin-top: 12px;
     padding: 12px 24px;
@@ -61,7 +91,7 @@
     background-color: #E95B5B;
 }
 
-.new-site{
+.new-site {
     font-size: 16px;
     width: 158px;
     margin-top: 50px;
@@ -74,14 +104,14 @@
 }
 
 .update-btn {
-        margin: 0;
-      
-        padding: 8px 24px;
-        border-radius: 40px;
-        font-weight: 700;
-        color: white;
-        border: none;
-        background-color: #4D9F70;
+    margin: 0;
+
+    padding: 8px 24px;
+    border-radius: 40px;
+    font-weight: 700;
+    color: white;
+    border: none;
+    background-color: #4D9F70;
 }
 
 .disabled-btn-changepassword {
@@ -93,17 +123,18 @@
     color: grey;
     border: none;
 }
+
 .disabled {
-        width: 100%;
-        margin-top: 50px;
-        padding: 12px 24px;
-        border-radius: 40px;
-        font-weight: 700;
-        color: grey;
-        border: none;
+    width: 100%;
+    margin-top: 50px;
+    padding: 12px 24px;
+    border-radius: 40px;
+    font-weight: 700;
+    color: grey;
+    border: none;
 }
 
-.start-for-free-btn{
+.start-for-free-btn {
     font-size: 20px;
     margin: 10px;
     width: 220px;
@@ -125,14 +156,14 @@
     font-weight: 700;
     color: white;
     border: none;
-    background-color: #4D9F70; 
+    background-color: #4D9F70;
 }
 
-.form-switch-container{
-padding: 0px 8px 0px 8px;
+.form-switch-container {
+    padding: 0px 8px 0px 8px;
 }
 
-.signup-btn{
+.signup-btn {
     font-size: 20px;
     width: 150px;
     padding: 12px 20px;
@@ -143,7 +174,7 @@ padding: 0px 8px 0px 8px;
     background-color: #4D9F70;
 }
 
-.gotoapp{
+.gotoapp {
     font-size: 20px;
     width: 100%;
     padding: 12px 20px;
@@ -153,10 +184,11 @@ padding: 0px 8px 0px 8px;
     border: none;
     background-color: #4D9F70;
 }
+
 /* MOBILE VIEW */
 @media only screen and (max-width: 1280px) {
 
-    .gotoapp{
+    .gotoapp {
         font-size: 16px;
         width: 100%;
         padding: 4px 12px;
@@ -167,7 +199,7 @@ padding: 0px 8px 0px 8px;
         background-color: #4D9F70;
     }
 
-    .start-for-free-btn{
+    .start-for-free-btn {
         font-size: 18px;
         margin: 0px 0px 16px 0px;
         width: 100%;
@@ -188,10 +220,10 @@ padding: 0px 8px 0px 8px;
         font-weight: 700;
         color: white;
         border: none;
-        background-color: #4D9F70; 
+        background-color: #4D9F70;
     }
 
-    .new-site{
+    .new-site {
         font-size: 16px;
         width: 100%;
         margin-top: 50px;
@@ -202,7 +234,8 @@ padding: 0px 8px 0px 8px;
         border: none;
         background-color: #4D9F70;
     }
-    .signup-btn{
+
+    .signup-btn {
         margin-left: 20px;
         padding: 4px 12px;
         font-size: 16px;
@@ -213,6 +246,7 @@ padding: 0px 8px 0px 8px;
         border: none;
         background-color: #4D9F70;
     }
+
     .preview-btn {
         width: 85%;
         margin-top: 0;

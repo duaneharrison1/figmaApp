@@ -52,7 +52,6 @@ const DeleteModal = (props) => {
                 <img src={DeleteHeaderImage} />
                 <h1 className='delete-header'> Delete site</h1>
                 <h2 className='delete-subheader'> Once being deleted, this file cannot be recover. Are you sure?</h2>
-
             </Modal.Body>
             <Modal.Footer>
                 <div className='container'>

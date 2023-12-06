@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { collection, addDoc, Timestamp, deleteDoc, updateDoc } from 'firebase/firestore'
+import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc, query, where } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
+import firebase from '../../firebase';
 import { signOut } from "firebase/auth";
 import { useNavigate, useParams, Link, useLocation } from 'react-router-dom';
 import './UrlForm.css';
@@ -8,18 +9,59 @@ import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import ButtonClear from '../../components/ButtonClear/ButtonClear';
 import Navbar from '../../components/NavBar/Navbar';
 import UpgradeAlertModal from '../../components/UpgradeAlert/UpgradeAlertModal';
+import PaymentSelectionModal from '../../components/PaymentSelection/PaymentSelection';
 import { ShopWindow } from 'react-bootstrap-icons';
-
+import { loadStripe } from '@stripe/stripe-js';
 
 export default function UrlForm() {
     const navigate = useNavigate();
     const location = useLocation();
     const [figmaDesktopUrl, setDesktopCustomUrl] = useState('');
     const [figmaMobileUrl, setfigmaMobileUrl] = useState('');
-    const [generatedUrl, setGeneratedUrl] = useState('');
     const [title, setTitle] = useState('');
+    const [domain, setDomain] = useState('');
     const user = auth.currentUser;
     const [showModal, setShowModal] = useState(false);
+    const [products, setProducts] = useState([])
+    const dbFirestore = firebase.firestore();
+    const [subscription, setSubscription] = useState(null);
+    const [subscriptionType, setSubscriptionType] = useState(location.state.subscriptionType);
+
+    useEffect(() => {
+
+        dbFirestore.collection('products').where('active', '==', true).get().then(snapshot => {
+
+            const products = {}
+            snapshot.forEach(async productDoc => {
+                products[productDoc.id] = productDoc.data()
+                setProducts(products)
+
+                const priceSnapshot = await productDoc.ref.collection('prices').get();
+                priceSnapshot.forEach(priceDoc => {
+                    products[productDoc.id].prices = {
+                        priceId: priceDoc.id,
+                        priceData: priceDoc.data()
+
+                    }
+                })
+            })
+        })
+
+    });
+    useEffect(() => {
+        dbFirestore.collection('customers').doc(user.uid).collection("subscriptions").get().then(snapshot => {
+
+
+            snapshot.forEach(async subscription => {
+                if (subscription.data().role == "Test-YearlyV2" || subscription.data().role == "Test-Monthly") {
+
+                }
+            })
+        })
+
+    })
+
+
     const handleShowModal = () => {
         setShowModal(true);
     };
@@ -38,9 +80,12 @@ export default function UrlForm() {
     const handleTitle = (event) => {
         setTitle(event.target.value);
     };
+    const handleDomain = (event) => {
+        setDomain(event.target.value);
+    };
 
     const goToPreview = () => {
-        navigate('/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl } });
+        navigate('/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl, domain: domain } });
     }
 
     const handleLogout = () => {
@@ -52,7 +97,44 @@ export default function UrlForm() {
             // An error happened.
         });
     }
-
+    const MonthlyPayment = async (priceId) => {
+        console.log("click")
+        const docRef = await dbFirestore.collection('customers').doc(user.uid).collection
+            ("checkout_sessions").add({
+                price: priceId,
+                success_url: window.location.origin,
+                cancel_url: window.location.origin
+            })
+        docRef.onSnapshot(async (snap) => {
+            const { error, sessionId } = snap.data();
+            if (error) {
+                alert(error.message)
+            }
+            if (sessionId) {
+                const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
+                stripe.redirectToCheckout({ sessionId })
+            }
+        })
+    }
+    const yearlyPayment = async (priceId) => {
+        console.log("click")
+        const docRef = await dbFirestore.collection('customers').doc(user.uid).collection
+            ("checkout_sessions").add({
+                price: priceId,
+                success_url: window.location.origin,
+                cancel_url: window.location.origin
+            })
+        docRef.onSnapshot(async (snap) => {
+            const { error, sessionId } = snap.data();
+            if (error) {
+                alert(error.message)
+            }
+            if (sessionId) {
+                const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
+                stripe.redirectToCheckout({ sessionId })
+            }
+        })
+    }
     return (
         <>
             <Navbar className={"dashboardNavBar"} email={user.email} onClickLogout={handleLogout} isFromForm={true} />
@@ -83,16 +165,54 @@ export default function UrlForm() {
                             </div>
                             <div className='col-md-6'>
                                 <h2 className='form-sub-header'>Custom domain</h2>
-                                {/* <input
-                                        className='form-input-custom-domain'
-                                        type="text"
-                                        placeholder='Custom domain'
-                                    /> */}
-                                <p className='note'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#424242" stroke-width="2" stroke-linecap="round" strokeLinejoin="round" />
-                                </svg> You have to upgrade account to have Custom domain</p>
-                                <ButtonClear label='Upgrade account' className="upgrade-plan" onClick={handleShowModal} />
 
+
+                                {subscriptionType == "regular" ?
+                                    (
+                                        <div>
+                                            <p className='note'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#424242" stroke-width="2" stroke-linecap="round" strokeLinejoin="round" />
+                                            </svg> You have to upgrade account to have Custom domain</p>
+                                            <ButtonClear label='Upgrade account' className="upgrade-plan" onClick={handleShowModal} />
+                                        </div>
+                                    ) : (<input
+                                        className='input'
+                                        type="text"
+                                        placeholder='Enter your domain'
+                                        value={domain}
+                                        onChange={handleDomain} />)}
+                                <div className='domain-info'>
+                                    <p className='domain-info-header'>Add the relevant DNS records to your domain name. Set the following:</p>
+
+                                    <table>
+                                        <tr className='domain-info-subheader'>
+                                            <th>Type</th>
+                                            <th>Name</th>
+                                            <th>Value</th>
+                                        </tr>
+                                        <tr className='domain-info-one'>
+                                            <td>A</td>
+                                            <td>@</td>
+                                            <td>76.76.21.21</td>
+                                        </tr>
+                                        <tr className='domain-info-one'>
+                                            <td>CNAME</td>
+                                            <td>www</td>
+                                            <td>cname.vercel-dns.com</td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                {/* {Object.entries(products).map(([productId, productData]) => {
+                                    return (
+                                        <div className="plans" key={productId}>
+                                            <div> {productData.name}</div>
+
+                                            <button onClick={() => checkout("price_1OCDfLJyvkMmBNuRrErMN5YD")}>Subscribe</button>
+                                        </div>
+
+                                    )
+                                })} */}
                             </div>
                         </div>
 
@@ -157,9 +277,10 @@ export default function UrlForm() {
 
 
                 </div>
-                <UpgradeAlertModal show={showModal} handleClose={handleCloseModal} />
+                <PaymentSelectionModal show={showModal} handleClose={handleCloseModal}
+                    handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_MONTHLY)}
+                    handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_YEARLY)} />
             </div>
-
         </>
 
     );

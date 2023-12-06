@@ -126,7 +126,7 @@ export default function ProfilePage() {
                             </div>
                         </div>
                     </div>
-                    <div class="col-8">
+                    <div className="col-8">
                         <div className='profile-card'>
                             <div className='container-personal-information'>
                                 <div className='container'>
