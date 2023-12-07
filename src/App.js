@@ -34,7 +34,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const collectionRef = collection(db, "url");
+        const collectionRef = collection(db, "urls");
         const snapshot = await getDocs(collectionRef);
         const fetchedData = snapshot.docs.map(doc => doc.data());
         setData(fetchedData);
