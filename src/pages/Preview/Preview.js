@@ -130,7 +130,7 @@ export default function Preview() {
     const handleDraft = async (event) => {
         event.preventDefault();
         const ref = collection(db, "user", userId.uid, "url")
-        const refAllUrl = collection(db, "url")
+        const refAllUrl = collection(db, "urls")
         let urlData = {
             title: location.state.title,
             isDraft: "true",
@@ -164,7 +164,7 @@ export default function Preview() {
                 },
                 updatedAt: new Date(),
             });
-            const q = query(collection(db, "url"), where("generatedUrl", "==", location.state.generatedUrl));
+            const q = query(collection(db, "urls"), where("generatedUrl", "==", location.state.generatedUrl));
             const querySnapshot = await getDocs(q);
 
 
@@ -198,7 +198,7 @@ export default function Preview() {
     const handleSaveV2 = async (e) => {
         e.preventDefault();
         const ref = collection(db, "user", userId.uid, "url")
-        const refAllUrl = collection(db, "url")
+        const refAllUrl = collection(db, "urls")
 
         let urlData = {
             title: location.state.title,
