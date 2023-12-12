@@ -10,13 +10,14 @@ import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc, query, where
 import { useAuthState } from 'react-firebase-hooks/auth';
 import ButtonColored from '../ButtonColored/ButtonColored';
 import ButtonClear from '../ButtonClear/ButtonClear';
-
+import axios from "axios";
 const DeleteModal = (props) => {
     const { show, handleClose } = props;
     const [userId] = useAuthState(auth);
     const [user, setUser] = useState(null);
     const id = props.id;
     const generatedUrl = props.generatedUrl;
+    const customDomain = props.customDomain;
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -25,22 +26,56 @@ const DeleteModal = (props) => {
         return () => unsubscribe();
     }, []);
 
-    const handleDelete = async () => {
+
+    const handleDeleteDomainAndData = async () => {
         try {
-            await deleteDoc(doc(db, "user", user.uid, "url", id));
-            const q = query(collection(db, "url"), where("generatedUrl", "==", generatedUrl));
-            const querySnapshot = await getDocs(q);
-            try {
-                if (!q.empty) {
-                    querySnapshot.forEach((document) => {
-                        deleteDoc(doc(db, "url", document.id));
-                    });
-                    console.log('Document successfully deleted!');
-                    window.location.reload();
-                }
-            } catch (error) {
-                console.error('Error removing document: ', error);
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer 83YzDqNvO4OoVtKXQXJ4mTyj'
+            };
+
+            const response = await axios.delete(`https://api.vercel.com/v9/projects/${process.env.REACT_APP_VERCEL_PROJECT_ID}/domains/${customDomain}?teamId=${process.env.REACT_APP_VERCEL_TEAM_ID}`,
+                {
+                    headers: headers,
+                }).then((response) => {
+                    dataInDb()
+                }).catch((error) => {
+                    alert(error)
+                    console.log(error.response.data.error)
+                    console.log(props.customDomain)
+                });
+        } catch (error) {
+            alert(error)
+        }
+    }
+
+    const dataInDb = () => {
+        deleteDoc(doc(db, "user", user.uid, "url", id));
+        const q = query(collection(db, "url"), where("generatedUrl", "==", generatedUrl));
+        const querySnapshot = getDocs(q);
+        try {
+            if (!q.empty) {
+                querySnapshot.forEach((document) => {
+                    deleteDoc(doc(db, "url", document.id));
+                });
+                console.log('Document successfully deleted!');
+                window.location.reload();
             }
+        } catch (error) {
+            console.error('Error removing document: ', error);
+        }
+    }
+
+    const handleDelete = async () => {
+
+
+        try {
+            if (customDomain == '') {
+                dataInDb()
+            } else {
+                handleDeleteDomainAndData()
+            }
+
         } catch (error) {
             console.error('Error removing document: ', error);
         }
@@ -49,8 +84,11 @@ const DeleteModal = (props) => {
     return (
         <Modal className='delete-modal' show={show} onHide={handleClose}>
             <Modal.Body className='modal-body'>
+
                 <img src={DeleteHeaderImage} />
+
                 <h1 className='delete-header'> Delete site</h1>
+
                 <h2 className='delete-subheader'> Once being deleted, this file cannot be recover. Are you sure?</h2>
             </Modal.Body>
             <Modal.Footer>

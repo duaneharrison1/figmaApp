@@ -26,7 +26,7 @@ export default function EditForm() {
     const [modalMessage, setModalMessage] = useState('');
     const [products, setProducts] = useState([])
     const dbFirestore = firebase.firestore();
-
+    const [subscriptionType, setSubscriptionType] = useState(location.state.subscriptionType);
     useEffect(() => {
         dbFirestore.collection('products').where('active', '==', true).get().then(snapshot => {
             const products = {}
@@ -90,7 +90,7 @@ export default function EditForm() {
     }
 
     const MonthlyPayment = async (priceId) => {
-        const docRef = await dbFirestore.collection('customers').doc(user.uid).collection
+        const docRef = await dbFirestore.collection('user').doc(user.uid).collection
             ("checkout_sessions").add({
                 price: priceId,
                 success_url: window.location.origin,
@@ -108,7 +108,7 @@ export default function EditForm() {
         })
     }
     const yearlyPayment = async (priceId) => {
-        const docRef = await dbFirestore.collection('customers').doc(user.uid).collection
+        const docRef = await dbFirestore.collection('user').doc(user.uid).collection
             ("checkout_sessions").add({
                 price: priceId,
                 success_url: window.location.origin,
@@ -126,26 +126,8 @@ export default function EditForm() {
         })
     }
 
-    const handleUpdateDomain = async () => {
-        try {
-            const headers = {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer 83YzDqNvO4OoVtKXQXJ4mTyj'
-            };
 
-            const response = await axios.delete(`https://api.vercel.com/v9/projects/prj_Ng7WpEWng5RoiFDPqrrEIT54ksIa/domains/${customDomain}?teamId=team_KEHIxRRKOUxKfN9ICKr5A2XQ`,
-                {
-                    headers: headers,
-                }).then((response) => {
-                    alert("successful removing ")
-                }).catch((error) => {
-                    alert(error)
-                    console.log(error.response.data.error)
-                });
-        } catch (error) {
-            alert(error)
-        }
-    }
+
     return (
         <>
             {!profile ?
@@ -184,17 +166,47 @@ export default function EditForm() {
                             <div className='col-md-6'>
                                 <h2 className='form-sub-header'>Custom domain</h2>
 
-                                <input
-                                    className='input'
-                                    type="text"
-                                    placeholder='Enter your domain'
-                                    value={newCustomDomain}
-                                    onChange={handleCustomDomain}
-                                />
 
+                                {subscriptionType == "regular" ? (
 
-                                <ButtonClear label='Remove/Update domain' className="upgrade-plan" onClick={handleUpdateDomain} />
+                                    <div>
+                                        <p className='note'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#424242" stroke-width="2" stroke-linecap="round" strokeLinejoin="round" />
+                                        </svg> You have to upgrade account to have Custom domain</p>
+                                        <ButtonClear label='Upgrade account' className="upgrade-plan" onClick={handleShowModal} />
+                                    </div>
+                                ) : (
 
+                                    <div>
+                                        <input
+                                            className='input'
+                                            type="text"
+                                            placeholder='Enter your domain'
+                                            value={newCustomDomain}
+                                            on
+                                            Change={handleCustomDomain} />
+                                        <div className='domain-info'>
+                                            <p className='domain-info-header'>Add the relevant DNS records to your domain name. Set the following:</p>
+                                            <table>
+                                                <tr className='domain-info-subheader'>
+                                                    <th>Type</th>
+                                                    <th>Name</th>
+                                                    <th>Value</th>
+                                                </tr>
+                                                <tr className='domain-info-one'>
+                                                    <td>A</td>
+                                                    <td>@</td>
+                                                    <td>76.76.21.21</td>
+                                                </tr>
+                                                <tr className='domain-info-one'>
+                                                    <td>CNAME</td>
+                                                    <td>www</td>
+                                                    <td>cname.vercel-dns.com</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </div>
 

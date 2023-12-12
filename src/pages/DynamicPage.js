@@ -11,6 +11,8 @@ function DynamicPage({ url }) {
   const [mobile, setMobile] = useState("");
   const [desktop, setDesktop] = useState("");
   useEffect(() => {
+    console.log("url.urls.figmaDesktopUrl" + url.urls.figmaDesktopUrl)
+    console.log("url.urls.figmaDesktopUrl" + url.title)
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
@@ -34,14 +36,6 @@ function DynamicPage({ url }) {
     };
 
   }, []);
-
-
-
-
-  console.log("wew1" + url.urls.figmaDesktopUrl);
-  console.log("wew2" + url.urls.figmaMobileUrl);
-  console.log("wew3" + desktop);
-  console.log("wew4" + mobile);
   return (
 
     <iframe

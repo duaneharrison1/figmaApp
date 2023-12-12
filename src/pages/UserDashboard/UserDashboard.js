@@ -23,7 +23,7 @@ function UserDashboard() {
     const [user, setUser] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [showUpgradeModal, setShowUpgradeModal] = useState(false);
-    const [canCreate, setCanCreate] = useState(true);
+    const [canCreate, setCanCreate] = useState("initial");
     const [docCount, setDocCount] = useState(null)
     const [subscriptionType, setSubscriptionType] = useState("")
     const [subscriptionStatus, setSubscriptionStatus] = useState(null)
@@ -58,44 +58,45 @@ function UserDashboard() {
                                         .map((doc) => ({ ...doc.data(), id: doc.id }));
                                     setData(newData);
                                     setDocCount(querySnapshot.size)
-
-                                    console.log(user.uid)
                                 })
                         ).then(
-                            dbFirestore.collection('customers').doc(user.uid).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
+                            dbFirestore.collection('user').doc(user.uid).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
                                 if (snapshot.empty) {
                                     if (docCount >= 1) {
-                                        setCanCreate(false)
+                                        setCanCreate("false")
                                         setSubscriptionType("regular")
+                                        console.log("wentHere001")
                                     }
                                 } else {
-                                    snapshot.forEach(async subscription => {
+                                    snapshot.forEach(subscription => {
                                         if (subscription.data().status == "active") {
-                                            if (subscription.data().items[0].plan.id == "price_1OJSsDJyvkMmBNuRwxFTCnhQ") {
-                                                setCanCreate(true)
+                                            if (subscription.data().items[0].plan.id == process.env.REACT_APP_YEARLY) {
+                                                setCanCreate("true")
                                                 setSubscriptionType("annualPlan")
-                                            } else if (subscription.data().items[0].plan.id == process.env.stripe.MONTHLY && docCount <= 4) {
-                                                setCanCreate(true)
-                                                setChangeSubPlan(true)
+                                            } else if (subscription.data().items[0].plan.id == process.env.REACT_APP_MONTHLY && docCount <= 4) {
+                                                setCanCreate("true")
+                                                setChangeSubPlan("true")
                                                 setSubscriptionType("monthlyPlan")
                                             } else {
-                                                setCanCreate(false)
+                                                setCanCreate("false")
+                                                console.log("wentHere002")
                                             }
                                         } else if (subscription.data().status == "canceled") {
                                             if (docCount >= 1) {
-                                                setCanCreate(false)
+                                                setCanCreate("false")
                                                 setSubscriptionType("regular")
                                                 console.log("wentHere0")
                                             } else {
-                                                setCanCreate(true)
+                                                setCanCreate("true")
                                                 setSubscriptionType("regular")
                                             }
                                         } else {
                                             if (docCount >= 1) {
-                                                setCanCreate(false)
+                                                setCanCreate("false")
                                                 setSubscriptionType("regular")
+                                                console.log("wentHere003")
                                             } else {
-                                                setCanCreate(true)
+                                                setCanCreate("true")
                                                 setSubscriptionType("regular")
                                             }
                                         }
@@ -106,6 +107,7 @@ function UserDashboard() {
                 } catch (error) {
                     console.error('Error fetching data:', error);
                 } finally {
+
                     setLoading(false);
                 }
             }
@@ -133,8 +135,7 @@ function UserDashboard() {
     };
 
     const MonthlyPayment = async (priceId) => {
-        console.log("hhh" + process.env.REACT_APP_MONTHLY)
-        const docRef = await dbFirestore.collection('customers').doc(user.uid).collection
+        const docRef = await dbFirestore.collection('user').doc(user.uid).collection
             ("checkout_sessions").add({
                 price: priceId,
                 success_url: window.location.origin,
@@ -156,7 +157,7 @@ function UserDashboard() {
         if (changeSubPlan) {
             window.open('https://billing.stripe.com/p/login/test_bIYg0M5wa5wZ9xe7ss', '_blank');
         } else {
-            const docRef = await dbFirestore.collection('customers').doc(user.uid).collection
+            const docRef = await dbFirestore.collection('user').doc(user.uid).collection
                 ("checkout_sessions").add({
                     price: priceId,
                     success_url: window.location.origin,
@@ -206,7 +207,6 @@ function UserDashboard() {
                 <div>Loading...</div>
             ) : (
                 <div>
-                    {process.env.REACT_APP_MONTHLY}
                     {!profile ?
                         < Navbar className={"dashboardNavBar"} email={" "} onClickLogout={handleLogout} isFromForm={false} />
                         :
@@ -217,18 +217,19 @@ function UserDashboard() {
                         </div>
                     }
 
-                    <a href="https://billing.stripe.com/p/login/test_bIYg0M5wa5wZ9xe7ss" className="button">Test unsubscribe</a>
+                    {/* <a href="https://billing.stripe.com/p/login/test_bIYg0M5wa5wZ9xe7ss" className="button">Test unsubscribe</a> */}
                     <div className='dashboard-view'>
                         <div>
-                            {!canCreate ?
-                                <ButtonColored label='Monthly subscription exceeds number of apps' className="new-site" onClick={handleShowUpgradeModal}>
-                                </ButtonColored>
-                                :
+                            {canCreate == "true" ?
                                 <ButtonColored label='+ New site' className="new-site" onClick={goToNewForm}>
                                 </ButtonColored>
+                                : canCreate == "false" ?
+
+                                    <ButtonColored label='+ New site 0' className="new-site" onClick={handleShowUpgradeModal}>
+                                    </ButtonColored>
+                                    :
+                                    <div> </div>
                             }
-
-
                         </div>
 
                         {subscriptionType == "regular" ? (
@@ -236,7 +237,7 @@ function UserDashboard() {
                                 {data.map((item, index) => (
                                     < div className='col-sm-4' key={index} style={{ pointerEvents: index != 0 ? 'none' : '' }} >
                                         <CardView index={index} subscriptionType={subscriptionType} figmaMobileUrl={item.urls?.figmaMobileUrl} figmaDesktopUrl={item.urls?.figmaDesktopUrl} siteTitle={item?.title} url={item?.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item, profile)} />
-                                        <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} generatedUrl={item.generatedUrl} />
+                                        <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} generatedUrl={item.generatedUrl} customDomain={item.customDomain} />
                                     </div>
                                 ))}
                             </div>
@@ -245,7 +246,7 @@ function UserDashboard() {
                                 {data.map((item, index) => (
                                     < div className='col-sm-4' key={index} style={{ pointerEvents: index <= 4 ? '' : 'none' }} >
                                         <CardView index={index} subscriptionType={subscriptionType} figmaMobileUrl={item.urls?.figmaMobileUrl} figmaDesktopUrl={item.urls?.figmaDesktopUrl} siteTitle={item?.title} url={item?.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item, profile)} />
-                                        <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} generatedUrl={item.generatedUrl} />
+                                        <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} generatedUrl={item.generatedUrl} customDomain={item.customDomain} />
                                     </div>
                                 ))}
                             </div>
@@ -254,7 +255,7 @@ function UserDashboard() {
                                 {data.map((item, index) => (
                                     < div className='col-sm-4' key={index} >
                                         <CardView index={index} subscriptionType={subscriptionType} figmaMobileUrl={item.urls?.figmaMobileUrl} figmaDesktopUrl={item.urls?.figmaDesktopUrl} siteTitle={item?.title} url={item?.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item, profile)} />
-                                        <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} generatedUrl={item.generatedUrl} />
+                                        <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} generatedUrl={item.generatedUrl} customDomain={item.customDomain} />
                                     </div>
                                 ))}
                             </div>

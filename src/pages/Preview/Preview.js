@@ -46,7 +46,8 @@ export default function Preview() {
                 headers: headers,
             }).then((response) => {
                 console.log(response.data)
-                alert("Successfully added your domain. Please configure it to your domain service provider")
+                updateApp()
+
             }).catch((error) => {
                 if (error.response.data.error.code == 'forbidden') {
                     alert("forbidden")
@@ -231,7 +232,7 @@ export default function Preview() {
                 {
                     headers: headers,
                 }).then((response) => {
-                    alert("successful removing ")
+                    updateApp()
                 }).catch((error) => {
                     alert(error)
                     console.log(error.response.data.error)
@@ -248,6 +249,7 @@ export default function Preview() {
                 headers: headers,
             }).then((response) => {
                 console.log(response.data)
+                updateApp()
                 alert("Successfully added your domain. Please configure it to your domain service provider")
             }).catch((error) => {
                 if (error.response.data.error.code == 'forbidden') {
@@ -289,12 +291,10 @@ export default function Preview() {
         }
     }
 
-    const handleUpdateForEdit = async (event) => {
-        event.preventDefault();
-
+    const updateApp = () => {
         try {
             const ref = doc(db, "user", user.uid, "url", location.state.docId)
-            await updateDoc(ref, {
+            updateDoc(ref, {
                 title: location.state.title,
                 customDomain: location.state.newCustomDomain,
                 isDraft: "false",
@@ -304,27 +304,19 @@ export default function Preview() {
                 },
                 updatedAt: new Date()
             });
-            const q = query(collection(db, "url"), where("generatedUrl", "==", location.state.generatedUrl));
-            const querySnapshot = await getDocs(q);
-            if (!q.empty) {
-                querySnapshot.forEach((document) => {
-                    const docRef = doc(db, "url", document.id)
-                    updateDoc(docRef, {
-                        title: location.state.title,
-                        customDomain: location.state.newCustomDomain,
-                        isDraft: "false",
-                        urls: {
-                            figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
-                            figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
-                        },
-                        updatedAt: new Date()
-                    });
-                });
+            if (location.state.isDraft == 'false') {
+                window.open('https://figmafolio.com/' + location.state.generatedUrl, '_blank');
             }
+        } catch (error) {
+            alert(error)
+        }
+    }
 
+    const handleUpdateForEdit = async (event) => {
+        event.preventDefault();
+        try {
             if (location.state.newCustomDomain == "" && location.state.domain != "") {
                 handleDeleteDomain()
-                console.log("wentHerev0")
             } else if (location.state.newCustomDomain != "" && location.state.domain != location.state.newCustomDomain) {
                 if (location.state.domain == "") {
                     addDomainToVercel()
@@ -333,11 +325,9 @@ export default function Preview() {
                     handleDeleteAndUpdateDomain()
                     console.log("wentHerev2")
                 }
-
             } else {
-                if (location.state.isDraft == 'false') {
-                    window.open('https://figmafolio.com/' + location.state.generatedUrl, '_blank');
-                }
+                console.log("wentHerev3")
+                updateApp()
             }
 
 
@@ -397,8 +387,8 @@ export default function Preview() {
         }
     };
 
-    const handleSaveForNewForm = async (e) => {
-        e.preventDefault();
+    const saveNewForm = async () => {
+        console.log("save new form")
         try {
             const docRef = await dbFirestore.collection('user').doc(user.uid).collection
                 ("url").add({
@@ -425,13 +415,43 @@ export default function Preview() {
                     })
                 }
                 )
-            if (!location.state.domain == "") {
-                addDomainToVercel()
-            } else {
-                window.open('https://figmafolio.com/' + randomurl, '_blank');
-            }
         } catch (err) {
             alert(err.message)
+        } finally {
+            alert("success")
+            window.open('https://figmafolio.com/' + randomurl, '_blank');
+
+        }
+    }
+
+    const handleSaveForNewForm = async (e) => {
+        e.preventDefault();
+        if (location.state.domain == "") {
+            saveNewForm()
+        } else {
+            try {
+                const response = await axios.post(`https://api.vercel.com/v9/projects/${process.env.REACT_APP_VERCEL_PROJECT_ID}/domains?teamId=${process.env.REACT_APP_VERCEL_TEAM_ID}`,
+                    postData, {
+                    headers: headers,
+                }).then((response) => {
+                    console.log(response.data)
+                    saveNewForm()
+                }).catch((error) => {
+                    if (error.response.data.error.code == 'forbidden') {
+                        alert("forbidden")
+                    } else if (error.response.data.error.code == 'domain_already_in_use') {
+                        alert("The custom domain is already taken, please edit your url in the dashboard or contact the admin")
+                    } else if (error.response.data.error.code == 'invalid_domain') {
+                        alert("The specified value is not a fully qualified domain name.")
+                    }
+                    else {
+                        alert(error)
+                        console.log(error.response.data.error)
+                    }
+                });
+            } catch (error) {
+                alert(error)
+            }
         }
     }
 

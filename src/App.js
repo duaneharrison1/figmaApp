@@ -7,7 +7,7 @@ import DynamicPage from './pages/DynamicPage';
 import DynamicPage2 from './pages/DynamicPage2.js';
 import LandingPage from './pages/LandingPage/LandingPage';
 import UserDashboard from './pages/UserDashboard/UserDashboard';
-import { collection, getDocs } from "firebase/firestore";
+import { collection, collectionGroup, getDocs } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { db, auth } from './firebase';
@@ -21,10 +21,12 @@ import SignupPage from './pages/Authentication/SignupPage.js';
 
 
 function App() {
+
   const [data, setData] = useState([]);
+  const [sampleData, setSampleData] = useState([]);
+  const [sampleSub, setSampleSub] = useState([]);
   const [user, setUser] = useState(null);
   const [isMainDomain, setIsMainDomain] = useState();
-  const [customDomainData, setCustomDomainData] = useState();
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user); // Set the user state
@@ -36,6 +38,51 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
+
+      try {
+        await getDocs(collection(db, "user"))
+          .then((querySnapshot) => {
+            const userProfile = querySnapshot.docs
+              .map((doc) => ({ ...doc.data(), id: doc.id }));
+            setSampleData(userProfile)
+
+            for (var i = 0; i < sampleData.length; i++) {
+              var item = userProfile[i];
+              getDocs(collection(db, "user", item.id, "subscriptions"))
+                .then((querySnapshot) => {
+                  const subscriptions = querySnapshot.docs
+                    .map((doc) => ({ ...doc.data(), id: doc.id }));
+                  setSampleSub(subscriptions)
+
+
+
+
+
+
+
+                  // for (var i = 0; i < subscriptions.length; i++) {
+                  //   var subscriptionitem = subscriptions[i];
+                  //   console.log("subscriptions " + subscriptions.length)
+                  //   if (subscriptionitem.status == "active") {
+                  //     getDocs(collection(db, "user", item.id, "urlTest"))
+                  //       .then((querySnapshot) => {
+                  //         const url = querySnapshot.docs
+                  //           .map((doc) => ({ ...doc.data(), id: doc.id }));
+                  //         console.log("url.length " + url.length)
+                  //         for (var i = 0; i < url.length; i++) {
+                  //           var urlData = url[i];
+                  //           console.log("urlData " + urlData.title)
+                  //         }
+                  //       })
+                  //   }
+                  // }
+                })
+            }
+          })
+      } catch (error) {
+        console.log(error)
+      }
+
       var domain = window.location.host
 
       // if (domain != "figmafolio-stripe.vercel.app") {
@@ -48,23 +95,21 @@ function App() {
         console.log(domain)
       }
       try {
-        const collectionRef = collection(db, "url");
+        const collectionRef = collectionGroup(db, "url");
         const snapshot = await getDocs(collectionRef);
         const fetchedData = snapshot.docs.map(doc => doc.data());
         setData(fetchedData);
         for (var i = 0; i < fetchedData.length; i++) {
           var item = fetchedData[i];
-          if (!isMainDomain && item.customDomain == domain && item.isDraft == "false") {
-            setCustomDomainData(item)
-          }
         }
+
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
     fetchData();
 
-  }, [isMainDomain, customDomainData]
+  }, [isMainDomain]
 
   );
 

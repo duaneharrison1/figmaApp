@@ -18,7 +18,7 @@ const UpgradeAlertModal = (props) => {
     const dbFirestore = firebase.firestore();
     const stripeKey = String(process.env.KEY)
     const MonthlyPayment = async (priceId) => {
-        const docRef = await dbFirestore.collection('customers').doc(user.uid).collection
+        const docRef = await dbFirestore.collection('user').doc(user.uid).collection
             ("checkout_sessions").add({
                 price: priceId,
                 success_url: window.location.origin,
@@ -37,7 +37,7 @@ const UpgradeAlertModal = (props) => {
     }
     const yearlyPayment = async (priceId) => {
         console.log("click")
-        const docRef = await dbFirestore.collection('customers').doc(user.uid).collection
+        const docRef = await dbFirestore.collection('user').doc(user.uid).collection
             ("checkout_sessions").add({
                 price: priceId,
                 success_url: window.location.origin,

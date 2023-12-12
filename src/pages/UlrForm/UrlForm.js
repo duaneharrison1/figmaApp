@@ -49,7 +49,7 @@ export default function UrlForm() {
 
     });
     useEffect(() => {
-        dbFirestore.collection('customers').doc(user.uid).collection("subscriptions").get().then(snapshot => {
+        dbFirestore.collection('user').doc(user.uid).collection("subscriptions").get().then(snapshot => {
 
 
             snapshot.forEach(async subscription => {
@@ -99,7 +99,7 @@ export default function UrlForm() {
     }
     const MonthlyPayment = async (priceId) => {
         console.log("click")
-        const docRef = await dbFirestore.collection('customers').doc(user.uid).collection
+        const docRef = await dbFirestore.collection('user').doc(user.uid).collection
             ("checkout_sessions").add({
                 price: priceId,
                 success_url: window.location.origin,
@@ -118,7 +118,7 @@ export default function UrlForm() {
     }
     const yearlyPayment = async (priceId) => {
         console.log("click")
-        const docRef = await dbFirestore.collection('customers').doc(user.uid).collection
+        const docRef = await dbFirestore.collection('user').doc(user.uid).collection
             ("checkout_sessions").add({
                 price: priceId,
                 success_url: window.location.origin,
@@ -167,7 +167,7 @@ export default function UrlForm() {
                                 <h2 className='form-sub-header'>Custom domain</h2>
 
 
-                                {subscriptionType == "regular" ?
+                                {subscriptionType == "regular" || subscriptionType == "" ?
                                     (
                                         <div>
                                             <p className='note'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -175,33 +175,39 @@ export default function UrlForm() {
                                             </svg> You have to upgrade account to have Custom domain</p>
                                             <ButtonClear label='Upgrade account' className="upgrade-plan" onClick={handleShowModal} />
                                         </div>
-                                    ) : (<input
-                                        className='input'
-                                        type="text"
-                                        placeholder='Enter your domain'
-                                        value={domain}
-                                        onChange={handleDomain} />)}
-                                <div className='domain-info'>
-                                    <p className='domain-info-header'>Add the relevant DNS records to your domain name. Set the following:</p>
+                                    ) : (
 
-                                    <table>
-                                        <tr className='domain-info-subheader'>
-                                            <th>Type</th>
-                                            <th>Name</th>
-                                            <th>Value</th>
-                                        </tr>
-                                        <tr className='domain-info-one'>
-                                            <td>A</td>
-                                            <td>@</td>
-                                            <td>76.76.21.21</td>
-                                        </tr>
-                                        <tr className='domain-info-one'>
-                                            <td>CNAME</td>
-                                            <td>www</td>
-                                            <td>cname.vercel-dns.com</td>
-                                        </tr>
-                                    </table>
-                                </div>
+                                        <div>
+                                            <input
+                                                className='input'
+                                                type="text"
+                                                placeholder='Enter your domain'
+                                                value={domain}
+                                                onChange={handleDomain} />
+
+                                            <div className='domain-info'>
+                                                <p className='domain-info-header'>Add the relevant DNS records to your domain name. Set the following:</p>
+                                                <table>
+                                                    <tr className='domain-info-subheader'>
+                                                        <th>Type</th>
+                                                        <th>Name</th>
+                                                        <th>Value</th>
+                                                    </tr>
+                                                    <tr className='domain-info-one'>
+                                                        <td>A</td>
+                                                        <td>@</td>
+                                                        <td>76.76.21.21</td>
+                                                    </tr>
+                                                    <tr className='domain-info-one'>
+                                                        <td>CNAME</td>
+                                                        <td>www</td>
+                                                        <td>cname.vercel-dns.com</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    )}
+
 
                                 {/* {Object.entries(products).map(([productId, productData]) => {
                                     return (
