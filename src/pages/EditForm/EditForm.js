@@ -183,8 +183,7 @@ export default function EditForm() {
                                             type="text"
                                             placeholder='Enter your domain'
                                             value={newCustomDomain}
-                                            on
-                                            Change={handleCustomDomain} />
+                                            onChange={handleCustomDomain} />
                                         <div className='domain-info'>
                                             <p className='domain-info-header'>Add the relevant DNS records to your domain name. Set the following:</p>
                                             <table>
