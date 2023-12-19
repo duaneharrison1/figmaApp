@@ -72,6 +72,8 @@ function App() {
         console.log('setIsMainDomain(true)')
       } else {
         setIsMainDomain(false)
+        console.log(domain == 'figmafolio.com')
+        console.log(domain)
         console.log('setIsMainDomain(false)')
       }
       try {
