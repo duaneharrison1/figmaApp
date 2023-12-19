@@ -50,8 +50,6 @@ export default function ProfilePage() {
                             const userProfile = querySnapshot.docs
                                 .map((doc) => ({ ...doc.data(), id: doc.id }));
                             setProfile(userProfile);
-                            console.log('userProfile', userProfile);
-                            console.log('Profile', profile);
                         })
 
                 } catch (error) {
@@ -61,14 +59,12 @@ export default function ProfilePage() {
 
             }
             else {
-                console.log('No user data available');
             }
         };
         fetchData();
     }, [user, profile]);
 
     const handleUpload = () => {
-        console.log("Click")
         setShowUploadImageModal(true);
     };
 
@@ -103,14 +99,15 @@ export default function ProfilePage() {
     return (
         <>
             {!profile ?
-                < Navbar email={" "} onClickLogout={handleLogout} isFromForm={false} />
+                < Navbar className={"dashboardNavBar"} email={" "} isFromForm={false} />
                 :
                 <div>
                     {profile.map(profile => (
-                        < Navbar email={profile.name} onClickLogout={handleLogout} isFromForm={false} />
+                        < Navbar className={"dashboardNavBar"} email={profile.name} isFromForm={false} />
                     ))}
                 </div>
             }
+
             <div className='container main-profile-container'>
                 <div className="row">
                     <div className="col-4">
@@ -126,7 +123,7 @@ export default function ProfilePage() {
                             </div>
                         </div>
                     </div>
-                    <div class="col-8">
+                    <div className="col-8">
                         <div className='profile-card'>
                             <div className='container-personal-information'>
                                 <div className='container'>

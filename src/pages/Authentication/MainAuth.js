@@ -21,7 +21,6 @@ export default function MainAuth(props) {
 
     const location = useLocation();
     const tab = useState(location.state.name);
-    console.log(tab[0])
     const [user, setUser] = useState(null);
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {

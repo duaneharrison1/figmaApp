@@ -4,7 +4,9 @@ import { useAuth } from "../../firebase";
 import './Navbar.css';
 import ProfileIcon from '../../assets/images/profileicon.png';
 import { Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
+import { signOut } from "firebase/auth";
+import { db, auth } from '../../firebase';
 export default function Navbar(props) {
     const currentUser = useAuth();
     const handleSwitchChange = props.handleSwitchChange
@@ -13,13 +15,31 @@ export default function Navbar(props) {
     const className = props.className
     const isFromForm = props.isFromForm
     const [photoURL, setPhotoURL] = useState();
-
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (currentUser?.photoURL) {
             setPhotoURL(currentUser.photoURL);
         }
     }, [currentUser])
+
+    const handleGoToProfile = () => {
+        navigate('/profile');
+    }
+
+    const handleGoToBilling = () => {
+        navigate('/billing');
+    }
+
+    const handleLogout = () => {
+        signOut(auth).then(() => {
+            // Sign-out successful.
+            navigate("/");
+            console.log("Signed out successfully")
+        }).catch((error) => {
+            // An error happened.
+        });
+    }
 
     return (
 
@@ -54,7 +74,9 @@ export default function Navbar(props) {
                             </svg>
                         </button>
                         <ul className="dropdown-menu dropdown-menu-dark bg-light">
-                            <li><a className="dropdown-item" onClick={onClickLogout}>Logout</a></li>
+                            <li><a className="dropdown-item" onClick={handleGoToProfile}>Profile</a></li>
+                            <li><a className="dropdown-item" onClick={handleGoToBilling}>Billing</a></li>
+                            <li><a className="dropdown-item" onClick={handleLogout}>Logout</a></li>
                         </ul>
                     </div>
 

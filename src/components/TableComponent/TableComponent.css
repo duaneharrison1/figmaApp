@@ -1,0 +1,53 @@
+/* styles.css */
+.table-container {
+    margin: 20px;
+    overflow-x: auto;
+    /* Enable horizontal scrolling on small screens */
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #f2f2f2;
+}
+
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination button {
+    cursor: pointer;
+    padding: 8px;
+    margin-right: 5px;
+    border: 1px solid #ddd;
+    background-color: #f2f2f2;
+}
+
+.pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Responsive styles */
+@media only screen and (max-width: 600px) {
+
+    .table th,
+    .table td {
+        font-size: 12px;
+        /* Decrease font size for small screens */
+    }
+}

@@ -34,14 +34,6 @@ function DynamicPage({ url }) {
     };
 
   }, []);
-
-
-
-
-  console.log("wew1" + url.urls.figmaDesktopUrl);
-  console.log("wew2" + url.urls.figmaMobileUrl);
-  console.log("wew3" + desktop);
-  console.log("wew4" + mobile);
   return (
 
     <iframe

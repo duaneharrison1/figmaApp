@@ -65,7 +65,7 @@ export default function SignupPage() {
                         addDoc(ref, userData)
                         setShowModal(true);
                         setModalMessage("Sign up successful")
-                        navigate("/form")
+                        navigate("/dashboard")
                     } catch (err) {
                         console.log(err)
 

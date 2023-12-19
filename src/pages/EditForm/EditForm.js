@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-
+import firebase from '../../firebase';
 import { useNavigate, NavLink, useParams, useLocation } from 'react-router-dom';
 import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
+import { loadStripe } from '@stripe/stripe-js';
 import { signOut } from "firebase/auth";
 import './EditForm.css';
 import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import Navbar from '../../components/NavBar/Navbar';
 import ButtonClear from '../../components/ButtonClear/ButtonClear';
-import UpgradeAlertModal from '../../components/UpgradeAlert/UpgradeAlertModal';
-
+import PaymentSelectionModal from '../../components/PaymentSelection/PaymentSelection';
+import axios from "axios";
 export default function EditForm() {
     const navigate = useNavigate();
     const location = useLocation();
@@ -18,14 +19,36 @@ export default function EditForm() {
     const [profile, setProfile] = useState(location.state.profile);
     const [generatedUrl, setgeneratedUrl] = useState(location.state.object.generatedUrl);
     const [title, setTitle] = useState(location.state.object.title);
-    const [domain, setDomain] = useState(location.state.object.generatedUrl);
+    const [customDomain, setCustomDomain] = useState(location.state.object.customDomain);
+    const [newCustomDomain, setNewCustomDomain] = useState(location.state.object.customDomain);
     const user = auth.currentUser;
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
+    const [products, setProducts] = useState([])
+    const dbFirestore = firebase.firestore();
+    const [subscriptionType, setSubscriptionType] = useState(location.state.subscriptionType);
+    useEffect(() => {
+        dbFirestore.collection('products').where('active', '==', true).get().then(snapshot => {
+            const products = {}
+            snapshot.forEach(async productDoc => {
+                products[productDoc.id] = productDoc.data()
+                setProducts(products)
+
+                const priceSnapshot = await productDoc.ref.collection('prices').get();
+                priceSnapshot.forEach(priceDoc => {
+                    products[productDoc.id].prices = {
+                        priceId: priceDoc.id,
+                        priceData: priceDoc.data()
+                    }
+                })
+            })
+        })
+
+    });
 
 
     const goToPreview = () => {
-        navigate('/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl, fromEdit: true, isDraft: location.state.object.isDraft, docId: location.state.object.id, generatedUrl: generatedUrl } });
+        navigate('/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl, fromEdit: true, isDraft: location.state.object.isDraft, docId: location.state.object.id, generatedUrl: generatedUrl, domain: customDomain, newCustomDomain: newCustomDomain } });
     }
 
 
@@ -52,6 +75,10 @@ export default function EditForm() {
         setTitle(event.target.value);
     };
 
+    const handleCustomDomain = (event) => {
+        setNewCustomDomain(event.target.value);
+    };
+
     const handleLogout = () => {
         signOut(auth).then(() => {
             // Sign-out successful.
@@ -60,6 +87,43 @@ export default function EditForm() {
         }).catch((error) => {
             // An error happened.
         });
+    }
+
+    const MonthlyPayment = async (priceId) => {
+        const docRef = await dbFirestore.collection('user').doc(user.uid).collection
+            ("checkout_sessions").add({
+                price: priceId,
+                success_url: window.location.origin,
+                cancel_url: window.location.origin
+            })
+        docRef.onSnapshot(async (snap) => {
+            const { error, sessionId } = snap.data();
+            if (error) {
+                alert(error.message)
+            }
+            if (sessionId) {
+                const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
+                stripe.redirectToCheckout({ sessionId })
+            }
+        })
+    }
+    const yearlyPayment = async (priceId) => {
+        const docRef = await dbFirestore.collection('user').doc(user.uid).collection
+            ("checkout_sessions").add({
+                price: priceId,
+                success_url: window.location.origin,
+                cancel_url: window.location.origin
+            })
+        docRef.onSnapshot(async (snap) => {
+            const { error, sessionId } = snap.data();
+            if (error) {
+                alert(error.message)
+            }
+            if (sessionId) {
+                const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
+                stripe.redirectToCheckout({ sessionId })
+            }
+        })
     }
 
 
@@ -97,19 +161,51 @@ export default function EditForm() {
                         <div className='row second-div'>
                             <div className='col-6 align-items-start'>
                                 <h1 className='form-sub-header'>Your domain</h1>
-                                <p> figmafolio.com/{domain} </p>
+                                <p> figmafolio.com/{generatedUrl} </p>
                             </div>
                             <div className='col-md-6'>
                                 <h2 className='form-sub-header'>Custom domain</h2>
-                                {/* <input
-                                        className='form-input-custom-domain'
-                                        type="text"
-                                        placeholder='Custom domain'
-                                    /> */}
-                                <p className='note'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#424242" stroke-width="2" stroke-linecap="round" strokeLinejoin="round" />
-                                </svg> You have to upgrade account to have Custom domain</p>
-                                <ButtonClear label='Upgrade account' className="upgrade-plan" onClick={handleShowModal} />
+
+
+                                {subscriptionType == "regular" ? (
+
+                                    <div>
+                                        <p className='note'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#424242" stroke-width="2" stroke-linecap="round" strokeLinejoin="round" />
+                                        </svg> You have to upgrade account to have Custom domain</p>
+                                        <ButtonClear label='Upgrade account' className="upgrade-plan" onClick={handleShowModal} />
+                                    </div>
+                                ) : (
+
+                                    <div>
+                                        <input
+                                            className='input'
+                                            type="text"
+                                            placeholder='Enter your domain'
+                                            value={newCustomDomain}
+                                            onChange={handleCustomDomain} />
+                                        <div className='domain-info'>
+                                            <p className='domain-info-header'>Add the relevant DNS records to your domain name. Set the following:</p>
+                                            <table>
+                                                <tr className='domain-info-subheader'>
+                                                    <th>Type</th>
+                                                    <th>Name</th>
+                                                    <th>Value</th>
+                                                </tr>
+                                                <tr className='domain-info-one'>
+                                                    <td>A</td>
+                                                    <td>@</td>
+                                                    <td>76.76.21.21</td>
+                                                </tr>
+                                                <tr className='domain-info-one'>
+                                                    <td>CNAME</td>
+                                                    <td>www</td>
+                                                    <td>cname.vercel-dns.com</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </div>
 
@@ -172,7 +268,9 @@ export default function EditForm() {
                         <ButtonColored className="preview-btn" label="Preview" onClick={goToPreview} />
                     </div>
 
-                    <UpgradeAlertModal show={showModal} handleClose={handleCloseModal} />
+                    <PaymentSelectionModal show={showModal} handleClose={handleCloseModal}
+                        handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_MONTHLY)}
+                        handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_YEARLY)} />
                 </div>
             </div>
 

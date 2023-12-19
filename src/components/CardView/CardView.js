@@ -2,8 +2,11 @@ import React from 'react';
 import './CardView.css';
 import cardView from '../../assets/images/cardView.png'
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { useState, useEffect } from 'react';
 
 const CardView = (props) => {
+    const index = props.index
+    const subscriptionType = props.subscriptionType
     const figmaMobileUrl = props.figmaMobileUrl
     const figmaDesktopUrl = props.figmaDesktopUrl
     const isDraft = props.isDraft
@@ -11,28 +14,41 @@ const CardView = (props) => {
     const url = props.url
     const onClickDelete = props.onClickDelete
     const onClickUpdate = props.onClickUpdate
+    const [isLinkEnabled, setIsLinkEnabled] = useState(false);
+
+    const handleClick = () => {
+        // Your function logic here
+        console.log('Link clicked!');
+    };
+    const inactiveApp = {
+        border: 'none',
+        backgroundColor: 'gray',
+    };
+
 
 
     return (
         <>
-            <div className="card preview-card">
+            <div className="card preview-card" >
                 <a href={url} target="_blank">
-                    <div className='figmaThumbnail'>
+                    <div className='figmaThumbnail' style={subscriptionType == "regular" && index != 0 ? inactiveApp :
+                        subscriptionType == "monthlyPlan" && index > 4 ? inactiveApp :
+                            {}}>
                         <iframe
                             src={figmaDesktopUrl}
                             allowFullScreen
 
                             className='dashboard-figma-view'></iframe>
                     </div>
-                    {/* <img src={cardView} alt="test" className="card-image" /> */}
                 </a >
+
                 <div className="holder d-flex justify-content-between">
                     <div className='container d-flex'>
                         <h1 className='site-title'> {siteTitle}</h1>
                         {isDraft == "false" ? <h1 className='published'> Published</h1> : <h1 className='draft'> Draft</h1>}
                     </div>
                     <div>
-                        <div className="dropdown">
+                        <div className="dropdown" >
                             <button className="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                     <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="black" stroke-width="2" stroke-linecap="round" strokeLinejoin="round" />

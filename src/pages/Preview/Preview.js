@@ -7,25 +7,37 @@ import { signOut } from "firebase/auth";
 import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import ButtonClear from '../../components/ButtonClear/ButtonClear';
 import AlertModal from '../../components/AlertModal/AlertModal';
-
+import axios from "axios";
 import './Preview.css';
+import firebase from '../../firebase';
 export default function Preview() {
     const navigate = useNavigate();
     const [isMobile, setIsMobile] = useState(false);
     const location = useLocation();
-    const userId = auth.currentUser;
-
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
     const [duplicate, setDuplicate] = useState('');
     const [randomurl, setRandomUrl] = useState('');
     const [user, setUser] = useState(null);
     const [userIsDesktop, setUserIsDesktop] = useState(true);
-
     const [mobile, setMobile] = useState("");
     const [desktop, setDesktop] = useState("");
+    const dbFirestore = firebase.firestore();
 
+    const locationStateDomain = location.state.domain?.toLowerCase()
+    const locationStateNewDomain = location.state.newCustomDomain?.toLowerCase()
+    const [postData, setPostData] = useState({
+        "name": locationStateDomain
+    });
 
+    const [newCustomDomainData, setNewCustomDomainData] = useState({
+        "name": locationStateNewDomain
+    });
+
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer 83YzDqNvO4OoVtKXQXJ4mTyj'
+    };
 
     useEffect(() => {
         if (location.state.figmaMobileUrl == "") {
@@ -42,9 +54,6 @@ export default function Preview() {
         window.innerWidth > 1280 ? setUserIsDesktop(true) : setUserIsDesktop(false);
     }, [userIsDesktop]);
 
-    console.log("mobile " + mobile)
-    console.log("desktop " + desktop)
-    console.log("isMobile " + isMobile)
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -54,6 +63,61 @@ export default function Preview() {
         return () => unsubscribe(); // Clean up the listener when component unmounts
     }, []);
 
+
+    const addDomainToVercel = async () => {
+        try {
+            const response = await axios.post(`https://api.vercel.com/v9/projects/${process.env.REACT_APP_VERCEL_PROJECT_ID}/domains?teamId=${process.env.REACT_APP_VERCEL_TEAM_ID}`,
+                newCustomDomainData, {
+                headers: headers,
+            }).then((response) => {
+
+                updateApp()
+
+            }).catch((error) => {
+                if (error.response.data.error.code == 'forbidden') {
+                    alert("forbidden")
+                } else if (error.response.data.error.code == 'domain_already_in_use') {
+                    alert("The custom domain is already taken, please edit your url in the dashboard or contact the admin")
+                } else if (error.response.data.error.code == 'invalid_domain') {
+                    alert("The specified value is not a fully qualified domain name.")
+                }
+                else {
+                    alert(error)
+                    console.log(error.response.data.error)
+                }
+            });
+        } catch (error) {
+            alert(error)
+        }
+    };
+
+
+    const addDomainToVercelAsDraft = async () => {
+        try {
+            const response = await axios.post(`https://api.vercel.com/v9/projects/${process.env.REACT_APP_VERCEL_PROJECT_ID}/domains?teamId=${process.env.REACT_APP_VERCEL_TEAM_ID}`,
+                newCustomDomainData, {
+                headers: headers,
+            }).then((response) => {
+
+                updateAppAsDraft()
+
+            }).catch((error) => {
+                if (error.response.data.error.code == 'forbidden') {
+                    alert("forbidden")
+                } else if (error.response.data.error.code == 'domain_already_in_use') {
+                    alert("The custom domain is already taken, please edit your url in the dashboard or contact the admin")
+                } else if (error.response.data.error.code == 'invalid_domain') {
+                    alert("The specified value is not a fully qualified domain name.")
+                }
+                else {
+                    alert(error)
+                    console.log(error.response.data.error)
+                }
+            });
+        } catch (error) {
+            alert(error)
+        }
+    };
 
     const handleCloseModal = () => {
         setShowModal(false);
@@ -86,7 +150,6 @@ export default function Preview() {
         const hideUi = "&hide-ui=1"
         const hotspot = "&hotspot-hints=0"
         const embedHost = "www.figma.com/embed?embed_host=share&url=https%3A%2F%2F"
-
         var newUrl = ""
         var modifiedUrl = ""
         const modifiedString = removeWordFromString(originalString, wordToRemove);
@@ -126,68 +189,231 @@ export default function Preview() {
         return newUrl
     }
 
-
-    const handleDraft = async (event) => {
+    const handleSaveFormAsDraft = async (event) => {
         event.preventDefault();
-        const ref = collection(db, "user", userId.uid, "url")
-        const refAllUrl = collection(db, "urls")
-        let urlData = {
-            title: location.state.title,
-            isDraft: "true",
-            urls: {
-                figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
-                figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
+        if (locationStateDomain == "") {
+            saveNewFormAsDraft()
+        } else {
+            try {
+                const response = await axios.post(`https://api.vercel.com/v9/projects/${process.env.REACT_APP_VERCEL_PROJECT_ID}/domains?teamId=${process.env.REACT_APP_VERCEL_TEAM_ID}`,
+                    postData, {
+                    headers: headers,
+                }).then((response) => {
+                    saveNewFormAsDraft()
+                }).catch((error) => {
+                    if (error.response.data.error.code == 'forbidden') {
+                        alert("forbidden")
+                    } else if (error.response.data.error.code == 'domain_already_in_use') {
+                        alert("The custom domain is already taken, please edit your url in the dashboard or contact the admin")
+                    } else if (error.response.data.error.code == 'invalid_domain') {
+                        alert("The specified value is not a fully qualified domain name.")
+                    }
+                    else {
+                        alert(error)
+                        console.log(error.response.data.error)
+                    }
+                });
+            } catch (error) {
+                alert(error)
             }
-        }
-
-        try {
-            addDoc(ref, urlData)
-            setShowModal(true);
-            setModalMessage("Added to draft")
-
-        } catch (err) {
-            console.log(err)
-            setShowModal(true);
-            setModalMessage("Error")
         }
     }
 
-    const handleUpdate = async (event) => {
-        event.preventDefault();
+    const handleDeleteDomainAsDraft = async () => {
+        try {
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer 83YzDqNvO4OoVtKXQXJ4mTyj'
+            };
+
+            const response = await axios.delete(`https://api.vercel.com/v9/projects/${process.env.REACT_APP_VERCEL_PROJECT_ID}/domains/${locationStateDomain}?teamId=${process.env.REACT_APP_VERCEL_TEAM_ID}`,
+                {
+                    headers: headers,
+                }).then((response) => {
+                    updateAppAsDraft()
+                }).catch((error) => {
+                    alert(error)
+                    console.log(error.response.data.error)
+                });
+        } catch (error) {
+            alert(error)
+        }
+    }
+    const handleDeleteDomain = async () => {
+        try {
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer 83YzDqNvO4OoVtKXQXJ4mTyj'
+            };
+
+            const response = await axios.delete(`https://api.vercel.com/v9/projects/${process.env.REACT_APP_VERCEL_PROJECT_ID}/domains/${locationStateDomain}?teamId=${process.env.REACT_APP_VERCEL_TEAM_ID}`,
+                {
+                    headers: headers,
+                }).then((response) => {
+                    updateApp()
+                }).catch((error) => {
+                    alert(error)
+                    console.log(error.response.data.error)
+                });
+        } catch (error) {
+            alert(error)
+        }
+    }
+
+
+    const handleAddNewDomainFromEdit = async () => {
+        try {
+            const response = axios.post(`https://api.vercel.com/v9/projects/${process.env.REACT_APP_VERCEL_PROJECT_ID}/domains?teamId=${process.env.REACT_APP_VERCEL_TEAM_ID}`,
+                newCustomDomainData, {
+                headers: headers,
+            }).then((response) => {
+                updateApp()
+                alert("Successfully added your domain. Please configure it to your domain service provider")
+            }).catch((error) => {
+                if (error.response.data.error.code == 'forbidden') {
+                    alert("forbidden")
+                } else if (error.response.data.error.code == 'domain_already_in_use') {
+                    alert("The custom domain is already taken, please edit your url in the dashboard or contact the admin")
+                } else if (error.response.data.error.code == 'invalid_domain') {
+                    alert("The specified value is not a fully qualified domain name.")
+                }
+                else {
+                    alert(error)
+                    console.log(error.response.data.error)
+                }
+            });
+        } catch (error) {
+            alert(error)
+        }
+    }
+
+
+    const handleAddNewDomainFromEditAsDraft = async () => {
+        try {
+            const response = axios.post(`https://api.vercel.com/v9/projects/${process.env.REACT_APP_VERCEL_PROJECT_ID}/domains?teamId=${process.env.REACT_APP_VERCEL_TEAM_ID}`,
+                newCustomDomainData, {
+                headers: headers,
+            }).then((response) => {
+                updateAppAsDraft()
+                alert("Successfully added your domain. Please configure it to your domain service provider")
+            }).catch((error) => {
+                if (error.response.data.error.code == 'forbidden') {
+                    alert("forbidden")
+                } else if (error.response.data.error.code == 'domain_already_in_use') {
+                    alert("The custom domain is already taken, please edit your url in the dashboard or contact the admin")
+                } else if (error.response.data.error.code == 'invalid_domain') {
+                    alert("The specified value is not a fully qualified domain name.")
+                }
+                else {
+                    alert(error)
+                    console.log(error.response.data.error)
+                }
+            });
+        } catch (error) {
+            alert(error)
+        }
+    }
+
+    const handleDeleteAndUpdateDomain = async () => {
+        try {
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer 83YzDqNvO4OoVtKXQXJ4mTyj'
+            };
+
+            const response = await axios.delete(`https://api.vercel.com/v9/projects/${process.env.REACT_APP_VERCEL_PROJECT_ID}/domains/${locationStateDomain}?teamId=${process.env.REACT_APP_VERCEL_TEAM_ID}`,
+                {
+                    headers: headers,
+                }).then((response) => {
+                    handleAddNewDomainFromEdit()
+                }).catch((error) => {
+                    if (error.response.data.error.code == "not_found") {
+                        handleAddNewDomainFromEdit()
+                    }
+                });
+        } catch (error) {
+            alert(error)
+
+        }
+    }
+    const handleDeleteAndUpdateDomainAsDraft = async () => {
+        try {
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer 83YzDqNvO4OoVtKXQXJ4mTyj'
+            };
+
+            const response = await axios.delete(`https://api.vercel.com/v9/projects/${process.env.REACT_APP_VERCEL_PROJECT_ID}/domains/${locationStateDomain}?teamId=${process.env.REACT_APP_VERCEL_TEAM_ID}`,
+                {
+                    headers: headers,
+                }).then((response) => {
+                    handleAddNewDomainFromEditAsDraft()
+                }).catch((error) => {
+                    if (error.response.data.error.code == "not_found") {
+                        handleAddNewDomainFromEditAsDraft()
+                    }
+                });
+        } catch (error) {
+            alert(error)
+
+        }
+    }
+
+    const updateApp = () => {
         try {
             const ref = doc(db, "user", user.uid, "url", location.state.docId)
-            await updateDoc(ref, {
+            updateDoc(ref, {
                 title: location.state.title,
+                customDomain: locationStateNewDomain,
+                isDraft: "false",
                 urls: {
                     figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
                     figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
                 },
-                updatedAt: new Date(),
+                updatedAt: new Date()
             });
-            const q = query(collection(db, "urls"), where("generatedUrl", "==", location.state.generatedUrl));
-            const querySnapshot = await getDocs(q);
-
-
-            if (!q.empty) {
-                querySnapshot.forEach((document) => {
-                    const docRef = doc(db, "url", document.id)
-                    updateDoc(docRef, {
-                        title: location.state.title,
-                        urls: {
-                            figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
-                            figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
-                        }
-                    });
-                });
-
-            }
-
-            setShowModal(true);
-            setModalMessage("Update successful")
-            console.log('Document updated successfully');
             if (location.state.isDraft == 'false') {
                 window.open('https://figmafolio.com/' + location.state.generatedUrl, '_blank');
             }
+        } catch (error) {
+            alert(error)
+        }
+    }
+
+    const updateAppAsDraft = () => {
+        try {
+            const ref = doc(db, "user", user.uid, "url", location.state.docId)
+            updateDoc(ref, {
+                title: location.state.title,
+                customDomain: locationStateNewDomain,
+                isDraft: "true",
+                urls: {
+                    figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
+                    figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
+                },
+                updatedAt: new Date()
+            });
+        } catch (error) {
+            alert(error)
+        }
+    }
+
+    const handleUpdateForm = async (event) => {
+        event.preventDefault();
+        try {
+            if (locationStateNewDomain == "" && locationStateDomain != "") {
+                handleDeleteDomain()
+            } else if (locationStateNewDomain != "" && locationStateDomain != locationStateNewDomain) {
+                if (locationStateDomain == "") {
+                    addDomainToVercel()
+                } else {
+                    handleDeleteAndUpdateDomain()
+                }
+            } else {
+                updateApp()
+            }
+
+
         } catch (error) {
             setShowModal(true);
             setModalMessage("Error updating")
@@ -195,32 +421,126 @@ export default function Preview() {
         }
     };
 
-    const handleSaveV2 = async (e) => {
-        e.preventDefault();
-        const ref = collection(db, "user", userId.uid, "url")
-        const refAllUrl = collection(db, "urls")
-
-        let urlData = {
-            title: location.state.title,
-            isDraft: "false",
-            generatedUrl: randomurl,
-            urls: {
-                figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
-                figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
-            },
-            createdAt: new Date(),
-        }
-
+    const handleUpdateFormAsDraft = async (event) => {
+        event.preventDefault();
         try {
-            addDoc(ref, urlData)
-            addDoc(refAllUrl, urlData)
+            if (locationStateNewDomain == "" && locationStateDomain != "") {
+                handleDeleteDomainAsDraft()
+            } else if (locationStateNewDomain != "" && locationStateDomain != locationStateNewDomain) {
+                if (locationStateDomain == "") {
+                    addDomainToVercelAsDraft()
+                } else {
+                    handleDeleteAndUpdateDomain()
+                }
+            } else {
+                handleDeleteAndUpdateDomainAsDraft()
+            }
+        } catch (error) {
             setShowModal(true);
-            setModalMessage("App saved")
-            window.open('https://figmafolio.com/' + randomurl, '_blank');
+            setModalMessage("Error updating")
+            console.error('Error updating document:', error);
+        }
+    };
+    const saveNewFormAsDraft = async () => {
+        try {
+            const docRef = await dbFirestore.collection('user').doc(user.uid).collection
+                ("url").add({
+                    title: location.state.title,
+                    customDomain: locationStateDomain,
+                    isDraft: "true",
+                    generatedUrl: randomurl,
+                    urls: {
+                        figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
+                        figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
+                    },
+                    createdAt: new Date(),
+                }).then(() => {
+                    const docRef2 = dbFirestore.collection('url').add({
+                        title: location.state.title,
+                        customDomain: locationStateDomain,
+                        isDraft: "true",
+                        generatedUrl: randomurl,
+                        urls: {
+                            figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
+                            figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
+                        },
+                        createdAt: new Date(),
+                    })
+                }
+                )
         } catch (err) {
-            console.log(err)
-            setShowModal(true);
-            setModalMessage("Error in saving")
+            alert(err.message)
+        } finally {
+            alert("success")
+            window.open('https://figmafolio.com/' + randomurl, '_blank');
+
+        }
+    }
+
+    const saveNewForm = async () => {
+        console.log("save new form")
+        try {
+            const docRef = await dbFirestore.collection('user').doc(user.uid).collection
+                ("url").add({
+                    title: location.state.title,
+                    customDomain: locationStateDomain,
+                    isDraft: "false",
+                    generatedUrl: randomurl,
+                    urls: {
+                        figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
+                        figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
+                    },
+                    createdAt: new Date(),
+                }).then(() => {
+                    const docRef2 = dbFirestore.collection('url').add({
+                        title: location.state.title,
+                        customDomain: locationStateDomain,
+                        isDraft: "false",
+                        generatedUrl: randomurl,
+                        urls: {
+                            figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
+                            figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
+                        },
+                        createdAt: new Date(),
+                    })
+                }
+                )
+        } catch (err) {
+            alert(err.message)
+        } finally {
+            alert("success")
+            window.open('https://figmafolio.com/' + randomurl, '_blank');
+
+        }
+    }
+
+    const handleSaveForm = async (e) => {
+        e.preventDefault();
+        if (locationStateDomain == "") {
+            saveNewForm()
+        } else {
+            try {
+                const response = await axios.post(`https://api.vercel.com/v9/projects/${process.env.REACT_APP_VERCEL_PROJECT_ID}/domains?teamId=${process.env.REACT_APP_VERCEL_TEAM_ID}`,
+                    postData, {
+                    headers: headers,
+                }).then((response) => {
+                    saveNewForm()
+                }).catch((error) => {
+                    if (error.response.data.error.code == 'forbidden') {
+                        alert("forbidden")
+                    } else if (error.response.data.error.code == 'domain_already_in_use') {
+                        alert("The custom domain is already taken, please edit your url in the dashboard or contact the admin")
+                    } else if (error.response.data.error.code == 'invalid_domain') {
+                        alert("The specified value is not a fully qualified domain name.")
+                    }
+                    else {
+                        alert(error)
+                        console.log(error.response.data.error)
+                    }
+                });
+            } catch (error) {
+                alert(error)
+            }
         }
     }
 
@@ -308,12 +628,12 @@ export default function Preview() {
 
                             <div className='mobile-button-container'>
 
-                                <ButtonClear className="save-as-draft" label='Save as Draft' onClick={location.state.fromEdit === true ? handleUpdate : handleDraft} />
+                                <ButtonClear className="save-as-draft" label='Save as Draft' onClick={location.state.fromEdit === true ? handleUpdateFormAsDraft : handleSaveFormAsDraft} />
 
                                 {location.state.fromEdit === true ? (
-                                    <ButtonColored className="update-btn" label='Update' onClick={handleUpdate} />) :
+                                    <ButtonColored className="update-btn" label='Update' onClick={handleUpdateForm} />) :
                                     (
-                                        <ButtonColored className="update-btn" label='Publish' onClick={handleSaveV2} />
+                                        <ButtonColored className="update-btn" label='Publish' onClick={handleSaveForm} />
                                     )}
 
                             </div>
@@ -322,11 +642,11 @@ export default function Preview() {
                         <div>
 
 
-                            <div class="row nav-container  m-0 ">
-                                <div class="col m-0 p-0">
+                            <div className="row nav-container  m-0 ">
+                                <div className="col m-0 p-0">
                                     <a className="back-to-library" href="/dashboard"> &lt; Back to dashboard</a>
                                 </div>
-                                <div class="col m-0 p-0 ">
+                                <div className="col m-0 p-0 ">
                                     <div className='switch-container'>
                                         <div container="preview-switch-container">
                                             <h1 className='preview-switch-header'>Preview</h1>
@@ -346,13 +666,13 @@ export default function Preview() {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col m-0 p-0">
+                                <div className="col m-0 p-0">
                                     < div className='draft-publish-container'>
-                                        <ButtonClear className="save-as-draft" label='Save as Draft' onClick={location.state.fromEdit === true ? handleUpdate : handleDraft} />
+                                        <ButtonClear className="save-as-draft" label='Save as Draft' onClick={location.state.fromEdit === true ? handleUpdateFormAsDraft : handleSaveFormAsDraft} />
                                         {location.state.fromEdit === true ? (
-                                            <ButtonColored className="update-btn" label='Update' onClick={handleUpdate} />) :
+                                            <ButtonColored className="update-btn" label='Update' onClick={handleUpdateForm} />) :
                                             (
-                                                <ButtonColored className="update-btn" label='Publish' onClick={handleSaveV2} />
+                                                <ButtonColored className="update-btn" label='Publish' onClick={handleSaveForm} />
                                             )}
                                     </div >
                                 </div>

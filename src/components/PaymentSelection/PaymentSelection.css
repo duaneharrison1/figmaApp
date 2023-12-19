@@ -1,0 +1,109 @@
+.payment-feature {
+    display: flex;
+}
+
+.payment-modal-selection-title {
+    color: #2D2B29;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    padding-bottom: 32px;
+    margin: 0;
+}
+
+.payment-feature-text {
+    color: #2D2B29;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.bill-desc {
+    color: #A0A0A0;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+    padding-bottom: 32px;
+}
+
+.payment-modal-header {
+    color: var(--grey-10, #272E3B);
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    padding-bottom: 16px;
+    margin: 0;
+}
+
+.payment-modal-subheader {
+    color: var(--grey-9, #4E5969);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    padding-bottom: 20px;
+    margin: 0;
+}
+
+.regular-card {
+    height: 400px;
+    padding: 20px;
+    position: relative;
+    border-radius: 16px;
+    border: 1px solid var(--grey-4, #E5E6EB);
+    background: var(--neutral-white, #FFF);
+}
+
+.payment-selection-modal {
+    padding-top: 80px;
+    min-width: 878px !important;
+    height: 538px;
+}
+
+.payment-modal-body {
+    width: 900px;
+    padding: 24px;
+}
+
+.amount {
+    color: #2D2B29;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+}
+
+.month {
+    color: #2D2B29;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+}
+
+.check-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+}
+
+.green-card {
+    height: 400px;
+    padding: 20px;
+    position: relative;
+    border-radius: 16px;
+    border: 2px solid #036D21;
+    background: #E6F0E9;
+}
+
+.heading-container {
+    display: flex;
+}
+
+.most-popular {
+    width: 95px;
+    height: 24px;
+}
