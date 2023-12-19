@@ -66,9 +66,11 @@ function App() {
       // if (!domain.includes('figmafolio-stripe.vercel.app')) {
       // if (domain != "localhost:3000") {
       if (domain != "figmafolio.com" || domain != "figma-app-tau.vercel.app/") {
+        console.log("main domain")
         setIsMainDomain(false)
       } else {
         setIsMainDomain(true)
+        console.log("not main domain")
       }
       try {
         const collectionRef = collectionGroup(db, "url");
