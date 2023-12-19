@@ -93,7 +93,7 @@ function App() {
 
   return (
     <div>
-      {/* <Routes>
+      <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/form" element={<UrlForm />} />
@@ -107,10 +107,9 @@ function App() {
         {data.map((item) => (
           < Route path={`/${item.generatedUrl}`} element={<DynamicPage url={item} />} />
         ))}
-      </Routes> */}
+      </Routes>
 
-
-      {!isMainDomain ?
+      {/* {!isMainDomain ?
         <Routes>
           <Route path="/" element={<DynamicPage2 />} />
         </Routes>
@@ -129,7 +128,7 @@ function App() {
             < Route path={`/${item.generatedUrl}`} element={<DynamicPage url={item} />} />
           ))}
         </Routes>
-      }
+      } */}
     </div>
 
 
