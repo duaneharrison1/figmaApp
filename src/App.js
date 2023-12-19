@@ -67,6 +67,8 @@ function App() {
       // if (domain != "localhost:3000") {
       if (domain == 'figmafolio.com' || domain == 'figma-app-tau.vercel.app') {
         setIsMainDomain(true)
+        console.log(domain == 'figmafolio.com')
+        console.log(domain)
         console.log('setIsMainDomain(true)')
       } else {
         setIsMainDomain(false)
