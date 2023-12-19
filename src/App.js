@@ -65,7 +65,7 @@ function App() {
 
       // if (!domain.includes('figmafolio-stripe.vercel.app')) {
       // if (domain != "localhost:3000") {
-      if (domain != "figmafolio.com") {
+      if (domain != "figmafolio.com" || domain != "figma-app-tau.vercel.app/") {
         setIsMainDomain(false)
       } else {
         setIsMainDomain(true)
