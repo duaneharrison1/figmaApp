@@ -77,7 +77,7 @@ const UpgradeAlertModal = (props) => {
                 <Modal dialogClassName='payment-selection-modal' show={show} onHide={handleClose} >
                     <Modal.Body dialogClassName='payment-modal-body' >
                         <h1 className='payment-modal-header'>Pick a plan to suit your needs</h1>
-                        <h2 className='payment-modal-subheader'> All plans are available with full functionality, please choose the right plan according to your needs</h2>
+                        {/* <h2 className='payment-modal-subheader'> All plans are available with full functionality, please choose the right plan according to your needs</h2> */}
                         <div className='row'>
                             <div className='col-md-4'>
                                 <div className='regular-card'>
