@@ -89,11 +89,11 @@ const UpgradeAlertModal = (props) => {
                                     <h4 className='bill-desc'> Billed monthly at $0 </h4>
                                     <div className="payment-feature">
                                         <img className='check-icon' src={Check} />
-                                        <h4 className='payment-feature-text'>5 projects/ websites</h4>
+                                        <h4 className='payment-feature-text'>5 projects/websites</h4>
                                     </div>
                                     <div className="payment-feature">
                                         <img src={Check} />
-                                        <h4 className='payment-feature-text'> Preset domains</h4>
+                                        <h4 className='payment-feature-text'> Free Figmafolio domain</h4>
                                     </div>
                                     <ButtonColored className="btn-current-plan" label="Current plan" />
 
@@ -109,11 +109,11 @@ const UpgradeAlertModal = (props) => {
                                     <h4 className='bill-desc'> Billed monthly at $5 </h4>
                                     <div className="payment-feature">
                                         <img className='check-icon' src={Check} />
-                                        <h4 className='payment-feature-text'>5 projects/ websites</h4>
+                                        <h4 className='payment-feature-text'>5 projects/websites</h4>
                                     </div>
                                     <div className="payment-feature">
                                         <img className='check-icon' src={Check} />
-                                        <h4 className='payment-feature-text'> Preset domains</h4>
+                                        <h4 className='payment-feature-text'> Custom domains</h4>
                                     </div>
                                     <ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={MonthlyPayment} />
                                 </div>
@@ -126,21 +126,21 @@ const UpgradeAlertModal = (props) => {
                                     </div>
 
                                     <div className='amount-per-month'>
-                                        <span className='amount'>4 </span>
+                                        <span className='amount'>4.1</span>
                                         <span className='month'>/month</span>
                                     </div>
-                                    <h4 className='bill-desc'> Billed at one payment of $48</h4>
+                                    <h4 className='bill-desc'> Billed yearly at $48</h4>
                                     <div className="payment-feature">
                                         <img className='check-icon' src={Check} />
                                         <h4 className='payment-feature-text'>Unlimited projects/websites</h4>
                                     </div>
                                     <div className="payment-feature">
                                         <img className='check-icon' src={Check} />
-                                        <h4 className='payment-feature-text'>Use custom domains</h4>
+                                        <h4 className='payment-feature-text'>Custom domains</h4>
                                     </div>
                                     <div className="payment-feature">
                                         <img className='check-icon' src={Check} />
-                                        <h4 className='payment-feature-text'>priority technical and product support</h4>
+                                        <h4 className='payment-feature-text'>Priority technical and product support</h4>
                                     </div>
                                     <ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={yearlyPayment} />
                                 </div>

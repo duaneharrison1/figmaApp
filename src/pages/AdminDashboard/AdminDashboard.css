@@ -1,0 +1,7 @@
+.table-data {
+    width: 100%;
+    /* Set the table width to 100% of its container */
+    border-collapse: collapse;
+    padding: 20px;
+    /* Optional: collapse borders for a cleaner look */
+}

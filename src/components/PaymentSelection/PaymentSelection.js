@@ -32,11 +32,11 @@ const PaymentSelection = (props) => {
                                         <h4 className='bill-desc'> Billed monthly at $5 </h4>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>5 projects/ websites</h4>
+                                            <h4 className='payment-feature-text'>5 projects/websites</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'> Preset domains</h4>
+                                            <h4 className='payment-feature-text'> Custom domains</h4>
                                         </div>
                                         {monthlySubscription == "monthlyPlan" ?
                                             (<ButtonColored className="btn-current-plan" label="Current plan" />) :
@@ -62,11 +62,11 @@ const PaymentSelection = (props) => {
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Use custom domains</h4>
+                                            <h4 className='payment-feature-text'>Custom domains</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>priority technical and product support</h4>
+                                            <h4 className='payment-feature-text'>Priority technical and product support</h4>
                                         </div>
                                         <ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={handleYearlyPayment} />
                                     </div>
@@ -86,11 +86,11 @@ const PaymentSelection = (props) => {
                                         <h4 className='bill-desc'> Billed monthly at $5 </h4>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>5 projects/ websites</h4>
+                                            <h4 className='payment-feature-text'>5 projects/websites</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'> Preset domains</h4>
+                                            <h4 className='payment-feature-text'> Custom domains</h4>
                                         </div>
                                         <ButtonColored className="btn-upgrade-plan" label="Change plan" onClick={ManagePlan} />
                                     </div>
@@ -106,18 +106,18 @@ const PaymentSelection = (props) => {
                                             <span className='amount'>$4</span>
                                             <span className='month'>/month</span>
                                         </div>
-                                        <h4 className='bill-desc'> Billed at one payment of $48</h4>
+                                        <h4 className='bill-desc'> Billed yearly at $48</h4>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'>Unlimited projects/websites</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Use custom domains</h4>
+                                            <h4 className='payment-feature-text'>Custom domains</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>priority technical and product support</h4>
+                                            <h4 className='payment-feature-text'>Priority technical and product support</h4>
                                         </div>
                                         <ButtonColored className="btn-current-plan" label="Current plan" />
                                     </div>
@@ -136,11 +136,11 @@ const PaymentSelection = (props) => {
                                         <h4 className='bill-desc'> Billed monthly at $0 </h4>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>5 projects/ websites</h4>
+                                            <h4 className='payment-feature-text'>1 project/websites</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img src={Check} />
-                                            <h4 className='payment-feature-text'> Preset domains</h4>
+                                            <h4 className='payment-feature-text'> Free Figmafolio domain</h4>
                                         </div>
                                         <ButtonColored className="btn-current-plan" label="Current plan" />
 
@@ -156,11 +156,11 @@ const PaymentSelection = (props) => {
                                         <h4 className='bill-desc'> Billed monthly at $5 </h4>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>5 projects/ websites</h4>
+                                            <h4 className='payment-feature-text'>5 projects/websites</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'> Preset domains</h4>
+                                            <h4 className='payment-feature-text'> Custom domains</h4>
                                         </div>
                                         {monthlySubscription == "monthlyPlan" ?
                                             (<ButtonColored className="btn-current-plan" label="Current plan" />) :
@@ -179,18 +179,18 @@ const PaymentSelection = (props) => {
                                             <span className='amount'>$4</span>
                                             <span className='month'>/month</span>
                                         </div>
-                                        <h4 className='bill-desc'> Billed at one payment of $48</h4>
+                                        <h4 className='bill-desc'> Billed yearly at $48</h4>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'>Unlimited projects/websites</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Use custom domains</h4>
+                                            <h4 className='payment-feature-text'>Custom domains</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>priority technical and product support</h4>
+                                            <h4 className='payment-feature-text'>Priority technical and product support</h4>
                                         </div>
                                         <ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={handleYearlyPayment} />
                                     </div>
