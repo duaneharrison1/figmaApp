@@ -81,7 +81,7 @@ function AdminDashboard() {
                 {data.map((item, index) => (
                     <tr key={index}>
                         <td>{item.title}</td>
-                        <td>  <a href={`www.figmafolio/${item.generatedUrl}`} target="_blank" rel="noopener noreferrer">
+                        <td>  <a href={`${item.generatedUrl}`} target="_blank" rel="noopener noreferrer">
                             {`www.figmafolio/${item.generatedUrl}`}
                         </a></td>
 
