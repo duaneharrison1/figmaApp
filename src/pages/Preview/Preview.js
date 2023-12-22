@@ -434,17 +434,13 @@ export default function Preview() {
             } else if (locationStateNewDomain != "" && locationStateDomain != locationStateNewDomain) {
                 if (locationStateDomain == "") {
                     addDomainToVercelAsDraft()
-                    console.log("handleUpdateFormAsDraft 1")
                 } else {
                     handleDeleteAndUpdateDomain()
-                    console.log("handleUpdateFormAsDraft 2")
                 }
             } else if (locationStateDomain == "" && locationStateNewDomain == "") {
                 updateAppAsDraft()
-                console.log("handleUpdateFormAsDraft 4")
             } else {
                 handleDeleteAndUpdateDomainAsDraft()
-                console.log("handleUpdateFormAsDraft 3")
             }
         } catch (error) {
             setShowModal(true);

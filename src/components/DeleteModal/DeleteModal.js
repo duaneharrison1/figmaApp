@@ -29,13 +29,10 @@ const DeleteModal = (props) => {
         });
         if (regex.test(customDomain)) {
             const removedPrefix = customDomain.replace(regex, '');
-
             setOutputValue(removedPrefix);
-            console.log("went here 1")
         } else {
             console.log(customDomain)
             setOutputValue(customDomain);
-            console.log("went here 2")
         }
         console.log("output value" + outputValue)
         return () => unsubscribe();
@@ -83,7 +80,6 @@ const DeleteModal = (props) => {
             } else {
                 handleDeleteDomainAndData()
             }
-
         } catch (error) {
             console.error('Error removing document: ', error);
         }
@@ -92,11 +88,8 @@ const DeleteModal = (props) => {
     return (
         <Modal className='delete-modal' show={show} onHide={handleClose}>
             <Modal.Body className='modal-body'>
-
                 <img src={DeleteHeaderImage} />
-
                 <h1 className='delete-header'> Delete site</h1>
-
                 <h2 className='delete-subheader'> Once being deleted, this file cannot be recover. Are you sure?</h2>
             </Modal.Body>
             <Modal.Footer>
@@ -106,12 +99,7 @@ const DeleteModal = (props) => {
 
                 <div className='container'>
                     <ButtonClear className="cancel-delete-btn" onClick={handleClose} label="Cancel" />
-
-
                 </div>
-
-
-
             </Modal.Footer >
         </Modal >
     );
