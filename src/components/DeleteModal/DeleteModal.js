@@ -65,25 +65,18 @@ const DeleteModal = (props) => {
     }
 
     const dataInDb = () => {
-        deleteDoc(doc(db, "user", user.uid, "url", id));
-        const q = query(collection(db, "url"), where("generatedUrl", "==", generatedUrl));
-        const querySnapshot = getDocs(q);
         try {
-            if (!q.empty) {
-                querySnapshot.forEach((document) => {
-                    deleteDoc(doc(db, "url", document.id));
-                });
-                console.log('Document successfully deleted!');
-                window.location.reload();
-            }
-        } catch (error) {
-            console.error('Error removing document: ', error);
+            deleteDoc(doc(db, "user", user.uid, "url", id));
+            alert("Deleted successfully")
+            handleClose()
+        } catch {
+            alert("Error Deleting data")
         }
+
+
     }
 
     const handleDelete = async () => {
-
-
         try {
             if (customDomain == '') {
                 dataInDb()

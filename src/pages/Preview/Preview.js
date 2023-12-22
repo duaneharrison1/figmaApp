@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { collection, addDoc, doc, getDocs, updateDoc, QuerySnapshot, query, where } from 'firebase/firestore'
+import { collection, addDoc, doc, getDocs, updateDoc, QuerySnapshot, query, where, collectionGroup } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
 import { signOut } from "firebase/auth";
 import ButtonColored from '../../components/ButtonColored/ButtonColored';
@@ -371,6 +371,8 @@ export default function Preview() {
                     figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
                 },
                 updatedAt: new Date()
+            }).then(() => {
+                alert("success")
             });
             if (location.state.isDraft == 'false') {
                 window.open('https://figmafolio.com/' + location.state.generatedUrl, '_blank');
@@ -392,7 +394,11 @@ export default function Preview() {
                     figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
                 },
                 updatedAt: new Date()
-            });
+            }).then(() => {
+                console.log("went Here")
+                alert("success")
+            }
+            )
         } catch (error) {
             alert(error)
         }
@@ -412,8 +418,6 @@ export default function Preview() {
             } else {
                 updateApp()
             }
-
-
         } catch (error) {
             setShowModal(true);
             setModalMessage("Error updating")
@@ -422,6 +426,7 @@ export default function Preview() {
     };
 
     const handleUpdateFormAsDraft = async (event) => {
+        console.log("handleUpdateFormAsDraft")
         event.preventDefault();
         try {
             if (locationStateNewDomain == "" && locationStateDomain != "") {
@@ -429,11 +434,17 @@ export default function Preview() {
             } else if (locationStateNewDomain != "" && locationStateDomain != locationStateNewDomain) {
                 if (locationStateDomain == "") {
                     addDomainToVercelAsDraft()
+                    console.log("handleUpdateFormAsDraft 1")
                 } else {
                     handleDeleteAndUpdateDomain()
+                    console.log("handleUpdateFormAsDraft 2")
                 }
+            } else if (locationStateDomain == "" && locationStateNewDomain == "") {
+                updateAppAsDraft()
+                console.log("handleUpdateFormAsDraft 4")
             } else {
                 handleDeleteAndUpdateDomainAsDraft()
+                console.log("handleUpdateFormAsDraft 3")
             }
         } catch (error) {
             setShowModal(true);
@@ -454,57 +465,28 @@ export default function Preview() {
                         figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
                     },
                     createdAt: new Date(),
-                }).then(() => {
-                    const docRef2 = dbFirestore.collection('url').add({
-                        title: location.state.title,
-                        customDomain: locationStateDomain,
-                        isDraft: "true",
-                        generatedUrl: randomurl,
-                        urls: {
-                            figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
-                            figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
-                        },
-                        createdAt: new Date(),
-                    })
-                }
-                )
+                })
         } catch (err) {
             alert(err.message)
         } finally {
             alert("success")
-            window.open('https://figmafolio.com/' + randomurl, '_blank');
-
         }
     }
 
     const saveNewForm = async () => {
         console.log("save new form")
         try {
-            const docRef = await dbFirestore.collection('user').doc(user.uid).collection
-                ("url").add({
-                    title: location.state.title,
-                    customDomain: locationStateDomain,
-                    isDraft: "false",
-                    generatedUrl: randomurl,
-                    urls: {
-                        figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
-                        figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
-                    },
-                    createdAt: new Date(),
-                }).then(() => {
-                    const docRef2 = dbFirestore.collection('url').add({
-                        title: location.state.title,
-                        customDomain: locationStateDomain,
-                        isDraft: "false",
-                        generatedUrl: randomurl,
-                        urls: {
-                            figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
-                            figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
-                        },
-                        createdAt: new Date(),
-                    })
-                }
-                )
+            const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
+                title: location.state.title,
+                customDomain: locationStateDomain,
+                isDraft: "false",
+                generatedUrl: randomurl,
+                urls: {
+                    figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
+                    figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
+                },
+                createdAt: new Date(),
+            })
         } catch (err) {
             alert(err.message)
         } finally {
@@ -550,7 +532,7 @@ export default function Preview() {
         const fetchData = async () => {
             if (user) {
                 try {
-                    await getDocs(collection(db, "url"))
+                    await getDocs(collectionGroup(db, "url"))
                         .then((querySnapshot) => {
                             const newData = querySnapshot.docs
                                 .map((doc) => ({ ...doc.data(), id: doc.id }));

@@ -81,7 +81,11 @@ function AdminDashboard() {
                 {data.map((item, index) => (
                     <tr key={index}>
                         <td>{item.title}</td>
-                        <td>{item.generatedUrl}</td>
+                        <td>  <a href={`www.figmafolio/${item.generatedUrl}`} target="_blank" rel="noopener noreferrer">
+                            {`www.figmafolio/${item.generatedUrl}`}
+                        </a></td>
+
+
                         <td>{item.customDomain}</td>
                         <td>{item.isDraft}</td>
                         <td>{new Date(item?.createdAt?.seconds * 1000).toLocaleDateString("en-US")}</td>
