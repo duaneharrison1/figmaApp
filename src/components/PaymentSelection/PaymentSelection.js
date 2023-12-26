@@ -38,10 +38,13 @@ const PaymentSelection = (props) => {
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'> Custom domains</h4>
                                         </div>
-                                        {monthlySubscription == "monthlyPlan" ?
-                                            (<ButtonColored className="btn-current-plan" label="Current plan" />) :
-                                            (<ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={handleMonthlyPayment} />)
-                                        }
+                                        <div className='button-upgrade-container'>
+                                            {monthlySubscription == "monthlyPlan" ?
+                                                (<ButtonColored className="btn-current-plan" label="Current plan" />) :
+                                                (<ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={handleMonthlyPayment} />)
+                                            }
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div className='col-md-4'>
@@ -68,7 +71,10 @@ const PaymentSelection = (props) => {
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'>Priority technical and product support</h4>
                                         </div>
-                                        <ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={handleYearlyPayment} />
+                                        <div className='button-upgrade-container'>
+                                            <ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={handleYearlyPayment} />
+                                        </div>
+
                                     </div>
 
                                 </div>
@@ -92,7 +98,10 @@ const PaymentSelection = (props) => {
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'> Custom domains</h4>
                                         </div>
-                                        <ButtonColored className="btn-upgrade-plan" label="Change plan" onClick={ManagePlan} />
+                                        <div className='button-upgrade-container'>
+                                            <ButtonColored className="btn-upgrade-plan" label="Change plan" onClick={ManagePlan} />
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div className='col-md-4'>
@@ -119,7 +128,9 @@ const PaymentSelection = (props) => {
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'>Priority technical and product support</h4>
                                         </div>
-                                        <ButtonColored className="btn-current-plan" label="Current plan" />
+                                        <div className='button-upgrade-container-2'>
+                                            <ButtonColored className="btn-current-plan" label="Current plan" />
+                                        </div>
                                     </div>
 
                                 </div>
@@ -139,10 +150,12 @@ const PaymentSelection = (props) => {
                                             <h4 className='payment-feature-text'>1 project/websites</h4>
                                         </div>
                                         <div className="payment-feature">
-                                            <img src={Check} />
+                                            <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'> Free Figmafolio domain</h4>
                                         </div>
-                                        <ButtonColored className="btn-current-plan" label="Current plan" />
+                                        <div className='button-upgrade-container-2'>
+                                            <ButtonColored className="btn-current-plan" label="Current plan" />
+                                        </div>
 
                                     </div>
                                 </div>
@@ -162,10 +175,13 @@ const PaymentSelection = (props) => {
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'> Custom domains</h4>
                                         </div>
-                                        {monthlySubscription == "monthlyPlan" ?
-                                            (<ButtonColored className="btn-current-plan" label="Current plan" />) :
-                                            (<ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={handleMonthlyPayment} />)
-                                        }
+                                        <div className='button-upgrade-container-2'>
+                                            {monthlySubscription == "monthlyPlan" ?
+                                                (<ButtonColored className="btn-current-plan" label="Current plan" />) :
+                                                (<ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={handleMonthlyPayment} />)
+                                            }
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div className='col-md-4'>
@@ -192,7 +208,10 @@ const PaymentSelection = (props) => {
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'>Priority technical and product support</h4>
                                         </div>
-                                        <ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={handleYearlyPayment} />
+                                        <div className='button-upgrade-container'>
+                                            <ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={handleYearlyPayment} />
+                                        </div>
+
                                     </div>
 
                                 </div>

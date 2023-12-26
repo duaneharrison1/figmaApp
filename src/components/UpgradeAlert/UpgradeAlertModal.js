@@ -92,7 +92,7 @@ const UpgradeAlertModal = (props) => {
                                         <h4 className='payment-feature-text'>5 projects/websites</h4>
                                     </div>
                                     <div className="payment-feature">
-                                        <img src={Check} />
+                                        <img className='check-icon' src={Check} />
                                         <h4 className='payment-feature-text'> Free Figmafolio domain</h4>
                                     </div>
                                     <ButtonColored className="btn-current-plan" label="Current plan" />
