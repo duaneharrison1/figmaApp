@@ -15,11 +15,13 @@ import { loadStripe } from '@stripe/stripe-js';
 import { format } from 'date-fns';
 import UpgradeAlertModal from '../../components/UpgradeAlert/UpgradeAlertModal';
 import PaymentSelectionModal from '../../components/PaymentSelection/PaymentSelection';
+
 function UserDashboard() {
     const [userIsDesktop, setUserIsDesktop] = useState(true);
     const navigate = useNavigate();
     const [data, setData] = useState([]);
     const [profile, setProfile] = useState([]);
+    const [upgradeClick, setUpgradeClick] = useState(false);
     const [user, setUser] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [showUpgradeModal, setShowUpgradeModal] = useState(false);
@@ -138,6 +140,8 @@ function UserDashboard() {
     };
 
     const MonthlyPayment = async (priceId) => {
+        setUpgradeClick(true)
+        setShowUpgradeModal(false);
         const docRef = await dbFirestore.collection('user').doc(user.uid).collection
             ("checkout_sessions").add({
                 price: priceId,
@@ -157,6 +161,8 @@ function UserDashboard() {
     }
 
     const yearlyPayment = async (priceId) => {
+        setUpgradeClick(true)
+        setShowUpgradeModal(false);
         if (changeSubPlan) {
             window.open('https://billing.stripe.com/p/login/test_bIYg0M5wa5wZ9xe7ss', '_blank');
         } else {
@@ -192,67 +198,79 @@ function UserDashboard() {
 
     return (
         <>
-            {loading ? (
-                // Show loading screen or spinner
-                <div>Loading...</div>
+            {upgradeClick ? (
+                <div className='transfering-to-payment'>
+                    <h1 className='transfering-to-payment-text'> Taking you to the payment page...</h1>
+                </div>
             ) : (
                 <div>
-                    {!profile ?
-                        < Navbar className={"dashboardNavBar"} email={" "} isFromForm={false} />
-                        :
-                        <div>
-                            {profile.map(profile => (
-                                < Navbar className={"dashboardNavBar"} email={profile.name} isFromForm={false} />
-                            ))}
-                        </div>
-                    }
-
-                    {/* <a href="https://billing.stripe.com/p/login/test_bIYg0M5wa5wZ9xe7ss" className="button">Test unsubscribe</a> */}
-                    <div className='dashboard-view'>
-                        <div>
-                            {canCreate == "true" ?
-                                <ButtonColored label='+ New site' className="new-site" onClick={goToNewForm}>
-                                </ButtonColored>
-                                : canCreate == "false" ?
-
-                                    <ButtonColored label='+ New site' className="new-site" onClick={handleShowUpgradeModal}>
-                                    </ButtonColored>
-                                    :
-                                    <div> </div>
-                            }
-                        </div>
-
-                        {subscriptionType == "regular" ? (
-                            <div className='row'>
-                                {data.map((item, index) => (
-                                    < div className='col-sm-4' key={index} style={{ pointerEvents: index != 0 ? 'none' : '' }} >
-                                        <CardView index={index} subscriptionType={subscriptionType} figmaMobileUrl={item.urls?.figmaMobileUrl} figmaDesktopUrl={item.urls?.figmaDesktopUrl} siteTitle={item?.title} url={item?.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item, profile)} />
-                                        <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} generatedUrl={item.generatedUrl} customDomain={item.customDomain} />
-                                    </div>
-                                ))}
-                            </div>
-                        ) : subscriptionType == "monthlyPlan" ? (
-                            <div className='row'>
-                                {data.map((item, index) => (
-                                    < div className='col-sm-4' key={index} style={{ pointerEvents: index <= 4 ? '' : 'none' }} >
-                                        <CardView index={index} subscriptionType={subscriptionType} figmaMobileUrl={item.urls?.figmaMobileUrl} figmaDesktopUrl={item.urls?.figmaDesktopUrl} siteTitle={item?.title} url={item?.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item, profile)} />
-                                        <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} generatedUrl={item.generatedUrl} customDomain={item.customDomain} />
-                                    </div>
-                                ))}
-                            </div>
+                    {
+                        loading ? (
+                            // Show loading screen or spinner
+                            <div> Loading...</div >
                         ) : (
-                            <div className='row'>
-                                {data.map((item, index) => (
-                                    < div className='col-sm-4' key={index} >
-                                        <CardView index={index} subscriptionType={subscriptionType} figmaMobileUrl={item.urls?.figmaMobileUrl} figmaDesktopUrl={item.urls?.figmaDesktopUrl} siteTitle={item?.title} url={item?.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item, profile)} />
-                                        <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} generatedUrl={item.generatedUrl} customDomain={item.customDomain} />
+                            <div>
+                                {!profile ?
+                                    < Navbar className={"dashboardNavBar"} email={" "} isFromForm={false} />
+                                    :
+                                    <div>
+                                        {profile.map(profile => (
+                                            < Navbar className={"dashboardNavBar"} email={profile.name} isFromForm={false} />
+                                        ))}
                                     </div>
-                                ))}
-                            </div>
-                        )}
-                    </div >
-                </div >
+                                }
+
+                                {/* <a href="https://billing.stripe.com/p/login/test_bIYg0M5wa5wZ9xe7ss" className="button">Test unsubscribe</a> */}
+                                <div className='dashboard-view'>
+                                    <div>
+                                        {canCreate == "true" ?
+                                            <ButtonColored label='+ New site' className="new-site" onClick={goToNewForm}>
+                                            </ButtonColored>
+                                            : canCreate == "false" ?
+
+                                                <ButtonColored label='+ New site' className="new-site" onClick={handleShowUpgradeModal}>
+                                                </ButtonColored>
+                                                :
+                                                <div> </div>
+                                        }
+                                    </div>
+
+                                    {subscriptionType == "regular" ? (
+                                        <div className='row'>
+                                            {data.map((item, index) => (
+                                                < div className='col-sm-4' key={index} style={{ pointerEvents: index != 0 ? 'none' : '' }} >
+                                                    <CardView index={index} subscriptionType={subscriptionType} figmaMobileUrl={item.urls?.figmaMobileUrl} figmaDesktopUrl={item.urls?.figmaDesktopUrl} siteTitle={item?.title} url={item?.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item, profile)} />
+                                                    <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} generatedUrl={item.generatedUrl} customDomain={item.customDomain} />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    ) : subscriptionType == "monthlyPlan" ? (
+                                        <div className='row'>
+                                            {data.map((item, index) => (
+                                                < div className='col-sm-4' key={index} style={{ pointerEvents: index <= 4 ? '' : 'none' }} >
+                                                    <CardView index={index} subscriptionType={subscriptionType} figmaMobileUrl={item.urls?.figmaMobileUrl} figmaDesktopUrl={item.urls?.figmaDesktopUrl} siteTitle={item?.title} url={item?.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item, profile)} />
+                                                    <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} generatedUrl={item.generatedUrl} customDomain={item.customDomain} />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    ) : (
+                                        <div className='row'>
+                                            {data.map((item, index) => (
+                                                < div className='col-sm-4' key={index} >
+                                                    <CardView index={index} subscriptionType={subscriptionType} figmaMobileUrl={item.urls?.figmaMobileUrl} figmaDesktopUrl={item.urls?.figmaDesktopUrl} siteTitle={item?.title} url={item?.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item, profile)} />
+                                                    <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} generatedUrl={item.generatedUrl} customDomain={item.customDomain} />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div >
+                            </div >
+                        )
+                    }
+                </div>
             )}
+
+
             <PaymentSelectionModal
                 monthlySubscription={subscriptionType}
                 show={showUpgradeModal}

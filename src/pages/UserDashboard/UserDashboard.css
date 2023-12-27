@@ -6,19 +6,35 @@
     position: relative;
 
 }
+
 .published-draft-holder p {
-position: absolute;
+    position: absolute;
     bottom: 0;
 }
 
-.dashboard-view{
-    background-color:var(--neutral-white, #FFF);
+.dashboard-view {
+    background-color: var(--neutral-white, #FFF);
     padding: 40px 120px;
 }
 
+.transfering-to-payment {
+    display: flex;
+    justify-content: center;
+    /* Center horizontally */
+    align-items: center;
+    /* Center vertically */
+    height: 100vh;
+
+}
+
+.transfering-to-payment-text {
+    color: black;
+    font-size: 32px;
+    font-weight: 700;
+}
 
 @media only screen and (max-width: 1280px) {
-    .dashboard-view{
+    .dashboard-view {
         padding: 24px 24px;
     }
 }
