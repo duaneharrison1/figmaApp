@@ -107,7 +107,7 @@ export default function Billing() {
 
     const yearlyPayment = async (priceId) => {
         if (changeSubPlan) {
-            window.open('https://billing.stripe.com/p/login/test_bIYg0M5wa5wZ9xe7ss', '_blank');
+            window.open('https://billing.stripe.com/p/login/cN24habbC4JMga44gg', '_blank');
         } else {
             const docRef = await dbFirestore.collection('user').doc(user.uid).collection
                 ("checkout_sessions").add({
