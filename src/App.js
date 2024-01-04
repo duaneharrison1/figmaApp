@@ -122,6 +122,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/billing" element={<BillingPage />} />
           <Route path="/form" element={<UrlForm />} />
           <Route path="/editform" element={<EditForm />} />
           <Route path="/dashboard" element={<UserDashboard />} />
