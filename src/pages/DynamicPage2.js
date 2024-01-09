@@ -115,6 +115,7 @@ function DynamicPage2() {
 
   return (
 
+
     <iframe
       src={isMobile ? mobile : desktop}
       allowFullScreen
