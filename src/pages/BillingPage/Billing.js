@@ -10,6 +10,7 @@ import PaymentSelectionModal from '../../components/PaymentSelection/PaymentSele
 export default function Billing() {
     const dbFirestore = firebase.firestore();
     const [subscriptionType, setSubscriptionType] = useState("");
+    const [subscriptionTypeText, setSubscriptionTypeText] = useState("");
     const [subscriptionTypeDesc, setSubscriptionTypeDesc] = useState("");
     const [user, setUser] = useState(null);
     const [changeSubPlan, setChangeSubPlan] = useState(null);
@@ -57,9 +58,11 @@ export default function Billing() {
                                 if (subscriptionType == "regular") {
                                     setSubscriptionTypeDesc("Billed monthly at $0")
                                 } else if (subscriptionType == "monthlyPlan") {
+                                    setSubscriptionTypeText("Monthly Plan")
                                     setSubscriptionTypeDesc("Billed monthly at $5")
                                 } else if (subscriptionType == "annualPlan") {
                                     setSubscriptionTypeDesc("Billed yearly at $48")
+                                    setSubscriptionTypeText("Yearly Plan")
                                 }
                             })
                         }
@@ -75,6 +78,10 @@ export default function Billing() {
         };
         fetchData();
     }, [user]);
+
+    const ManagePlan = () => {
+        window.open('https://billing.stripe.com/p/login/cN24habbC4JMga44gg', '_blank');
+    }
 
     const handleShowUpgradeModal = () => {
         setShowUpgradeModal(true);
@@ -153,12 +160,19 @@ export default function Billing() {
                 <div className='container'>
                     <div className='row'>
                         <div className='col-sm-6'>
-                            <h1 className='profile-sub-headers'>{subscriptionType}</h1>
+                            <h1 className='profile-sub-headers'>{subscriptionTypeText}</h1>
                             <h1 className='profile-sub-headers'>{subscriptionTypeDesc}</h1>
                         </div>
                         <div className='col-sm-6 d-flex justify-content-end'>
                             <ButtonClear label='Change plan' className="change-password" onClick={handleShowUpgradeModal} />
 
+                        </div>
+
+                        <div className='d-flex justify-content-end unsub-div'>
+                            {subscriptionType != "" ?
+                                (<ButtonClear label='Cancel plan' className="unsub-btn" onClick={ManagePlan} />) :
+                                (<div> </div>)
+                            }
                         </div>
                     </div>
                 </div>
