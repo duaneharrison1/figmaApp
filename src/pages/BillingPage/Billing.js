@@ -66,6 +66,7 @@ export default function Billing() {
                                 }
                             })
                         }
+                        console.log("xxx" + subscriptionType)
                     })
                 } catch (error) {
                     console.error('Error fetching data:', error);
@@ -169,7 +170,7 @@ export default function Billing() {
                         </div>
 
                         <div className='d-flex justify-content-end unsub-div'>
-                            {subscriptionType != "" ?
+                            {subscriptionType != "regular" ?
                                 (<ButtonClear label='Cancel plan' className="unsub-btn" onClick={ManagePlan} />) :
                                 (<div> </div>)
                             }
