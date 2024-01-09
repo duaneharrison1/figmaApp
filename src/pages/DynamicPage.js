@@ -39,7 +39,9 @@ function DynamicPage({ url }) {
     <iframe
       src={isMobile ? mobile : desktop}
       allowFullScreen
+      referrerpolicy="no-referrer"
       style={{ width: '100%', height: '100vh' }}
+      sandbox="allow-same-origin allow-scripts"
       className='dynamic_view_figma_view'></iframe>
 
   );

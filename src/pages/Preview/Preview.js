@@ -660,6 +660,7 @@ export default function Preview() {
                             <iframe
                                 src={isMobile ? editUrl(mobile) : editUrl(desktop)}
                                 allowFullScreen
+                                referrerpolicy="no-referrer"
                                 style={{ width: '100%', height: '100vh' }}
                                 className='figma_view'></iframe>
                         </div >
