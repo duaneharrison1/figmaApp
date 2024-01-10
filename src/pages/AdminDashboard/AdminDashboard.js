@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { db, auth } from '../../firebase';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { collection, getDocs, collectionGroup, Timestamp } from 'firebase/firestore'
+import { collection, getDocs, collectionGroup, Timestamp, query, orderBy } from 'firebase/firestore'
 import './AdminDashboard.css'
 import firebase from '../../firebase';
 import { compareAsc, format } from "date-fns";
@@ -36,7 +36,7 @@ function AdminDashboard() {
                     if (profile[0].isAdmin == "true") {
                         try {
                             const collectionRef = collectionGroup(db, "url");
-                            const snapshot = await getDocs(collectionRef);
+                            const snapshot = await getDocs(query(collectionRef, orderBy('created_at', 'asc')));
                             const fetchedData = snapshot.docs.map(doc => doc.data());
                             setData(fetchedData);
                             console.log("ff" + data)

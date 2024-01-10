@@ -9,7 +9,7 @@ import guideThree from './../../assets/images/guide_three_image.png';
 import one from './../../assets/images/one.png';
 import two from './../../assets/images/two.png';
 import three from './../../assets/images/three.png';
-
+import WhiteCheck from '../../assets/images/white-check.png';
 import stepThree from './../../assets/images/stepThree.png';
 import Footer from '../../components/Footer/Footer';
 import { NavLink, useNavigate, Link } from 'react-router-dom';
@@ -154,10 +154,109 @@ export default function LandingPage() {
 
             </div>
           </div>
+
+          <div className='row landing-page-tier-div'>
+            <div className='col-md-4'>
+              <div className='landing-page-tier'>
+                <div className='landing-page-tier-content'>
+                  <h1 className='landing-page-payment-selection-title'> Free</h1>
+                  <div className='amount-per-month'>
+                    <span className='landing-page-amount'>$0 </span>
+                    <span className='landing-page-month'>/month</span>
+                  </div>
+
+                  <div className="payment-feature">
+                    <img className='check-icon' src={WhiteCheck} />
+                    <h4 className='landing-page-payment-feature-text'>1 project/websites</h4>
+                  </div>
+                  <div className="payment-feature">
+                    <img className='check-icon' src={WhiteCheck} />
+                    <h4 className='landing-page-payment-feature-text'> Free Figmafolio domain</h4>
+                  </div>
+                </div>
+
+                <div className='landing-page-button-upgrade-container'>
+                  <Link to="/auth" state={{ "name": "tab2" }} >
+                    <ButtonColored className="btn-get-started" label="Try for free" />
+
+                  </Link>
+
+                </div>
+
+              </div>
+            </div>
+            <div className='col-md-4'>
+              <div className='landing-page-tier'>
+                <div className='landing-page-tier-content'>
+                  <h1 className='landing-page-payment-selection-title'> Monthly</h1>
+                  <div className='amount-per-month'>
+                    <span className='landing-page-amount'>$5 </span>
+                    <span className='landing-page-month'>/month</span>
+                  </div>
+
+                  <div className="payment-feature">
+                    <img className='check-icon' src={WhiteCheck} />
+                    <h4 className='landing-page-payment-feature-text'>5 projects/websites</h4>
+                  </div>
+                  <div className="payment-feature">
+                    <img className='check-icon' src={WhiteCheck} />
+                    <h4 className='landing-page-payment-feature-text'> Custom domains</h4>
+                  </div>
+                </div>
+
+                <div className='landing-page-button-upgrade-container'>
+                  <Link to="/auth" state={{ "name": "tab2" }} >
+                    <ButtonColored className="btn-get-started" label="Get started" />
+                  </Link>
+                </div>
+
+              </div>
+            </div>
+            <div className='col-md-4'>
+              <div className='landing-page-tier'>
+                <div className='landing-page-tier-content'>
+                  <div className="heading-container">
+                    <h1 className='landing-page-payment-selection-title'> Yearly</h1>
+
+                  </div>
+
+                  <div className='amount-per-month'>
+                    <span className='landing-page-amount-strikethrough'>$60</span>
+                    <span className='landing-page-amount'>$48</span>
+                    <span className='landing-page-month'>/year</span>
+                  </div>
+
+                  <div className="payment-feature">
+                    <img className='check-icon' src={WhiteCheck} />
+                    <h4 className='landing-page-payment-feature-text'>Unlimited projects/websites</h4>
+                  </div>
+                  <div className="payment-feature">
+                    <img className='check-icon' src={WhiteCheck} />
+                    <h4 className='landing-page-payment-feature-text'>Custom domains</h4>
+                  </div>
+                  <div className="payment-feature">
+                    <img className='check-icon' src={WhiteCheck} />
+                    <h4 className='landing-page-payment-feature-text'>Priority technical and product support</h4>
+                  </div>
+                </div>
+
+
+                <div className='landing-page-button-upgrade-container'>
+                  <Link to="/auth" state={{ "name": "tab2" }} >
+                    <ButtonColored className="btn-get-started" label="Get started" />
+                  </Link>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
         </div>
         {/* <div className='container guide-container-plan'>
               <h3 className='guide-one-header'>Plan</h3>
             </div> */}
+
+
 
       </div >
       <Footer />
