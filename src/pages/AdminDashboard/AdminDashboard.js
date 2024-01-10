@@ -36,7 +36,8 @@ function AdminDashboard() {
                     if (profile[0].isAdmin == "true") {
                         try {
                             const collectionRef = collectionGroup(db, "url");
-                            const snapshot = await getDocs(query(collectionRef, orderBy('created_at', 'asc')));
+                            const snapshot = await getDocs(query(collectionRef, orderBy('createdAt', 'desc')));
+                            // const snapshot = await getDocs(collectionRef);
                             const fetchedData = snapshot.docs.map(doc => doc.data());
                             setData(fetchedData);
                             console.log("ff" + data)
