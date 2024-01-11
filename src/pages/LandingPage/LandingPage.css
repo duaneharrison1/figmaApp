@@ -312,6 +312,16 @@
     font-weight: 400;
 }
 
+.tier-header {
+    color: #2D2B29;
+
+    text-align: center;
+    padding-bottom: 56px;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+}
+
 .landing-page-amount-strikethrough {
     text-decoration: line-through;
 }
@@ -338,6 +348,11 @@
 }
 
 @media only screen and (max-width: 1280px) {
+    .tier-header {
+
+        font-size: 24px;
+
+    }
 
     .login-link {
         width: 100%;

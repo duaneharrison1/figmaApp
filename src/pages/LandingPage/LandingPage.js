@@ -156,6 +156,7 @@ export default function LandingPage() {
           </div>
 
           <div className='row landing-page-tier-div'>
+            <h1 className='tier-header'>Pick a plan to suit your needs </h1>
             <div className='col-md-4'>
               <div className='landing-page-tier'>
                 <div className='landing-page-tier-content'>
@@ -213,6 +214,7 @@ export default function LandingPage() {
               </div>
             </div>
             <div className='col-md-4'>
+
               <div className='landing-page-tier'>
                 <div className='landing-page-tier-content'>
                   <div className="heading-container">

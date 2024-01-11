@@ -49,7 +49,7 @@ export default function Footer() {
                                 </div>
                             </div>
                             <div className="col-md-4">
-                                <SocialMediaIcons />
+                                {/* <SocialMediaIcons /> */}
                             </div>
 
                         </div>
