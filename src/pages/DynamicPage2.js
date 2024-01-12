@@ -35,6 +35,7 @@ function DynamicPage2() {
               if (subData.items[0].plan.id == process.env.REACT_APP_MONTHLY) {
                 mainDoc.subcollectionUrlData.forEach((url, urlIndex) => {
                   setUrlData(url)
+                  console.log("UrlData " + urlData)
 
                   const modifiedCustomDomain = url.customDomain.replace(/^(https?:\/\/)?(www\.)?/, '');
                   const modifiedDomain = domain.replace(/^(https?:\/\/)?(www\.)?/, '');
