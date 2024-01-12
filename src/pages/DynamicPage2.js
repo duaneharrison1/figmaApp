@@ -57,7 +57,8 @@ function DynamicPage2() {
                     }
 
                   } else {
-                    console.log("error")
+                    console.log("error 1")
+
                   }
                 });
               } else if (subData.items[0].plan.id == process.env.REACT_APP_YEARLY) {
@@ -73,16 +74,14 @@ function DynamicPage2() {
                       setMobile(url.urls.figmaDesktopUrl)
                     }
                   } else {
-                    console.log("error")
+                    console.log("error 2")
                   }
                 });
               } else {
-                console.log("error");
+                console.log("error 3");
               }
             }
           });
-
-          console.log(); // Add a newline for better readability
         });
       } catch (error) {
         setError(error);
