@@ -395,7 +395,6 @@ export default function Preview() {
                 },
                 updatedAt: new Date()
             }).then(() => {
-                console.log("went Here")
                 alert("success")
             }
             )
@@ -470,7 +469,6 @@ export default function Preview() {
     }
 
     const saveNewForm = async () => {
-        console.log("save new form")
         try {
             const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
                 title: location.state.title,

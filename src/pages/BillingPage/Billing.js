@@ -66,7 +66,7 @@ export default function Billing() {
                                 }
                             })
                         }
-                        console.log("xxx" + subscriptionType)
+
                     })
                 } catch (error) {
                     console.error('Error fetching data:', error);

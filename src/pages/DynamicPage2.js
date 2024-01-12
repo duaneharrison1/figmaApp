@@ -15,17 +15,9 @@ function DynamicPage2() {
   const [outputValue, setOutputValue] = useState('');
 
 
-  const removePrefix = () => {
-    // Regular expression to check for "http://", "https://", or "www."
-
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-
-        console.log("wew" + process.env.REACT_APP_URL_DATA)
-
 
         var domain = window.location.host
         const response = await axios.get(process.env.REACT_APP_URL_DATA); // replace with your API endpoint  
@@ -35,7 +27,6 @@ function DynamicPage2() {
               if (subData.items[0].plan.id == process.env.REACT_APP_MONTHLY) {
                 mainDoc.subcollectionUrlData.forEach((url, urlIndex) => {
                   setUrlData(url)
-                  console.log("UrlData " + url)
 
                   const modifiedCustomDomain = url.customDomain.replace(/^(https?:\/\/)?(www\.)?/, '');
                   const modifiedDomain = domain.replace(/^(https?:\/\/)?(www\.)?/, '');
@@ -51,16 +42,10 @@ function DynamicPage2() {
                       document.title = url.title;
                       setDesktop(url.urls.figmaDesktopUrl)
                       setMobile(url.urls.figmaMobileUrl)
-                      console.log("wentHere: url.customDomain == domain")
-                      console.log("wentHere:" + url.customDomain)
-                      console.log("wentHere:" + domain)
                     }
 
                   } else {
-                    console.log("error 1")
-                    console.log("modifiedCustomDomain" + modifiedCustomDomain)
-                    console.log("domain " + domain)
-
+                    console.log("error")
                   }
                 });
               } else if (subData.items[0].plan.id == process.env.REACT_APP_YEARLY) {
@@ -68,9 +53,7 @@ function DynamicPage2() {
                   setUrlData(url)
                   if (url.customDomain == domain) {
                     if (url.isDraft == "false") {
-                      console.log("wentHere: url.customDomain == domain")
-                      console.log("wentHere:" + url.customDomain)
-                      console.log("wentHere:" + domain)
+
                       document.title = url.title;
                       setDesktop(url.urls.figmaDesktopUrl)
                       setMobile(url.urls.figmaMobileUrl)

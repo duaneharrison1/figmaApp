@@ -56,7 +56,6 @@ export default function SignupPage() {
                     // Signed in
                     try {
                         const user = userCredential.user;
-                        console.log(user.uid)
                         const ref = collection(db, "user", user.uid, "profile")
                         let userData = {
                             name: name,

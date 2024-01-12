@@ -40,7 +40,6 @@ function AdminDashboard() {
                             // const snapshot = await getDocs(collectionRef);
                             const fetchedData = snapshot.docs.map(doc => doc.data());
                             setData(fetchedData);
-                            console.log("ff" + data)
                         } catch (error) {
                             console.error('Error fetching data:', error);
                         }
