@@ -49,8 +49,8 @@ function DynamicPage2() {
                   if (modifiedCustomDomain == modifiedDomain) {
                     if (url.isDraft == "false") {
                       document.title = url.title;
-                      setDesktop(url.urls.figmaMobileUrl)
-                      setMobile(url.urls.figmaDesktopUrl)
+                      setDesktop(url.urls.figmaDesktopUrl)
+                      setMobile(url.urls.figmaMobileUrl)
                       console.log("wentHere: url.customDomain == domain")
                       console.log("wentHere:" + url.customDomain)
                       console.log("wentHere:" + domain)
@@ -72,8 +72,8 @@ function DynamicPage2() {
                       console.log("wentHere:" + url.customDomain)
                       console.log("wentHere:" + domain)
                       document.title = url.title;
-                      setDesktop(url.urls.figmaMobileUrl)
-                      setMobile(url.urls.figmaDesktopUrl)
+                      setDesktop(url.urls.figmaDesktopUrl)
+                      setMobile(url.urls.figmaMobileUrl)
                     }
                   } else {
                     console.log("error 2")
