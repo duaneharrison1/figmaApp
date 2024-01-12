@@ -38,8 +38,7 @@ function DynamicPage2() {
 
                   const modifiedCustomDomain = url.customDomain.replace(/^(https?:\/\/)?(www\.)?/, '');
                   const modifiedDomain = domain.replace(/^(https?:\/\/)?(www\.)?/, '');
-                  console.log("fff" + modifiedCustomDomain)
-                  console.log("domain" + domain)
+
                   // if (regex.test(url.customDomain)) {
                   //   const removedPrefix = url.customDomain.replace(regex, '');
                   //   setOutputValue(removedPrefix);
@@ -58,6 +57,8 @@ function DynamicPage2() {
 
                   } else {
                     console.log("error 1")
+                    console.log("modifiedCustomDomain" + modifiedCustomDomain)
+                    console.log("domain " + domain)
 
                   }
                 });
