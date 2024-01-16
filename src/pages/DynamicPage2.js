@@ -39,13 +39,6 @@ function DynamicPage2() {
 
                   const modifiedCustomDomain = url.customDomain.replace(/^(https?:\/\/)?(www\.)?/, '');
                   const modifiedDomain = domain.replace(/^(https?:\/\/)?(www\.)?/, '');
-
-                  // if (regex.test(url.customDomain)) {
-                  //   const removedPrefix = url.customDomain.replace(regex, '');
-                  //   setOutputValue(removedPrefix);
-                  // } else {
-                  //   setOutputValue(url.customDomain);
-                  // }
                   if (modifiedCustomDomain == modifiedDomain) {
                     if (url.isDraft == "false") {
                       document.title = url.title;
@@ -86,25 +79,18 @@ function DynamicPage2() {
     fetchData();
 
   }, []
-
   );
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
     handleResize();
-
-
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-
   }, []);
-
-
-
-
 
   return (
     <iframe
