@@ -27,7 +27,7 @@ function App() {
   const [sampleData, setSampleData] = useState([]);
   const [sampleSub, setSampleSub] = useState([]);
   const [user, setUser] = useState(null);
-  const [isMainDomain, setIsMainDomain] = useState("");
+  const [isMainDomain, setIsMainDomain] = useState("false");
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user); // Set the user state
