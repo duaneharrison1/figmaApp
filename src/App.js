@@ -27,7 +27,7 @@ function App() {
   const [sampleData, setSampleData] = useState([]);
   const [sampleSub, setSampleSub] = useState([]);
   const [user, setUser] = useState(null);
-  const [isMainDomain, setIsMainDomain] = useState();
+  const [isMainDomain, setIsMainDomain] = useState("");
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user); // Set the user state
@@ -66,9 +66,9 @@ function App() {
       // if (!domain.includes('figmafolio-stripe.vercel.app')) {
       // if (domain != "localhost:3000") {
       if (domain == 'www.figmafolio.com' || domain == 'figma-app-tau.vercel.app' || domain == "localhost:3000") {
-        setIsMainDomain(true)
+        setIsMainDomain("true")
       } else {
-        setIsMainDomain(false)
+        setIsMainDomain("false")
       }
       try {
         const collectionRef = collectionGroup(db, "url");
@@ -108,7 +108,7 @@ function App() {
       </Routes> */}
 
 
-      {!isMainDomain ?
+      {isMainDomain == "false" ?
         <Routes>
           <Route path="/" element={<DynamicPage2 />} />
         </Routes>

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { collection, getDocs } from "firebase/firestore";
 import { db, auth } from '../firebase';
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 
 function DynamicPage2() {
   const [isMobile, setIsMobile] = useState(false);
@@ -14,11 +15,19 @@ function DynamicPage2() {
   const [error, setError] = useState(null);
   const [outputValue, setOutputValue] = useState('');
 
+  useEffect(() => {
+    let link = document.querySelector("link[rel~='icon']");
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      document.getElementsByTagName('head')[0].appendChild(link);
+    }
+    link.href = 'https:v=2';
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-
         var domain = window.location.host
         const response = await axios.get(process.env.REACT_APP_URL_DATA); // replace with your API endpoint  
         response.data.result.forEach((mainDoc, index) => {
@@ -98,15 +107,12 @@ function DynamicPage2() {
 
 
   return (
-
-
     <iframe
       src={isMobile ? mobile : desktop}
       allowFullScreen
       referrerpolicy="no-referrer"
       style={{ width: '100%', height: '100vh' }}
       className='dynamic_view_figma_view'></iframe>
-
   );
 }
 
