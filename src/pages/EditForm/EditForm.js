@@ -10,7 +10,7 @@ import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import Navbar from '../../components/NavBar/Navbar';
 import ButtonClear from '../../components/ButtonClear/ButtonClear';
 import PaymentSelectionModal from '../../components/PaymentSelection/PaymentSelection';
-import axios from "axios";
+import AlertErrorModal from '../../components/AlertErrorModal/AlertErrorModal';
 export default function EditForm() {
     const navigate = useNavigate();
     const location = useLocation();
@@ -22,6 +22,7 @@ export default function EditForm() {
     const [customDomain, setCustomDomain] = useState(location.state.object.customDomain);
     const [newCustomDomain, setNewCustomDomain] = useState(location.state.object.customDomain);
     const user = auth.currentUser;
+    const [showErrorModal, setShowErrorModal] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
     const [products, setProducts] = useState([])
@@ -46,9 +47,23 @@ export default function EditForm() {
 
     });
 
+    const handleShowErrorModal = () => {
+        setShowErrorModal(true);
+    };
+    const handleCloseErrorModal = () => {
+        setShowErrorModal(false);
+    };
+
 
     const goToPreview = () => {
-        navigate('/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl, fromEdit: true, isDraft: location.state.object.isDraft, docId: location.state.object.id, generatedUrl: generatedUrl, domain: customDomain, newCustomDomain: newCustomDomain } });
+
+
+        if (figmaMobileUrl.includes('figma.com/proto') || figmaMobileUrl.includes('figma.com/embed') ||
+            figmaDesktopUrl.includes('figma.com/proto') || figmaDesktopUrl.includes('figma.com/embed')) {
+            navigate('/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl, fromEdit: true, isDraft: location.state.object.isDraft, docId: location.state.object.id, generatedUrl: generatedUrl, domain: customDomain, newCustomDomain: newCustomDomain } });
+        } else {
+            setShowErrorModal(true);
+        }
     }
 
 
@@ -271,6 +286,7 @@ export default function EditForm() {
                     <PaymentSelectionModal show={showModal} handleClose={handleCloseModal}
                         handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_MONTHLY)}
                         handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_YEARLY)} />
+                    < AlertErrorModal show={showErrorModal} handleClose={handleCloseErrorModal} alertMessage={"You have entered a link to a Figma file. To publish your Figmafolio website, you must enter a link to a Figma prototype. Prototypes allow visitors to interact with your site."} />
                 </div>
             </div>
 

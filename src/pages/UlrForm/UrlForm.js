@@ -12,6 +12,7 @@ import UpgradeAlertModal from '../../components/UpgradeAlert/UpgradeAlertModal';
 import PaymentSelectionModal from '../../components/PaymentSelection/PaymentSelection';
 import { ShopWindow } from 'react-bootstrap-icons';
 import { loadStripe } from '@stripe/stripe-js';
+import AlertErrorModal from '../../components/AlertErrorModal/AlertErrorModal';
 
 export default function UrlForm() {
     const navigate = useNavigate();
@@ -22,6 +23,7 @@ export default function UrlForm() {
     const [domain, setDomain] = useState('');
     const user = auth.currentUser;
     const [showModal, setShowModal] = useState(false);
+    const [showErrorModal, setShowErrorModal] = useState(false);
     const [products, setProducts] = useState([])
     const dbFirestore = firebase.firestore();
     const [subscription, setSubscription] = useState(null);
@@ -69,6 +71,13 @@ export default function UrlForm() {
         setShowModal(false);
     };
 
+    const handleShowErrorModal = () => {
+        setShowErrorModal(true);
+    };
+    const handleCloseErrorModal = () => {
+        setShowErrorModal(false);
+    };
+
 
     const handlefigmaDesktopUrl = (event) => {
         setDesktopCustomUrl(event.target.value);
@@ -85,7 +94,14 @@ export default function UrlForm() {
     };
 
     const goToPreview = () => {
-        navigate('/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl, domain: domain } });
+
+        if (figmaMobileUrl.includes('figma.com/proto') || figmaMobileUrl.includes('figma.com/embed') ||
+            figmaDesktopUrl.includes('figma.com/proto') || figmaDesktopUrl.includes('figma.com/embed')) {
+            navigate('/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl, domain: domain } });
+        } else {
+            setShowErrorModal(true);
+        }
+
     }
 
     const handleLogout = () => {
@@ -284,6 +300,8 @@ export default function UrlForm() {
                 <PaymentSelectionModal show={showModal} handleClose={handleCloseModal}
                     handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_MONTHLY)}
                     handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_YEARLY)} />
+
+                < AlertErrorModal show={showErrorModal} handleClose={handleCloseErrorModal} alertMessage={"You have entered a link to a Figma file. To publish your Figmafolio website, you must enter a link to a Figma prototype. Prototypes allow visitors to interact with your site."} />
             </div>
         </>
 
