@@ -288,7 +288,7 @@ export default function UrlForm() {
                                         <img src={insFour} className='instruction-img' />
                                     </div>
 
-                                    <h1 className='instruction-title'>Input your prototype linkss</h1>
+                                    <h1 className='instruction-title'>Input your prototype links</h1>
                                     <p className='instructions'>1. Click the canvas in Figma to get  file properties in the right sidebar.</p>
                                     <p className='instructions'>2. Select ‘Prototype’. Under ‘Flows’ .hover over each flow and "Copy link" to get the prototype links. </p>
                                     <p className='instructions'>3. Paste in the corresponding prototype links below. </p>
