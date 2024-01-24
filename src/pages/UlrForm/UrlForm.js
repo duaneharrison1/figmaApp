@@ -254,6 +254,7 @@ export default function UrlForm() {
                             </ul>
                         </div> */}
                         <div className='second-div'>
+                            <h1 className='sub-title'>Setting up your site</h1>
                             <div className='row'>
                                 <div className="col-sm-3">
 
@@ -299,6 +300,7 @@ export default function UrlForm() {
 
                         </div>
                         <div className="fifth-div">
+                            <h1 className='sub-title'>Figma prototype links</h1>
                             <div className="row">
                                 <div className="col-md-6">
                                     <div className="row">
