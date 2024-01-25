@@ -45,7 +45,9 @@ function DynamicPage2() {
                       setDesktop(url.urls.figmaDesktopUrl)
                       setMobile(url.urls.figmaMobileUrl)
                     }
-
+                    console.log(modifiedCustomDomain)
+                    console.log(modifiedDomain)
+                    console.log(modifiedCustomDomain == modifiedDomain)
                   } else {
                     console.log("error")
                   }
