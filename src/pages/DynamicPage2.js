@@ -48,8 +48,8 @@ function DynamicPage2() {
 
                   } else {
                     console.log("error")
-                    console.log(modifiedCustomDomain)
-                    console.log(modifiedDomain)
+                    console.log("modifiedCustomDomain" + modifiedCustomDomain)
+                    console.log("modifiedDomain" + modifiedDomain)
                     console.log(modifiedCustomDomain == modifiedDomain)
                   }
                 });
