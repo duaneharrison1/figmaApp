@@ -2,13 +2,20 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import './Footer.css';
 import SocialMediaIcons from '../SocialMediaIcon/SocialMediaIcon';
-
+import { auth } from '../../firebase';
 
 export default function Footer() {
     const [userIsDesktop, setUserIsDesktop] = useState(true);
+    const [user, setUser] = useState(null);
     useEffect(() => {
         window.innerWidth > 1280 ? setUserIsDesktop(true) : setUserIsDesktop(false);
     }, [userIsDesktop]);
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            setUser(user);
+        });
+        return () => unsubscribe();
+    }, []);
 
     return (
         <>
@@ -48,7 +55,9 @@ export default function Footer() {
                                     <h1 className='footer-center'> Cookies</h1>
                                 </div>
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-4 d-flex justify-content-end">
+                                {user ? <p> <a className="email-support-link" href="mailto:support@figmafolio.com">support@figmafolio.com</a>
+                                </p> : <p> </p>}
                                 {/* <SocialMediaIcons /> */}
                             </div>
 
