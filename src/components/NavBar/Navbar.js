@@ -21,7 +21,7 @@ export default function Navbar(props) {
         if (currentUser?.photoURL) {
             setPhotoURL(currentUser.photoURL);
         }
-    }, [currentUser])
+    }, [])
 
     const handleGoToProfile = () => {
         navigate('/profile');
@@ -58,9 +58,23 @@ export default function Navbar(props) {
                 </div>
 
 
+
+
+
                 <div className="col d-flex justify-content-end align-items-center">
 
-                    <a className="username">{email}</a>
+
+                    <div className="dropdown">
+
+                        <button className='btn-dropdown' type="button" data-bs-toggle="dropdown" >
+                            {email}
+                        </button>
+                        <ul className="dropdown-menu dropdown-menu-dark bg-light">
+                            <li><a className="dropdown-item" onClick={handleGoToProfile}>Profile</a></li>
+                            <li><a className="dropdown-item" onClick={handleGoToBilling}>Billing</a></li>
+                            <li><a className="dropdown-item" onClick={handleLogout}>Logout</a></li>
+                        </ul>
+                    </div>
                     <Link to="/profile" >
 
                         <img src={!photoURL ? ProfileIcon : photoURL} alt="Avatar" className="nav-avatar-icon" />
