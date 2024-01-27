@@ -26,61 +26,67 @@ function DynamicPage2() {
   }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        var domain = window.location.host
-        const response = await axios.get(process.env.REACT_APP_URL_DATA); // replace with your API endpoint  
-        response.data.result.forEach((mainDoc, index) => {
-          mainDoc.subcollectionData.forEach((subData, subIndex) => {
-            if (subData.status == "active") {
-              if (subData.items[0].plan.id == process.env.REACT_APP_MONTHLY) {
-                mainDoc.subcollectionUrlData.forEach((url, urlIndex) => {
-                  setUrlData(url)
 
-                  const modifiedCustomDomain = url.customDomain.replace(/^(https?:\/\/)?(www\.)?/, '');
-                  const modifiedDomain = domain.replace(/^(https?:\/\/)?(www\.)?/, '');
-                  if (modifiedCustomDomain == modifiedDomain) {
-                    if (url.isDraft == "false") {
-                      document.title = url.title;
-                      setDesktop(url.urls.figmaDesktopUrl)
-                      setMobile(url.urls.figmaMobileUrl)
+    var domain = window.location.host
+    if (domain == 'www.figmafolio.com' || domain == 'figma-app-tau.vercel.app' || domain == "localhost:3000") {
+      console.log("wentHerezzzz")
+    } else {
+      const fetchData = async () => {
+        console.log("wentHerexxx")
+        try {
+          var domain = window.location.host
+          const response = await axios.get(process.env.REACT_APP_URL_DATA);
+          response.data.result.forEach((mainDoc, index) => {
+            mainDoc.subcollectionData.forEach((subData, subIndex) => {
+              if (subData.status == "active") {
+                if (subData.items[0].plan.id == process.env.REACT_APP_MONTHLY) {
+                  mainDoc.subcollectionUrlData.forEach((url, urlIndex) => {
+                    setUrlData(url)
+
+                    const modifiedCustomDomain = url.customDomain.replace(/^(https?:\/\/)?(www\.)?/, '');
+                    const modifiedDomain = domain.replace(/^(https?:\/\/)?(www\.)?/, '');
+                    if (modifiedCustomDomain == modifiedDomain) {
+                      if (url.isDraft == "false") {
+                        document.title = url.title;
+                        setDesktop(url.urls.figmaDesktopUrl)
+                        setMobile(url.urls.figmaMobileUrl)
+                      }
+
+                    } else {
+                      console.log("error")
+                      console.log("modifiedCustomDomain" + modifiedCustomDomain)
+                      console.log("modifiedDomain" + modifiedDomain)
+                      console.log(modifiedCustomDomain == modifiedDomain)
                     }
+                  });
+                } else if (subData.items[0].plan.id == process.env.REACT_APP_YEARLY) {
+                  mainDoc.subcollectionUrlData.forEach((url, urlIndex) => {
+                    setUrlData(url)
+                    if (url.customDomain == domain) {
+                      if (url.isDraft == "false") {
 
-                  } else {
-                    console.log("error")
-                    console.log("modifiedCustomDomain" + modifiedCustomDomain)
-                    console.log("modifiedDomain" + modifiedDomain)
-                    console.log(modifiedCustomDomain == modifiedDomain)
-                  }
-                });
-              } else if (subData.items[0].plan.id == process.env.REACT_APP_YEARLY) {
-                mainDoc.subcollectionUrlData.forEach((url, urlIndex) => {
-                  setUrlData(url)
-                  if (url.customDomain == domain) {
-                    if (url.isDraft == "false") {
-
-                      document.title = url.title;
-                      setDesktop(url.urls.figmaDesktopUrl)
-                      setMobile(url.urls.figmaMobileUrl)
+                        document.title = url.title;
+                        setDesktop(url.urls.figmaDesktopUrl)
+                        setMobile(url.urls.figmaMobileUrl)
+                      }
+                    } else {
+                      console.log("error 2")
                     }
-                  } else {
-                    console.log("error 2")
-                  }
-                });
-              } else {
-                console.log("error 3");
+                  });
+                } else {
+                  console.log("error 3");
+                }
               }
-            }
+            });
           });
-        });
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-
+        } catch (error) {
+          setError(error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchData();
+    }
   }, []
   );
 
