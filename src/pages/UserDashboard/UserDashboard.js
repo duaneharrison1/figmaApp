@@ -15,6 +15,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { format } from 'date-fns';
 import UpgradeAlertModal from '../../components/UpgradeAlert/UpgradeAlertModal';
 import PaymentSelectionModal from '../../components/PaymentSelection/PaymentSelection';
+import Footer from '../../components/Footer/Footer';
 
 function UserDashboard() {
     const [userIsDesktop, setUserIsDesktop] = useState(true);
@@ -333,6 +334,7 @@ function UserDashboard() {
                                         </div>
                                     )}
                                 </div >
+                                <Footer />
                             </div >
                         )
                     }
