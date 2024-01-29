@@ -205,7 +205,7 @@ export default function EditForm() {
                                             onChange={handleCustomDomain} />
                                         <div className='domain-info'>
                                             <p className='domain-info-header'>Add the relevant DNS records to your domain name. Set the following:</p>
-                                            <table>
+                                            <table className='domain-info-table'>
                                                 <tr className='domain-info-subheader'>
                                                     <th>Type</th>
                                                     <th>Name</th>
@@ -221,6 +221,7 @@ export default function EditForm() {
                                                     <td>www</td>
                                                     <td>cname.vercel-dns.com</td>
                                                 </tr>
+                                                <p className='domain-info-header'> Make sure you add an entry for both @ and www.</p>
                                             </table>
                                         </div>
                                     </div>

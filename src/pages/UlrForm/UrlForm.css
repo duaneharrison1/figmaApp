@@ -9,6 +9,11 @@ h2 {
     padding: 0;
 }
 
+.domain-info-table {
+    margin-bottom: 12px;
+
+}
+
 .title {
     font-size: 29px;
     font-weight: 700;
