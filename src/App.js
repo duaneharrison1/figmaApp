@@ -66,27 +66,28 @@ function App() {
 
       // if (!domain.includes('figmafolio-stripe.vercel.app')) {
       // if (domain != "localhost:3000") {
-      if (domain == 'www.figmafolio.com' || domain == 'figma-app-tau.vercel.app' || domain == "localhost:3000") {
+      if (domain == 'www.figmafolio.com' || domain == 'figma-app-tau.vercel.app') {
         setIsMainDomain("true")
+        try {
+          const collectionRef = collectionGroup(db, "url");
+          const snapshot = await getDocs(collectionRef);
+          const fetchedData = snapshot.docs.map(doc => doc.data());
+          setData(fetchedData);
+          for (var i = 0; i < fetchedData.length; i++) {
+            var item = fetchedData[i];
+          }
+
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
       } else {
         setIsMainDomain("false")
       }
-      try {
-        const collectionRef = collectionGroup(db, "url");
-        const snapshot = await getDocs(collectionRef);
-        const fetchedData = snapshot.docs.map(doc => doc.data());
-        setData(fetchedData);
-        for (var i = 0; i < fetchedData.length; i++) {
-          var item = fetchedData[i];
-        }
 
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
     };
     fetchData();
-
-  }, [isMainDomain]);
+    console.log("isMainDomain" + isMainDomain)
+  }, []);
 
   return (
     <div>
