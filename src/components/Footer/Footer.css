@@ -1,8 +1,9 @@
 .footer {
-    max-width: 1200px;
     margin: 0 auto;
     background-color: white;
-    padding: 40px 0px 40px 0px;
+    padding: 40px 120px 40px 120px;
+    width: 100%;
+    bottom: 0;
 }
 
 .row-container {

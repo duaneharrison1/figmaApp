@@ -53,7 +53,7 @@ export default function UrlForm() {
             })
         })
 
-    });
+    }, []);
     useEffect(() => {
         dbFirestore.collection('user').doc(user.uid).collection("subscriptions").get().then(snapshot => {
 
@@ -65,7 +65,7 @@ export default function UrlForm() {
             })
         })
 
-    })
+    }, [])
 
 
     const handleShowModal = () => {

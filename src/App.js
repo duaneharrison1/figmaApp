@@ -18,6 +18,7 @@ import BillingPage from './pages/BillingPage/Billing.js';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import SignupPage from './pages/Authentication/SignupPage.js';
 import AdminDashboard from './pages/AdminDashboard/AdminDashboard.js';
+import PrivacyPolicy from './pages/Privacy Policy/PrivacyPolicy.js';
 
 
 
@@ -85,9 +86,7 @@ function App() {
     };
     fetchData();
 
-  }, [isMainDomain]
-
-  );
+  }, [isMainDomain]);
 
   return (
     <div>
@@ -117,6 +116,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/billing" element={<BillingPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/form" element={<UrlForm />} />
           <Route path="/editform" element={<EditForm />} />
           <Route path="/dashboard" element={<UserDashboard />} />
@@ -130,9 +130,6 @@ function App() {
         </Routes>
       }
     </div>
-
-
-
   );
 }
 export default App;
