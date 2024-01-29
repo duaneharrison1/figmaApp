@@ -2,7 +2,7 @@ import React from 'react';
 import './CardView.css';
 import cardView from '../../assets/images/cardView.png'
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const CardView = (props) => {
     const index = props.index
