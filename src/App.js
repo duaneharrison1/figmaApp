@@ -40,7 +40,6 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-
       try {
         await getDocs(collection(db, "user"))
           .then((querySnapshot) => {
@@ -76,7 +75,7 @@ function App() {
           for (var i = 0; i < fetchedData.length; i++) {
             var item = fetchedData[i];
           }
-
+          console.log("it runs here")
         } catch (error) {
           console.error('Error fetching data:', error);
         }
