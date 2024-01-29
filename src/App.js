@@ -62,23 +62,32 @@ function App() {
       }
 
       var domain = window.location.host
-
+      var currentPath = window.location.pathname;
       // if (!domain.includes('figmafolio-stripe.vercel.app')) {
       // if (domain != "localhost:3000") {
-      if (domain == 'www.figmafolio.com' || domain == 'figma-app-tau.vercel.app') {
+      if (domain == 'www.figmafolio.com' || domain == 'figma-app-tau.vercel.app' || domain == "localhost:3000") {
         setIsMainDomain("true")
-        try {
-          const collectionRef = collectionGroup(db, "url");
-          const snapshot = await getDocs(collectionRef);
-          const fetchedData = snapshot.docs.map(doc => doc.data());
-          setData(fetchedData);
-          for (var i = 0; i < fetchedData.length; i++) {
-            var item = fetchedData[i];
+        if (currentPath == '/' || currentPath == '/form' ||
+          currentPath == '/admin' || currentPath == '/billing' ||
+          currentPath == '/dashboard' || currentPath == '/preview' ||
+          currentPath == '/auth' || currentPath == '/forgotpassword' ||
+          currentPath == '/profile') { // Adjust the conditions based on your routes
+          console.log("xxx " + currentPath)
+        } else {
+          try {
+            const collectionRef = collectionGroup(db, "url");
+            const snapshot = await getDocs(collectionRef);
+            const fetchedData = snapshot.docs.map(doc => doc.data());
+            setData(fetchedData);
+            for (var i = 0; i < fetchedData.length; i++) {
+              var item = fetchedData[i];
+            }
+            console.log("it runs here")
+          } catch (error) {
+            console.error('Error fetching data:', error);
           }
-          console.log("it runs here")
-        } catch (error) {
-          console.error('Error fetching data:', error);
         }
+
       } else {
         setIsMainDomain("false")
       }
