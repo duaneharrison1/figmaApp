@@ -50,7 +50,6 @@ export default function EditForm() {
         })
 
     }, []);
-    fetchData();
 
     const handleShowErrorModal = () => {
         setShowErrorModal(true);
