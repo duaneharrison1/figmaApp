@@ -35,7 +35,11 @@ export default function Footer() {
                             </div>
 
                             <div className="col-md-4">
-                                <SocialMediaIcons />
+                                <div className="email-support-container col-md-4">
+                                    {user ? <p> <a className="email-support-link" href="mailto:support@figmafolio.com">support@figmafolio.com</a>
+                                    </p> : <p> </p>}
+
+                                </div>
                             </div>
 
                         </div>
@@ -55,10 +59,9 @@ export default function Footer() {
                                     <h1 className='footer-center'> Cookies</h1>
                                 </div>
                             </div>
-                            <div className="col-md-4 d-flex justify-content-end">
+                            <div className="email-support-container col-md-4">
                                 {user ? <p> <a className="email-support-link" href="mailto:support@figmafolio.com">support@figmafolio.com</a>
                                 </p> : <p> </p>}
-                                {/* <SocialMediaIcons /> */}
                             </div>
 
                         </div>
