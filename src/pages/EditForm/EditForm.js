@@ -14,7 +14,7 @@ import AlertErrorModal from '../../components/AlertErrorModal/AlertErrorModal';
 import insOne from './../../assets/images/ins-1.png';
 import insTwo from './../../assets/images/ins-2.png';
 import insThree from './../../assets/images/ins-3.png';
-import insFour from './../../assets/images/ins4.png';
+import insFour from './../../assets/images/ins-4.png';
 export default function EditForm() {
     const navigate = useNavigate();
     const location = useLocation();
