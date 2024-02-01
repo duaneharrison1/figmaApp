@@ -205,7 +205,7 @@ export default function UrlForm() {
                                                 onChange={handleDomain} />
 
                                             <div className='domain-info'>
-                                                <p className='domain-info-header'>Add the relevant DNS records to your domain name. Set the following:</p>
+                                                <p className='domain-info-header'>To use a custom domain name, add new DNS records in your domain registrar's DNS manager. Add the following records:</p>
                                                 <table className='domain-info-table'>
                                                     <tr className='domain-info-subheader'>
                                                         <th>Type</th>
