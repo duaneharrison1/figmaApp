@@ -150,21 +150,21 @@ export default function EditForm() {
     return (
         <>
             {!profile ?
-                < Navbar className={"dashboardNavBar"} email={" "} onClickLogout={handleLogout} isFromForm={true} />
+                < Navbar className={"dashboardNavBar"} email={" "} onClickLogout={handleLogout} isFromForm={"editForm"} />
                 :
                 <div>
                     {profile.map(profile => (
-                        < Navbar className={"dashboardNavBar"} email={profile.name} onClickLogout={handleLogout} isFromForm={true} />
+                        < Navbar className={"dashboardNavBar"} email={profile.name} onClickLogout={handleLogout} isFromForm={"editForm"} title={title} />
                     ))}
                 </div>
             }
 
             <div className='form'>
                 <div className="url-form">
-
+                    <h1 className='form-title'>General</h1>
                     <div className='form-container'>
                         <div className='row first-div'>
-                            <h1 className='form-title'>{title}</h1>
+
                             <div className='col-md-6'>
                                 <h2 className='form-sub-header'>Title</h2>
                                 <input

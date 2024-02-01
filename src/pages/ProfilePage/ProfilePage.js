@@ -99,11 +99,11 @@ export default function ProfilePage() {
     return (
         <>
             {!profile ?
-                < Navbar className={"dashboardNavBar"} email={" "} isFromForm={false} />
+                < Navbar className={"dashboardNavBar"} email={" "} isFromForm={"false"} />
                 :
                 <div>
                     {profile.map(profile => (
-                        < Navbar className={"dashboardNavBar"} email={profile.name} isFromForm={false} />
+                        < Navbar className={"dashboardNavBar"} email={profile.name} isFromForm={"false"} />
                     ))}
                 </div>
             }

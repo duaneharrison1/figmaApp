@@ -14,6 +14,7 @@ export default function Navbar(props) {
     const email = props.email
     const className = props.className
     const isFromForm = props.isFromForm
+    const title = props.title
     const [photoURL, setPhotoURL] = useState();
     const navigate = useNavigate();
 
@@ -46,24 +47,17 @@ export default function Navbar(props) {
         <nav className={className}>
             <div className="row">
                 <div className="col d-flex  align-items-center">
-                    {!isFromForm ? (
-                        <a className="nav-title" href="/"> Figmafolio</a>
-                    )
-                        : (
-                            <a className="back-to-library" href="/dashboard"> &lt; Back to your library </a>)}
+                    {isFromForm == "newForm" || isFromForm == "editForm" ?
+                        (<a className="back-to-library" href="/dashboard"> &lt; Back to your library </a>)
+                        : (<a className="nav-title" href="/"> Figmafolio</a>)}
                 </div>
 
                 <div className="col d-flex align-items-center justify-content-center">
-                    <a className="nav-title">Your Library</a>
+                    {isFromForm == "newForm" ? (<a className="nav-title">New project</a>) :
+                        isFromForm == "editForm" ? (<a className="nav-title">{title}</a>) :
+                            (<a className="nav-title">Your Library</a>)}
                 </div>
-
-
-
-
-
                 <div className="col d-flex justify-content-end align-items-center">
-
-
                     <div className="dropdown">
 
                         <button className='btn-dropdown' type="button" data-bs-toggle="dropdown" >

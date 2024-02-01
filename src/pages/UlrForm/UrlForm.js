@@ -155,15 +155,15 @@ export default function UrlForm() {
     }
     return (
         <>
-            <Navbar className={"dashboardNavBar"} email={user.email} onClickLogout={handleLogout} isFromForm={true} />
+            <Navbar className={"dashboardNavBar"} email={user.email} onClickLogout={handleLogout} isFromForm={"newForm"} />
 
             <div className='form'>
                 <div className="url-form">
 
                     <div className='form-container'>
-
+                        <h1 className='form-title'>General</h1>
                         <div className='row first-div'>
-                            <h1 className='form-title'>New project</h1>
+
                             <div className='col-md-6'>
 
                                 <h2 className='form-sub-header'>Title</h2>
