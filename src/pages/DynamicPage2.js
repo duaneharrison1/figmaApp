@@ -51,12 +51,9 @@ function DynamicPage2() {
                         setDesktop(url.urls.figmaDesktopUrl)
                         setMobile(url.urls.figmaMobileUrl)
                       }
-                      console.log("successhere")
+                      console.log("finish getting data");
                     } else {
-                      console.log("error")
-                      console.log("modifiedCustomDomain" + modifiedCustomDomain)
-                      console.log("modifiedDomain" + modifiedDomain)
-                      console.log(modifiedCustomDomain == modifiedDomain)
+                      console.log("error");
                     }
                   });
                 } else if (subData.items[0].plan.id == process.env.REACT_APP_YEARLY) {
