@@ -40,8 +40,6 @@ function UserDashboard() {
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
-            // setUser(user);
-            console.log("user" + user.uid)
             try {
                 getDocs(collection(db, "user", user.uid, "profile"))
                     .then((querySnapshot) => {
