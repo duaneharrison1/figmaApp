@@ -11,6 +11,7 @@ import { collection, collectionGroup, getDocs } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { db, auth } from './firebase';
+import firebase from './firebase';
 import ForgotPassword from './pages/Authentication/ForgotPassword/ForgotpasswordPage';
 import Preview from './pages/Preview/Preview.js';
 import Mainauth from './pages/Authentication/MainAuth';
@@ -20,10 +21,8 @@ import SignupPage from './pages/Authentication/SignupPage.js';
 import AdminDashboard from './pages/AdminDashboard/AdminDashboard.js';
 import PrivacyPolicy from './pages/Privacy Policy/PrivacyPolicy.js';
 
-
-
 function App() {
-
+  const dbFirestore = firebase.firestore();
   const [data, setData] = useState([]);
   const [sampleData, setSampleData] = useState([]);
   const [sampleSub, setSampleSub] = useState([]);
@@ -74,14 +73,14 @@ function App() {
           currentPath == '/profile') { // Adjust the conditions based on your routes
           console.log("xxx " + currentPath)
         } else {
+          console.log("yyy " + currentPath)
           try {
-            const collectionRef = collectionGroup(db, "url");
-            const snapshot = await getDocs(collectionRef);
-            const fetchedData = snapshot.docs.map(doc => doc.data());
-            setData(fetchedData);
-            for (var i = 0; i < fetchedData.length; i++) {
-              var item = fetchedData[i];
-            }
+            var generatedUrl = currentPath.slice(1);
+            console.log("yyy " + generatedUrl)
+            dbFirestore.collectionGroup('url').where('generatedUrl', '==', generatedUrl).get().then(snapshot => {
+              const fetchedData = snapshot.docs.map(doc => doc.data());
+              setData(fetchedData);
+            })
             console.log("it runs here")
           } catch (error) {
             console.error('Error fetching data:', error);
