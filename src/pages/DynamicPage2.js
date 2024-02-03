@@ -40,28 +40,35 @@ function DynamicPage2() {
           console.log("domain " + domain)
           const modifiedDomain = domain.replace(/^(https?:\/\/)?(www\.)?/, '');
           dbFirestore.collectionGroup('url').where('customDomain', '==', modifiedDomain).get().then(snapshot => {
-
             if (snapshot.docs.length === 0) {
-              // The snapshot is empty
-              console.log("Snapshot is empty");
+              dbFirestore.collectionGroup('url').where('customDomain', '==', domain).get().then(snapshot => {
+                const fetchedData = snapshot.docs.map(doc => doc.data());
+                fetchedData.forEach((value) => {
+                  console.log("figmalink " + value.urls.figmaDesktopUrl)
+                  console.log("figmalink " + value.urls.figmaMobileUrl)
+                  if (value.isDraft == "false") {
+                    document.title = value.title;
+                    setDesktop(value.urls.figmaDesktopUrl)
+                    setMobile(value.urls.figmaMobileUrl)
+                  }
+                });
+              })
             } else {
-              // The snapshot is not empty
-              console.log("Snapshot is not empty");
+              const fetchedData = snapshot.docs.map(doc => doc.data());
+              fetchedData.forEach((value) => {
+                console.log("figmalink " + value.urls.figmaDesktopUrl)
+                console.log("figmalink " + value.urls.figmaMobileUrl)
+                if (value.isDraft == "false") {
+                  document.title = value.title;
+                  setDesktop(value.urls.figmaDesktopUrl)
+                  setMobile(value.urls.figmaMobileUrl)
+                }
+              });
+              console.log("finish getting data");
             }
 
 
-            const fetchedData = snapshot.docs.map(doc => doc.data());
 
-            fetchedData.forEach((value) => {
-              console.log("figmalink " + value.urls.figmaDesktopUrl)
-              console.log("figmalink " + value.urls.figmaMobileUrl)
-              if (value.isDraft == "false") {
-                document.title = value.title;
-                setDesktop(value.urls.figmaDesktopUrl)
-                setMobile(value.urls.figmaMobileUrl)
-              }
-            });
-            console.log("finish getting data");
           })
 
           // const response = await axios.get(process.env.REACT_APP_URL_DATA);
