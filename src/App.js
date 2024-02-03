@@ -88,7 +88,6 @@ function App() {
         :
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/billing" element={<BillingPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/form" element={<UrlForm />} />
