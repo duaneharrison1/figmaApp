@@ -36,9 +36,11 @@ function DynamicPage2() {
         console.log("wentHerexxx")
         try {
           var domain = window.location.host
+          console.log("domain " + domain)
           const modifiedDomain = domain.replace(/^(https?:\/\/)?(www\.)?/, '');
           dbFirestore.collectionGroup('url').where('customDomain', '==', modifiedDomain || domain).get().then(snapshot => {
             const fetchedData = snapshot.docs.map(doc => doc.data());
+
             fetchedData.forEach((value) => {
               console.log("figmalink " + value.urls.figmaDesktopUrl)
               console.log("figmalink " + value.urls.figmaMobileUrl)
