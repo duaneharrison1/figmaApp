@@ -28,32 +28,32 @@ function App() {
   const [sampleSub, setSampleSub] = useState([]);
   const [user, setUser] = useState(null);
   const [isMainDomain, setIsMainDomain] = useState("false");
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user); // Set the user state
-    });
 
-    return () => unsubscribe(); // Clean up the listener when component unmounts
-  }, []);
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged((user) => {
+  //     setUser(user); // Set the user state
+  //   });
+
+  //   return () => unsubscribe();
+  // }, []);
 
 
   useEffect(() => {
     const fetchData = async () => {
-
-
       var domain = window.location.host
       var currentPath = window.location.pathname;
-      // if (!domain.includes('figmafolio-stripe.vercel.app')) {
-      // if (domain != "localhost:3000") {
       if (domain == 'www.figmafolio.com' || domain == 'figma-app-tau.vercel.app' || domain == "localhost:3000") {
         setIsMainDomain("true")
         if (currentPath == '/' || currentPath == '/form' ||
           currentPath == '/admin' || currentPath == '/billing' ||
           currentPath == '/dashboard' || currentPath == '/preview' ||
           currentPath == '/auth' || currentPath == '/forgotpassword' ||
-          currentPath == '/profile') { // Adjust the conditions based on your routes
-
+          currentPath == '/profile') {
           try {
+            auth.onAuthStateChanged((user) => {
+              setUser(user); // Set the user state
+            });
+
             await getDocs(collection(db, "user"))
               .then((querySnapshot) => {
                 const userProfile = querySnapshot.docs
