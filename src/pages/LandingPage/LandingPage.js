@@ -24,9 +24,11 @@ export default function LandingPage() {
   const navigate = useNavigate();
   const [userId] = useAuthState(auth);
   const [user, setUser] = useState(null);
+
   const scrollToDiv = () => {
     divGuide.current.scrollIntoView({ behavior: 'smooth' });
   }
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
@@ -41,11 +43,6 @@ export default function LandingPage() {
 
   return (
     <>
-
-
-
-
-
       < div className='container-fluid main-landing-page m-0 p-0'>
         <div className='navbar-container'>
           <div className="row">

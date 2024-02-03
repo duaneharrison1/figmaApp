@@ -520,7 +520,7 @@ export default function Preview() {
         }
     }
 
-
+    //FIX THIS
     useEffect(() => {
         setRandomUrl(generateRandomString(10))
         const fetchData = async () => {
@@ -531,7 +531,6 @@ export default function Preview() {
                             const newData = querySnapshot.docs
                                 .map((doc) => ({ ...doc.data(), id: doc.id }));
                             newData.forEach((value) => {
-
                                 if (value.generatedUrl != randomurl) {
                                 } else {
                                     setDuplicate(true)

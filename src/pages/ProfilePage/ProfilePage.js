@@ -34,29 +34,24 @@ export default function ProfilePage() {
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
-            setUser(user); // Set the user state
+            setUser(user);
         });
-        return () => unsubscribe(); // Clean up the listener when component unmounts
+        return () => unsubscribe();
     }, []);
 
     useEffect(() => {
         const fetchData = async () => {
             if (user) {
                 try {
-
-
                     await getDocs(collection(db, "user", user.uid, "profile"))
                         .then((querySnapshot) => {
                             const userProfile = querySnapshot.docs
                                 .map((doc) => ({ ...doc.data(), id: doc.id }));
                             setProfile(userProfile);
                         })
-
                 } catch (error) {
                     console.error('Error fetching data:', error);
                 }
-
-
             }
             else {
             }
@@ -70,7 +65,6 @@ export default function ProfilePage() {
 
     const handleShowModal = () => {
         setShowChangePasswordModal(true);
-        // 
     };
 
     const handleCloseModal = () => {
@@ -80,21 +74,6 @@ export default function ProfilePage() {
     const handleShowSuccessModal = () => {
         setShowChangePasswordModal(false);
     };
-
-
-    const handleLogout = () => {
-        signOut(auth).then(() => {
-            // Sign-out successful.
-            navigate("/");
-            console.log("Signed out successfully")
-        }).catch((error) => {
-            // An error happened.
-        });
-    }
-
-
-
-
 
     return (
         <>
@@ -131,9 +110,6 @@ export default function ProfilePage() {
                                 </div>
                                 <div className='container profile-buttons-container'>
                                     <ButtonColored label='Edit' className="edit-cancel-save-btn" />
-                                    {/* <ButtonColored label='Edit' className="edit-cancel-save-btn" /> */}
-                                    {/* <ButtonColored label='Cancel' className="new-site" />
-                                    <ButtonClear label='Save' className="change-password" /> */}
                                 </div>
 
                             </div>
@@ -165,7 +141,6 @@ export default function ProfilePage() {
                             </div>
                         </div>
 
-
                         <div className='security-container'>
                             <h1 className='profile-headers'> Security</h1>
                             <ButtonClear label='Change password' className="change-password" onClick={handleShowModal} />
@@ -174,13 +149,10 @@ export default function ProfilePage() {
                         <ChangePasswordModal show={showChangePasswordModal} handleClose={handleShowSuccessModal} />
                         <SuccessModal show={showSuccessModal} handleClose={handleCloseModal} />
                         <UploadImage show={showUploadImageModal} />
-
                     </div>
                 </div>
             </div>
-
         </>
-
     );
 };
 

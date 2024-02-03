@@ -24,9 +24,7 @@ import PrivacyPolicy from './pages/Privacy Policy/PrivacyPolicy.js';
 function App() {
   const dbFirestore = firebase.firestore();
   const [data, setData] = useState([]);
-  const [sampleData, setSampleData] = useState([]);
-  const [sampleSub, setSampleSub] = useState([]);
-  const [user, setUser] = useState(null);
+
   const [isMainDomain, setIsMainDomain] = useState("false");
 
   useEffect(() => {
@@ -40,13 +38,6 @@ function App() {
           currentPath == '/dashboard' || currentPath == '/preview' ||
           currentPath == '/auth' || currentPath == '/forgotpassword' ||
           currentPath == '/profile') {
-          try {
-            auth.onAuthStateChanged((user) => {
-              setUser(user); // Set the user state
-            });
-          } catch (error) {
-            console.log(error)
-          }
         } else {
           console.log("yyy " + currentPath)
           try {

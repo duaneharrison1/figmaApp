@@ -55,7 +55,6 @@ function UserDashboard() {
                                 setDocCount(querySnapshot.size)
                             })
                     ).then(
-
                         dbFirestore.collection('user').doc(user.uid).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
                             if (snapshot.size == 0) {
                                 setCanCreate("true")
@@ -65,7 +64,6 @@ function UserDashboard() {
                                 if (docCount >= 1) {
                                     setCanCreate("false")
                                     setSubscriptionType("regular")
-
                                 }
                             } else {
                                 snapshot.forEach(subscription => {
@@ -105,91 +103,11 @@ function UserDashboard() {
             } catch (error) {
                 console.error('Error fetching data:', error);
             } finally {
-
                 setLoading(false);
             }
         });
         return () => unsubscribe();
     }, []);
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         if (user) {
-    //             try {
-    //                 await getDocs(collection(db, "user", user.uid, "profile"))
-    //                     .then((querySnapshot) => {
-    //                         const userProfile = querySnapshot.docs
-    //                             .map((doc) => ({ ...doc.data(), id: doc.id }));
-    //                         setProfile(userProfile);
-    //                     }).then(
-    //                         await getDocs(collection(db, "user", user.uid, "url"))
-    //                             .then((querySnapshot) => {
-    //                                 const newData = querySnapshot.docs
-    //                                     .map((doc) => ({ ...doc.data(), id: doc.id }));
-    //                                 setData(newData);
-    //                                 setDocCount(querySnapshot.size)
-    //                             })
-    //                     ).then(
-
-    //                         dbFirestore.collection('user').doc(user.uid).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
-    //                             if (snapshot.size == 0) {
-    //                                 setCanCreate("true")
-    //                                 setSubscriptionType("regular")
-    //                             }
-    //                             if (snapshot.empty) {
-    //                                 if (docCount >= 1) {
-    //                                     setCanCreate("false")
-    //                                     setSubscriptionType("regular")
-
-    //                                 }
-    //                             } else {
-    //                                 snapshot.forEach(subscription => {
-    //                                     if (subscription.data().status == "active") {
-    //                                         if (subscription.data().items[0].plan.id == process.env.REACT_APP_YEARLY) {
-    //                                             setCanCreate("true")
-    //                                             setSubscriptionType("annualPlan")
-    //                                         } else if (subscription.data().items[0].plan.id == process.env.REACT_APP_MONTHLY && docCount <= 4) {
-    //                                             setCanCreate("true")
-    //                                             setChangeSubPlan("true")
-    //                                             setSubscriptionType("monthlyPlan")
-    //                                         } else {
-    //                                             setCanCreate("false")
-    //                                         }
-    //                                     } else if (subscription.data().status == "canceled") {
-    //                                         if (docCount >= 1) {
-    //                                             setCanCreate("false")
-    //                                             setSubscriptionType("regular")
-    //                                         } else {
-    //                                             setCanCreate("true")
-    //                                             setSubscriptionType("regular")
-    //                                         }
-    //                                     } else {
-    //                                         if (docCount >= 1) {
-    //                                             setCanCreate("false")
-    //                                             setSubscriptionType("regular")
-    //                                         } else {
-    //                                             setCanCreate("true")
-    //                                             setSubscriptionType("regular")
-    //                                         }
-    //                                     }
-    //                                 })
-    //                             }
-    //                         })
-
-    //                     )
-    //             } catch (error) {
-    //                 console.error('Error fetching data:', error);
-    //             } finally {
-
-    //                 setLoading(false);
-    //             }
-    //         }
-    //         else {
-    //             console.log('No user data available');
-    //         }
-    //     };
-    //     fetchData();
-    // }, [user, profile]);
 
     const handleShowUpgradeModal = () => {
         setShowUpgradeModal(true);
@@ -259,9 +177,6 @@ function UserDashboard() {
 
     const goToNewForm = () => {
         navigate('/form', { state: { subscriptionType: subscriptionType } });
-        // navigate('/form', {state: {profile} });
-
-
     }
 
     return (
