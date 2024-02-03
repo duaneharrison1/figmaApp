@@ -36,9 +36,10 @@ function DynamicPage2() {
         console.log("wentHerexxx")
         try {
           var domain = window.location.host
+          // www.caitlynhutchison.com
           console.log("domain " + domain)
           const modifiedDomain = domain.replace(/^(https?:\/\/)?(www\.)?/, '');
-          dbFirestore.collectionGroup('url').where('customDomain', '==', modifiedDomain || domain).get().then(snapshot => {
+          dbFirestore.collectionGroup('url').where('customDomain', '==', domain).get().then(snapshot => {
             const fetchedData = snapshot.docs.map(doc => doc.data());
 
             fetchedData.forEach((value) => {
