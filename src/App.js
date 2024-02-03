@@ -54,22 +54,35 @@ function App() {
               setUser(user); // Set the user state
             });
 
-            await getDocs(collection(db, "user"))
+            await getDocs(collection(db, "user", user.uid, "profile"))
               .then((querySnapshot) => {
                 const userProfile = querySnapshot.docs
                   .map((doc) => ({ ...doc.data(), id: doc.id }));
-                setSampleData(userProfile)
-
-                for (var i = 0; i < sampleData.length; i++) {
-                  var item = userProfile[i];
-                  getDocs(collection(db, "user", item.id, "subscriptions"))
-                    .then((querySnapshot) => {
-                      const subscriptions = querySnapshot.docs
-                        .map((doc) => ({ ...doc.data(), id: doc.id }));
-                      setSampleSub(subscriptions)
-                    })
-                }
+                setSampleData(userProfile);
               })
+
+            await getDocs(collection(db, "user", user.uid, "subscriptions"))
+              .then((querySnapshot) => {
+                const subscriptions = querySnapshot.docs
+                  .map((doc) => ({ ...doc.data(), id: doc.id }));
+                setSampleSub(subscriptions);
+              })
+            // await getDocs(collection(db, "user"))
+            //   .then((querySnapshot) => {
+            //     const userProfile = querySnapshot.docs
+            //       .map((doc) => ({ ...doc.data(), id: doc.id }));
+            //     setSampleData(userProfile)
+
+            //     for (var i = 0; i < sampleData.length; i++) {
+            //       var item = userProfile[i];
+            //       getDocs(collection(db, "user", item.id, "subscriptions"))
+            //         .then((querySnapshot) => {
+            //           const subscriptions = querySnapshot.docs
+            //             .map((doc) => ({ ...doc.data(), id: doc.id }));
+            //           setSampleSub(subscriptions)
+            //         })
+            //     }
+            //   })
           } catch (error) {
             console.log(error)
           }
