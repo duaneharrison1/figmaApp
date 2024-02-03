@@ -543,18 +543,7 @@ export default function Preview() {
             }
         };
         fetchData();
-    }, [user]);
-
-
-    const handleLogout = () => {
-        signOut(auth).then(() => {
-            // Sign-out successful.
-            navigate("/");
-            console.log("Signed out successfully")
-        }).catch((error) => {
-            // An error happened.
-        });
-    }
+    }, []);
 
     useEffect(() => {
         window.scrollTo(0, 0); // Scroll to the top of the page
@@ -562,7 +551,6 @@ export default function Preview() {
 
     return (
         <>
-
             {!user || !location.state ? (
                 navigate("/")
 
