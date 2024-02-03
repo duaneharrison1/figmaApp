@@ -39,26 +39,7 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        await getDocs(collection(db, "user"))
-          .then((querySnapshot) => {
-            const userProfile = querySnapshot.docs
-              .map((doc) => ({ ...doc.data(), id: doc.id }));
-            setSampleData(userProfile)
 
-            for (var i = 0; i < sampleData.length; i++) {
-              var item = userProfile[i];
-              getDocs(collection(db, "user", item.id, "subscriptions"))
-                .then((querySnapshot) => {
-                  const subscriptions = querySnapshot.docs
-                    .map((doc) => ({ ...doc.data(), id: doc.id }));
-                  setSampleSub(subscriptions)
-                })
-            }
-          })
-      } catch (error) {
-        console.log(error)
-      }
 
       var domain = window.location.host
       var currentPath = window.location.pathname;
@@ -71,7 +52,27 @@ function App() {
           currentPath == '/dashboard' || currentPath == '/preview' ||
           currentPath == '/auth' || currentPath == '/forgotpassword' ||
           currentPath == '/profile') { // Adjust the conditions based on your routes
-          console.log("xxx " + currentPath)
+
+          try {
+            await getDocs(collection(db, "user"))
+              .then((querySnapshot) => {
+                const userProfile = querySnapshot.docs
+                  .map((doc) => ({ ...doc.data(), id: doc.id }));
+                setSampleData(userProfile)
+
+                for (var i = 0; i < sampleData.length; i++) {
+                  var item = userProfile[i];
+                  getDocs(collection(db, "user", item.id, "subscriptions"))
+                    .then((querySnapshot) => {
+                      const subscriptions = querySnapshot.docs
+                        .map((doc) => ({ ...doc.data(), id: doc.id }));
+                      setSampleSub(subscriptions)
+                    })
+                }
+              })
+          } catch (error) {
+            console.log(error)
+          }
         } else {
           console.log("yyy " + currentPath)
           try {
