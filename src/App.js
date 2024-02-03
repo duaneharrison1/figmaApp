@@ -29,15 +29,6 @@ function App() {
   const [user, setUser] = useState(null);
   const [isMainDomain, setIsMainDomain] = useState("false");
 
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged((user) => {
-  //     setUser(user); // Set the user state
-  //   });
-
-  //   return () => unsubscribe();
-  // }, []);
-
-
   useEffect(() => {
     const fetchData = async () => {
       var domain = window.location.host
