@@ -40,6 +40,8 @@ function DynamicPage2() {
           dbFirestore.collectionGroup('url').where('customDomain', '==', modifiedDomain || domain).get().then(snapshot => {
             const fetchedData = snapshot.docs.map(doc => doc.data());
             fetchedData.forEach((value) => {
+              console.log("figmalink " + value.urls.figmaDesktopUrl)
+              console.log("figmalink " + value.urls.figmaMobileUrl)
               if (value.isDraft == "false") {
                 document.title = value.title;
                 setDesktop(value.urls.figmaDesktopUrl)
