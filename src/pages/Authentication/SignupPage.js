@@ -7,9 +7,10 @@ import './Auths.css';
 import TextField from '../../components/TextField/TextField.js';
 import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import AlertModal from '../../components/AlertModal/AlertModal';
-
+import firebase from '../../firebase';
 export default function SignupPage() {
     const navigate = useNavigate();
+    const dbFirestore = firebase.firestore();
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
@@ -53,9 +54,22 @@ export default function SignupPage() {
         } else {
             await createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
-                    // Signed in
+                    const user = userCredential.user;
+                    dbFirestore
+                        .collection('user')
+                        .doc(user.uid)
+                        .set({
+                            name: name,
+                            email: user.email,
+                        })
+                        .then(() => {
+                            console.log('Document successfully written!');
+                        })
+                        .catch((error) => {
+                            console.error('Error writing document: ', error);
+                        });
                     try {
-                        const user = userCredential.user;
+
                         const ref = collection(db, "user", user.uid, "profile")
                         let userData = {
                             name: name,
