@@ -3,7 +3,6 @@ import Form from 'react-bootstrap/Form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { collection, addDoc, doc, getDocs, updateDoc, QuerySnapshot, query, where, collectionGroup } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
-import { signOut } from "firebase/auth";
 import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import ButtonClear from '../../components/ButtonClear/ButtonClear';
 import AlertModal from '../../components/AlertModal/AlertModal';
@@ -16,7 +15,6 @@ export default function Preview() {
     const location = useLocation();
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
-    const [duplicate, setDuplicate] = useState('');
     const [randomurl, setRandomUrl] = useState('');
     const [user, setUser] = useState(null);
     const [userIsDesktop, setUserIsDesktop] = useState(true);
@@ -59,10 +57,29 @@ export default function Preview() {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setUser(user); // Set the user state
         });
-
         return () => unsubscribe(); // Clean up the listener when component unmounts
     }, []);
 
+    useEffect(() => {
+        setRandomUrl(generateRandomString(10))
+        const fetchData = async () => {
+            try {
+                dbFirestore.collectionGroup('url').where('generatedUrl', '==', randomurl).get().then(snapshot => {
+                    if (snapshot.docs.length !== 0) {
+                        setRandomUrl(generateRandomString(10))
+                        console.log("secondRandomUrl " + randomurl)
+                    }
+                })
+            } catch (error) {
+                console.error("error" + error);
+            }
+        };
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        window.scrollTo(0, 0); // Scroll to the top of the page
+    }, []);
 
     const addDomainToVercel = async () => {
         try {
@@ -128,6 +145,7 @@ export default function Preview() {
     };
 
     function generateRandomString(length) {
+        console.log("wentHere duplicate")
         const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         let result = '';
         for (let i = 0; i < length; i++) {
@@ -520,34 +538,7 @@ export default function Preview() {
         }
     }
 
-    //FIX THIS
-    useEffect(() => {
-        setRandomUrl(generateRandomString(10))
-        const fetchData = async () => {
-            if (user) {
-                try {
-                    await getDocs(collectionGroup(db, "url"))
-                        .then((querySnapshot) => {
-                            const newData = querySnapshot.docs
-                                .map((doc) => ({ ...doc.data(), id: doc.id }));
-                            newData.forEach((value) => {
-                                if (value.generatedUrl != randomurl) {
-                                } else {
-                                    setDuplicate(true)
-                                }
-                            });
-                        })
-                } catch (error) {
-                    console.error("error" + error);
-                }
-            }
-        };
-        fetchData();
-    }, []);
 
-    useEffect(() => {
-        window.scrollTo(0, 0); // Scroll to the top of the page
-    }, []);
 
     return (
         <>

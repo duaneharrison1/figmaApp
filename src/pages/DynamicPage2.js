@@ -27,7 +27,6 @@ function DynamicPage2() {
   }, []);
 
   useEffect(() => {
-
     var domain = window.location.host
     if (domain == 'www.figmafolio.com' || domain == 'figma-app-tau.vercel.app' || domain == 'localhost:3000') {
       console.log("wentHerezzzz")
