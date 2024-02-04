@@ -29,7 +29,7 @@ function UserDashboard() {
     const [canCreate, setCanCreate] = useState("initial");
     const [docCount, setDocCount] = useState(null)
     const [subscriptionType, setSubscriptionType] = useState("")
-    const [subscriptionStatus, setSubscriptionStatus] = useState(null)
+
     const [changeSubPlan, setChangeSubPlan] = useState(null)
     const dbFirestore = firebase.firestore();
     const [loading, setLoading] = useState(true);
@@ -56,6 +56,7 @@ function UserDashboard() {
                             })
                     ).then(
                         dbFirestore.collection('user').doc(user.uid).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
+                            console.log("wentHere")
                             if (snapshot.size == 0) {
                                 setCanCreate("true")
                                 setSubscriptionType("regular")
@@ -107,7 +108,7 @@ function UserDashboard() {
             }
         });
         return () => unsubscribe();
-    }, []);
+    }, [user, subscriptionType]);
 
     const handleShowUpgradeModal = () => {
         setShowUpgradeModal(true);
