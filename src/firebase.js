@@ -8,13 +8,13 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDerK_WLES9rmbeW0y-nnhYr6IycedWvCk",
-  authDomain: "figmawebapp.firebaseapp.com",
-  projectId: "figmawebapp",
-  storageBucket: "figmawebapp.appspot.com",
-  messagingSenderId: "570481581357",
-  appId: "1:570481581357:web:720bb78fa235645658c7a4",
-  measurementId: "G-WY4SYMF6SF"
+  apiKey: "AIzaSyBhMB0QZh3UK9rmf9e67K_AHXrrKmN9sqY",
+  authDomain: "figmafolio-testing.firebaseapp.com",
+  projectId: "figmafolio-testing",
+  storageBucket: "figmafolio-testing.appspot.com",
+  messagingSenderId: "880532212371",
+  appId: "1:880532212371:web:474131e4ef06bf447a1b66",
+  measurementId: "G-KB7ZML7XQG"
 }
 export async function upload(file, currentUser) {
   const fileRef = ref(storage, currentUser.uid + '.png');
