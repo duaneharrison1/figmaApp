@@ -18,7 +18,6 @@ const DeleteModal = (props) => {
     const id = props.id;
     const generatedUrl = props.generatedUrl;
     const customDomain = props.customDomain;
-
     const [outputValue, setOutputValue] = useState('');
 
 
@@ -61,10 +60,10 @@ const DeleteModal = (props) => {
         }
     }
 
-    const dataInDb = () => {
+    const dataInDb = async () => {
         try {
-            deleteDoc(doc(db, "user", user.uid, "url", id));
-            alert("Deleted successfully")
+            await deleteDoc(doc(db, "user", user.uid, "url", id));
+            window.location.reload();
             handleClose()
         } catch {
             alert("Error Deleting data")
