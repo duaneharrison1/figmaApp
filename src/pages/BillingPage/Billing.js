@@ -15,7 +15,7 @@ export default function Billing() {
     const [user, setUser] = useState(null);
     const [changeSubPlan, setChangeSubPlan] = useState(null);
     const [showUpgradeModal, setShowUpgradeModal] = useState(false);
-    const [profile, setProfile] = useState([]);
+    const [name, setName] = useState([]);
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -25,49 +25,45 @@ export default function Billing() {
     }, []);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchData = () => {
             if (user) {
                 try {
-
-                    await getDocs(collection(db, "user", user.uid, "profile"))
-                        .then((querySnapshot) => {
-                            const userProfile = querySnapshot.docs
-                                .map((doc) => ({ ...doc.data(), id: doc.id }));
-                            setProfile(userProfile);
-                        })
-
-                    await dbFirestore.collection('user').doc(user.uid).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
-                        if (snapshot.empty) {
-                            setSubscriptionType("regular")
-                        } else {
-                            snapshot.forEach(subscription => {
-                                if (subscription.data().status == "active") {
-                                    if (subscription.data().items[0].plan.id == process.env.REACT_APP_YEARLY) {
-                                        setSubscriptionType("annualPlan")
-                                    } else if (subscription.data().items[0].plan.id == process.env.REACT_APP_MONTHLY) {
-                                        setSubscriptionType("monthlyPlan")
+                    dbFirestore.collection('user').doc(user.uid).get().then(snapshot => {
+                        setName(snapshot.data().name)
+                    }).then(
+                        dbFirestore.collection('user').doc(user.uid).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
+                            if (snapshot.empty) {
+                                setSubscriptionType("regular")
+                            } else {
+                                snapshot.forEach(subscription => {
+                                    if (subscription.data().status == "active") {
+                                        if (subscription.data().items[0].plan.id == process.env.REACT_APP_YEARLY) {
+                                            setSubscriptionType("annualPlan")
+                                        } else if (subscription.data().items[0].plan.id == process.env.REACT_APP_MONTHLY) {
+                                            setSubscriptionType("monthlyPlan")
+                                        } else {
+                                            setSubscriptionType("regular")
+                                        }
+                                    } else if (subscription.data().status == "canceled") {
+                                        setSubscriptionType("regular")
                                     } else {
                                         setSubscriptionType("regular")
                                     }
-                                } else if (subscription.data().status == "canceled") {
-                                    setSubscriptionType("regular")
-                                } else {
-                                    setSubscriptionType("regular")
-                                }
 
-                                if (subscriptionType == "regular") {
-                                    setSubscriptionTypeDesc("Billed monthly at $0")
-                                } else if (subscriptionType == "monthlyPlan") {
-                                    setSubscriptionTypeText("Monthly Plan")
-                                    setSubscriptionTypeDesc("Billed monthly at $5")
-                                } else if (subscriptionType == "annualPlan") {
-                                    setSubscriptionTypeDesc("Billed yearly at $48")
-                                    setSubscriptionTypeText("Yearly Plan")
-                                }
-                            })
-                        }
+                                    if (subscriptionType == "regular") {
+                                        setSubscriptionTypeDesc("Billed monthly at $0")
+                                    } else if (subscriptionType == "monthlyPlan") {
+                                        setSubscriptionTypeText("Monthly Plan")
+                                        setSubscriptionTypeDesc("Billed monthly at $5")
+                                    } else if (subscriptionType == "annualPlan") {
+                                        setSubscriptionTypeDesc("Billed yearly at $48")
+                                        setSubscriptionTypeText("Yearly Plan")
+                                    }
+                                })
+                            }
 
-                    })
+                        })
+                    )
                 } catch (error) {
                     console.error('Error fetching data:', error);
                 }
@@ -78,7 +74,7 @@ export default function Billing() {
 
         };
         fetchData();
-    }, [user]);
+    }, [user, subscriptionType]);
 
     const ManagePlan = () => {
         window.open('https://billing.stripe.com/p/login/cN24habbC4JMga44gg', '_blank');
@@ -138,13 +134,11 @@ export default function Billing() {
 
     return (
         <>
-            {!profile ?
-                < Navbar className={"dashboardNavBar"} email={" "} isFromForm={"false"} />
+            {!name ?
+                < Navbar className={"dashboardNavBar"} email={user.email} isFromForm={"false"} />
                 :
                 <div>
-                    {profile.map(profile => (
-                        < Navbar className={"dashboardNavBar"} email={profile.name} isFromForm={"false"} />
-                    ))}
+                    < Navbar className={"dashboardNavBar"} email={name} isFromForm={"false"} />
                 </div>
             }
 
