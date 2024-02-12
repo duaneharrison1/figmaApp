@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { db, auth, useAuth } from '../../firebase';
 import { signOut } from "firebase/auth";
@@ -7,7 +8,6 @@ import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import stepThree from './../../assets/images/stepThree.png';
 import ButtonClear from '../../components/ButtonClear/ButtonClear';
 import './ProfilePage.css'
-import firebase from '../../firebase';
 import Navbar from '../../components/NavBar/Navbar';
 import ChangePasswordModal from '../../components/ChangePasswordModal/ChangePasswordModal';
 import SuccessModal from '../../components/SuccessModal/SuccessModal';
@@ -15,15 +15,15 @@ import UploadImage from '../../components/UploadImage/UploadImage';
 import ProfileIcon from '../../assets/images/profileicon.png'
 
 export default function ProfilePage() {
-    const dbFirestore = firebase.firestore();
     const navigate = useNavigate();
     const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
     const [showUploadImageModal, setShowUploadImageModal] = useState(false);
     const [showSuccessModal, setshowSuccessModal] = useState(false);
     const [user, setUser] = useState(null);
-    const [name, setName] = useState([]);
+    const [profile, setProfile] = useState([]);
     const [photoURL, setPhotoURL] = useState();
     const currentUser = useAuth();
+
     const userEmail = auth.currentUser;
     useEffect(() => {
         if (currentUser?.photoURL) {
@@ -40,20 +40,24 @@ export default function ProfilePage() {
     }, []);
 
     useEffect(() => {
-        const fetchData = () => {
+        const fetchData = async () => {
             if (user) {
                 try {
-                    dbFirestore.collection('user').doc(user.uid).get().then(snapshot => {
-                        console.log("lll" + snapshot.data().name)
-                        setName(snapshot.data().name)
-                    })
+                    await getDocs(collection(db, "user", user.uid, "profile"))
+                        .then((querySnapshot) => {
+                            const userProfile = querySnapshot.docs
+                                .map((doc) => ({ ...doc.data(), id: doc.id }));
+                            setProfile(userProfile);
+                        })
                 } catch (error) {
                     console.error('Error fetching data:', error);
                 }
             }
+            else {
+            }
         };
         fetchData();
-    }, [user]);
+    }, [user, profile]);
 
     const handleUpload = () => {
         setShowUploadImageModal(true);
@@ -73,8 +77,15 @@ export default function ProfilePage() {
 
     return (
         <>
-            < Navbar className={"dashboardNavBar"} email={!userEmail ? "" : userEmail.email} isFromForm={"false"} />
-
+            {!profile ?
+                < Navbar className={"dashboardNavBar"} email={" "} isFromForm={"false"} />
+                :
+                <div>
+                    {profile.map(profile => (
+                        < Navbar className={"dashboardNavBar"} email={profile.name} isFromForm={"false"} />
+                    ))}
+                </div>
+            }
 
             <div className='container main-profile-container'>
                 <div className="row">
@@ -106,14 +117,15 @@ export default function ProfilePage() {
                                 <div className='row'>
                                     <div className='col-sm-6'>
                                         <h1 className='profile-sub-headers'>Name</h1>
-                                        <input
-                                            className='form-input'
-                                            type="text"
-                                            placeholder='Custom Desktop Url'
-                                            value={!name ? "" : name}
-                                            disabled
-                                        />
-
+                                        {profile.map(profile => (
+                                            <input
+                                                className='form-input'
+                                                type="text"
+                                                placeholder='Custom Desktop Url'
+                                                value={!profile ? "" : profile.name}
+                                                disabled
+                                            />
+                                        ))}
                                     </div>
                                     <div className='col-sm-6'>
                                         <h1 className='profile-sub-headers'>Email</h1>

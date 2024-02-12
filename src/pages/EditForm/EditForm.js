@@ -20,6 +20,7 @@ export default function EditForm() {
     const location = useLocation();
     const [figmaDesktopUrl, setDesktopCustomUrl] = useState(location.state.object.urls.figmaDesktopUrl);
     const [figmaMobileUrl, setfigmaMobileUrl] = useState(location.state.object.urls.figmaMobileUrl);
+    const [profile, setProfile] = useState(location.state.profile);
     const [generatedUrl, setgeneratedUrl] = useState(location.state.object.generatedUrl);
     const [title, setTitle] = useState(location.state.object.title);
     const [customDomain, setCustomDomain] = useState(location.state.object.customDomain);
@@ -148,7 +149,16 @@ export default function EditForm() {
 
     return (
         <>
-            < Navbar className={"dashboardNavBar"} email={user.email} onClickLogout={handleLogout} isFromForm={"editForm"} title={title} />
+            {!profile ?
+                < Navbar className={"dashboardNavBar"} email={" "} onClickLogout={handleLogout} isFromForm={"editForm"} />
+                :
+                <div>
+                    {profile.map(profile => (
+                        < Navbar className={"dashboardNavBar"} email={profile.name} onClickLogout={handleLogout} isFromForm={"editForm"} title={title} />
+                    ))}
+                </div>
+            }
+
             <div className='form'>
                 <div className="url-form">
                     <h1 className='form-title'>General</h1>

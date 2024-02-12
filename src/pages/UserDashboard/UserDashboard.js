@@ -22,7 +22,6 @@ function UserDashboard() {
     const navigate = useNavigate();
     const [data, setData] = useState([]);
     const [profile, setProfile] = useState([]);
-    const [name, setName] = useState([]);
     const [upgradeClick, setUpgradeClick] = useState(false);
     const [user, setUser] = useState(null);
     const [showModal, setShowModal] = useState(false);
@@ -41,15 +40,21 @@ function UserDashboard() {
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
-            setUser(user);
             try {
-                getDocs(collection(db, "user", user.uid, "url"))
+                getDocs(collection(db, "user", user.uid, "profile"))
                     .then((querySnapshot) => {
-                        const newData = querySnapshot.docs
+                        const userProfile = querySnapshot.docs
                             .map((doc) => ({ ...doc.data(), id: doc.id }));
-                        setData(newData);
-                        setDocCount(querySnapshot.size)
+                        setProfile(userProfile);
                     }).then(
+                        getDocs(collection(db, "user", user.uid, "url"))
+                            .then((querySnapshot) => {
+                                const newData = querySnapshot.docs
+                                    .map((doc) => ({ ...doc.data(), id: doc.id }));
+                                setData(newData);
+                                setDocCount(querySnapshot.size)
+                            })
+                    ).then(
                         dbFirestore.collection('user').doc(user.uid).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
                             console.log("wentHere")
                             if (snapshot.size == 0) {
@@ -167,8 +172,8 @@ function UserDashboard() {
         }
     }
 
-    const goToEdit = (object) => {
-        navigate('/editform', { state: { object, subscriptionType: subscriptionType } });
+    const goToEdit = (object, profile) => {
+        navigate('/editform', { state: { object, profile, subscriptionType: subscriptionType } });
     }
 
     const goToNewForm = () => {
@@ -193,10 +198,9 @@ function UserDashboard() {
                                     < Navbar className={"dashboardNavBar"} email={" "} isFromForm={"false"} />
                                     :
                                     <div>
-                                        < Navbar className={"dashboardNavBar"} email={user.email} isFromForm={"false"} />
-                                        {/* {profile.map(profile => (
+                                        {profile.map(profile => (
                                             < Navbar className={"dashboardNavBar"} email={profile.name} isFromForm={"false"} />
-                                        ))} */}
+                                        ))}
                                     </div>
                                 }
 
@@ -219,7 +223,7 @@ function UserDashboard() {
                                         <div className='row'>
                                             {data.map((item, index) => (
                                                 < div className='col-sm-4' key={index} style={{ pointerEvents: index != 0 ? 'none' : '' }} >
-                                                    <CardView index={index} subscriptionType={subscriptionType} figmaMobileUrl={item.urls?.figmaMobileUrl} figmaDesktopUrl={item.urls?.figmaDesktopUrl} siteTitle={item?.title} url={item?.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item)} />
+                                                    <CardView index={index} subscriptionType={subscriptionType} figmaMobileUrl={item.urls?.figmaMobileUrl} figmaDesktopUrl={item.urls?.figmaDesktopUrl} siteTitle={item?.title} url={item?.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item, profile)} />
                                                     <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} generatedUrl={item.generatedUrl} customDomain={item.customDomain} />
                                                 </div>
                                             ))}
@@ -228,7 +232,7 @@ function UserDashboard() {
                                         <div className='row'>
                                             {data.map((item, index) => (
                                                 < div className='col-sm-4' key={index} style={{ pointerEvents: index <= 4 ? '' : 'none' }} >
-                                                    <CardView index={index} subscriptionType={subscriptionType} figmaMobileUrl={item.urls?.figmaMobileUrl} figmaDesktopUrl={item.urls?.figmaDesktopUrl} siteTitle={item?.title} url={item?.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item)} />
+                                                    <CardView index={index} subscriptionType={subscriptionType} figmaMobileUrl={item.urls?.figmaMobileUrl} figmaDesktopUrl={item.urls?.figmaDesktopUrl} siteTitle={item?.title} url={item?.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item, profile)} />
                                                     <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} generatedUrl={item.generatedUrl} customDomain={item.customDomain} />
                                                 </div>
                                             ))}
@@ -237,7 +241,7 @@ function UserDashboard() {
                                         <div className='row'>
                                             {data.map((item, index) => (
                                                 < div className='col-sm-4' key={index} >
-                                                    <CardView index={index} subscriptionType={subscriptionType} figmaMobileUrl={item.urls?.figmaMobileUrl} figmaDesktopUrl={item.urls?.figmaDesktopUrl} siteTitle={item?.title} url={item?.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item)} />
+                                                    <CardView index={index} subscriptionType={subscriptionType} figmaMobileUrl={item.urls?.figmaMobileUrl} figmaDesktopUrl={item.urls?.figmaDesktopUrl} siteTitle={item?.title} url={item?.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item, profile)} />
                                                     <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} generatedUrl={item.generatedUrl} customDomain={item.customDomain} />
                                                 </div>
                                             ))}
