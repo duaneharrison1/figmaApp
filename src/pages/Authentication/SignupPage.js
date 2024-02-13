@@ -68,21 +68,21 @@ export default function SignupPage() {
                         .catch((error) => {
                             console.error('Error writing document: ', error);
                         });
-                    try {
+                    // try {
 
-                        const ref = collection(db, "user", user.uid, "profile")
-                        let userData = {
-                            name: name,
-                            email: user.email,
-                        }
-                        addDoc(ref, userData)
-                        setShowModal(true);
-                        setModalMessage("Sign up successful")
-                        navigate("/dashboard")
-                    } catch (err) {
-                        console.log(err)
+                    //     const ref = collection(db, "user", user.uid, "profile")
+                    //     let userData = {
+                    //         name: name,
+                    //         email: user.email,
+                    //     }
+                    //     addDoc(ref, userData)
+                    //     setShowModal(true);
+                    //     setModalMessage("Sign up successful")
+                    //     navigate("/dashboard")
+                    // } catch (err) {
+                    //     console.log(err)
 
-                    }
+                    // }
                 })
                 .catch((error) => {
                     const errorCode = error.code;
