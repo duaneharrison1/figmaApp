@@ -38,6 +38,8 @@ function AdminDashboard() {
                             navigate("/");
                         }
                     })
+
+
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -50,7 +52,7 @@ function AdminDashboard() {
 
     const fetchData = async () => {
         try {
-            dbFirestore.collectionGroup('url').orderBy('createdAt', 'desc').onSnapshot(function (querySnapshot) {
+            dbFirestore.collectionGroup('url').orderBy('createdAt', 'desc').limit(10).onSnapshot(function (querySnapshot) {
                 var items = [];
                 querySnapshot.forEach(function (doc) {
                     items.push({ key: doc.id, ...doc.data() });
@@ -140,7 +142,7 @@ function AdminDashboard() {
             </table>
 
 
-            {/* <ButtonGroup size="lg" className="mb-2">
+            <ButtonGroup size="lg" className="mb-2">
                 {
                     //show previous button only when we have items
                     page === 1 ? '' :
@@ -152,7 +154,7 @@ function AdminDashboard() {
                     data.length < 10 ? '' :
                         <Button onClick={() => showNext({ item: data[data.length - 1] })}>Next</Button>
                 }
-            </ButtonGroup> */}
+            </ButtonGroup>
         </div>
     );
 }
