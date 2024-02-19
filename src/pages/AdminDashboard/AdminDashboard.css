@@ -1,7 +1,34 @@
+.admin-main-div {
+    margin: 24px;
+}
+
 .table-data {
     width: 100%;
     /* Set the table width to 100% of its container */
     border-collapse: collapse;
     padding: 20px;
     /* Optional: collapse borders for a cleaner look */
+}
+
+
+.preview-btn {
+    width: 100px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.admin-paginate-btn {
+    width: 150px;
+    margin: 12px;
+    padding: 12px 24px;
+    border-radius: 40px;
+    font-weight: 700;
+    color: white;
+    border: none;
+    background-color: #4D9F70;
 }

@@ -30,13 +30,26 @@
 }
 
 .dropdown-menu {
-    width: 100%;
-    text-align: center;
+    min-width: 70px !important;
+
 }
 
-.dropdown-menu li {
+.dropdown-item {
+    padding: 12px;
+    font-size: 16px !important;
+}
 
-    text-align: center;
+.dropdown-menu>li>a {
+    font-weight: 500;
+    color: black;
+}
+
+.dropdown-menu>li>a:hover {
+    color: black;
+}
+
+.dropdown-menu>li>a:active {
+    background-color: none;
 }
 
 .btn-dropdown {
