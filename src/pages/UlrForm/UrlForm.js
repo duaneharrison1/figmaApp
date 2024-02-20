@@ -252,52 +252,7 @@ export default function UrlForm() {
                                 <li className='note'>For best results, match prototype’s background colour to your sites background colour in Figma in prototype settings.</li>
                             </ul>
                         </div> */}
-                        <div className='second-div'>
-                            <h1 className='sub-title'>Setting up your site</h1>
-                            <div className='row'>
-                                <div className="col-sm-3">
 
-                                    <div className='div-instruction-img'>
-                                        <img src={insOne} className='instruction-img' />
-                                    </div>
-                                    <h1 className='instruction-title'>Design in Figma</h1>
-                                    <p className='instructions'>1. Open Figma and design each page of your portfolio or website</p>
-                                    <p className='instructions'> Note: It is recommended to create separate designs for both desktop and mobile pages.</p>
-                                </div>
-                                <div className="col-sm-3">
-                                    <div className='div-instruction-img'>
-                                        <img src={insTwo} className='instruction-img' />
-                                    </div>
-                                    <h1 className='instruction-title'>Prototype in Figma</h1>
-                                    <p className='instructions'>1. Switch to "Prototype" mode in the right sidebar.</p>
-                                    <p className='instructions'>2. Draw connections between pages to define the navigation of your site.</p>
-                                    <p className='instructions'>3. Ideally create two flows: one for desktop and one for mobile. </p>
-                                    <p className='instructions'> Note: You can add animations to connections to enhance any transitions.</p>
-                                </div>
-                                <div className="col-sm-3">
-                                    <div className='div-instruction-img'>
-                                        <img src={insThree} className='instruction-img' />
-                                    </div>
-                                    <h1 className='instruction-title'>Set flow starting points</h1>
-                                    <p className='instructions'>1. For your desktop prototype, select the frame users will see. Typically the homepage.</p>
-                                    <p className='instructions'>2. In the right sidebar under Prototype, click the ‘+’ next to ‘Flow starting point’ to set the flow starting point. </p>
-                                    <p className='instructions'>3. Repeat for your mobile prototype if you have one. </p>
-                                </div>
-                                <div className="col-sm-3">
-                                    <div className='div-instruction-img'>
-                                        <img src={insFour} className='instruction-img' />
-                                    </div>
-
-                                    <h1 className='instruction-title'>Input your prototype links</h1>
-                                    <p className='instructions'>1. Click the canvas in Figma to get  file properties in the right sidebar.</p>
-                                    <p className='instructions'>2. Select ‘Prototype’. Under ‘Flows’ .hover over each flow and "Copy link" to get the prototype links. </p>
-                                    <p className='instructions'>3. Paste in the corresponding prototype links below. </p>
-                                    <p className='instructions'>4. Click "Preview" to view and publish your portfolio/site. </p>
-                                    <p className='instructions'>Note: If you only provide one prototype link, Figmafolio will show that flow on both desktop and mobile.</p>
-                                </div>
-                            </div>
-
-                        </div>
                         <div className="fifth-div">
                             <h1 className='sub-title'>Figma prototype links</h1>
                             <div className="row">
@@ -337,11 +292,57 @@ export default function UrlForm() {
                                 </div>
                             </div>
                         </div>
+
+                        <div className='preview-btn-container'>
+                            <ButtonColored className="preview-btn" label="Preview" onClick={goToPreview} />
+                        </div>
+                        <div className='second-div'>
+                            <h1 className='sub-title'>Need help setting up your site?</h1>
+                            <div className='row'>
+                                <div className="col-sm-3">
+                                    <div className='div-instruction-img'>
+                                        <img src={insOne} className='instruction-img' />
+                                    </div>
+                                    <h1 className='instruction-title'>Design in Figma</h1>
+                                    <p className='instructions'>1. Open Figma and design each page of your portfolio or website</p>
+                                    <p className='instructions'> Note: It is recommended to create separate designs for both desktop and mobile pages.</p>
+                                </div>
+                                <div className="col-sm-3">
+                                    <div className='div-instruction-img'>
+                                        <img src={insTwo} className='instruction-img' />
+                                    </div>
+                                    <h1 className='instruction-title'>Prototype in Figma</h1>
+                                    <p className='instructions'>1. Switch to "Prototype" mode in the right sidebar.</p>
+                                    <p className='instructions'>2. Draw connections between pages to define the navigation of your site.</p>
+                                    <p className='instructions'>3. Ideally create two flows: one for desktop and one for mobile. </p>
+                                    <p className='instructions'> Note: You can add animations to connections to enhance any transitions.</p>
+                                </div>
+                                <div className="col-sm-3">
+                                    <div className='div-instruction-img'>
+                                        <img src={insThree} className='instruction-img' />
+                                    </div>
+                                    <h1 className='instruction-title'>Set flow starting points</h1>
+                                    <p className='instructions'>1. For your desktop prototype, select the frame users will see. Typically the homepage.</p>
+                                    <p className='instructions'>2. In the right sidebar under Prototype, click the ‘+’ next to ‘Flow starting point’ to set the flow starting point. </p>
+                                    <p className='instructions'>3. Repeat for your mobile prototype if you have one. </p>
+                                </div>
+                                <div className="col-sm-3">
+                                    <div className='div-instruction-img'>
+                                        <img src={insFour} className='instruction-img' />
+                                    </div>
+
+                                    <h1 className='instruction-title'>Input your prototype links</h1>
+                                    <p className='instructions'>1. Click the canvas in Figma to get  file properties in the right sidebar.</p>
+                                    <p className='instructions'>2. Select ‘Prototype’. Under ‘Flows’ .hover over each flow and "Copy link" to get the prototype links. </p>
+                                    <p className='instructions'>3. Paste in the corresponding prototype links below. </p>
+                                    <p className='instructions'>4. Click "Preview" to view and publish your portfolio/site. </p>
+                                    <p className='instructions'>Note: If you only provide one prototype link, Figmafolio will show that flow on both desktop and mobile.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div className='preview-btn-container'>
-                        <ButtonColored className="preview-btn" label="Preview" onClick={goToPreview} />
-                    </div>
+
 
 
                 </div>

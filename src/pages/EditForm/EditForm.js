@@ -220,8 +220,52 @@ export default function EditForm() {
                             </div>
                         </div>
 
+                        <div className="fifth-div">
+                            <h1 className='sub-title'>Figma prototype links</h1>
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="row">
+                                        <h2 className='form-sub-header'>
+                                            Desktop prototype link
+                                        </h2>
+                                        <div>
+                                            <input
+                                                className='form-input'
+                                                type="text"
+                                                placeholder='Custom Desktop Url'
+                                                value={figmaDesktopUrl}
+                                                onChange={handlefigmaDesktopUrl}
+                                            />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div className="col-md-6">
+                                    <div className="row">
+                                        <h2 className='form-sub-header'>
+                                            Mobile prototype link
+                                        </h2>
+                                        <div>
+                                            <input
+                                                className='form-input'
+                                                type="text"
+                                                placeholder='Custom Mobile Url'
+                                                value={figmaMobileUrl}
+                                                onChange={handlefigmaMobileUrl}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className='preview-btn-container'>
+                            <ButtonColored className="preview-btn" label="Preview" onClick={goToPreview} />
+                        </div>
+
                         <div className='second-div'>
-                            <h1 className='sub-title'>Setting up your site</h1>
+                            <h1 className='sub-title'>Need help setting up your site?</h1>
                             <div className='row'>
                                 <div className="col-sm-3">
 
@@ -268,50 +312,10 @@ export default function EditForm() {
                         </div>
 
 
-                        <div className="fifth-div">
-                            <h1 className='sub-title'>Figma prototype links</h1>
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <div className="row">
-                                        <h2 className='form-sub-header'>
-                                            Desktop prototype link
-                                        </h2>
-                                        <div>
-                                            <input
-                                                className='form-input'
-                                                type="text"
-                                                placeholder='Custom Desktop Url'
-                                                value={figmaDesktopUrl}
-                                                onChange={handlefigmaDesktopUrl}
-                                            />
-                                        </div>
 
-                                    </div>
-                                </div>
-
-                                <div className="col-md-6">
-                                    <div className="row">
-                                        <h2 className='form-sub-header'>
-                                            Mobile prototype link
-                                        </h2>
-                                        <div>
-                                            <input
-                                                className='form-input'
-                                                type="text"
-                                                placeholder='Custom Mobile Url'
-                                                value={figmaMobileUrl}
-                                                onChange={handlefigmaMobileUrl}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
-                    <div className='preview-btn-container'>
-                        <ButtonColored className="preview-btn" label="Preview" onClick={goToPreview} />
-                    </div>
+
 
                     <PaymentSelectionModal show={showModal} handleClose={handleCloseModal}
                         handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_MONTHLY)}
