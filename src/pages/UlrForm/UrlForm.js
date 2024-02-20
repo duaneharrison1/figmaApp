@@ -161,11 +161,9 @@ export default function UrlForm() {
                 <div className="url-form">
 
                     <div className='form-container'>
-                        <h1 className='form-title'>General</h1>
                         <div className='row first-div'>
-
+                            <h1 className='form-title'>General</h1>
                             <div className='col-md-6'>
-
                                 <h2 className='form-sub-header'>Title</h2>
                                 <input
                                     className='input'

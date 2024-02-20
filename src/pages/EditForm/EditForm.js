@@ -151,10 +151,9 @@ export default function EditForm() {
             < Navbar className={"dashboardNavBar"} email={user.email} onClickLogout={handleLogout} isFromForm={"editForm"} title={title} />
             <div className='form'>
                 <div className="url-form">
-                    <h1 className='form-title'>General</h1>
                     <div className='form-container'>
+                        <h1 className='form-title'>General</h1>
                         <div className='row first-div'>
-
                             <div className='col-md-6'>
                                 <h2 className='form-sub-header'>Title</h2>
                                 <input
