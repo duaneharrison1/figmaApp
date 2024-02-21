@@ -28,27 +28,8 @@ export default function EditForm() {
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
-    const [products, setProducts] = useState([])
     const dbFirestore = firebase.firestore();
     const [subscriptionType, setSubscriptionType] = useState(location.state.subscriptionType);
-    useEffect(() => {
-        dbFirestore.collection('products').where('active', '==', true).get().then(snapshot => {
-            const products = {}
-            snapshot.forEach(async productDoc => {
-                products[productDoc.id] = productDoc.data()
-                setProducts(products)
-
-                const priceSnapshot = await productDoc.ref.collection('prices').get();
-                priceSnapshot.forEach(priceDoc => {
-                    products[productDoc.id].prices = {
-                        priceId: priceDoc.id,
-                        priceData: priceDoc.data()
-                    }
-                })
-            })
-        })
-
-    }, []);
 
     const handleShowErrorModal = () => {
         setShowErrorModal(true);
@@ -59,8 +40,6 @@ export default function EditForm() {
 
 
     const goToPreview = () => {
-
-
         if (figmaMobileUrl.includes('figma.com/proto') || figmaMobileUrl.includes('figma.com/embed') ||
             figmaDesktopUrl.includes('figma.com/proto') || figmaDesktopUrl.includes('figma.com/embed')) {
             navigate('/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl, fromEdit: true, isDraft: location.state.object.isDraft, docId: location.state.object.id, generatedUrl: generatedUrl, domain: customDomain, newCustomDomain: newCustomDomain } });

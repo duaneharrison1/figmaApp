@@ -47,7 +47,6 @@ function UserDashboard() {
     }, [userIsDesktop]);
 
     useEffect(() => {
-
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setUser(user);
         });
@@ -55,7 +54,6 @@ function UserDashboard() {
     }, [user]);
 
     useEffect(() => {
-
         const fetchData = () => {
             if (user) {
                 try {
@@ -67,15 +65,11 @@ function UserDashboard() {
                             if (docCount === 0) {
                                 setCanCreate("true")
                                 setSubscriptionType("regular")
-
                             } else {
                                 if (snapshot.size === 0) {
                                     setCanCreate("false")
-
                                 } else {
-
                                     snapshot.forEach(subscription => {
-
                                         if (subscription.data().status == "active") {
                                             if (subscription.data().items[0].plan.id == process.env.REACT_APP_YEARLY) {
                                                 setCanCreate("true")
