@@ -28,44 +28,8 @@ export default function UrlForm() {
     const user = auth.currentUser;
     const [showModal, setShowModal] = useState(false);
     const [showErrorModal, setShowErrorModal] = useState(false);
-    const [products, setProducts] = useState([])
     const dbFirestore = firebase.firestore();
-    const [subscription, setSubscription] = useState(null);
     const [subscriptionType, setSubscriptionType] = useState(location.state.subscriptionType);
-
-    useEffect(() => {
-
-        dbFirestore.collection('products').where('active', '==', true).get().then(snapshot => {
-
-            const products = {}
-            snapshot.forEach(async productDoc => {
-                products[productDoc.id] = productDoc.data()
-                setProducts(products)
-
-                const priceSnapshot = await productDoc.ref.collection('prices').get();
-                priceSnapshot.forEach(priceDoc => {
-                    products[productDoc.id].prices = {
-                        priceId: priceDoc.id,
-                        priceData: priceDoc.data()
-
-                    }
-                })
-            })
-        })
-
-    }, []);
-    useEffect(() => {
-        dbFirestore.collection('user').doc(user.uid).collection("subscriptions").get().then(snapshot => {
-
-
-            snapshot.forEach(async subscription => {
-                if (subscription.data().role == "Test-YearlyV2" || subscription.data().role == "Test-Monthly") {
-
-                }
-            })
-        })
-
-    }, [])
 
 
     const handleShowModal = () => {
@@ -184,7 +148,7 @@ export default function UrlForm() {
                                 <h2 className='form-sub-header'>Custom domain</h2>
 
 
-                                {subscriptionType == "regular" || subscriptionType == "" ?
+                                {subscriptionType == "regular" ?
                                     (
                                         <div>
                                             <p className='note'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

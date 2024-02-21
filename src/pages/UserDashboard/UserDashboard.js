@@ -29,12 +29,25 @@ function UserDashboard() {
     const dbFirestore = firebase.firestore();
     const [loading, setLoading] = useState(true);
 
+
+    // useEffect(() => {
+    //     let link = document.querySelector("link[rel~='icon']");
+    //     if (!link) {
+    //         link = document.createElement('link');
+    //         link.rel = 'icon';
+    //         document.getElementsByTagName('head')[0].appendChild(link);
+    //     }
+    //     link.href = 'https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196';
+    // }, []);
+
+
+
     useEffect(() => {
         window.innerWidth > 1280 ? setUserIsDesktop(true) : setUserIsDesktop(false);
     }, [userIsDesktop]);
 
     useEffect(() => {
-        console.log("thisthis")
+
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setUser(user);
         });
@@ -42,6 +55,7 @@ function UserDashboard() {
     }, [user]);
 
     useEffect(() => {
+
         const fetchData = () => {
             if (user) {
                 try {
@@ -50,33 +64,28 @@ function UserDashboard() {
                         setData(newData);
                         setDocCount(querySnapshot.size)
                         dbFirestore.collection('user').doc(user.uid).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
-                            console.log("wentHere0 " + docCount)
                             if (docCount === 0) {
-                                console.log("wentHere11" + canCreate)
                                 setCanCreate("true")
                                 setSubscriptionType("regular")
-                                console.log("wentHere1 " + canCreate)
+
                             } else {
                                 if (snapshot.size === 0) {
                                     setCanCreate("false")
-                                    console.log("wentHere2 ")
+
                                 } else {
-                                    console.log("wentHere3 ")
+
                                     snapshot.forEach(subscription => {
-                                        console.log("wentHere2 " + snapshot.size)
+
                                         if (subscription.data().status == "active") {
                                             if (subscription.data().items[0].plan.id == process.env.REACT_APP_YEARLY) {
                                                 setCanCreate("true")
-                                                console.log("annualPlan")
                                                 setSubscriptionType("annualPlan")
                                             } else if (subscription.data().items[0].plan.id == process.env.REACT_APP_MONTHLY && docCount <= 4) {
                                                 setCanCreate("true")
-                                                console.log("monthlyPlan")
                                                 setChangeSubPlan("true")
                                                 setSubscriptionType("monthlyPlan")
                                             } else {
                                                 setCanCreate("false")
-                                                console.log("wentHere kkkk")
                                             }
                                         } else if (subscription.data().status == "canceled") {
                                             if (docCount === 0) {
@@ -85,16 +94,13 @@ function UserDashboard() {
                                             } else {
                                                 setCanCreate("false")
                                                 setSubscriptionType("regular")
-                                                console.log("wentHere kkkk")
                                             }
                                         } else {
                                             if (docCount >= 1) {
                                                 setCanCreate("false")
                                                 setSubscriptionType("regular")
-                                                console.log("wentHere kkkk")
                                             } else {
                                                 setCanCreate("true")
-                                                console.log("wentHerev4")
                                                 setSubscriptionType("regular")
                                             }
                                         }
@@ -112,7 +118,7 @@ function UserDashboard() {
             }
         }
         fetchData();
-    }, [user, docCount]);
+    }, [user, docCount, subscriptionType]);
 
     const handleShowUpgradeModal = () => {
         setShowUpgradeModal(true);
@@ -182,7 +188,6 @@ function UserDashboard() {
 
     const goToNewForm = () => {
         if (canCreate === "true" && docCount !== null) {
-            console.log("fff" + canCreate)
             navigate('/form', { state: { subscriptionType: subscriptionType } });
         } else if (canCreate === "false" && docCount !== null) {
             setShowUpgradeModal(true);
