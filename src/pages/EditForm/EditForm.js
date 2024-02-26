@@ -245,7 +245,7 @@ export default function EditForm() {
 
                         <div className='second-div'>
                             <h1 className='sub-title'>Need help setting up your site?</h1>
-                            <div className='row'>
+                            <div className='row instruction-div'>
                                 <div className="col-sm-3">
 
                                     <div className='div-instruction-img'>
