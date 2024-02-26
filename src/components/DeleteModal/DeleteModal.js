@@ -16,7 +16,6 @@ const DeleteModal = (props) => {
     const [userId] = useAuthState(auth);
     const [user, setUser] = useState(null);
     const id = props.id;
-    const generatedUrl = props.generatedUrl;
     const customDomain = props.customDomain;
     const [outputValue, setOutputValue] = useState('');
 
@@ -30,12 +29,9 @@ const DeleteModal = (props) => {
             const removedPrefix = customDomain.replace(regex, '');
             setOutputValue(removedPrefix);
         } else {
-            console.log(customDomain)
             setOutputValue(customDomain);
         }
-        console.log("output value" + outputValue)
         return () => unsubscribe();
-
     }, []);
 
 
@@ -53,7 +49,6 @@ const DeleteModal = (props) => {
                     dataInDb()
                 }).catch((error) => {
                     alert(error)
-                    console.log(error.response.data.error)
                 });
         } catch (error) {
             alert(error)
@@ -68,13 +63,11 @@ const DeleteModal = (props) => {
         } catch {
             alert("Error Deleting data")
         }
-
-
     }
 
     const handleDelete = async () => {
         try {
-            if (customDomain == '') {
+            if (props.customDomain == '' || props.customDomain == undefined) {
                 dataInDb()
             } else {
                 handleDeleteDomainAndData()

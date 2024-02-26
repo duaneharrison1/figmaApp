@@ -64,7 +64,6 @@ function UserDashboard() {
                         dbFirestore.collection('user').doc(user.uid).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
                             if (docCount === 0) {
                                 setCanCreate("true")
-                                setSubscriptionType("regular")
                             } else {
                                 if (snapshot.size === 0) {
                                     setCanCreate("false")
@@ -218,16 +217,9 @@ function UserDashboard() {
 
                                 <div className='dashboard-view'>
                                     {docCount !== null && canCreate !== null ? (
-
                                         <div >
-
-
                                             <ButtonColored label='+ New site' className="new-site" onClick={goToNewForm}>
                                             </ButtonColored>
-
-
-
-
                                             {subscriptionType == "regular" ? (
                                                 <div className='row'>
                                                     {data.map((item, index) => (
