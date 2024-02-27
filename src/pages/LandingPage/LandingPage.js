@@ -75,7 +75,7 @@ export default function LandingPage() {
         <div className='page-content-container'>
           <div className='row'>
             <div className='col-md-6 col-md-push-6'>
-              <h1 className='landing-header'>Figma file to live site in one click</h1>
+              <h1 className='landing-header'>Figma file to live site in a few clicks</h1>
 
               <h1 className='landing-sec-subheader'>You can publish an interactive website or portfolio directly from your Figma, no coding necessary.</h1>
 
