@@ -20,7 +20,7 @@ function UserDashboard() {
     const [profile, setProfile] = useState([]);
     const [upgradeClick, setUpgradeClick] = useState(false);
     const [user, setUser] = useState(null);
-    const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(null);
     const [showUpgradeModal, setShowUpgradeModal] = useState(false);
     const [canCreate, setCanCreate] = useState(null);
     const [docCount, setDocCount] = useState(null)
@@ -57,7 +57,7 @@ function UserDashboard() {
         const fetchData = () => {
             if (user) {
                 try {
-                    getDocs(collection(db, "user", user.uid, "url")).then((querySnapshot) => {
+                    dbFirestore.collection("user").doc(user.uid).collection("url").orderBy('createdAt', 'desc').get().then(querySnapshot => {
                         const newData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
                         setData(newData);
                         setDocCount(querySnapshot.size)
@@ -103,6 +103,7 @@ function UserDashboard() {
                             }
                         })
                     })
+
                 } catch (error) {
                     console.error('Error fetching data:', error);
                 } finally {
@@ -121,12 +122,12 @@ function UserDashboard() {
         setShowUpgradeModal(false);
     };
 
-    const handleShowModal = () => {
-        setShowModal(true);
+    const handleShowModal = (index) => {
+        setShowModal({ toShow: true, index: index });
     };
 
     const handleCloseModal = () => {
-        setShowModal(false);
+        setShowModal(null);
     };
 
     const MonthlyPayment = async (priceId) => {
@@ -224,28 +225,65 @@ function UserDashboard() {
                                                 <div className='row'>
                                                     {data.map((item, index) => (
                                                         < div className='col-sm-4' key={index} style={{ pointerEvents: index != 0 ? 'none' : '' }} >
-                                                            <CardView index={index} subscriptionType={subscriptionType} figmaMobileUrl={item.urls?.figmaMobileUrl} figmaDesktopUrl={item.urls?.figmaDesktopUrl} siteTitle={item?.title} url={item?.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item)} />
-                                                            <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} generatedUrl={item.generatedUrl} customDomain={item.customDomain} />
+                                                            <CardView index={index}
+                                                                subscriptionType={subscriptionType}
+                                                                figmaMobileUrl={item.urls?.figmaMobileUrl}
+                                                                figmaDesktopUrl={item.urls?.figmaDesktopUrl}
+                                                                siteTitle={item?.title}
+                                                                url={item?.generatedUrl}
+                                                                isDraft={item.isDraft}
+                                                                onClickDelete={() => handleShowModal(index)}
+                                                                onClickUpdate={() => goToEdit(item)} />
                                                         </div>
                                                     ))}
+                                                    <DeleteModal
+                                                        show={showModal}
+                                                        handleClose={handleCloseModal}
+                                                        id={data[showModal?.index]?.id}
+                                                    />
                                                 </div>
                                             ) : subscriptionType == "monthlyPlan" ? (
                                                 <div className='row'>
                                                     {data.map((item, index) => (
-                                                        < div className='col-sm-4' key={index} style={{ pointerEvents: index <= 4 ? '' : 'none' }} >
-                                                            <CardView index={index} subscriptionType={subscriptionType} figmaMobileUrl={item.urls?.figmaMobileUrl} figmaDesktopUrl={item.urls?.figmaDesktopUrl} siteTitle={item?.title} url={item?.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item)} />
-                                                            <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} generatedUrl={item.generatedUrl} customDomain={item.customDomain} />
+                                                        <div className='col-sm-4' key={index}>
+                                                            <CardView index={index}
+                                                                subscriptionType={subscriptionType}
+                                                                figmaMobileUrl={item.urls?.figmaMobileUrl}
+                                                                figmaDesktopUrl={item.urls?.figmaDesktopUrl}
+                                                                siteTitle={item?.title}
+                                                                url={item?.generatedUrl}
+                                                                isDraft={item.isDraft}
+                                                                onClickDelete={() => handleShowModal(index)}
+                                                                onClickUpdate={() => goToEdit(item)} />
                                                         </div>
                                                     ))}
+                                                    <DeleteModal
+                                                        show={showModal}
+                                                        handleClose={handleCloseModal}
+                                                        id={data[showModal?.index]?.id}
+                                                    />
                                                 </div>
                                             ) : (
+
                                                 <div className='row'>
                                                     {data.map((item, index) => (
                                                         < div className='col-sm-4' key={index} >
-                                                            <CardView index={index} subscriptionType={subscriptionType} figmaMobileUrl={item.urls?.figmaMobileUrl} figmaDesktopUrl={item.urls?.figmaDesktopUrl} siteTitle={item?.title} url={item?.generatedUrl} isDraft={item.isDraft} onClickDelete={handleShowModal} onClickUpdate={() => goToEdit(item)} />
-                                                            <DeleteModal show={showModal} handleClose={handleCloseModal} id={item.id} generatedUrl={item.generatedUrl} customDomain={item.customDomain} />
+                                                            <CardView index={index}
+                                                                subscriptionType={subscriptionType}
+                                                                figmaMobileUrl={item.urls?.figmaMobileUrl}
+                                                                figmaDesktopUrl={item.urls?.figmaDesktopUrl}
+                                                                siteTitle={item?.title}
+                                                                url={item?.generatedUrl}
+                                                                isDraft={item.isDraft}
+                                                                onClickDelete={() => handleShowModal(index)}
+                                                                onClickUpdate={() => goToEdit(item)} />
                                                         </div>
                                                     ))}
+                                                    <DeleteModal
+                                                        show={showModal}
+                                                        handleClose={handleCloseModal}
+                                                        id={data[showModal?.index]?.id}
+                                                    />
                                                 </div>
                                             )}
                                         </div >
