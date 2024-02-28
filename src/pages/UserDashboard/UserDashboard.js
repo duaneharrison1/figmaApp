@@ -62,8 +62,9 @@ function UserDashboard() {
                         setData(newData);
                         setDocCount(querySnapshot.size)
                         dbFirestore.collection('user').doc(user.uid).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
-                            if (docCount === 0) {
+                            if (docCount === 0 && snapshot.size === 0) {
                                 setCanCreate("true")
+                                setSubscriptionType("regular")
                             } else {
                                 if (snapshot.size === 0) {
                                     setCanCreate("false")
@@ -89,6 +90,7 @@ function UserDashboard() {
                                                 setSubscriptionType("regular")
                                             }
                                         } else {
+
                                             if (docCount >= 1) {
                                                 setCanCreate("false")
                                                 setSubscriptionType("regular")
