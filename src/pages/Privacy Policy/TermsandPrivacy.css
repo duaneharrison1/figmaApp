@@ -1,0 +1,21 @@
+.terms-and-privacy-body {
+    padding: 40px;
+    background-color: #F8F6F0;
+}
+
+.terms-and-privacy-header {
+    text-align: center;
+    padding-bottom: 40px;
+    font-weight: bold;
+
+}
+
+.terms-and-privacy-subheader {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.terms-and-privacy-title {
+    font-size: 18px;
+    font-weight: bold;
+}

@@ -19,7 +19,7 @@ import BillingPage from './pages/BillingPage/Billing.js';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import SignupPage from './pages/Authentication/SignupPage.js';
 import AdminDashboard from './pages/AdminDashboard/AdminDashboard.js';
-import PrivacyPolicy from './pages/Privacy Policy/PrivacyPolicy.js';
+import TermsandPrivacy from './pages/Privacy Policy/TermsandPrivacy.js';
 
 function App() {
   const dbFirestore = firebase.firestore();
@@ -39,15 +39,12 @@ function App() {
           currentPath == '/auth' || currentPath == '/forgotpassword' ||
           currentPath == '/profile') {
         } else {
-          console.log("yyy " + currentPath)
           try {
             var generatedUrl = currentPath.slice(1);
-            console.log("yyy " + generatedUrl)
             dbFirestore.collectionGroup('url').where('generatedUrl', '==', generatedUrl).get().then(snapshot => {
               const fetchedData = snapshot.docs.map(doc => doc.data());
               setData(fetchedData);
             })
-            console.log("it runs here")
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -90,7 +87,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/billing" element={<BillingPage />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-and-privacy" element={<TermsandPrivacy />} />
           <Route path="/form" element={<UrlForm />} />
           <Route path="/editform" element={<EditForm />} />
           <Route path="/dashboard" element={<UserDashboard />} />

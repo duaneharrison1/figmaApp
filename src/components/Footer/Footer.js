@@ -1,21 +1,28 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import './Footer.css';
-import SocialMediaIcons from '../SocialMediaIcon/SocialMediaIcon';
 import { auth } from '../../firebase';
+import { useNavigate } from 'react-router-dom';
 
 export default function Footer() {
+    const navigate = useNavigate();
     const [userIsDesktop, setUserIsDesktop] = useState(true);
     const [user, setUser] = useState(null);
+
     useEffect(() => {
         window.innerWidth > 1280 ? setUserIsDesktop(true) : setUserIsDesktop(false);
     }, [userIsDesktop]);
+
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setUser(user);
         });
         return () => unsubscribe();
     }, []);
+
+    const goToTermsAndPrivcy = () => {
+        navigate('/terms-and-privacy');
+    }
 
     return (
         <>
@@ -28,9 +35,7 @@ export default function Footer() {
                             </div>
                             <div className="col-md-4">
                                 <div className="flex-container footer-item">
-                                    <h1 className='footer-center'> Terms</h1>
-                                    <h1 className='footer-center'> Privacy</h1>
-                                    <h1 className='footer-center'> Cookies</h1>
+                                    <h1 className='footer-center' onClick={goToTermsAndPrivcy}> Terms and Privacy</h1>
                                 </div>
                             </div>
 
@@ -54,9 +59,7 @@ export default function Footer() {
                             </div>
                             <div className="col-md-4">
                                 <div className="flex-container footer-item">
-                                    <h1 className='footer-center'> Terms</h1>
-                                    <h1 className='footer-center'> Privacy</h1>
-                                    <h1 className='footer-center'> Cookies</h1>
+                                    <h1 className='footer-center' onClick={goToTermsAndPrivcy}> Terms and Privacy</h1>
                                 </div>
                             </div>
                             <div className="email-support-container col-md-4">
