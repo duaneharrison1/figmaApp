@@ -39,7 +39,7 @@ export default function Footer() {
                             <div className="col-md-4">
                                 <div className="flex-container footer-item">
                                     <h1 className='footer-center' onClick={goToTermsAndConditions}> Terms and Conditions</h1>
-                                    <h1 className='footer-center' onClick={goToPrivacyPolicy}> Provicy Policy</h1>
+                                    <h1 className='footer-center' onClick={goToPrivacyPolicy}> Privacy Policy</h1>
                                 </div>
                             </div>
 
@@ -64,7 +64,7 @@ export default function Footer() {
                             <div className="col-md-4">
                                 <div className="flex-container footer-item">
                                     <h1 className='footer-center' onClick={goToTermsAndConditions}> Terms and Conditions</h1>
-                                    <h1 className='footer-center' onClick={goToPrivacyPolicy}> Provicy Policy</h1>
+                                    <h1 className='footer-center' onClick={goToPrivacyPolicy}> Privacy Policy</h1>
                                 </div>
                             </div>
                             <div className="email-support-container col-md-4">
