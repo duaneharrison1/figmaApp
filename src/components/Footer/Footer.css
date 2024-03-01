@@ -23,6 +23,13 @@
 
 }
 
+.footer-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Adjust this based on your spacing needs */
+}
+
 .email-support-link {
     text-decoration: none;
     color: black;

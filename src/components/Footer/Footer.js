@@ -20,8 +20,11 @@ export default function Footer() {
         return () => unsubscribe();
     }, []);
 
-    const goToTermsAndPrivcy = () => {
-        navigate('/terms-and-privacy');
+    const goToTermsAndConditions = () => {
+        navigate('/terms-and-conditions');
+    }
+    const goToPrivacyPolicy = () => {
+        navigate('/privacy-policy');
     }
 
     return (
@@ -35,7 +38,8 @@ export default function Footer() {
                             </div>
                             <div className="col-md-4">
                                 <div className="flex-container footer-item">
-                                    <h1 className='footer-center' onClick={goToTermsAndPrivcy}> Terms and Privacy</h1>
+                                    <h1 className='footer-center' onClick={goToTermsAndConditions}> Terms and Conditions</h1>
+                                    <h1 className='footer-center' onClick={goToPrivacyPolicy}> Provicy Policy</h1>
                                 </div>
                             </div>
 
@@ -59,7 +63,8 @@ export default function Footer() {
                             </div>
                             <div className="col-md-4">
                                 <div className="flex-container footer-item">
-                                    <h1 className='footer-center' onClick={goToTermsAndPrivcy}> Terms and Privacy</h1>
+                                    <h1 className='footer-center' onClick={goToTermsAndConditions}> Terms and Conditions</h1>
+                                    <h1 className='footer-center' onClick={goToPrivacyPolicy}> Provicy Policy</h1>
                                 </div>
                             </div>
                             <div className="email-support-container col-md-4">

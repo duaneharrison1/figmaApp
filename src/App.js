@@ -19,7 +19,8 @@ import BillingPage from './pages/BillingPage/Billing.js';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import SignupPage from './pages/Authentication/SignupPage.js';
 import AdminDashboard from './pages/AdminDashboard/AdminDashboard.js';
-import TermsandPrivacy from './pages/Privacy Policy/TermsandPrivacy.js';
+import TermsAndConditions from './pages/TermsAndConditions/TermsAndConditions.js';
+import PrivacyPolicy from './pages/Privacy Policy/PrivacyPolicy.js';
 
 function App() {
   const dbFirestore = firebase.firestore();
@@ -87,7 +88,8 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/billing" element={<BillingPage />} />
-          <Route path="/terms-and-privacy" element={<TermsandPrivacy />} />
+          <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/form" element={<UrlForm />} />
           <Route path="/editform" element={<EditForm />} />
           <Route path="/dashboard" element={<UserDashboard />} />
