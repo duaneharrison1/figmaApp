@@ -103,13 +103,15 @@ function UserDashboard() {
                                     )
                                 }
                             }
+                            setTimeout(() => {
+                                setLoading(false);
+                            }, 2000);
                         })
                     })
 
+
                 } catch (error) {
                     console.error('Error fetching data:', error);
-                } finally {
-                    setLoading(false)
                 }
             }
         }
@@ -199,7 +201,7 @@ function UserDashboard() {
             ) : (
                 <div>
                     {
-                        loading == true ? (
+                        loading === true ? (
                             // Show loading screen or spinner
                             <div> Loading...</div >
                         ) : (
@@ -242,6 +244,7 @@ function UserDashboard() {
                                                         show={showModal}
                                                         handleClose={handleCloseModal}
                                                         id={data[showModal?.index]?.id}
+                                                    // faviconUrl={data[showModal?.index]?.faviconUrl}
                                                     />
                                                 </div>
                                             ) : subscriptionType == "monthlyPlan" ? (
@@ -263,6 +266,7 @@ function UserDashboard() {
                                                         show={showModal}
                                                         handleClose={handleCloseModal}
                                                         id={data[showModal?.index]?.id}
+                                                    // faviconUrl={data[showModal?.index]?.faviconUrl}
                                                     />
                                                 </div>
                                             ) : (
@@ -285,6 +289,7 @@ function UserDashboard() {
                                                         show={showModal}
                                                         handleClose={handleCloseModal}
                                                         id={data[showModal?.index]?.id}
+                                                    // faviconUrl={data[showModal?.index]?.faviconUrl}
                                                     />
                                                 </div>
                                             )}
