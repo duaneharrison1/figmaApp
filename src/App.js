@@ -57,7 +57,6 @@ function App() {
 
     };
     fetchData();
-    console.log("isMainDomain" + isMainDomain)
   }, []);
 
   return (

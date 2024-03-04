@@ -1,27 +1,21 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { db, auth } from '../../firebase';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { collection, getDocs, collectionGroup, Timestamp, query, orderBy } from 'firebase/firestore'
+import { collection, getDocs } from 'firebase/firestore'
 import './AdminDashboard.css'
 import firebase from '../../firebase';
-import { compareAsc, format } from "date-fns";
-import { Table, Button, ButtonGroup } from "react-bootstrap";
-import ButtonColored from '../../components/ButtonColored/ButtonColored';
+
 function AdminDashboard() {
     const dbFirestore = firebase.firestore();
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
     const [data, setData] = useState([]);
     const [profile, setProfile] = useState();
-    const [searchTerm, setSearchTerm] = useState('');
     const [page, setPage] = useState(1);
     const [isAdmin, setIsAdmin] = useState();
-    // State for handling sorting
-    const [sortOrder, setSortOrder] = useState('asc');
+
     useEffect(() => {
-        console.log("gggg went here")
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setUser(user);
         });
@@ -55,7 +49,6 @@ function AdminDashboard() {
                 querySnapshot.forEach(function (doc) {
                     items.push({ key: doc.id, ...doc.data() });
                 });
-                console.log('first item ', items[0])
                 setData(items);
             })
         } catch (error) {
@@ -105,18 +98,13 @@ function AdminDashboard() {
 
     return (
         <div className='admin-main-div'>
-
-
             <table className='table table-striped'>
-
                 <thead>
                     <tr>
-
                         <th>Title</th>
                         <th>Generated Url</th>
                         <th>Custom Domain</th>
                         <th>Draft</th>
-
                         <th>Created At</th>
                         <th>Update At</th>
                     </tr>
@@ -128,8 +116,6 @@ function AdminDashboard() {
                             <td>  <a href={`${item.generatedUrl}`} target="_blank" rel="noopener noreferrer">
                                 {`www.figmafolio/${item.generatedUrl}`}
                             </a></td>
-
-
                             <td>{item.customDomain}</td>
                             <td>{item.isDraft}</td>
                             <td>{new Date(item?.createdAt?.seconds * 1000).toLocaleDateString("en-US")}</td>
@@ -142,19 +128,21 @@ function AdminDashboard() {
 
             <div className='button-container'>
                 {
-                    //show previous button only when we have items
                     page === 1 ? '' :
-                        <button className='admin-paginate-btn' onClick={() => showPrevious({ item: data[0] })}>Previous</button>
+                        <button className='admin-paginate-btn'
+                            onClick={() => showPrevious({ item: data[0] })}>
+                            Previous
+                        </button>
                 }
 
                 {
-                    //show next button only when we have items
                     data.length < 10 ? '' :
-                        <button className='admin-paginate-btn' onClick={() => showNext({ item: data[data.length - 1] })}>Next</button>
+                        <button className='admin-paginate-btn'
+                            onClick={() => showNext({ item: data[data.length - 1] })}>
+                            Next
+                        </button>
                 }
             </div>
-
-
         </div>
     );
 }

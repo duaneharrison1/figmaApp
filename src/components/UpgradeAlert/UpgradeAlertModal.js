@@ -56,7 +56,6 @@ const UpgradeAlertModal = (props) => {
     const handleNotifyMe = async (event) => {
         event.preventDefault();
         setIsSuccessful(true)
-        console.log("issuccess" + isSuccessful)
     };
 
     return (

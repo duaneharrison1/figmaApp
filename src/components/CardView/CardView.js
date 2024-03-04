@@ -16,10 +16,6 @@ const CardView = (props) => {
     const onClickUpdate = props.onClickUpdate
     const [isLinkEnabled, setIsLinkEnabled] = useState(false);
 
-    const handleClick = () => {
-        // Your function logic here
-        console.log('Link clicked!');
-    };
     const inactiveApp = {
         border: 'none',
         backgroundColor: 'gray',
