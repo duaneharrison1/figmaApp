@@ -65,43 +65,42 @@ function UserDashboard() {
                             if (docCount === 0 && snapshot.size === 0) {
                                 setCanCreate("true")
                                 setSubscriptionType("regular")
+                            } else if (docCount != 0 && snapshot.size === 0) {
+                                setCanCreate("false")
+                                setSubscriptionType("regular")
                             } else {
-                                if (snapshot.size === 0) {
-                                    setCanCreate("false")
-                                } else {
-                                    snapshot.forEach(subscription => {
-                                        if (subscription.data().status == "active") {
-                                            if (subscription.data().items[0].plan.id == process.env.REACT_APP_YEARLY) {
-                                                setCanCreate("true")
-                                                setSubscriptionType("annualPlan")
-                                            } else if (subscription.data().items[0].plan.id == process.env.REACT_APP_MONTHLY && docCount <= 4) {
-                                                setCanCreate("true")
-                                                setChangeSubPlan("true")
-                                                setSubscriptionType("monthlyPlan")
-                                            } else {
-                                                setCanCreate("false")
-                                            }
-                                        } else if (subscription.data().status == "canceled") {
-                                            if (docCount === 0) {
-                                                setCanCreate("true")
-                                                setSubscriptionType("regular")
-                                            } else {
-                                                setCanCreate("false")
-                                                setSubscriptionType("regular")
-                                            }
+                                snapshot.forEach(subscription => {
+                                    if (subscription.data().status == "active") {
+                                        if (subscription.data().items[0].plan.id == process.env.REACT_APP_YEARLY) {
+                                            setCanCreate("true")
+                                            setSubscriptionType("annualPlan")
+                                        } else if (subscription.data().items[0].plan.id == process.env.REACT_APP_MONTHLY && docCount <= 4) {
+                                            setCanCreate("true")
+                                            setChangeSubPlan("true")
+                                            setSubscriptionType("monthlyPlan")
                                         } else {
+                                            setCanCreate("false")
+                                        }
+                                    } else if (subscription.data().status == "canceled") {
+                                        if (docCount === 0) {
+                                            setCanCreate("true")
+                                            setSubscriptionType("regular")
+                                        } else {
+                                            setCanCreate("false")
+                                            setSubscriptionType("regular")
+                                        }
+                                    } else {
 
-                                            if (docCount >= 1) {
-                                                setCanCreate("false")
-                                                setSubscriptionType("regular")
-                                            } else {
-                                                setCanCreate("true")
-                                                setSubscriptionType("regular")
-                                            }
+                                        if (docCount >= 1) {
+                                            setCanCreate("false")
+                                            setSubscriptionType("regular")
+                                        } else {
+                                            setCanCreate("true")
+                                            setSubscriptionType("regular")
                                         }
                                     }
-                                    )
                                 }
+                                )
                             }
                             setTimeout(() => {
                                 setLoading(false);
