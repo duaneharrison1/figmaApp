@@ -90,7 +90,6 @@ function UserDashboard() {
                                             setSubscriptionType("regular")
                                         }
                                     } else {
-
                                         if (docCount >= 1) {
                                             setCanCreate("false")
                                             setSubscriptionType("regular")
@@ -210,14 +209,8 @@ function UserDashboard() {
                                     :
                                     <div>
                                         < Navbar className={"dashboardNavBar"} email={user.email} isFromForm={"false"} />
-                                        {/* {profile.map(profile => (
-                                            < Navbar className={"dashboardNavBar"} email={profile.name} isFromForm={"false"} />
-                                        ))} */}
                                     </div>
                                 }
-
-                                {/* <a href="https://billing.stripe.com/p/login/test_bIYg0M5wa5wZ9xe7ss" className="button">Test unsubscribe</a> */}
-
 
                                 <div className='dashboard-view'>
                                     {docCount !== null && canCreate !== null ? (
@@ -228,15 +221,26 @@ function UserDashboard() {
                                                 <div className='row'>
                                                     {data.map((item, index) => (
                                                         < div className='col-sm-4' key={index} style={{ pointerEvents: index != 0 ? 'none' : '' }} >
-                                                            <CardView index={index}
-                                                                subscriptionType={subscriptionType}
-                                                                figmaMobileUrl={item.urls?.figmaMobileUrl}
-                                                                figmaDesktopUrl={item.urls?.figmaDesktopUrl}
-                                                                siteTitle={item?.title}
-                                                                url={item?.generatedUrl}
-                                                                isDraft={item.isDraft}
-                                                                onClickDelete={() => handleShowModal(index)}
-                                                                onClickUpdate={() => goToEdit(item)} />
+                                                            {index == 0 ? (
+                                                                <CardView index={index}
+                                                                    subscriptionType={subscriptionType}
+                                                                    figmaMobileUrl={item.urls?.figmaMobileUrl}
+                                                                    figmaDesktopUrl={item.urls?.figmaDesktopUrl}
+                                                                    siteTitle={item?.title}
+                                                                    url={item?.generatedUrl}
+                                                                    isDraft={item.isDraft}
+                                                                    onClickDelete={() => handleShowModal(index)}
+                                                                    onClickUpdate={() => goToEdit(item)} />
+
+                                                            ) : (
+                                                                <CardView index={index}
+                                                                    subscriptionType={subscriptionType}
+                                                                    figmaMobileUrl={item.urls?.figmaMobileUrl}
+                                                                    figmaDesktopUrl={item.urls?.figmaDesktopUrl}
+                                                                    siteTitle={item?.title}
+                                                                    isDraft={item.isDraft}
+                                                                />
+                                                            )}
                                                         </div>
                                                     ))}
                                                     <DeleteModal
@@ -249,7 +253,7 @@ function UserDashboard() {
                                             ) : subscriptionType == "monthlyPlan" ? (
                                                 <div className='row'>
                                                     {data.map((item, index) => (
-                                                        <div className='col-sm-4' key={index}>
+                                                        <div className='col-sm-4' key={index} style={{ pointerEvents: index > 4 ? 'none' : '' }} >
                                                             <CardView index={index}
                                                                 subscriptionType={subscriptionType}
                                                                 figmaMobileUrl={item.urls?.figmaMobileUrl}
