@@ -127,7 +127,7 @@ export default function EditForm() {
 
     return (
         <>
-            < Navbar className={"dashboardNavBar"} email={user.email} onClickLogout={handleLogout} isFromForm={"editForm"} title={title} />
+            < Navbar className={"dashboardNavBar"} email={user.email} onClickLogout={handleLogout} isFromForm={"editForm"} />
             <div className='form'>
                 <div className="url-form">
                     <div className='form-container'>
