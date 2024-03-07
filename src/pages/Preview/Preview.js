@@ -10,6 +10,8 @@ import axios from "axios";
 import './Preview.css';
 import firebase from '../../firebase';
 export default function Preview() {
+    const [ispublicBtnClick, setIsPublicBtnClick] = useState(false);
+    const [isSaveAsDraftBtnClick, setSaveAsDraftBtnClick] = useState(false);
     const navigate = useNavigate();
     const [isMobile, setIsMobile] = useState(false);
     const location = useLocation();
@@ -207,9 +209,10 @@ export default function Preview() {
     }
 
     const handleSaveFormAsDraft = async (event) => {
+        setSaveAsDraftBtnClick(true);
         event.preventDefault();
         if (locationStateDomain == "") {
-            saveNewFormAsDraft()
+            saveNewFormAsDraft();
         } else {
             try {
                 const response = await axios.post(`https://api.vercel.com/v9/projects/${process.env.REACT_APP_VERCEL_PROJECT_ID}/domains?teamId=${process.env.REACT_APP_VERCEL_TEAM_ID}`,
@@ -229,9 +232,11 @@ export default function Preview() {
                         alert(error)
                         console.log(error.response.data.error)
                     }
+                    setSaveAsDraftBtnClick(false);
                 });
             } catch (error) {
                 alert(error)
+                setSaveAsDraftBtnClick(false);
             }
         }
     }
@@ -480,8 +485,11 @@ export default function Preview() {
                 })
         } catch (err) {
             alert(err.message)
+            setSaveAsDraftBtnClick(false);
         } finally {
             alert("success")
+            setSaveAsDraftBtnClick(false);
+            navigate('/dashboard');
         }
     }
 
@@ -500,14 +508,16 @@ export default function Preview() {
             })
         } catch (err) {
             alert(err.message)
+            setIsPublicBtnClick(false);
         } finally {
             alert("success")
             window.open('https://figmafolio.com/' + randomurl, '_blank');
-
+            navigate('/dashboard');
         }
     }
 
     const handleSaveForm = async (e) => {
+        setIsPublicBtnClick(true);
         e.preventDefault();
         if (locationStateDomain == "") {
             saveNewForm()
@@ -528,11 +538,12 @@ export default function Preview() {
                     }
                     else {
                         alert(error)
-                        console.log(error.response.data.error)
                     }
+                    setIsPublicBtnClick(false);
                 });
             } catch (error) {
                 alert(error)
+                setIsPublicBtnClick(false);
             }
         }
     }
@@ -545,6 +556,7 @@ export default function Preview() {
                 navigate("/")
 
             ) : (
+
                 <div>
                     {!userIsDesktop ? (
                         <div>
@@ -580,13 +592,21 @@ export default function Preview() {
                             </iframe>
 
                             <div className='mobile-button-container'>
-
-                                <ButtonClear className="save-as-draft" label='Save as Draft' onClick={location.state.fromEdit === true ? handleUpdateFormAsDraft : handleSaveFormAsDraft} />
-
-                                {location.state.fromEdit === true ? (
-                                    <ButtonColored className="update-btn" label='Update' onClick={handleUpdateForm} />) :
-                                    (
-                                        <ButtonColored className="update-btn" label='Publish' onClick={handleSaveForm} />
+                                <ButtonClear
+                                    className="save-as-draft"
+                                    label='Save as Draft'
+                                    isDisabled={isSaveAsDraftBtnClick}
+                                    onClick={location.state.fromEdit === true ? handleUpdateFormAsDraft : handleSaveFormAsDraft} />
+                                {location.state.fromEdit === true ?
+                                    (<ButtonColored
+                                        className="update-btn"
+                                        label='Update'
+                                        onClick={handleUpdateForm} />) :
+                                    (<ButtonColored
+                                        className="update-btn"
+                                        isDisabled={ispublicBtnClick}
+                                        label='Publish'
+                                        onClick={handleSaveForm} />
                                     )}
 
                             </div>
@@ -621,11 +641,21 @@ export default function Preview() {
                                 </div>
                                 <div className="col m-0 p-0">
                                     < div className='draft-publish-container'>
-                                        <ButtonClear className="save-as-draft" label='Save as Draft' onClick={location.state.fromEdit === true ? handleUpdateFormAsDraft : handleSaveFormAsDraft} />
-                                        {location.state.fromEdit === true ? (
-                                            <ButtonColored className="update-btn" label='Update' onClick={handleUpdateForm} />) :
-                                            (
-                                                <ButtonColored className="update-btn" label='Publish' onClick={handleSaveForm} />
+                                        <ButtonClear
+                                            className="save-as-draft"
+                                            label='Save as Draft'
+                                            isDisabled={isSaveAsDraftBtnClick}
+                                            onClick={location.state.fromEdit === true ? handleUpdateFormAsDraft : handleSaveFormAsDraft} />
+                                        {location.state.fromEdit === true ?
+                                            (<ButtonColored
+                                                className="update-btn"
+                                                label='Update'
+                                                onClick={handleUpdateForm} />) :
+                                            (<ButtonColored
+                                                className="update-btn"
+                                                isDisabled={ispublicBtnClick}
+                                                label='Publish'
+                                                onClick={handleSaveForm} />
                                             )}
                                     </div >
                                 </div>

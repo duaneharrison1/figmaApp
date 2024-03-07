@@ -4,14 +4,13 @@ import './ButtonClear.css';
 
 
 export default function ButtonClear(props) {
-    const onClick = props.onClick
-    const label = props.label
-    const className = props.className
+    const onClick = props.onClick;
+    const label = props.label;
+    const className = props.className;
+    const isDisabled = props.isDisabled;
     return (
-        < button className={className} onClick={onClick}>
-            {label}
-
-        </button >
+        isDisabled ?
+            (< button className={className} disabled onClick={onClick}>{label}</button >) :
+            (< button className={className} onClick={onClick}> {label}</button >)
     )
-
 }

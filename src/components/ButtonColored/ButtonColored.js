@@ -7,12 +7,12 @@ export default function ButtonColored(props) {
     const label = props.label
     const isDisabled = props.isDisabled
     const className = props.className
-    return (
-        { isDisabled } ?
-            <button className={className} onClick={onClick}>{label}</button >
-            :
-            < button className="disabled" disabled={isDisabled} onClick={onClick}>{label}</button >
 
+    return (
+        isDisabled ?
+            (< button className={className} disabled onClick={onClick} > {label}</button >)
+            :
+            (<button className={className} onClick={onClick} > {label}</button >)
 
     )
 
