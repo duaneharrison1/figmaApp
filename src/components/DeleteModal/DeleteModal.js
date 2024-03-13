@@ -6,7 +6,7 @@ import DeleteHeaderImage from '../../assets/images/delete-header-img.png';
 import { db, auth } from '../../firebase';
 import { useState, useEffect } from 'react';
 import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc, query, where } from 'firebase/firestore'
-
+import { ref, deleteObject, getStorage } from "firebase/storage";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import ButtonColored from '../ButtonColored/ButtonColored';
 import ButtonClear from '../ButtonClear/ButtonClear';
@@ -17,6 +17,7 @@ const DeleteModal = (props) => {
     const [user, setUser] = useState(null);
     const id = props.id;
     const customDomain = props.customDomain;
+    const faviconUrl = props.faviconUrl;
     const [outputValue, setOutputValue] = useState('');
 
 
@@ -56,7 +57,19 @@ const DeleteModal = (props) => {
     }
 
     const dataInDb = async () => {
+        console.log("xxxx" + faviconUrl)
         try {
+            //STILL NEED TO WORK ON THIS
+            // if (faviconUrl != "" || faviconUrl != undefined) {
+            //     const storage = getStorage();
+            //     const desertRef = ref(storage, faviconUrl) // how can I find url (image/study.png)
+            //     deleteObject(desertRef).then(() => {
+            //         console.log("delete success");
+            //     }).catch((error) => {
+            //         console.log("delete error");
+            //     })
+            // }
+
             await deleteDoc(doc(db, "user", user.uid, "url", id));
             window.location.reload();
             handleClose()

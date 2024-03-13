@@ -8,6 +8,7 @@ import TextField from '../../components/TextField/TextField.js';
 import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import AlertModal from '../../components/AlertModal/AlertModal';
 import firebase from '../../firebase';
+import PasswordTextField from '../../components/PasswordTextfield/PasswordTextfield.js';
 export default function SignupPage() {
     const navigate = useNavigate();
     const dbFirestore = firebase.firestore();
@@ -111,22 +112,24 @@ export default function SignupPage() {
         <>
             <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
 
-            <div className='container m-0 p-0'>
+            <div className='container signup-page'>
                 <form className='sign-up'>
                     <div>
                         <TextField
                             formLabel='Email'
-                            className='input'
+                            className='auth-input'
                             id="email-address"
                             name="email"
                             type="email"
                             required
                             placeholder="Email address"
                             onChange={handleEmailChange} />
+                    </div>
 
+                    <div className='textfield-holder'>
                         <TextField
                             formLabel='Name'
-                            className='input'
+                            className='auth-input'
                             id="email-address"
                             name="email"
                             required
@@ -135,9 +138,9 @@ export default function SignupPage() {
                     </div>
 
                     <div>
-                        <TextField
+                        <PasswordTextField
                             formLabel='Password'
-                            className='input'
+                            className='password-input'
                             id="password"
                             name="password"
                             type="password"
@@ -146,10 +149,12 @@ export default function SignupPage() {
                     </div>
 
                     <div>
-                        <TextField
+                        <PasswordTextField
                             formLabel='Verify password'
-                            className='input'
+                            className='password-input'
                             type="password"
+                            id="password"
+                            name="password"
                             label="Confirm password"
                             value={confirmPassword}
                             onChange={handleConfirmPasswordChange}
@@ -157,18 +162,22 @@ export default function SignupPage() {
                         {errorConfirmPassword && < p className='error-message'>{errorConfirmPassword}</p>}
                     </div>
 
-                    {isButtonActive ?
-                        <ButtonColored
-                            label='Continue'
-                            onClick={onSubmit}
-                            className="btn-block"
-                        />
-                        :
-                        <ButtonColored
-                            className="disabled"
-                            label='Continue'
-                            disabled
-                        />}
+
+                    <div className='auth-button-container'>
+                        {isButtonActive ?
+                            <ButtonColored
+                                label='Continue'
+                                onClick={onSubmit}
+                                className="sign-in-btn-block"
+                            />
+                            :
+                            <ButtonColored
+                                className="sign-in-disabled"
+                                label='Continue'
+                                disabled
+                            />}
+                    </div>
+
                 </form>
             </div >
         </>

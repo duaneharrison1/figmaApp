@@ -1,18 +1,24 @@
-.body {
-    background-color: white;
-}
-
 .main-title {
-    padding-top: 48px;
-    font-family: 'Poppins', sans-serif;
     font-weight: 700;
     font-size: 20px;
+    padding-top: 42px;
+}
+
+.main-title-container {
+    max-width: 550px;
 }
 
 .tab-view {
-   
-    padding-bottom: 251px;
     background-color: white;
+    border-radius: 24px;
+    padding-bottom: 100px;
+}
+
+.forgotpassword-tab-view {
+    background-color: white;
+    border-radius: 24px;
+    height: 100vh;
+
 }
 
 .nav-tabs {
@@ -21,27 +27,31 @@
 
 
 .header-text {
-    margin-top: 50px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-    font-size: 30px;
+    margin-top: 100px;
+    font-weight: 500;
+    font-size: 32px;
     text-align: center;
 }
 
-.forgot-password{
+.textfield-holder {
+    padding-top: 32px;
+}
+
+.forgot-password {
+    display: inline-block;
     text-align: right;
     text-decoration: none;
     color: #4D9F70;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 16px;
+    margin-top: 16px;
 }
 
-/* .btn-sign-in {
-    width: 100%;
-    margin-top: 50px;
-    padding: 12px 20px;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-} */
+.auth-button-container {
+
+    margin-right: 40px;
+    margin-left: 40px;
+}
 
 .no-account-yet {
     margin-top: 20px;
@@ -49,12 +59,14 @@
 }
 
 
-.nav-pills{
-    margin-top: 20px;
+.nav-pills {
+    margin-top: 32px;
+    margin-bottom: 80px;
     width: 100%;
     display: flex;
     justify-content: center;
-    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 600;
 }
 
 .nav-pills .nav-link.active {
@@ -66,49 +78,83 @@
     color: #A0A0A0;
 }
 
+.main-auth-container {
+    background: #F2EFE5;
+}
 
-
-.mobile-main-auth-container {
+.forgotpassword-container {
+    background: #F2EFE5;
     height: 100vh;
-    background-color: #F8F6F0;
-  
 }
 
-@media only screen and (max-width: 1280px) { 
-    .main-auth-container {
-        background: #F2EFE5;
-    }
-    .mobile-card{
-        margin:0px 24px;
-        border-radius: 16px;
-        background: var(--neutral-white, #FFF);
-        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-        padding: 37px 24px;
-    }
-    .mobile-header-text {
-        padding: 25px 0px;
-        font-family: 'Poppins', sans-serif;
-        font-weight: 700;
-        font-size: 30px;
-        text-align: center;
-    }
-    .header-text{
-        margin-top: 0px;
-        padding-bottom: 24px;
-        font-family: 'Poppins', sans-serif;
-        font-weight: 700;
-        font-size: 20px;
-        text-align: center;
-    }
-    .mobile-main-auth-container{
-        background: #F2EFE5;
-    }
-    
-.nav-pills{
-    padding-bottom: 48px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    border-radius: 50px;
+
+.side-frame {
+    text-align: center;
 }
+
+.side-frame-content {
+    margin-top: 260px;
+}
+
+.header {
+    padding-top: 50px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #2D2B29;
+}
+
+.auth-sub-header {
+    font-weight: bold;
+    font-size: 30px;
+    color: #000;
+}
+
+.auth-sub-header-container {
+    margin-bottom: 50px;
+}
+
+.sideframe_img {
+    max-width: 100%;
+    height: auto;
+}
+
+.login-page {
+    max-width: 510px;
+}
+
+.signup-page {
+    max-width: 510px;
+}
+
+.forgot-password-page {
+    max-width: 510px;
+}
+
+.reset-password-form {
+    text-align: center;
+    height: 100px;
+    max-width: 510px;
+}
+
+.forgot-password-subheader {
+    text-align: center;
+}
+
+@media only screen and (max-width: 1300px) {
+    /* .main-title {
+
+        padding-left: 20px;
+
+    } */
+
+
+}
+
+@media only screen and (max-width: 767px) {
+
+
+    .sideframe-view {
+        display: none;
+    }
 }

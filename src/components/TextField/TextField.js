@@ -11,7 +11,6 @@ export default function TextField(props) {
     const formLabel = props.formLabel
     const onChange = props.onChange
     const handleChange = (event) => {
-        // Call the provided onChange function with the new value
         onChange(event.target.value);
     };
     return (

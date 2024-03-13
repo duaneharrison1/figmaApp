@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { db, auth, storage, upload, useAuth } from '../../firebase';
+import React, { useState } from 'react';
+import { auth, storage, upload, useAuth } from '../../firebase';
 import { Modal } from 'react-bootstrap';
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 

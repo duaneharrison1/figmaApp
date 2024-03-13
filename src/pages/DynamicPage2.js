@@ -13,7 +13,7 @@ function DynamicPage2() {
   const [urlData, setUrlData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [outputValue, setOutputValue] = useState('');
+  const [faviconUrl, setFaviconUrl] = useState('');
   const dbFirestore = firebase.firestore();
 
   useEffect(() => {
@@ -23,30 +23,25 @@ function DynamicPage2() {
       link.rel = 'icon';
       document.getElementsByTagName('head')[0].appendChild(link);
     }
-    link.href = 'https:v=2';
+    link.href = faviconUrl;
   }, []);
 
   useEffect(() => {
     var domain = window.location.host
     if (domain == 'www.figmafolio.com' || domain == 'figma-app-tau.vercel.app' || domain == 'localhost:3000') {
-      console.log("wentHerezzzz")
     } else {
       const fetchData = async () => {
-        console.log("wentHerexxx")
         try {
           var domain = window.location.host
-          // www.caitlynhutchison.com
-          console.log("domain " + domain)
           const modifiedDomain = domain.replace(/^(https?:\/\/)?(www\.)?/, '');
           dbFirestore.collectionGroup('url').where('customDomain', '==', modifiedDomain).get().then(snapshot => {
             if (snapshot.docs.length === 0) {
               dbFirestore.collectionGroup('url').where('customDomain', '==', domain).get().then(snapshot => {
                 const fetchedData = snapshot.docs.map(doc => doc.data());
                 fetchedData.forEach((value) => {
-                  console.log("figmalink " + value.urls.figmaDesktopUrl)
-                  console.log("figmalink " + value.urls.figmaMobileUrl)
                   if (value.isDraft == "false") {
                     document.title = value.title;
+                    setFaviconUrl(value.faviconUrl)
                     setDesktop(value.urls.figmaDesktopUrl)
                     setMobile(value.urls.figmaMobileUrl)
                   }
@@ -59,15 +54,12 @@ function DynamicPage2() {
                 console.log("figmalink " + value.urls.figmaMobileUrl)
                 if (value.isDraft == "false") {
                   document.title = value.title;
+                  setFaviconUrl(value.faviconUrl)
                   setDesktop(value.urls.figmaDesktopUrl)
                   setMobile(value.urls.figmaMobileUrl)
                 }
               });
-              console.log("finish getting data");
             }
-
-
-
           })
 
           // const response = await axios.get(process.env.REACT_APP_URL_DATA);

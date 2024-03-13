@@ -136,7 +136,7 @@ export default function EditForm() {
                             <div className='col-md-6'>
                                 <h2 className='form-sub-header'>Title</h2>
                                 <input
-                                    className='input'
+                                    className='form-input'
                                     type="text"
                                     placeholder='Enter your site name'
                                     value={title}
@@ -166,7 +166,7 @@ export default function EditForm() {
 
                                     <div>
                                         <input
-                                            className='input'
+                                            className='form-input'
                                             type="text"
                                             placeholder='Enter your domain'
                                             value={newCustomDomain}

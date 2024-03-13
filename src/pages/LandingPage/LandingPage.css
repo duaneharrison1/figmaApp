@@ -8,14 +8,13 @@
 
 .navbar-container {
 
-    padding: 36px 0px 109px 0px;
-    max-width: 1200px;
+    padding: 36px 120px;
     margin: 0 auto;
 }
 
 .page-content-container {
 
-    max-width: 1200px;
+    padding: 0 120px;
     margin: 0 auto;
 }
 
@@ -300,8 +299,7 @@
 }
 
 .landing-page-guide-container {
-    max-width: 1200px !important;
-    padding: 161px 0px 0px 0px;
+    padding: 161px 120px;
     margin: 0 auto;
 }
 
@@ -346,6 +344,8 @@
         margin-bottom: 12px;
     }
 }
+
+
 
 @media only screen and (max-width: 1280px) {
     .tier-header {

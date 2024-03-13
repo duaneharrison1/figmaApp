@@ -5,7 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import './Auths.css';
 import TextField from '../../components/TextField/TextField.js';
 import ButtonColored from '../../components/ButtonColored/ButtonColored.js';
-import PasswordInput from '../../components/PasswordTextfield/wew';
+import PasswordTextField from '../../components/PasswordTextfield/PasswordTextfield.js';
 
 export default function LoginPage() {
     const [errorEmail, setErrorEmail] = useState(null);
@@ -49,24 +49,15 @@ export default function LoginPage() {
             });
     }
 
-
-    // try {
-    //     await sendPasswordResetEmail(auth, email);
-    //     setResetEmailSent(true);
-    //     setError(null);
-    // } catch (error) {
-    //     if (error.message == "Firebase: Error (auth/user-not-found).") {
-    //         setError("Email address not found");
-    //     }
     return (
         <>
-            <div className='container m-0 p-0'>
+            <div className='container login-page'>
                 <form className='login'>
                     <div>
                         <TextField
                             formLabel="Email"
                             errorMsg="Invalid email"
-                            className='input'
+                            className='auth-input'
                             id="email-address"
                             name="email"
                             type="email"
@@ -75,40 +66,30 @@ export default function LoginPage() {
                         {errorEmail && < p className='error-message'>{errorEmail}</p>}
                     </div>
                     <div>
-                        <TextField
+                        <PasswordTextField
                             formLabel="Password"
                             errorMsg="Wrong password"
-                            className='input'
+                            className='password-input'
                             id="password"
                             name="password"
                             type="password"
                             placeholder="Enter your password"
                             onChange={handlePasswordChange} />
-                        {/* <PasswordInput
-                            formLabel="Password"
-                            errorMsg="Wrong password"
-                            className='input'
-                            id="password"
-                            name="password"
-                            type="password"
-                            placeholder="Enter your password"
-                            onChange={handlePasswordChange} /> */}
-
                         {errorPassword && < p className='error-message'>{errorPassword}</p>}
                     </div>
                     <NavLink className='forgot-password' to="/forgotpassword" >
                         Forgot password
                     </NavLink>
-                    <div>
+                    <div className='auth-button-container'>
                         {isButtonActive ?
                             <ButtonColored
                                 label='Sign in'
                                 onClick={onLogin}
-                                className="btn-block"
+                                className="sign-in-btn-block"
                             />
                             :
                             <ButtonColored
-                                className="disabled"
+                                className="sign-in-disabled"
                                 label='Sign in'
                                 disabled
                             />}
