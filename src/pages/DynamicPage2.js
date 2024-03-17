@@ -13,18 +13,18 @@ function DynamicPage2() {
   const [urlData, setUrlData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [faviconUrl, setFaviconUrl] = useState('');
+  // const [faviconUrl, setFaviconUrl] = useState('');
   const dbFirestore = firebase.firestore();
 
-  useEffect(() => {
-    let link = document.querySelector("link[rel~='icon']");
-    if (!link) {
-      link = document.createElement('link');
-      link.rel = 'icon';
-      document.getElementsByTagName('head')[0].appendChild(link);
-    }
-    link.href = faviconUrl;
-  }, []);
+  // useEffect(() => {
+  //   let link = document.querySelector("link[rel~='icon']");
+  //   if (!link) {
+  //     link = document.createElement('link');
+  //     link.rel = 'icon';
+  //     document.getElementsByTagName('head')[0].appendChild(link);
+  //   }
+  //   link.href = faviconUrl;
+  // }, []);
 
   useEffect(() => {
     var domain = window.location.host
@@ -41,7 +41,7 @@ function DynamicPage2() {
                 fetchedData.forEach((value) => {
                   if (value.isDraft == "false") {
                     document.title = value.title;
-                    setFaviconUrl(value.faviconUrl)
+                    // setFaviconUrl(value.faviconUrl)
                     setDesktop(value.urls.figmaDesktopUrl)
                     setMobile(value.urls.figmaMobileUrl)
                   }
@@ -54,7 +54,7 @@ function DynamicPage2() {
                 console.log("figmalink " + value.urls.figmaMobileUrl)
                 if (value.isDraft == "false") {
                   document.title = value.title;
-                  setFaviconUrl(value.faviconUrl)
+                  // setFaviconUrl(value.faviconUrl)
                   setDesktop(value.urls.figmaDesktopUrl)
                   setMobile(value.urls.figmaMobileUrl)
                 }
