@@ -46,7 +46,9 @@ export default function ForgotpasswordPage() {
                     <div className='row'>
                         <div className='col-md-7  forgotpassword-tab-view'>
                             <div className='card'>
-                                <h1 className='main-title'>Figmafolio</h1>
+                                <div className=' container main-title-container'>
+                                    <h1 className='main-title'>Figmafolio</h1>
+                                </div>
                                 <h1 className='header-text'>Forgot password</h1>
                                 <p className='forgot-password-subheader'>Enter your email and we’ll send you a link to reset your password</p>
                                 {resetEmailSent ?
