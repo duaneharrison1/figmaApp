@@ -4,6 +4,7 @@ import { Modal } from 'react-bootstrap';
 import ButtonColored from '../ButtonColored/ButtonColored';
 import { db, auth } from '../../firebase';
 import Check from '../../assets/images/check.png';
+import Cross from '../../assets/images/cross.png';
 import MostPopular from '../../assets/images/popular.png';
 const PaymentSelection = (props) => {
     const { show, handleClose, handleMonthlyPayment, handleYearlyPayment, monthlySubscription } = props;
@@ -38,6 +39,10 @@ const PaymentSelection = (props) => {
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'> Custom domains</h4>
                                         </div>
+                                        <div className="payment-feature">
+                                            <img className='check-icon' src={Check} />
+                                            <h4 className='payment-feature-text'>Removes Figmafolio label</h4>
+                                        </div>
                                         <div className='button-upgrade-container'>
                                             {monthlySubscription == "monthlyPlan" ?
                                                 (<ButtonColored className="btn-current-plan" label="Current plan" />) :
@@ -71,6 +76,10 @@ const PaymentSelection = (props) => {
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'>Priority technical and product support</h4>
                                         </div>
+                                        <div className="payment-feature">
+                                            <img className='check-icon' src={Check} />
+                                            <h4 className='payment-feature-text'>Removes Figmafolio label</h4>
+                                        </div>
                                         <div className='button-upgrade-container'>
                                             <ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={handleYearlyPayment} />
                                         </div>
@@ -97,6 +106,10 @@ const PaymentSelection = (props) => {
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'> Custom domains</h4>
+                                        </div>
+                                        <div className="payment-feature">
+                                            <img className='check-icon' src={Check} />
+                                            <h4 className='payment-feature-text'>Removes Figmafolio label</h4>
                                         </div>
                                         <div className='button-upgrade-container'>
                                             <ButtonColored className="btn-upgrade-plan" label="Change plan" onClick={ManagePlan} />
@@ -128,6 +141,10 @@ const PaymentSelection = (props) => {
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'>Priority technical and product support</h4>
                                         </div>
+                                        <div className="payment-feature">
+                                            <img className='check-icon' src={Check} />
+                                            <h4 className='payment-feature-text'>Removes Figmafolio label</h4>
+                                        </div>
                                         <div className='button-upgrade-container-2'>
                                             <ButtonColored className="btn-current-plan" label="Current plan" />
                                         </div>
@@ -153,6 +170,12 @@ const PaymentSelection = (props) => {
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'> Free Figmafolio domain</h4>
                                         </div>
+                                        <div className="payment-feature">
+                                            <img className='check-icon' src={Cross} />
+                                            <h4 className='payment-feature-text'>Removes Figmafolio label</h4>
+                                        </div>
+
+
                                         <div className='button-upgrade-container-2'>
                                             <ButtonColored className="btn-current-plan" label="Current plan" />
                                         </div>
@@ -174,6 +197,10 @@ const PaymentSelection = (props) => {
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'> Custom domains</h4>
+                                        </div>
+                                        <div className="payment-feature">
+                                            <img className='check-icon' src={Check} />
+                                            <h4 className='payment-feature-text'>Removes Figmafolio label</h4>
                                         </div>
                                         <div className='button-upgrade-container-2'>
                                             {monthlySubscription == "monthlyPlan" ?
@@ -207,6 +234,10 @@ const PaymentSelection = (props) => {
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'>Priority technical and product support</h4>
+                                        </div>
+                                        <div className="payment-feature">
+                                            <img className='check-icon' src={Check} />
+                                            <h4 className='payment-feature-text'>Removes Figmafolio label</h4>
                                         </div>
                                         <div className='button-upgrade-container'>
                                             <ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={handleYearlyPayment} />
