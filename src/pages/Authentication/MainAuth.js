@@ -31,7 +31,7 @@ export default function MainAuth(props) {
 
 
     return (
-        <div className='main-auth-container m-0 p-0'>
+        <div className='main-auth-container '>
             {user ? (<Navigate to="/dashboard" />) : (
                 <div>
                     <div className='container-fluid desktop-main-auth-container'>
