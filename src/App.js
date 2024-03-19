@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UrlForm from './pages/UlrForm/UrlForm';
 import EditForm from './pages/EditForm/EditForm';
-import DynamicPage from './pages/DynamicPage';
+import DynamicPage from './pages/DynamicPage/DynamicPage';
 import DynamicPage2 from './pages/DynamicPage2.js';
 import LandingPage from './pages/LandingPage/LandingPage';
 import UserDashboard from './pages/UserDashboard/UserDashboard';

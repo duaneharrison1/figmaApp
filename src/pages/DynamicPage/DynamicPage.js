@@ -1,9 +1,6 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { collection, getDocs } from "firebase/firestore";
-import { db, auth } from '../firebase';
-
+import './DynamicPage.css';
 function DynamicPage({ url }) {
 
   document.title = url.title;
@@ -35,14 +32,18 @@ function DynamicPage({ url }) {
 
   }, []);
   return (
-
-    <iframe
-      src={isMobile ? mobile : desktop}
-      allowFullScreen
-      referrerpolicy="no-referrer"
-      style={{ width: '100%', height: '100vh' }}
-      // sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-      className='dynamic_view_figma_view'></iframe>
+    <>
+      <div className="text-overlay">
+        <p className='made-with'>Made with <span className="made-with-figmaolio">Figmafolio</span></p>
+      </div>
+      <iframe
+        src={isMobile ? mobile : desktop}
+        allowFullScreen
+        referrerpolicy="no-referrer"
+        style={{ width: '100%', height: '100vh' }}
+        className='dynamic_view_figma_view'>
+      </iframe>
+    </>
 
   );
 }

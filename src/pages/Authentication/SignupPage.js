@@ -99,11 +99,6 @@ export default function SignupPage() {
                     if (error.message == "Firebase: Error (auth/email-already-in-use).") {
                         setErrorConfirmPassword("Email Already registered");
                     }
-
-
-
-                    // Password should be at least 6 characters (auth/weak-password).
-                    // ..
                 });
         }
     }
