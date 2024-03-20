@@ -37,7 +37,7 @@ const PaymentSelection = (props) => {
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'> Custom domains</h4>
+                                            <h4 className='payment-feature-text'>Preset domains</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
@@ -70,7 +70,7 @@ const PaymentSelection = (props) => {
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Custom domains</h4>
+                                            <h4 className='payment-feature-text'>Preset domains</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
@@ -105,7 +105,7 @@ const PaymentSelection = (props) => {
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'> Custom domains</h4>
+                                            <h4 className='payment-feature-text'>Preset domains</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
@@ -135,7 +135,7 @@ const PaymentSelection = (props) => {
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Custom domains</h4>
+                                            <h4 className='payment-feature-text'>Preset domains</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
@@ -196,7 +196,7 @@ const PaymentSelection = (props) => {
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'> Custom domains</h4>
+                                            <h4 className='payment-feature-text'>Preset domains</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
@@ -229,7 +229,7 @@ const PaymentSelection = (props) => {
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Custom domains</h4>
+                                            <h4 className='payment-feature-text'>Preset domains</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
