@@ -9,6 +9,8 @@ import guideThree from './../../assets/images/guide_three_image.png';
 import one from './../../assets/images/one.png';
 import two from './../../assets/images/two.png';
 import three from './../../assets/images/three.png';
+import Cross from '../../assets/images/cross.png';
+import WhiteCross from '../../assets/images/crosswhite.png';
 import WhiteCheck from '../../assets/images/white-check.png';
 import stepThree from './../../assets/images/stepThree.png';
 import Footer from '../../components/Footer/Footer';
@@ -145,7 +147,7 @@ export default function LandingPage() {
                 </div>
                 <div className='col-10'>
                   <h2 className='guide-one-header'>Go live!</h2>
-                  <h3 className='guide-one-subheader'>Publish your site instantly to start securing jobs and clients faster. Updates made in Figma are reflected on your site instantly. Customize your site with a personalised domain name.</h3>
+                  <h3 className='guide-one-subheader'>Publish your site instantly to start securing jobs and clients faster. Updates made in Figma are reflected on your site instantly. Presetize your site with a personalised domain name.</h3>
                 </div>
               </div>
 
@@ -170,6 +172,10 @@ export default function LandingPage() {
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
                     <h4 className='landing-page-payment-feature-text'> Free Figmafolio domain</h4>
+                  </div>
+                  <div className="payment-feature">
+                    <img className='check-icon' src={WhiteCross} />
+                    <h4 className='landing-page-payment-feature-text'>Removes Figmafolio label</h4>
                   </div>
                 </div>
 
@@ -198,7 +204,15 @@ export default function LandingPage() {
                   </div>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
-                    <h4 className='landing-page-payment-feature-text'> Custom domains</h4>
+                    <h4 className='landing-page-payment-feature-text'> Preset domains</h4>
+                  </div>
+                  <div className="payment-feature">
+                    <img className='check-icon' src={WhiteCheck} />
+                    <h4 className='landing-page-payment-feature-text'>Priority technical and product support</h4>
+                  </div>
+                  <div className="payment-feature">
+                    <img className='check-icon' src={WhiteCheck} />
+                    <h4 className='landing-page-payment-feature-text'>Removes Figmafolio label</h4>
                   </div>
                 </div>
 
@@ -231,11 +245,16 @@ export default function LandingPage() {
                   </div>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
-                    <h4 className='landing-page-payment-feature-text'>Custom domains</h4>
+                    <h4 className='landing-page-payment-feature-text'>Preset domains</h4>
                   </div>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
                     <h4 className='landing-page-payment-feature-text'>Priority technical and product support</h4>
+                  </div>
+
+                  <div className="payment-feature">
+                    <img className='check-icon' src={WhiteCheck} />
+                    <h4 className='landing-page-payment-feature-text'>Removes Figmafolio label</h4>
                   </div>
                 </div>
 
