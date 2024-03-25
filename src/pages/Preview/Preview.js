@@ -473,6 +473,7 @@ export default function Preview() {
         try {
             const docRef = await dbFirestore.collection('user').doc(user.uid).collection
                 ("url").add({
+                    userId: user.uid,
                     title: location.state.title,
                     customDomain: locationStateDomain,
                     isDraft: "true",
@@ -496,6 +497,7 @@ export default function Preview() {
     const saveNewForm = async () => {
         try {
             const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
+                userId: user.uid,
                 title: location.state.title,
                 customDomain: locationStateDomain,
                 isDraft: "false",
