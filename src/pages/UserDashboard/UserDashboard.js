@@ -81,7 +81,7 @@ function UserDashboard() {
                                         } else {
                                             setCanCreate("false")
                                         }
-                                    } else if (subscription.data().status == "canceled") {
+                                    } else if (subscription.data().status == "canceled" || subscription.data().status == "past_due") {
                                         if (docCount === 0) {
                                             setCanCreate("true")
                                             setSubscriptionType("regular")
