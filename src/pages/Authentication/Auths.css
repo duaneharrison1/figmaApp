@@ -8,10 +8,9 @@
     max-width: 550px;
 }
 
-.tab-view {
+.main-panel {
     background-color: white;
-    border-radius: 24px;
-    height: 100vh !important;
+    border-radius: 0px 24px 24px 0px;
 }
 
 .forgotpassword-tab-view {
@@ -25,6 +24,18 @@
     border: none;
 }
 
+.sideframe-view {
+
+    background: #F2EFE5;
+
+
+}
+
+.main-auth-container {
+    height: 100vh !important;
+    overflow: auto;
+    background: #F2EFE5;
+}
 
 .header-text {
     margin-top: 100px;
@@ -78,10 +89,6 @@
     color: #A0A0A0;
 }
 
-.main-auth-container {
-    background: #F2EFE5;
-
-}
 
 .forgotpassword-container {
     background: #F2EFE5;
@@ -121,10 +128,14 @@
 }
 
 .login-page {
+    height: 100vh !important;
     max-width: 510px;
+    padding-bottom: 50px;
 }
 
 .signup-page {
+    height: 100vh !important;
+    padding-bottom: 50px;
     max-width: 510px;
 }
 
