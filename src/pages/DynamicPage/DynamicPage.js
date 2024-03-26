@@ -1,21 +1,25 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './DynamicPage.css';
 import firebase from '../../firebase';
 function DynamicPage({ url }) {
   const dbFirestore = firebase.firestore();
+  const navigate = useNavigate();
   document.title = url.title;
-
   const [isMobile, setIsMobile] = useState(false);
   const [mobile, setMobile] = useState("");
   const [desktop, setDesktop] = useState("");
   const [activeSubscriber, setActiveSubscriber] = useState("");
+
+  const navigateToHome = () => {
+    navigate("/");
+  };
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-
-
     dbFirestore.collection('user').doc(url.userId).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
       if (snapshot.size === 0) {
         setActiveSubscriber("false")
@@ -50,7 +54,7 @@ function DynamicPage({ url }) {
   return (
     <>
       {activeSubscriber == "true" ? (<div></div>) :
-        (<div className="text-overlay">
+        (<div className="text-overlay" onClick={navigateToHome}>
           <p className='made-with'>Made with <span className="made-with-figmaolio">Figmafolio</span></p>
         </div>)}
       <iframe
