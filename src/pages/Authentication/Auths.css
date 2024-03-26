@@ -4,6 +4,10 @@
     padding-top: 42px;
 }
 
+.main-title:hover {
+    cursor: pointer;
+}
+
 .main-title-container {
     max-width: 550px;
 }
