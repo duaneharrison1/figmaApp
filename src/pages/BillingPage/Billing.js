@@ -34,6 +34,7 @@ export default function Billing() {
                         dbFirestore.collection('user').doc(user.uid).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
                             if (snapshot.empty) {
                                 setSubscriptionType("regular")
+                                setSubscriptionTypeDesc("Billed monthly at $0")
                             } else {
                                 snapshot.forEach(subscription => {
                                     if (subscription.data().status == "active") {
@@ -46,12 +47,15 @@ export default function Billing() {
                                         }
                                     } else if (subscription.data().status == "canceled") {
                                         setSubscriptionType("regular")
+                                        setSubscriptionTypeDesc("Billed monthly at $0")
                                     } else {
                                         setSubscriptionType("regular")
+                                        setSubscriptionTypeDesc("Billed monthly at $0")
                                     }
 
                                     if (subscriptionType == "regular") {
                                         setSubscriptionTypeDesc("Billed monthly at $0")
+                                        console.log("subscriptionType == regular")
                                     } else if (subscriptionType == "monthlyPlan") {
                                         setSubscriptionTypeText("Monthly Plan")
                                         setSubscriptionTypeDesc("Billed monthly at $5")
