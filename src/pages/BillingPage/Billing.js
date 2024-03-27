@@ -55,7 +55,6 @@ export default function Billing() {
 
                                     if (subscriptionType == "regular") {
                                         setSubscriptionTypeDesc("Billed monthly at $0")
-                                        console.log("subscriptionType == regular")
                                     } else if (subscriptionType == "monthlyPlan") {
                                         setSubscriptionTypeText("Monthly Plan")
                                         setSubscriptionTypeDesc("Billed monthly at $5")
