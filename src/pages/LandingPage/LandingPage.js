@@ -42,18 +42,22 @@ export default function LandingPage() {
   useEffect(() => {
     window.innerWidth > 1280 ? setUserIsDesktop(true) : setUserIsDesktop(false);
   }, [userIsDesktop]);
-
+  const navigateToHome = () => {
+    if (user) {
+      navigate("/dashboard");
+    } else {
+      navigate("/");
+    }
+  };
   return (
     <>
       < div className='container-fluid main-landing-page m-0 p-0'>
         <div className='navbar-container'>
           <div className="row">
             <div className="col-sm-8 col-4">
-              {user ?
-                <h4 className='figmalio-logged'> Figmafolio</h4 >
-                :
-                <h4 className='figmalio-guest'> Figmafolio</h4 >
-              }
+
+              <h4 className='figmalio-logged' onClick={navigateToHome}> Figmafolio</h4 >
+
             </div >
             <div className="col-sm-4 d-flex justify-content-end col-8">
               {user ?

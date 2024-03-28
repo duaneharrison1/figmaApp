@@ -35,11 +35,8 @@
     font-size: 29px;
 }
 
-.figmalio-guest {
-    padding-top: 12px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-    font-size: 29px;
+.figmalio-logged:hover {
+    cursor: pointer;
 }
 
 .header-container {
