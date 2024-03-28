@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './DynamicPage.css';
 import firebase from '../../firebase';
-import { isMobile } from 'react-device-detect';
 function DynamicPage({ url }) {
   const dbFirestore = firebase.firestore();
   const navigate = useNavigate();
@@ -12,7 +11,7 @@ function DynamicPage({ url }) {
   const [mobile, setMobile] = useState("");
   const [desktop, setDesktop] = useState("");
   const [activeSubscriber, setActiveSubscriber] = useState("");
-
+  const isOpenInMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const navigateToHome = () => {
     navigate("/");
   };
@@ -46,8 +45,8 @@ function DynamicPage({ url }) {
       setDesktop(url.urls.figmaDesktopUrl)
     }
 
-    if (isMobile) {
-      setIsMobile(true)
+    if (isOpenInMobile) {
+      setIsMobile(true);
     }
 
     window.addEventListener('resize', handleResize);
