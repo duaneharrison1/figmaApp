@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './DynamicPage.css';
 import firebase from '../../firebase';
+import { isMobile } from 'react-device-detect';
 function DynamicPage({ url }) {
   const dbFirestore = firebase.firestore();
   const navigate = useNavigate();
@@ -43,6 +44,10 @@ function DynamicPage({ url }) {
       setDesktop(url.urls.figmaMobileUrl)
     } else {
       setDesktop(url.urls.figmaDesktopUrl)
+    }
+
+    if (isMobile) {
+      setIsMobile(true)
     }
 
     window.addEventListener('resize', handleResize);
