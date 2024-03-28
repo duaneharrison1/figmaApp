@@ -49,7 +49,7 @@ export default function Navbar(props) {
                 <div className="col d-flex  align-items-center">
                     {isFromForm == "newForm" || isFromForm == "editForm" ?
                         (<a className="back-to-library" href="/dashboard"> &lt; Back to your library </a>)
-                        : (<a className="nav-title" href="/"> Figmafolio</a>)}
+                        : (<a className="nav-title" href="/dashboard"> Figmafolio</a>)}
                 </div>
 
                 <div className="col d-flex align-items-center justify-content-center">
