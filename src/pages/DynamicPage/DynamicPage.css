@@ -9,6 +9,10 @@
     border-radius: 10px 10px 0 0;
 }
 
+.dynamicpage_view_figma_view {
+    display: block;
+}
+
 .made-with-figmaolio {
     font-weight: 600;
     font-size: 10px;
