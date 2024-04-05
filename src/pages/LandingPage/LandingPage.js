@@ -215,7 +215,7 @@ export default function LandingPage() {
                   </div>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
-                    <h4 className='landing-page-payment-feature-text'>{t('monthly-yearly-feat-three')}</h4>
+                    <h4 className='landing-page-payment-feature-text'>{t('removes-made-with')}</h4>
                   </div>
 
 
