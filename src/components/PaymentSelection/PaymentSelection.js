@@ -171,12 +171,6 @@ const PaymentSelection = (props) => {
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'> Free Figmafolio domain</h4>
                                         </div>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Cross} />
-                                            <h4 className='payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
-                                        </div>
-
-
                                         <div className='button-upgrade-container-2'>
                                             <ButtonColored className="btn-current-plan" label="Current plan" />
                                         </div>
