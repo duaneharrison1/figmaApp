@@ -9,7 +9,7 @@ import guideThree from './../../assets/images/guide_three_image.png';
 import one from './../../assets/images/one.png';
 import two from './../../assets/images/two.png';
 import three from './../../assets/images/three.png';
-import Cross from '../../assets/images/cross.png';
+import Cross from '../../assets/images/crosswhite.png';
 import WhiteCross from '../../assets/images/crosswhite.png';
 import WhiteCheck from '../../assets/images/white-check.png';
 import stepThree from './../../assets/images/stepThree.png';
@@ -74,9 +74,9 @@ export default function LandingPage() {
                 </div>
                 :
                 <div className="button-container">
-                  <Link to="/auth" className='login-link' state={{ "name": "tab1" }}>Log in</Link>
+                  <Link to="/auth" className='login-link' state={{ "name": "tab1" }}>{t('login')}</Link>
                   <Link to="/auth" state={{ "name": "tab2" }} >
-                    <ButtonColored className="signup-btn" label='Sign Up' />
+                    <ButtonColored className="signup-btn" label={t('signup')} />
                   </Link>
                 </div>
               }
@@ -87,18 +87,15 @@ export default function LandingPage() {
         <div className='page-content-container'>
           <div className='row'>
             <div className='col-md-6 col-md-push-6'>
-              <h1 className='landing-header'>Figma file to live site in a few clicks</h1>
-
-              <h1 className='landing-sec-subheader'>You can publish an interactive website or portfolio directly from your Figma, no coding necessary.</h1>
+              <h1 className='landing-header'>{t('landing-header')}</h1>
+              <h1 className='landing-sec-subheader'>{t('landing-subheader')}</h1>
 
               <div className='row btn_column  '>
                 <div className='col-md-10 m-0 p-0'>
                   <Link to="/auth" state={{ "name": "tab2" }} >
-                    <ButtonStartForFree className="start-for-free-btn-second" label='Start for Free' />
-
+                    <ButtonStartForFree className="start-for-free-btn-second" label={t('start-for-free')} />
                   </Link>
-                  <ButtonGuide onClick={scrollToDiv} className="guide-btn" label='Guide' />
-
+                  <ButtonGuide onClick={scrollToDiv} className="guide-btn" label={t('guide')} />
                 </div>
               </div>
 
@@ -121,8 +118,8 @@ export default function LandingPage() {
                   <img src={one} className='step-one' />
                 </div>
                 <div className='col-10'>
-                  <h2 className='guide-one-header'> Design in Figma</h2>
-                  <h3 className='guide-one-subheader'>Skip learning other tools or coding. Bring your entire website or portfolio to life right in Figma. Leverage its features like transitions, GIFs and video to make it interactive and engaging.</h3>
+                  <h2 className='guide-one-header'> {t('design-in-figma')}</h2>
+                  <h3 className='guide-one-subheader'>{t('instruc-one')}</h3>
                 </div>
               </div>
 
@@ -135,8 +132,8 @@ export default function LandingPage() {
                   <img src={two} className='step-one' />
                 </div>
                 <div className='col-10'>
-                  <h2 className='guide-one-header'>Simple setup</h2>
-                  <h3 className='guide-one-subheader'>Sign up and paste in your Figma prototype links for both desktop and mobile views - this ensures your site works for anyone visiting. Preview the site to see your fantastic Figma designs brought to life.</h3>
+                  <h2 className='guide-one-header'>{t('simple-setup')}</h2>
+                  <h3 className='guide-one-subheader'>{t('instruc-two')}</h3>
                 </div>
               </div>
 
@@ -156,8 +153,8 @@ export default function LandingPage() {
                   <img src={three} className='step-one' />
                 </div>
                 <div className='col-10'>
-                  <h2 className='guide-one-header'>Go live!</h2>
-                  <h3 className='guide-one-subheader'>Publish your site instantly to start securing jobs and clients faster. Updates made in Figma are reflected on your site instantly. Presetize your site with a personalised domain name.</h3>
+                  <h2 className='guide-one-header'>{t('go-live')}</h2>
+                  <h3 className='guide-one-subheader'>{t('instruc-three')}</h3>
                 </div>
               </div>
 
@@ -165,33 +162,33 @@ export default function LandingPage() {
           </div>
 
           <div className='row landing-page-tier-div'>
-            <h1 className='tier-header'>Pick a plan to suit your needs </h1>
+            <h1 className='tier-header'>{t('pick-a-plan')} </h1>
             <div className='col-md-4'>
               <div className='landing-page-tier'>
                 <div className='landing-page-tier-content'>
-                  <h1 className='landing-page-payment-selection-title'> Free</h1>
+                  <h1 className='landing-page-payment-selection-title'>{t('free')}</h1>
                   <div className='amount-per-month'>
                     <span className='landing-page-amount'>$0 </span>
                     <span className='landing-page-month'>/month</span>
                   </div>
-                  <h4 className='landing-page-bill-desc'> No bills! </h4>
+                  <h4 className='landing-page-bill-desc'>{t('no-bills')}</h4>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
-                    <h4 className='landing-page-payment-feature-text'>1 project/websites</h4>
+                    <h4 className='landing-page-payment-feature-text'>{t('free-feat-one')}</h4>
                   </div>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
-                    <h4 className='landing-page-payment-feature-text'> Free Figmafolio domain</h4>
+                    <h4 className='landing-page-payment-feature-text'> {t('free-feat-two')}</h4>
                   </div>
                   <div className="payment-feature">
-                    <img className='check-icon' src={WhiteCross} />
-                    <h4 className='landing-page-payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
+                    <img className='check-icon' src={Cross} />
+                    <h4 className='landing-page-payment-feature-text'>{t('removes-made-with')}</h4>
                   </div>
                 </div>
 
                 <div className='landing-page-button-upgrade-container'>
                   <Link to="/auth" state={{ "name": "tab2" }} >
-                    <ButtonColored className="btn-get-started" label="Try for free" />
+                    <ButtonColored className="btn-get-started" label={t('try-for-free')} />
 
                   </Link>
 
@@ -202,23 +199,23 @@ export default function LandingPage() {
             <div className='col-md-4'>
               <div className='landing-page-tier'>
                 <div className='landing-page-tier-content'>
-                  <h1 className='landing-page-payment-selection-title'> Monthly</h1>
+                  <h1 className='landing-page-payment-selection-title'> {t('monthly')}</h1>
                   <div className='amount-per-month'>
                     <span className='landing-page-amount'>$5 </span>
                     <span className='landing-page-month'>/month</span>
                   </div>
-                  <h4 className='landing-page-bill-desc'> Billed monthly at $5 USD </h4>
+                  <h4 className='landing-page-bill-desc'> {t('billed-monthly-at')} </h4>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
-                    <h4 className='landing-page-payment-feature-text'>5 projects/websites</h4>
+                    <h4 className='landing-page-payment-feature-text'>{t('monthly-feat-one')}</h4>
                   </div>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
-                    <h4 className='landing-page-payment-feature-text'> Use custom domains</h4>
+                    <h4 className='landing-page-payment-feature-text'> {t('monthly-yearly-feat-two')}</h4>
                   </div>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
-                    <h4 className='landing-page-payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
+                    <h4 className='landing-page-payment-feature-text'>{t('monthly-yearly-feat-three')}</h4>
                   </div>
 
 
@@ -226,7 +223,7 @@ export default function LandingPage() {
 
                 <div className='landing-page-button-upgrade-container'>
                   <Link to="/auth" state={{ "name": "tab2" }} >
-                    <ButtonColored className="btn-get-started" label="Get started" />
+                    <ButtonColored className="btn-get-started" label={t('get-started')} />
                   </Link>
                 </div>
 
@@ -237,7 +234,7 @@ export default function LandingPage() {
               <div className='landing-page-tier'>
                 <div className='landing-page-tier-content'>
                   <div className="heading-container">
-                    <h1 className='landing-page-payment-selection-title'> Yearly</h1>
+                    <h1 className='landing-page-payment-selection-title'> {t('yearly')}</h1>
 
                   </div>
 
@@ -246,27 +243,27 @@ export default function LandingPage() {
                     <span className='landing-page-amount'>$4 </span>
                     <span className='landing-page-month'>/month</span>
                   </div>
-                  <h4 className='landing-page-bill-desc'> Billed as one payment of $48 USD</h4>
+                  <h4 className='landing-page-bill-desc'>{t('billed-yearly-at')}</h4>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
-                    <h4 className='landing-page-payment-feature-text'>Unlimited projects/websites</h4>
+                    <h4 className='landing-page-payment-feature-text'>{t('yearly-feat-one')}</h4>
                   </div>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
-                    <h4 className='landing-page-payment-feature-text'>Use custom domains</h4>
+                    <h4 className='landing-page-payment-feature-text'>{t('monthly-yearly-feat-two')}</h4>
                   </div>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
-                    <h4 className='landing-page-payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
+                    <h4 className='landing-page-payment-feature-text'>{t('removes-made-with')}</h4>
                   </div>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
-                    <h4 className='landing-page-payment-feature-text'>Priority technical and product support</h4>
+                    <h4 className='landing-page-payment-feature-text'>{t('monthly-yearly-feat-three')}</h4>
                   </div>
                 </div>
                 <div className='landing-page-button-upgrade-container'>
                   <Link to="/auth" state={{ "name": "tab2" }} >
-                    <ButtonColored className="btn-get-started" label="Get started" />
+                    <ButtonColored className="btn-get-started" label={t('get-started')} />
                   </Link>
                 </div>
 
