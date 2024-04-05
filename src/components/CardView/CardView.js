@@ -3,8 +3,10 @@ import './CardView.css';
 import cardView from '../../assets/images/cardView.png'
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { useState } from 'react';
-
+import { useTranslation } from 'react-i18next';
+import i18n from '../../i18n';
 const CardView = (props) => {
+    const { t } = useTranslation();
     const index = props.index
     const subscriptionType = props.subscriptionType
     const figmaMobileUrl = props.figmaMobileUrl
@@ -41,7 +43,7 @@ const CardView = (props) => {
                 <div className="holder d-flex justify-content-between">
                     <div className='container d-flex'>
                         <h1 className='site-title'> {siteTitle}</h1>
-                        {isDraft == "false" ? <h1 className='published'> Published</h1> : <h1 className='draft'> Draft</h1>}
+                        {isDraft == "false" ? <h1 className='published'> {t('published')}</h1> : <h1 className='draft'> {t('draft')}</h1>}
                     </div>
                     <div>
                         <div className="dropdown" >
@@ -53,8 +55,8 @@ const CardView = (props) => {
                                 </svg>
                             </button>
                             <ul className="dropdown-menu dropdown-menu-dark bg-light">
-                                <li><a className="dropdown-item" onClick={onClickUpdate}>Update</a></li>
-                                <li><a className="dropdown-item text-danger" onClick={onClickDelete}>Delete</a></li>
+                                <li><a className="dropdown-item" onClick={onClickUpdate}>{t('update')}</a></li>
+                                <li><a className="dropdown-item text-danger" onClick={onClickDelete}>{t('delete')}</a></li>
                             </ul>
                         </div>
                     </div>

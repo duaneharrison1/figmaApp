@@ -116,20 +116,25 @@
 }
 
 .button-upgrade-container {
+    position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    padding-top: 20px;
+    bottom: 0;
+    padding-bottom: 20px;
 }
 
 .button-upgrade-container-2 {
+    position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    padding-top: 85px;
+    bottom: 0;
+    padding-bottom: 20px;
 }
+
 
 .btn-upgrade-plan {
     width: 206px;
