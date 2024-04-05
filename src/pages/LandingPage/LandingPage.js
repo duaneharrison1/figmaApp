@@ -63,9 +63,7 @@ export default function LandingPage() {
         <div className='navbar-container'>
           <div className="row">
             <div className="col-sm-8 col-4">
-              <span> broswer language {lng}</span>
               <h4 className='figmalio-logged' onClick={navigateToHome}> Figmafolio</h4 >
-
             </div >
             <div className="col-sm-4 d-flex justify-content-end col-8">
               {user ?
