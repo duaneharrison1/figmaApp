@@ -10,8 +10,11 @@ import { collection, addDoc, doc, getDocs, updateDoc, QuerySnapshot, query, wher
 import MostPopular from '../../assets/images/popular.png';
 import { loadStripe } from '@stripe/stripe-js';
 import Check from '../../assets/images/check.png';
+import { useTranslation } from 'react-i18next';
+import i18n from '../../i18n';
 
 const UpgradeAlertModal = (props) => {
+    const { t } = useTranslation();
     const { show, handleClose } = props;
     const user = auth.currentUser;
     const [isSuccessful, setIsSuccessful] = useState(false);
@@ -75,8 +78,8 @@ const UpgradeAlertModal = (props) => {
             ) : (
                 <Modal dialogClassName='payment-selection-modal' show={show} onHide={handleClose} >
                     <Modal.Body dialogClassName='payment-modal-body' >
-                        <h1 className='payment-modal-header'>Pick a plan to suit your needs</h1>
-                        <h2 className='payment-modal-subheader'> All plans are available with full functionality, please choose the right plan according to your needs</h2>
+                        <h1 className='payment-modal-header'>{t('pick-a-plan')}</h1>
+                        <h2 className='payment-modal-subheader'>{t('all-plans-are')}</h2>
                         <div className='row'>
                             <div className='col-md-4'>
                                 <div className='regular-card'>

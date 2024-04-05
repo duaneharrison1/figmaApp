@@ -12,8 +12,10 @@ import Navbar from '../../components/NavBar/Navbar';
 import { loadStripe } from '@stripe/stripe-js';
 import PaymentSelectionModal from '../../components/PaymentSelection/PaymentSelection';
 import Footer from '../../components/Footer/Footer';
-
+import { useTranslation } from 'react-i18next';
+import i18n from '../../i18n';
 function UserDashboard() {
+    const { t } = useTranslation();
     const [userIsDesktop, setUserIsDesktop] = useState(true);
     const navigate = useNavigate();
     const [data, setData] = useState([]);
@@ -215,7 +217,7 @@ function UserDashboard() {
                                 <div className='dashboard-view'>
                                     {docCount !== null && canCreate !== null ? (
                                         <div >
-                                            <ButtonColored label='+ New site' className="new-site" onClick={goToNewForm}>
+                                            <ButtonColored label={t('new-site')} className="new-site" onClick={goToNewForm}>
                                             </ButtonColored>
                                             {subscriptionType == "regular" ? (
                                                 <div className='row'>

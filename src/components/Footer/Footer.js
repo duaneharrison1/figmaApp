@@ -3,11 +3,18 @@ import { useState, useEffect } from 'react';
 import './Footer.css';
 import { auth } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import i18n from '../../i18n';
 
 export default function Footer() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const [userIsDesktop, setUserIsDesktop] = useState(true);
     const [user, setUser] = useState(null);
+    const lng = navigator.language;
+    useEffect(() => {
+        i18n.changeLanguage(lng);
+    }, [])
 
     useEffect(() => {
         window.innerWidth > 1280 ? setUserIsDesktop(true) : setUserIsDesktop(false);
@@ -38,8 +45,8 @@ export default function Footer() {
                             </div>
                             <div className="col-md-4">
                                 <div className="flex-container footer-item">
-                                    <h1 className='footer-center' onClick={goToTermsAndConditions}> Terms and Conditions</h1>
-                                    <h1 className='footer-center' onClick={goToPrivacyPolicy}> Privacy Policy</h1>
+                                    <h1 className='footer-center' onClick={goToTermsAndConditions}> {t('terms-and-conditions')}</h1>
+                                    <h1 className='footer-center' onClick={goToPrivacyPolicy}> {t('privacy-policy')}</h1>
                                 </div>
                             </div>
 

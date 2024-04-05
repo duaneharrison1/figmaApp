@@ -21,7 +21,7 @@ import SignupPage from './pages/Authentication/SignupPage.js';
 import AdminDashboard from './pages/AdminDashboard/AdminDashboard.js';
 import TermsAndConditions from './pages/TermsAndConditions/TermsAndConditions.js';
 import PrivacyPolicy from './pages/Privacy Policy/PrivacyPolicy.js';
-
+import './i18n.js'
 function App() {
   const dbFirestore = firebase.firestore();
   const [data, setData] = useState([]);

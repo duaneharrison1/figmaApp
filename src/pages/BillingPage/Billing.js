@@ -7,7 +7,10 @@ import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc } from 'fireb
 import './Billing.css';
 import { loadStripe } from '@stripe/stripe-js';
 import PaymentSelectionModal from '../../components/PaymentSelection/PaymentSelection';
+import { useTranslation } from 'react-i18next';
+import i18n from '../../i18n';
 export default function Billing() {
+    const { t } = useTranslation();
     const dbFirestore = firebase.firestore();
     const [subscriptionType, setSubscriptionType] = useState("");
     const [subscriptionTypeText, setSubscriptionTypeText] = useState("");
@@ -148,7 +151,7 @@ export default function Billing() {
             <div className='billing-card'>
                 <div className='container-personal-information'>
                     <div className='container'>
-                        <h1 className='profile-headers'> Billing</h1>
+                        <h1 className='profile-headers'> {t('billing')}</h1>
                     </div>
                     <div className='container profile-buttons-container'>
 
@@ -162,13 +165,13 @@ export default function Billing() {
                             <h1 className='profile-sub-headers'>{subscriptionTypeDesc}</h1>
                         </div>
                         <div className='col-sm-6 d-flex justify-content-end'>
-                            <ButtonClear label='Change plan' className="change-password" onClick={handleShowUpgradeModal} />
+                            <ButtonClear label={t('change-plan')} className="change-password" onClick={handleShowUpgradeModal} />
 
                         </div>
 
                         <div className='d-flex justify-content-end unsub-div'>
                             {subscriptionType != "regular" ?
-                                (<ButtonClear label='Cancel plan' className="unsub-btn" onClick={ManagePlan} />) :
+                                (<ButtonClear label={t('cancel-plan')} className="unsub-btn" onClick={ManagePlan} />) :
                                 (<div> </div>)
                             }
                         </div>

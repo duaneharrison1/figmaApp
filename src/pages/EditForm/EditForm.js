@@ -15,7 +15,10 @@ import insOne from './../../assets/images/ins-1.png';
 import insTwo from './../../assets/images/ins-2.png';
 import insThree from './../../assets/images/ins-3.png';
 import insFour from './../../assets/images/ins-4.png';
+import { useTranslation } from 'react-i18next';
+import i18n from '../../i18n';
 export default function EditForm() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
     const [figmaDesktopUrl, setDesktopCustomUrl] = useState(location.state.object.urls.figmaDesktopUrl);
@@ -38,7 +41,6 @@ export default function EditForm() {
         setShowErrorModal(false);
     };
 
-
     const goToPreview = () => {
         if ((!figmaDesktopUrl.includes('figma.com/file') && !figmaMobileUrl.includes('figma.com/file')) &&
             (figmaMobileUrl.includes('figma.com/proto') || figmaMobileUrl.includes('figma.com/embed') ||
@@ -49,8 +51,6 @@ export default function EditForm() {
         }
     }
 
-
-
     const handleShowModal = () => {
         setShowModal(true);
     };
@@ -59,12 +59,10 @@ export default function EditForm() {
         setShowModal(false);
     };
 
-
-
-
     const handlefigmaDesktopUrl = (event) => {
         setDesktopCustomUrl(event.target.value);
     };
+
     const handlefigmaMobileUrl = (event) => {
         setfigmaMobileUrl(event.target.value);
     };
@@ -105,6 +103,7 @@ export default function EditForm() {
             }
         })
     }
+
     const yearlyPayment = async (priceId) => {
         const docRef = await dbFirestore.collection('user').doc(user.uid).collection
             ("checkout_sessions").add({
@@ -124,22 +123,20 @@ export default function EditForm() {
         })
     }
 
-
-
     return (
         <>
             < Navbar className={"dashboardNavBar"} email={user.email} onClickLogout={handleLogout} isFromForm={"editForm"} />
             <div className='form'>
                 <div className="url-form">
                     <div className='form-container'>
-                        <h1 className='form-title'>General</h1>
+                        <h1 className='form-title'>{t('general')}</h1>
                         <div className='row first-div'>
                             <div className='col-md-6'>
-                                <h2 className='form-sub-header'>Title</h2>
+                                <h2 className='form-sub-header'>{t('title')}</h2>
                                 <input
                                     className='form-input'
                                     type="text"
-                                    placeholder='Enter your site name'
+                                    placeholder={t('enter-your-site-name')}
                                     value={title}
                                     onChange={handleTitle} />
                             </div>
@@ -148,19 +145,18 @@ export default function EditForm() {
 
                         <div className='row second-div'>
                             <div className='col-6 align-items-start'>
-                                <h1 className='form-sub-header'>Your domain</h1>
+                                <h1 className='form-sub-header'>{t('your-domain')}</h1>
                                 <p> figmafolio.com/{generatedUrl} </p>
                             </div>
                             <div className='col-md-6'>
-                                <h2 className='form-sub-header'>Custom domain</h2>
+                                <h2 className='form-sub-header'>{t('custom-domain')}</h2>
 
 
                                 {subscriptionType == "regular" ? (
-
                                     <div>
                                         <p className='note'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                             <path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#424242" stroke-width="2" stroke-linecap="round" strokeLinejoin="round" />
-                                        </svg> You have to upgrade account to have Custom domain</p>
+                                        </svg> {t('you-have-to-upgrade')}</p>
                                         <ButtonClear label='Upgrade account' className="upgrade-plan" onClick={handleShowModal} />
                                     </div>
                                 ) : (
@@ -169,16 +165,16 @@ export default function EditForm() {
                                         <input
                                             className='form-input'
                                             type="text"
-                                            placeholder='Enter your domain'
+                                            placeholder={t('enter-your-domain')}
                                             value={newCustomDomain}
                                             onChange={handleCustomDomain} />
                                         <div className='domain-info'>
-                                            <p className='domain-info-header'>To use a custom domain name, add new DNS records in your domain registrar's DNS manager. Add the following records:</p>
+                                            <p className='domain-info-header'>{t('custom-domain-instruct')}</p>
                                             <table className='domain-info-table'>
                                                 <tr className='domain-info-subheader'>
-                                                    <th>Type</th>
-                                                    <th>Name</th>
-                                                    <th>Value</th>
+                                                    <th>{t('type')}</th>
+                                                    <th>{t('name')}</th>
+                                                    <th>{t('value')}</th>
                                                 </tr>
                                                 <tr className='domain-info-one'>
                                                     <td>A</td>

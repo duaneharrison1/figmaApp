@@ -6,9 +6,11 @@ import { db, auth } from '../../firebase';
 import Check from '../../assets/images/check.png';
 import Cross from '../../assets/images/cross.png';
 import MostPopular from '../../assets/images/popular.png';
+import { useTranslation } from 'react-i18next';
+import i18n from '../../i18n';
 const PaymentSelection = (props) => {
     const { show, handleClose, handleMonthlyPayment, handleYearlyPayment, monthlySubscription } = props;
-    const user = auth.currentUser;
+    const { t } = useTranslation();
 
     const ManagePlan = () => {
         window.open('https://billing.stripe.com/p/login/cN24habbC4JMga44gg', '_blank');
@@ -18,35 +20,35 @@ const PaymentSelection = (props) => {
 
             <Modal dialogClassName='payment-selection-modal' show={show} onHide={handleClose} >
                 <Modal.Body dialogClassName='payment-modal-body' >
-                    <h1 className='payment-modal-header'>Pick a plan to suit your needs</h1>
-                    <h2 className='payment-modal-subheader'> All plans are available with full functionality, please choose the right plan according to your needs</h2>
+                    <h1 className='payment-modal-header'>{t('pick-a-plan')} </h1>
+                    <h2 className='payment-modal-subheader'>{t('all-plans-are')}</h2>
                     {monthlySubscription == "monthlyPlan" ?
                         (
                             <div className='row justify-content-center'>
                                 <div className='col-md-4'>
                                     <div className='regular-card'>
-                                        <h1 className='payment-modal-selection-title'> Monthly</h1>
+                                        <h1 className='payment-modal-selection-title'>{t('monthly')}</h1>
                                         <div className='amount-per-month'>
                                             <span className='amount'>$5 </span>
                                             <span className='month'>/month</span>
                                         </div>
-                                        <h4 className='bill-desc'> Billed monthly at $5 USD </h4>
+                                        <h4 className='bill-desc'>{t('billed-monthly-at')} </h4>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>5 projects/websites</h4>
+                                            <h4 className='payment-feature-text'>{t('monthly-feat-one')}</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Use custom domains</h4>
+                                            <h4 className='payment-feature-text'>{t('monthly-yearly-feat-two')}</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
+                                            <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
                                         </div>
                                         <div className='button-upgrade-container'>
                                             {monthlySubscription == "monthlyPlan" ?
-                                                (<ButtonColored className="btn-current-plan" label="Current plan" />) :
-                                                (<ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={handleMonthlyPayment} />)
+                                                (<ButtonColored className="btn-current-plan" label={t('current-plan')} />) :
+                                                (<ButtonColored className="btn-upgrade-plan" label={t('upgrade-plan')} onClick={handleMonthlyPayment} />)
                                             }
                                         </div>
 
@@ -170,6 +172,10 @@ const PaymentSelection = (props) => {
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'> Free Figmafolio domain</h4>
+                                        </div>
+                                        <div className="payment-feature">
+                                            <img className='check-icon' src={Cross} />
+                                            <h4 className='payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
                                         </div>
                                         <div className='button-upgrade-container-2'>
                                             <ButtonColored className="btn-current-plan" label="Current plan" />
