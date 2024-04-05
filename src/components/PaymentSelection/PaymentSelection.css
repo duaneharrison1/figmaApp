@@ -11,6 +11,11 @@
     margin: 0;
 }
 
+.amount {
+    display: inline-block;
+    height: .75rem;
+}
+
 .payment-feature-text {
     margin-top: 4px;
     color: #2D2B29;
@@ -39,7 +44,7 @@
 }
 
 .payment-modal-subheader {
-    color: var(--grey-9, #4E5969);
+    color: #4E5969;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -102,6 +107,7 @@
 
 .heading-container {
     display: flex;
+    justify-content: space-between;
 }
 
 .most-popular {
@@ -135,6 +141,7 @@
     border: none;
     bottom: 0;
     background-color: #4D9F70;
+    font-weight: 700;
 }
 
 .btn-current-plan {
@@ -147,6 +154,7 @@
     border: none;
     bottom: 0;
     background: #F2F2F2;
+    font-weight: 700;
 }
 
 

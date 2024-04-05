@@ -76,7 +76,7 @@ const UpgradeAlertModal = (props) => {
                 <Modal dialogClassName='payment-selection-modal' show={show} onHide={handleClose} >
                     <Modal.Body dialogClassName='payment-modal-body' >
                         <h1 className='payment-modal-header'>Pick a plan to suit your needs</h1>
-                        {/* <h2 className='payment-modal-subheader'> All plans are available with full functionality, please choose the right plan according to your needs</h2> */}
+                        <h2 className='payment-modal-subheader'> All plans are available with full functionality, please choose the right plan according to your needs</h2>
                         <div className='row'>
                             <div className='col-md-4'>
                                 <div className='regular-card'>
@@ -85,7 +85,7 @@ const UpgradeAlertModal = (props) => {
                                         <span className='amount'>$0 </span>
                                         <span className='month'>/month</span>
                                     </div>
-                                    <h4 className='bill-desc'> Billed monthly at $0 </h4>
+                                    <h4 className='bill-desc'> No bills! </h4>
                                     <div className="payment-feature">
                                         <img className='check-icon' src={Check} />
                                         <h4 className='payment-feature-text'>5 projects/websites</h4>
@@ -100,12 +100,12 @@ const UpgradeAlertModal = (props) => {
                             </div>
                             <div className='col-md-4'>
                                 <div className='regular-card'>
-                                    <h1 className='payment-modal-selection-title'> Monthly plan</h1>
+                                    <h1 className='payment-modal-selection-title'> Monthly</h1>
                                     <div className='amount-per-month'>
                                         <span className='amount'>$5 </span>
                                         <span className='month'>/month</span>
                                     </div>
-                                    <h4 className='bill-desc'> Billed monthly at $5 </h4>
+                                    <h4 className='bill-desc'> Billed monthly at $5 USD </h4>
                                     <div className="payment-feature">
                                         <img className='check-icon' src={Check} />
                                         <h4 className='payment-feature-text'>5 projects/websites</h4>
@@ -120,15 +120,15 @@ const UpgradeAlertModal = (props) => {
                             <div className='col-md-4'>
                                 <div className='green-card'>
                                     <div className="heading-container">
-                                        <h1 className='payment-modal-selection-title'> Annual plan</h1>
+                                        <h1 className='payment-modal-selection-title'> Yearly</h1>
                                         <img className='most-popular' src={MostPopular} />
                                     </div>
 
                                     <div className='amount-per-month'>
-                                        <span className='amount'>4.1</span>
+                                        <span className='amount'>4</span>
                                         <span className='month'>/month</span>
                                     </div>
-                                    <h4 className='bill-desc'> Billed yearly at $48</h4>
+                                    <h4 className='bill-desc'> Billed as one payment of $48 USD</h4>
                                     <div className="payment-feature">
                                         <img className='check-icon' src={Check} />
                                         <h4 className='payment-feature-text'>Unlimited projects/websites</h4>
@@ -136,6 +136,10 @@ const UpgradeAlertModal = (props) => {
                                     <div className="payment-feature">
                                         <img className='check-icon' src={Check} />
                                         <h4 className='payment-feature-text'>Custom domains</h4>
+                                    </div>
+                                    <div className="payment-feature">
+                                        <img className='check-icon' src={Check} />
+                                        <h4 className='payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
                                     </div>
                                     <div className="payment-feature">
                                         <img className='check-icon' src={Check} />

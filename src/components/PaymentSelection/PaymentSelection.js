@@ -19,29 +19,29 @@ const PaymentSelection = (props) => {
             <Modal dialogClassName='payment-selection-modal' show={show} onHide={handleClose} >
                 <Modal.Body dialogClassName='payment-modal-body' >
                     <h1 className='payment-modal-header'>Pick a plan to suit your needs</h1>
-                    {/* <h2 className='payment-modal-subheader'> All plans are available with full functionality, please choose the right plan according to your needs</h2> */}
+                    <h2 className='payment-modal-subheader'> All plans are available with full functionality, please choose the right plan according to your needs</h2>
                     {monthlySubscription == "monthlyPlan" ?
                         (
                             <div className='row justify-content-center'>
                                 <div className='col-md-4'>
                                     <div className='regular-card'>
-                                        <h1 className='payment-modal-selection-title'> Monthly plan</h1>
+                                        <h1 className='payment-modal-selection-title'> Monthly</h1>
                                         <div className='amount-per-month'>
                                             <span className='amount'>$5 </span>
                                             <span className='month'>/month</span>
                                         </div>
-                                        <h4 className='bill-desc'> Billed monthly at $5 </h4>
+                                        <h4 className='bill-desc'> Billed monthly at $5 USD </h4>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'>5 projects/websites</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Preset domains</h4>
+                                            <h4 className='payment-feature-text'>Use custom domains</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Removes Figmafolio label</h4>
+                                            <h4 className='payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
                                         </div>
                                         <div className='button-upgrade-container'>
                                             {monthlySubscription == "monthlyPlan" ?
@@ -55,7 +55,7 @@ const PaymentSelection = (props) => {
                                 <div className='col-md-4'>
                                     <div className='green-card'>
                                         <div className="heading-container">
-                                            <h1 className='payment-modal-selection-title'> Annual plan</h1>
+                                            <h1 className='payment-modal-selection-title'> Yearly</h1>
                                             <img className='most-popular' src={MostPopular} />
                                         </div>
 
@@ -70,15 +70,15 @@ const PaymentSelection = (props) => {
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Preset domains</h4>
+                                            <h4 className='payment-feature-text'>Use custom domains</h4>
+                                        </div>
+                                        <div className="payment-feature">
+                                            <img className='check-icon' src={Check} />
+                                            <h4 className='payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'>Priority technical and product support</h4>
-                                        </div>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Removes Figmafolio label</h4>
                                         </div>
                                         <div className='button-upgrade-container'>
                                             <ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={handleYearlyPayment} />
@@ -93,23 +93,23 @@ const PaymentSelection = (props) => {
                             <div className='row justify-content-center'>
                                 <div className='col-md-4'>
                                     <div className='regular-card'>
-                                        <h1 className='payment-modal-selection-title'> Monthly plan</h1>
+                                        <h1 className='payment-modal-selection-title'> Monthly</h1>
                                         <div className='amount-per-month'>
                                             <span className='amount'>$5 </span>
                                             <span className='month'>/month</span>
                                         </div>
-                                        <h4 className='bill-desc'> Billed monthly at $5 </h4>
+                                        <h4 className='bill-desc'> Billed monthly at $5 USD </h4>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'>5 projects/websites</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Preset domains</h4>
+                                            <h4 className='payment-feature-text'>Use custom domains</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Removes Figmafolio label</h4>
+                                            <h4 className='payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
                                         </div>
                                         <div className='button-upgrade-container'>
                                             <ButtonColored className="btn-upgrade-plan" label="Change plan" onClick={ManagePlan} />
@@ -120,7 +120,7 @@ const PaymentSelection = (props) => {
                                 <div className='col-md-4'>
                                     <div className='green-card'>
                                         <div className="heading-container">
-                                            <h1 className='payment-modal-selection-title'> Annual plan</h1>
+                                            <h1 className='payment-modal-selection-title'> Yearly</h1>
                                             <img className='most-popular' src={MostPopular} />
                                         </div>
 
@@ -128,23 +128,24 @@ const PaymentSelection = (props) => {
                                             <span className='amount'>$4</span>
                                             <span className='month'>/month</span>
                                         </div>
-                                        <h4 className='bill-desc'> Billed yearly at $48</h4>
+                                        <h4 className='bill-desc'> Billed as one payment of $48 USD</h4>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'>Unlimited projects/websites</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Preset domains</h4>
+                                            <h4 className='payment-feature-text'>Use custom domains</h4>
+                                        </div>
+                                        <div className="payment-feature">
+                                            <img className='check-icon' src={Check} />
+                                            <h4 className='payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'>Priority technical and product support</h4>
                                         </div>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Removes Figmafolio label</h4>
-                                        </div>
+
                                         <div className='button-upgrade-container-2'>
                                             <ButtonColored className="btn-current-plan" label="Current plan" />
                                         </div>
@@ -161,7 +162,7 @@ const PaymentSelection = (props) => {
                                             <span className='amount'>$0 </span>
                                             <span className='month'>/month</span>
                                         </div>
-                                        <h4 className='bill-desc'> Billed monthly at $0 </h4>
+                                        <h4 className='bill-desc'> No bills! </h4>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'>1 project/websites</h4>
@@ -172,7 +173,7 @@ const PaymentSelection = (props) => {
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Cross} />
-                                            <h4 className='payment-feature-text'>Removes Figmafolio label</h4>
+                                            <h4 className='payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
                                         </div>
 
 
@@ -184,23 +185,23 @@ const PaymentSelection = (props) => {
                                 </div>
                                 <div className='col-md-4'>
                                     <div className='regular-card'>
-                                        <h1 className='payment-modal-selection-title'> Monthly plan</h1>
+                                        <h1 className='payment-modal-selection-title'> Monthly</h1>
                                         <div className='amount-per-month'>
                                             <span className='amount'>$5 </span>
                                             <span className='month'>/month</span>
                                         </div>
-                                        <h4 className='bill-desc'> Billed monthly at $5 </h4>
+                                        <h4 className='bill-desc'> Billed monthly at $5 USD </h4>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'>5 projects/websites</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Preset domains</h4>
+                                            <h4 className='payment-feature-text'>Use custom domains</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Removes Figmafolio label</h4>
+                                            <h4 className='payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
                                         </div>
                                         <div className='button-upgrade-container-2'>
                                             {monthlySubscription == "monthlyPlan" ?
@@ -214,7 +215,7 @@ const PaymentSelection = (props) => {
                                 <div className='col-md-4'>
                                     <div className='green-card'>
                                         <div className="heading-container">
-                                            <h1 className='payment-modal-selection-title'> Annual plan</h1>
+                                            <h1 className='payment-modal-selection-title'> Yearly</h1>
                                             <img className='most-popular' src={MostPopular} />
                                         </div>
 
@@ -222,23 +223,24 @@ const PaymentSelection = (props) => {
                                             <span className='amount'>$4</span>
                                             <span className='month'>/month</span>
                                         </div>
-                                        <h4 className='bill-desc'> Billed yearly at $48</h4>
+                                        <h4 className='bill-desc'> Billed as one payment of $48 USD</h4>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'>Unlimited projects/websites</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Preset domains</h4>
+                                            <h4 className='payment-feature-text'>Use custom domains</h4>
+                                        </div>
+                                        <div className="payment-feature">
+                                            <img className='check-icon' src={Check} />
+                                            <h4 className='payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
                                         </div>
                                         <div className="payment-feature">
                                             <img className='check-icon' src={Check} />
                                             <h4 className='payment-feature-text'>Priority technical and product support</h4>
                                         </div>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Removes Figmafolio label</h4>
-                                        </div>
+
                                         <div className='button-upgrade-container'>
                                             <ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={handleYearlyPayment} />
                                         </div>

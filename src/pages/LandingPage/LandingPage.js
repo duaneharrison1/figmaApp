@@ -21,16 +21,24 @@ import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import ButtonClear from '../../components/ButtonClear/ButtonClear';
 import ButtonStartForFree from '../../components/ButtonStartForFree/ButtonStrartForFree';
 import ButtonGuide from '../../components/ButtonGuide/ButtonGuide';
+import { useTranslation } from 'react-i18next';
+import i18n from '../../i18n';
 export default function LandingPage() {
+  const { t } = useTranslation();
   const divGuide = useRef(null);
   const navigate = useNavigate();
   const [userId] = useAuthState(auth);
   const [user, setUser] = useState(null);
+  const lng = navigator.language;
 
   const scrollToDiv = () => {
     divGuide.current.scrollIntoView({ behavior: 'smooth' });
   }
 
+  useEffect(() => {
+
+    i18n.changeLanguage(lng);
+  }, [])
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
@@ -55,7 +63,7 @@ export default function LandingPage() {
         <div className='navbar-container'>
           <div className="row">
             <div className="col-sm-8 col-4">
-
+              <span> broswer language {lng}</span>
               <h4 className='figmalio-logged' onClick={navigateToHome}> Figmafolio</h4 >
 
             </div >
@@ -63,7 +71,7 @@ export default function LandingPage() {
               {user ?
                 <div className="button-container">
                   <Link to="/dashboard" >
-                    <ButtonColored className="gotoapp" label='Go to app' />
+                    <ButtonColored className="gotoapp" label={t('go-to-app')} />
                   </Link>
                 </div>
                 :
@@ -168,7 +176,7 @@ export default function LandingPage() {
                     <span className='landing-page-amount'>$0 </span>
                     <span className='landing-page-month'>/month</span>
                   </div>
-
+                  <h4 className='landing-page-bill-desc'> No bills! </h4>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
                     <h4 className='landing-page-payment-feature-text'>1 project/websites</h4>
@@ -179,7 +187,7 @@ export default function LandingPage() {
                   </div>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCross} />
-                    <h4 className='landing-page-payment-feature-text'>Removes Figmafolio label</h4>
+                    <h4 className='landing-page-payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
                   </div>
                 </div>
 
@@ -201,23 +209,21 @@ export default function LandingPage() {
                     <span className='landing-page-amount'>$5 </span>
                     <span className='landing-page-month'>/month</span>
                   </div>
-
+                  <h4 className='landing-page-bill-desc'> Billed monthly at $5 USD </h4>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
                     <h4 className='landing-page-payment-feature-text'>5 projects/websites</h4>
                   </div>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
-                    <h4 className='landing-page-payment-feature-text'> Preset domains</h4>
+                    <h4 className='landing-page-payment-feature-text'> Use custom domains</h4>
                   </div>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
-                    <h4 className='landing-page-payment-feature-text'>Priority technical and product support</h4>
+                    <h4 className='landing-page-payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
                   </div>
-                  <div className="payment-feature">
-                    <img className='check-icon' src={WhiteCheck} />
-                    <h4 className='landing-page-payment-feature-text'>Removes Figmafolio label</h4>
-                  </div>
+
+
                 </div>
 
                 <div className='landing-page-button-upgrade-container'>
@@ -238,31 +244,28 @@ export default function LandingPage() {
                   </div>
 
                   <div className='amount-per-month'>
-                    <span className='landing-page-amount-strikethrough'>$60</span>
-                    <span className='landing-page-amount'>$48</span>
-                    <span className='landing-page-month'>/year</span>
-                  </div>
 
+                    <span className='landing-page-amount'>$4 </span>
+                    <span className='landing-page-month'>/month</span>
+                  </div>
+                  <h4 className='landing-page-bill-desc'> Billed as one payment of $48 USD</h4>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
                     <h4 className='landing-page-payment-feature-text'>Unlimited projects/websites</h4>
                   </div>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
-                    <h4 className='landing-page-payment-feature-text'>Preset domains</h4>
+                    <h4 className='landing-page-payment-feature-text'>Use custom domains</h4>
+                  </div>
+                  <div className="payment-feature">
+                    <img className='check-icon' src={WhiteCheck} />
+                    <h4 className='landing-page-payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
                   </div>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
                     <h4 className='landing-page-payment-feature-text'>Priority technical and product support</h4>
                   </div>
-
-                  <div className="payment-feature">
-                    <img className='check-icon' src={WhiteCheck} />
-                    <h4 className='landing-page-payment-feature-text'>Removes Figmafolio label</h4>
-                  </div>
                 </div>
-
-
                 <div className='landing-page-button-upgrade-container'>
                   <Link to="/auth" state={{ "name": "tab2" }} >
                     <ButtonColored className="btn-get-started" label="Get started" />

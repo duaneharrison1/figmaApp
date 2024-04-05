@@ -57,9 +57,9 @@ export default function Billing() {
                                         setSubscriptionTypeDesc("Billed monthly at $0")
                                     } else if (subscriptionType == "monthlyPlan") {
                                         setSubscriptionTypeText("Monthly Plan")
-                                        setSubscriptionTypeDesc("Billed monthly at $5")
+                                        setSubscriptionTypeDesc("Billed monthly at $5 USD")
                                     } else if (subscriptionType == "annualPlan") {
-                                        setSubscriptionTypeDesc("Billed yearly at $48")
+                                        setSubscriptionTypeDesc("Billed as one payment of $48 USD")
                                         setSubscriptionTypeText("Yearly Plan")
                                     }
                                 })
