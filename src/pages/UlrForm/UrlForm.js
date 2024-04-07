@@ -11,10 +11,8 @@ import Navbar from '../../components/NavBar/Navbar';
 import PaymentSelectionModal from '../../components/PaymentSelection/PaymentSelection';
 import { loadStripe } from '@stripe/stripe-js';
 import AlertErrorModal from '../../components/AlertErrorModal/AlertErrorModal';
-import insOne from './../../assets/images/ins-1.png';
-import insTwo from './../../assets/images/ins-2.png';
-import insThree from './../../assets/images/ins-3.png';
-import insFour from './../../assets/images/ins-4.png';
+import FormInstruction from '../../components/FormInstruction/FormInstruction';
+import CustomDomainFunction from '../../components/CustomDomainInstruction/CustomDomainInstruction';
 
 export default function UrlForm() {
     const navigate = useNavigate();
@@ -141,7 +139,7 @@ export default function UrlForm() {
                             <div className='col-md-6'></div>
                         </div>
 
-                        <div className='row second-div'>
+                        <div className='row div-form-instruction'>
                             <div className='col-6 align-items-start'>
                                 <h1 className='form-sub-header'>Your domain</h1>
                                 <p>This will be assigned after clicking ‘Publish’.</p>
@@ -168,27 +166,7 @@ export default function UrlForm() {
                                                 value={domain}
                                                 onChange={handleDomain} />
 
-                                            <div className='domain-info'>
-                                                <p className='domain-info-header'>To use a custom domain name, add new DNS records in your domain registrar's DNS manager. Add the following records:</p>
-                                                <table className='domain-info-table'>
-                                                    <tr className='domain-info-subheader'>
-                                                        <th>Type</th>
-                                                        <th>Name</th>
-                                                        <th>Value</th>
-                                                    </tr>
-                                                    <tr className='domain-info-one'>
-                                                        <td>A</td>
-                                                        <td>@</td>
-                                                        <td>76.76.21.21</td>
-                                                    </tr>
-                                                    <tr className='domain-info-one'>
-                                                        <td>CNAME</td>
-                                                        <td>www</td>
-                                                        <td>cname.vercel-dns.com</td>
-                                                    </tr>
-                                                </table>
-                                                <p className='domain-info-header'> Make sure you add an entry for both @ and www.</p>
-                                            </div>
+                                            <CustomDomainFunction />
                                         </div>
                                     )}
 
@@ -207,7 +185,7 @@ export default function UrlForm() {
                         </div>
 
 
-                        {/* <div className='second-div'>
+                        {/* <div className='div-form-instruction'>
                             <h1 className='form-title'>Figma prototype links</h1>
 
                             <p className='note'> Paste in the links of your desktop and mobile prototypes below to have them create your Figmafolio site. By adding separate desktop and mobile links, all viewers can easily preview your work on any device. We'll detect the device and load the appropriate prototype</p>
@@ -262,50 +240,8 @@ export default function UrlForm() {
                         <div className='preview-btn-container'>
                             <ButtonColored className="preview-btn" label="Preview" onClick={goToPreview} />
                         </div>
-                        <div className='second-div'>
-                            <h1 className='sub-title'>Need help setting up your site?</h1>
-                            <div className='row instruction-div'>
-                                <div className="col-sm-3">
-                                    <div className='div-instruction-img'>
-                                        <img src={insOne} className='instruction-img' />
-                                    </div>
-                                    <h1 className='instruction-title'>Design in Figma</h1>
-                                    <p className='instructions'>1. Open Figma and design each page of your portfolio or website</p>
-                                    <p className='instructions'> Note: It is recommended to create separate designs for both desktop and mobile pages.</p>
-                                </div>
-                                <div className="col-sm-3">
-                                    <div className='div-instruction-img'>
-                                        <img src={insTwo} className='instruction-img' />
-                                    </div>
-                                    <h1 className='instruction-title'>Prototype in Figma</h1>
-                                    <p className='instructions'>1. Switch to "Prototype" mode in the right sidebar.</p>
-                                    <p className='instructions'>2. Draw connections between pages to define the navigation of your site.</p>
-                                    <p className='instructions'>3. Ideally create two flows: one for desktop and one for mobile. </p>
-                                    <p className='instructions'> Note: You can add animations to connections to enhance any transitions.</p>
-                                </div>
-                                <div className="col-sm-3">
-                                    <div className='div-instruction-img'>
-                                        <img src={insThree} className='instruction-img' />
-                                    </div>
-                                    <h1 className='instruction-title'>Set flow starting points</h1>
-                                    <p className='instructions'>1. For your desktop prototype, select the frame users will see. Typically the homepage.</p>
-                                    <p className='instructions'>2. In the right sidebar under Prototype, click the ‘+’ next to ‘Flow starting point’ to set the flow starting point. </p>
-                                    <p className='instructions'>3. Repeat for your mobile prototype if you have one. </p>
-                                </div>
-                                <div className="col-sm-3">
-                                    <div className='div-instruction-img'>
-                                        <img src={insFour} className='instruction-img' />
-                                    </div>
 
-                                    <h1 className='instruction-title'>Input your prototype links</h1>
-                                    <p className='instructions'>1. Click the canvas in Figma to get  file properties in the right sidebar.</p>
-                                    <p className='instructions'>2. Select ‘Prototype’. Under ‘Flows’ .hover over each flow and "Copy link" to get the prototype links. </p>
-                                    <p className='instructions'>3. Paste in the corresponding prototype links below. </p>
-                                    <p className='instructions'>4. Click "Preview" to view and publish your portfolio/site. </p>
-                                    <p className='instructions'>Note: If you only provide one prototype link, Figmafolio will show that flow on both desktop and mobile.</p>
-                                </div>
-                            </div>
-                        </div>
+                        <FormInstruction />
                     </div>
 
 
