@@ -9,7 +9,9 @@ import AlertModal from '../../components/AlertModal/AlertModal';
 import axios from "axios";
 import './Preview.css';
 import firebase from '../../firebase';
+import { useTranslation } from 'react-i18next';
 export default function Preview() {
+    const { t } = useTranslation();
     const [ispublicBtnClick, setIsPublicBtnClick] = useState(false);
     const [isSaveAsDraftBtnClick, setSaveAsDraftBtnClick] = useState(false);
     const navigate = useNavigate();
@@ -565,11 +567,11 @@ export default function Preview() {
                             <div className="mobile-nav-container m-0">
                                 <div className="row">
                                     <div className="col m-0 p-0">
-                                        <a className="back-to-library" href="/dashboard"> &lt; Back to dashboard</a>
+                                        <a className="back-to-library" href="/dashboard"> {t('back-to-dashboard')}</a>
                                     </div>
                                     <div className="col m-0 p-0">
                                         <div className='switch-container'>
-                                            <p className='desktop-mobile-label'>Desktop</p>
+                                            <p className='desktop-mobile-label'>{t('desktop')}</p>
                                             <div className='form-switch-container'>
                                                 <Form.Check
                                                     className='form-switch'
@@ -579,7 +581,7 @@ export default function Preview() {
                                                     onChange={handleSwitchChange}
                                                 />
                                             </div>
-                                            <p className='desktop-mobile-label'> Mobile</p>
+                                            <p className='desktop-mobile-label'> {t('mobile')}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -596,18 +598,18 @@ export default function Preview() {
                             <div className='mobile-button-container'>
                                 <ButtonClear
                                     className="save-as-draft"
-                                    label='Save as Draft'
+                                    label={t('save-as-draft')}
                                     isDisabled={isSaveAsDraftBtnClick}
                                     onClick={location.state.fromEdit === true ? handleUpdateFormAsDraft : handleSaveFormAsDraft} />
                                 {location.state.fromEdit === true ?
                                     (<ButtonColored
                                         className="update-btn"
-                                        label='Update'
+                                        label={t('update')}
                                         onClick={handleUpdateForm} />) :
                                     (<ButtonColored
                                         className="update-btn"
                                         isDisabled={ispublicBtnClick}
-                                        label='Publish'
+                                        label={t('publish')}
                                         onClick={handleSaveForm} />
                                     )}
 
@@ -619,14 +621,14 @@ export default function Preview() {
 
                             <div className="row nav-container  m-0 ">
                                 <div className="col m-0 p-0">
-                                    <a className="back-to-library" href="/dashboard"> &lt; Back to dashboard</a>
+                                    <a className="back-to-library" href="/dashboard"> {t('back-to-dashboard')}</a>
                                 </div>
                                 <div className="col m-0 p-0 ">
                                     <div className='switch-container'>
                                         <div container="preview-switch-container">
-                                            <h1 className='preview-switch-header'>Preview</h1>
+                                            <h1 className='preview-switch-header'>{t('preview')}</h1>
                                             <div className='switch-container'>
-                                                <p className='desktop-mobile-label'>Desktop</p>
+                                                <p className='desktop-mobile-label'>{t('desktop')}</p>
                                                 <div className='container'>
                                                     <Form.Check
                                                         className='form-switch'
@@ -636,7 +638,7 @@ export default function Preview() {
                                                         onChange={handleSwitchChange}
                                                     />
                                                 </div>
-                                                <p className='desktop-mobile-label'> Mobile</p>
+                                                <p className='desktop-mobile-label'> {t('mobile')}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -645,18 +647,18 @@ export default function Preview() {
                                     < div className='draft-publish-container'>
                                         <ButtonClear
                                             className="save-as-draft"
-                                            label='Save as Draft'
+                                            label={t('save-as-draft')}
                                             isDisabled={isSaveAsDraftBtnClick}
                                             onClick={location.state.fromEdit === true ? handleUpdateFormAsDraft : handleSaveFormAsDraft} />
                                         {location.state.fromEdit === true ?
                                             (<ButtonColored
                                                 className="update-btn"
-                                                label='Update'
+                                                label={t('update')}
                                                 onClick={handleUpdateForm} />) :
                                             (<ButtonColored
                                                 className="update-btn"
                                                 isDisabled={ispublicBtnClick}
-                                                label='Publish'
+                                                label={t('publish')}
                                                 onClick={handleSaveForm} />
                                             )}
                                     </div >

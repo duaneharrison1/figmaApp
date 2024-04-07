@@ -106,11 +106,12 @@ const resources = {
             "instruct-four-three": "3. Paste in the corresponding prototype links below.",
             "instruct-four-four": "4. Click \"Preview\" to view and publish your portfolio/site.",
             "instruct-four-note": "Note: If you only provide one prototype link, Figmafolio will show that flow on both desktop and mobile.",
-            //Preview Page
+            //PREVIEW PAGE
             "save-as-draft": "Save as Draft",
             "update": "Update",
             "desktop": "Desktop",
             "mobile": "Mobile",
+            "publish": "Publish",
             "back-to-dashboard": "< Back to dashboard",
             "preview": "Preview",
             //Profile Page
