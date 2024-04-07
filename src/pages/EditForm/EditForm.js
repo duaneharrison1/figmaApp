@@ -15,6 +15,7 @@ import AlertErrorModal from '../../components/AlertErrorModal/AlertErrorModal';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 import FormInstruction from '../../components/FormInstruction/FormInstruction';
+import CustomDomainFunction from '../../components/CustomDomainInstruction/CustomDomainInstruction';
 export default function EditForm() {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -141,7 +142,7 @@ export default function EditForm() {
                             <div className='col-md-6'></div>
                         </div>
 
-                        <div className='row second-div'>
+                        <div className='row div-form-instruction'>
                             <div className='col-6 align-items-start'>
                                 <h1 className='form-sub-header'>{t('your-domain')}</h1>
                                 <p> figmafolio.com/{generatedUrl} </p>
@@ -158,7 +159,6 @@ export default function EditForm() {
                                         <ButtonClear label='Upgrade account' className="upgrade-plan" onClick={handleShowModal} />
                                     </div>
                                 ) : (
-
                                     <div>
                                         <input
                                             className='form-input'
@@ -166,30 +166,9 @@ export default function EditForm() {
                                             placeholder={t('enter-your-domain')}
                                             value={newCustomDomain}
                                             onChange={handleCustomDomain} />
-                                        <div className='domain-info'>
-                                            <p className='domain-info-header'>{t('custom-domain-instruct')}</p>
-                                            <table className='domain-info-table'>
-                                                <tr className='domain-info-subheader'>
-                                                    <th>{t('type')}</th>
-                                                    <th>{t('name')}</th>
-                                                    <th>{t('value')}</th>
-                                                </tr>
-                                                <tr className='domain-info-one'>
-                                                    <td>A</td>
-                                                    <td>@</td>
-                                                    <td>76.76.21.21</td>
-                                                </tr>
-                                                <tr className='domain-info-one'>
-                                                    <td>CNAME</td>
-                                                    <td>www</td>
-                                                    <td>cname.vercel-dns.com</td>
-                                                </tr>
-
-
-                                                <p className='domain-info-header'>{t('custom-domain-instruct2')}</p>
-                                            </table>
-                                        </div>
+                                        <CustomDomainFunction />
                                     </div>
+
                                 )}
                             </div>
                         </div>
