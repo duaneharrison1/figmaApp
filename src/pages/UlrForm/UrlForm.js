@@ -14,6 +14,7 @@ import AlertErrorModal from '../../components/AlertErrorModal/AlertErrorModal';
 import FormInstruction from '../../components/FormInstruction/FormInstruction';
 import CustomDomainFunction from '../../components/CustomDomainInstruction/CustomDomainInstruction';
 import UpgradeAccountButton from '../../components/UpgradeAccountButton/UpgradeAccountButton';
+import { t } from 'i18next';
 
 export default function UrlForm() {
     const navigate = useNavigate();
@@ -127,13 +128,13 @@ export default function UrlForm() {
                 <div className="url-form">
                     <div className='form-container'>
                         <div className='row first-div'>
-                            <h1 className='form-title'>General</h1>
+                            <h1 className='form-title'>{t('general')}</h1>
                             <div className='col-md-6'>
-                                <h2 className='form-sub-header'>Title</h2>
+                                <h2 className='form-sub-header'>{t('title')}</h2>
                                 <input
                                     className='form-input'
                                     type="text"
-                                    placeholder='Enter your site name'
+                                    placeholder={t('enter-your-site-name')}
                                     value={title}
                                     onChange={handleTitle} />
                             </div>
@@ -142,58 +143,56 @@ export default function UrlForm() {
 
                         <div className='row div-form-instruction'>
                             <div className='col-6 align-items-start'>
-                                <h1 className='form-sub-header'>Your domain</h1>
-                                <p>This will be assigned after clicking ‘Publish’.</p>
+                                <h1 className='form-sub-header'>{t('your-domain')}</h1>
+                                <p>{t('this-will-be-assigned')}</p>
                             </div>
                             <div className='col-md-6'>
-                                <h2 className='form-sub-header'>Custom domain</h2>
-                                {subscriptionType == "regular" ?
-                                    (
-                                        <UpgradeAccountButton onClick={handleShowModal} />
-                                    ) : (
-                                        <div>
-                                            <input
-                                                className='form-input'
-                                                type="text"
-                                                placeholder='Enter your domain'
-                                                value={domain}
-                                                onChange={handleDomain} />
-                                            <CustomDomainFunction />
-                                        </div>
-                                    )}
+                                <h2 className='form-sub-header'>{t('custom-domain')}</h2>
+                                {subscriptionType == "regular" ? (
+                                    <UpgradeAccountButton onClick={handleShowModal} />
+                                ) : (
+                                    <div>
+                                        <input
+                                            className='form-input'
+                                            type="text"
+                                            placeholder={t('enter-your-domain')}
+                                            value={domain}
+                                            onChange={handleDomain} />
+                                        <CustomDomainFunction />
+                                    </div>
+                                )}
                             </div>
                         </div>
                         <div className="fifth-div">
-                            <h1 className='sub-title'>Figma prototype links</h1>
+                            <h1 className='sub-title'>{t('figma-prototype-links')}</h1>
                             <div className="row">
                                 <div className="col-md-6">
                                     <div className="row">
                                         <h2 className='form-sub-header'>
-                                            Desktop prototype link
+                                            {t('desktop-prototype-link')}
                                         </h2>
                                         <div>
                                             <input
                                                 className='form-input'
                                                 type="text"
-                                                placeholder='Custom Desktop Url'
+                                                placeholder={t('custom-desktop-url')}
                                                 value={figmaDesktopUrl}
                                                 onChange={handlefigmaDesktopUrl}
                                             />
                                         </div>
-
                                     </div>
                                 </div>
 
                                 <div className="col-md-6">
                                     <div className="row">
                                         <h2 className='form-sub-header'>
-                                            Mobile prototype link
+                                            {t('mobile-prototype-link')}
                                         </h2>
                                         <div>
                                             <input
                                                 className='form-input'
                                                 type="text"
-                                                placeholder='Custom Mobile Url'
+                                                placeholder={t('custom-mobile-url')}
                                                 value={figmaMobileUrl}
                                                 onChange={handlefigmaMobileUrl}
                                             />
@@ -209,10 +208,6 @@ export default function UrlForm() {
 
                         <FormInstruction />
                     </div>
-
-
-
-
                 </div>
                 <PaymentSelectionModal show={showModal} handleClose={handleCloseModal}
                     handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_MONTHLY)}

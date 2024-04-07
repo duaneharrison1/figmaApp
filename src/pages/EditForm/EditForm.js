@@ -184,7 +184,6 @@ export default function EditForm() {
                                                 onChange={handlefigmaDesktopUrl}
                                             />
                                         </div>
-
                                     </div>
                                 </div>
 
@@ -212,9 +211,6 @@ export default function EditForm() {
                         </div>
 
                         <FormInstruction />
-
-
-
                     </div>
 
                     <PaymentSelectionModal show={showModal} handleClose={handleCloseModal}

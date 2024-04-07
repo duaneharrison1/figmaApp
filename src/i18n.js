@@ -64,11 +64,12 @@ const resources = {
             "profile": "Profile",
             "billing": "Billing",
             "logout": "Logout",
-            //form
+            //===========FORM============
             "general": "General",
             "title": "Title",
             "your-domain": "Your domain",
             "custom-domain": "Custom domain",
+            "this-will-be-assigned": "This will be assigned after clicking ‘Publish’.",
             //UPGRADE ACCOUNT BUTTON
             "you-have-to-upgrade": "You have to upgrade account to have Custom domain",
             "upgrade-account": "Upgrade account",
