@@ -13,6 +13,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import AlertErrorModal from '../../components/AlertErrorModal/AlertErrorModal';
 import FormInstruction from '../../components/FormInstruction/FormInstruction';
 import CustomDomainFunction from '../../components/CustomDomainInstruction/CustomDomainInstruction';
+import UpgradeAccountButton from '../../components/UpgradeAccountButton/UpgradeAccountButton';
 
 export default function UrlForm() {
     const navigate = useNavigate();
@@ -117,13 +118,13 @@ export default function UrlForm() {
             }
         })
     }
+
     return (
         <>
             <Navbar className={"dashboardNavBar"} email={user.email} onClickLogout={handleLogout} isFromForm={"newForm"} />
 
             <div className='form'>
                 <div className="url-form">
-
                     <div className='form-container'>
                         <div className='row first-div'>
                             <h1 className='form-title'>General</h1>
@@ -146,18 +147,10 @@ export default function UrlForm() {
                             </div>
                             <div className='col-md-6'>
                                 <h2 className='form-sub-header'>Custom domain</h2>
-
-
                                 {subscriptionType == "regular" ?
                                     (
-                                        <div>
-                                            <p className='note'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                <path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#424242" stroke-width="2" stroke-linecap="round" strokeLinejoin="round" />
-                                            </svg> You have to upgrade account to have Custom domain</p>
-                                            <ButtonClear label='Upgrade account' className="upgrade-plan" onClick={handleShowModal} />
-                                        </div>
+                                        <UpgradeAccountButton onClick={handleShowModal} />
                                     ) : (
-
                                         <div>
                                             <input
                                                 className='form-input'
@@ -165,38 +158,11 @@ export default function UrlForm() {
                                                 placeholder='Enter your domain'
                                                 value={domain}
                                                 onChange={handleDomain} />
-
                                             <CustomDomainFunction />
                                         </div>
                                     )}
-
-
-                                {/* {Object.entries(products).map(([productId, productData]) => {
-                                    return (
-                                        <div className="plans" key={productId}>
-                                            <div> {productData.name}</div>
-
-                                            <button onClick={() => checkout("price_1OCDfLJyvkMmBNuRrErMN5YD")}>Subscribe</button>
-                                        </div>
-
-                                    )
-                                })} */}
                             </div>
                         </div>
-
-
-                        {/* <div className='div-form-instruction'>
-                            <h1 className='form-title'>Figma prototype links</h1>
-
-                            <p className='note'> Paste in the links of your desktop and mobile prototypes below to have them create your Figmafolio site. By adding separate desktop and mobile links, all viewers can easily preview your work on any device. We'll detect the device and load the appropriate prototype</p>
-                            <p className='note'> Here are some tips: </p>
-                            <ul className='instruction'>
-                                <li className='note'>Paste in the link to a prototype or specific prototype flow, not the full Figma file</li>
-                                <li className='note'>If you do not have a separate mobile prototype, you can paste in the desktop prototype link to show the desktop view on mobile.</li>
-                                <li className='note'>For best results, match prototype’s background colour to your sites background colour in Figma in prototype settings.</li>
-                            </ul>
-                        </div> */}
-
                         <div className="fifth-div">
                             <h1 className='sub-title'>Figma prototype links</h1>
                             <div className="row">
@@ -251,7 +217,6 @@ export default function UrlForm() {
                 <PaymentSelectionModal show={showModal} handleClose={handleCloseModal}
                     handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_MONTHLY)}
                     handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_YEARLY)} />
-
                 < AlertErrorModal show={showErrorModal} handleClose={handleCloseErrorModal} alertMessage={"You have entered a link to a Figma file. To publish your Figmafolio website, you must enter a link to a Figma prototype. Prototypes allow visitors to interact with your site."} />
             </div>
         </>

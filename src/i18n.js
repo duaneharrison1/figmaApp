@@ -69,7 +69,10 @@ const resources = {
             "title": "Title",
             "your-domain": "Your domain",
             "custom-domain": "Custom domain",
+            //UPGRADE ACCOUNT BUTTON
             "you-have-to-upgrade": "You have to upgrade account to have Custom domain",
+            "upgrade-account": "Upgrade account",
+
             "custom-domain-instruct": "To use a custom domain name, add new DNS records in your domain registrar's DNS manager. Add the following records:",
             "custom-domain-instruct2": "Make sure you add an entry for both @ and www.",
             "type": "Type",
