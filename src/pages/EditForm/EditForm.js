@@ -11,12 +11,10 @@ import Navbar from '../../components/NavBar/Navbar';
 import ButtonClear from '../../components/ButtonClear/ButtonClear';
 import PaymentSelectionModal from '../../components/PaymentSelection/PaymentSelection';
 import AlertErrorModal from '../../components/AlertErrorModal/AlertErrorModal';
-import insOne from './../../assets/images/ins-1.png';
-import insTwo from './../../assets/images/ins-2.png';
-import insThree from './../../assets/images/ins-3.png';
-import insFour from './../../assets/images/ins-4.png';
+
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
+import FormInstruction from '../../components/FormInstruction/FormInstruction';
 export default function EditForm() {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -188,7 +186,7 @@ export default function EditForm() {
                                                 </tr>
 
 
-                                                <p className='domain-info-header'> Make sure you add an entry for both @ and www.</p>
+                                                <p className='domain-info-header'>{t('custom-domain-instruct2')}</p>
                                             </table>
                                         </div>
                                     </div>
@@ -197,18 +195,18 @@ export default function EditForm() {
                         </div>
 
                         <div className="fifth-div">
-                            <h1 className='sub-title'>Figma prototype links</h1>
+                            <h1 className='sub-title'>{t('figma-prototype-links')}</h1>
                             <div className="row">
                                 <div className="col-md-6">
                                     <div className="row">
                                         <h2 className='form-sub-header'>
-                                            Desktop prototype link
+                                            {t('desktop-prototype-link')}
                                         </h2>
                                         <div>
                                             <input
                                                 className='form-input'
                                                 type="text"
-                                                placeholder='Custom Desktop Url'
+                                                placeholder={t('custom-desktop-url')}
                                                 value={figmaDesktopUrl}
                                                 onChange={handlefigmaDesktopUrl}
                                             />
@@ -220,13 +218,13 @@ export default function EditForm() {
                                 <div className="col-md-6">
                                     <div className="row">
                                         <h2 className='form-sub-header'>
-                                            Mobile prototype link
+                                            {t('mobile-prototype-link')}
                                         </h2>
                                         <div>
                                             <input
                                                 className='form-input'
                                                 type="text"
-                                                placeholder='Custom Mobile Url'
+                                                placeholder={t('custom-mobile-url')}
                                                 value={figmaMobileUrl}
                                                 onChange={handlefigmaMobileUrl}
                                             />
@@ -240,52 +238,7 @@ export default function EditForm() {
                             <ButtonColored className="preview-btn" label="Preview" onClick={goToPreview} />
                         </div>
 
-                        <div className='second-div'>
-                            <h1 className='sub-title'>Need help setting up your site?</h1>
-                            <div className='row instruction-div'>
-                                <div className="col-sm-3">
-
-                                    <div className='div-instruction-img'>
-                                        <img src={insOne} className='instruction-img' />
-                                    </div>
-                                    <h1 className='instruction-title'>Design in Figma</h1>
-                                    <p className='instructions'>1. Open Figma and design each page of your portfolio or website</p>
-                                    <p className='instructions'> Note: It is recommended to create separate designs for both desktop and mobile pages.</p>
-                                </div>
-                                <div className="col-sm-3">
-                                    <div className='div-instruction-img'>
-                                        <img src={insTwo} className='instruction-img' />
-                                    </div>
-                                    <h1 className='instruction-title'>Prototype in Figma</h1>
-                                    <p className='instructions'>1. Switch to "Prototype" mode in the right sidebar.</p>
-                                    <p className='instructions'>2. Draw connections between pages to define the navigation of your site.</p>
-                                    <p className='instructions'>3. Ideally create two flows: one for desktop and one for mobile. </p>
-                                    <p className='instructions'> Note: You can add animations to connections to enhance any transitions.</p>
-                                </div>
-                                <div className="col-sm-3">
-                                    <div className='div-instruction-img'>
-                                        <img src={insThree} className='instruction-img' />
-                                    </div>
-                                    <h1 className='instruction-title'>Set flow starting points</h1>
-                                    <p className='instructions'>1. For your desktop prototype, select the frame users will see. Typically the homepage.</p>
-                                    <p className='instructions'>2. In the right sidebar under Prototype, click the ‘+’ next to ‘Flow starting point’ to set the flow starting point. </p>
-                                    <p className='instructions'>3. Repeat for your mobile prototype if you have one. </p>
-                                </div>
-                                <div className="col-sm-3">
-                                    <div className='div-instruction-img'>
-                                        <img src={insFour} className='instruction-img' />
-                                    </div>
-
-                                    <h1 className='instruction-title'>Input your prototype links</h1>
-                                    <p className='instructions'>1. Click the canvas in Figma to get  file properties in the right sidebar.</p>
-                                    <p className='instructions'>2. Select ‘Prototype’. Under ‘Flows’ .hover over each flow and "Copy link" to get the prototype links. </p>
-                                    <p className='instructions'>3. Paste in the corresponding prototype links below. </p>
-                                    <p className='instructions'>4. Click "Preview" to view and publish your portfolio/site. </p>
-                                    <p className='instructions'>Note: If you only provide one prototype link, Figmafolio will show that flow on both desktop and mobile.</p>
-                                </div>
-                            </div>
-
-                        </div>
+                        <FormInstruction />
 
 
 
