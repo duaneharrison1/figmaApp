@@ -1,31 +1,28 @@
-import i18n from 'i18next';
-import englishTranslation from './english.json';
-import spanishTranslation from './spanish.json';
-import germanTranslation from './german.json';
+import i18next from 'i18next'
+
 import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+import HttpApi from 'i18next-http-backend';
 
-const resources = {
-    en: {
-        translation: englishTranslation
-    },
-    es: {
-        translation: spanishTranslation
-    },
-    de: {
-        translation: germanTranslation
-    }
 
-};
-
-i18n
-    .use(initReactI18next) // Initializes i18next with react-i18next
+i18next
+    .use(HttpApi)
+    .use(LanguageDetector)
+    .use(initReactI18next)
     .init({
-        resources,
-        lng: 'en', // Set the default language
-        fallbackLng: 'en', // Fallback language if translations are missing
-        interpolation: {
-            escapeValue: false, // Prevent escaping special characters in translations
+        supportedLngs: ['en', 'es', 'de'],
+        fallbackLng: 'en',
+        debug: false,
+        // Options for language detector
+        detection: {
+            order: ['path'],
+            caches: [],
+            lookupFromPathIndex: 0,
         },
-    });
+        // react: { useSuspense: false },
+        backend: {
+            loadPath: '/assets/locales/{{lng}}/translation.json',
+        },
+    })
 
-export default i18n;
+export default i18next;
