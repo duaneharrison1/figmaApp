@@ -130,7 +130,7 @@ const ChangePasswordModal = (props) => {
                             id="password"
                             name="password"
                             type="password"
-                            placeholder={t('enter-you-current-password')}
+                            placeholder={t('enter-your-current-password')}
                             onChange={handlePasswordChange} />
 
                         {errorFirebase && < p className='error-message'>{errorFirebase}</p>}
