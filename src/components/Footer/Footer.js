@@ -42,7 +42,7 @@ export default function Footer() {
                     <div className="col-lg-4">
                         <div className="flex-container footer-item">
                             <h1 className='footer-center' onClick={goToTermsAndConditions}> {t('terms-and-conditions')}</h1>
-                            <h1 className='footer-center' onClick={goToPrivacyPolicy}> {t('terms-and-conditions')}</h1>
+                            <h1 className='footer-center' onClick={goToPrivacyPolicy}> {t('privacy-policy')}</h1>
                         </div>
                     </div>
                     <div className="email-support-container col-lg-4">

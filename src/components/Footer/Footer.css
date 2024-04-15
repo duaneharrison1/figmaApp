@@ -5,7 +5,10 @@
     padding: 40px 120px;
 }
 
-
+.footer-item {
+    display: flex;
+    justify-content: space-between;
+}
 
 .footer-figmafolio {
     font-size: 20px;
@@ -37,6 +40,12 @@
 
     .footer-figmafolio {
         text-align: center;
+    }
+
+    .footer-item {
+        padding-top: 8px;
+        display: flex;
+        flex-direction: column;
     }
 
 }
