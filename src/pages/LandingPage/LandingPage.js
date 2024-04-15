@@ -69,18 +69,18 @@ export default function LandingPage() {
       < div className='container-fluid main-landing-page'>
         <div className='navbar-container'>
           <div className="row">
-            <div className="col-sm-8 col-4">
+            <div className="col-lg-8 col-4">
               <h4 className='figmalio-logged' onClick={navigateToHome}> Figmafolio</h4 >
             </div >
-            <div className="col-sm-4 d-flex justify-content-end col-8">
+            <div className="col-lg-4 d-flex justify-content-end col-8">
               {user ?
-                <div className="button-container">
+                <div className="landing-button-container">
                   <Link to="/dashboard" >
                     <ButtonColored className="gotoapp" label={t('go-to-app')} />
                   </Link>
                 </div>
                 :
-                <div className="button-container">
+                <div className="landing-button-container">
                   <Link to="/auth" className='login-link' state={{ "name": "tab1" }}>{t('login')}</Link>
                   <Link to="/auth" state={{ "name": "tab2" }} >
                     <ButtonColored className="signup-btn" label={t('signup')} />
