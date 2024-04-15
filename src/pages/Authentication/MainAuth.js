@@ -51,7 +51,7 @@ export default function MainAuth(props) {
                                 <div className=' container main-title-container'>
                                     <h1 onClick={navigateToHome} className='main-title'>Figmafolio</h1>
                                 </div>
-                                <h1 className='header-text'>{t('welcome-to-figmafolio')}o</h1>
+                                <h1 className='header-text'>{t('welcome-to-figmafolio')}</h1>
                                 <Tabs className='nav-pills' defaultActiveKey={tab[0]}
                                     id="tabs" activeKey={selectedTab}
                                     onSelect={(k) => setSelectedTab(k)}>
