@@ -1,4 +1,4 @@
-.btn-cancel{
+.btn-cancel {
     width: 100%;
     padding: 12px 24px;
     border-radius: 40px;
@@ -8,6 +8,7 @@
     background-color: white;
     border: solid;
 }
+
 .btn-clear {
     width: 100%;
     margin-top: 50px;
@@ -19,7 +20,7 @@
     background-color: white;
 }
 
-.cancel-delete-btn{
+.cancel-delete-btn {
     width: 100%;
     padding: 12px 20px;
     border-radius: 40px;
@@ -31,36 +32,36 @@
 
 
 
-.upgrade-plan{
-   
+.upgrade-plan {
+
     margin-top: 16px;
     padding: 12px 24px;
     border-radius: 40px;
     font-weight: 700;
     font-size: 16px;
-    border:solid;
+    border: solid;
     border-width: 1px;
     border-color: #4D9F70;
     color: #4D9F70;
     background-color: white;
 }
 
-.save-as-draft{   
-        margin: 0;
-       
-        padding: 8px 24px;
-        border-radius: 40px;
-        border:solid;
-        font-weight: 700;
-        border-color: #4D9F70;
-        color: #4D9F70;
-        background-color: white;
+.save-as-draft {
+    margin: 0;
+
+    padding: 8px 24px;
+    border-radius: 40px;
+    border: solid;
+    font-weight: 700;
+    border-color: #4D9F70;
+    color: #4D9F70;
+    background-color: white;
 }
 
-.guide-btn{
+.guide-btn {
     margin: 10px;
     font-size: 20px;
-    width: 149px;
+
     padding: 12px 24px 12px 24px;
     border-radius: 40px;
     font-weight: 700;
@@ -73,8 +74,8 @@
 
 /* MOBILE VIEW */
 @media only screen and (max-width: 1280px) {
-    .guide-btn{
-        margin:0px;
+    .guide-btn {
+        margin: 0px;
         font-size: 18px;
         width: 100%;
         padding: 8px 12px;
@@ -87,16 +88,16 @@
     }
 
 
-    .save-as-draft{   
+    .save-as-draft {
         margin: 0;
         width: 100%;
         padding: 8px 24px;
         border-radius: 40px;
-        border:solid;
+        border: solid;
         font-weight: 700;
         border-color: #4D9F70;
         color: #4D9F70;
         background-color: white;
     }
-     
+
 }

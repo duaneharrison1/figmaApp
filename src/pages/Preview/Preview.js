@@ -10,6 +10,7 @@ import axios from "axios";
 import './Preview.css';
 import firebase from '../../firebase';
 import { useTranslation } from 'react-i18next';
+import i18n from '../../i18n';
 export default function Preview() {
     const { t } = useTranslation();
     const [ispublicBtnClick, setIsPublicBtnClick] = useState(false);
@@ -40,7 +41,12 @@ export default function Preview() {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer 83YzDqNvO4OoVtKXQXJ4mTyj'
     };
+    const lng = navigator.language;
 
+    useEffect(() => {
+
+        i18n.changeLanguage(lng);
+    }, [])
     useEffect(() => {
         if (location.state.figmaMobileUrl == "") {
             setMobile(location.state.figmaDesktopUrl)

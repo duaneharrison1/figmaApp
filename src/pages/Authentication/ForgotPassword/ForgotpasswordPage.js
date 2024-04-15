@@ -7,9 +7,17 @@ import './ForgotpasswordPage.css';
 import '../Auths.css';
 import auth_side_frame from '../../../assets/images/sideframe.png'
 import TextField from '../../../components/TextField/TextField';
-
+import { useTranslation } from 'react-i18next';
+import i18n from '../../../i18n';
 export default function ForgotpasswordPage() {
     const [userIsDesktop, setUserIsDesktop] = useState(true);
+    const { t } = useTranslation();
+    const lng = navigator.language;
+
+    useEffect(() => {
+
+        i18n.changeLanguage(lng);
+    }, [])
     useEffect(() => {
         window.innerWidth > 1280 ? setUserIsDesktop(true) : setUserIsDesktop(false);
     }, [userIsDesktop]);
@@ -49,11 +57,11 @@ export default function ForgotpasswordPage() {
                                 <div className=' container main-title-container'>
                                     <h1 className='main-title'>Figmafolio</h1>
                                 </div>
-                                <h1 className='header-text'>Forgot password</h1>
-                                <p className='forgot-password-subheader'>Enter your email and we’ll send you a link to reset your password</p>
+                                <h1 className='header-text'>{t('forgot-password')}</h1>
+                                <p className='forgot-password-subheader'>{t('enter-your-email-and-well-send')}</p>
                                 {resetEmailSent ?
                                     (
-                                        <p>An email with a password reset link has been sent to your email address.</p>
+                                        <p>{t('an-email-with-a-password')}</p>
                                     )
                                     :
                                     (
@@ -64,13 +72,13 @@ export default function ForgotpasswordPage() {
                                                 id="email-address"
                                                 name="email"
                                                 type="email"
-                                                placeholder="Enter your email"
+                                                placeholder={t('enter-your-email')}
                                                 onChange={handleEmailChange} />
 
                                             {error && < p className='error-message'>{error}</p>}
 
                                             <ButtonColored
-                                                label='Reset Password'
+                                                label={t('reset-password')}
                                                 onClick={handleResetPassword}
                                                 className="sign-in-btn-block"
                                             />
@@ -83,7 +91,7 @@ export default function ForgotpasswordPage() {
                             <div className='side-frame'>
                                 <div className='side-frame-content'>
                                     <h2 className='auth-sub-header'>
-                                        Seamless Showcase: Unify Your Prototypes with a Custom URL
+                                        {t('seamless-showcase')}
                                     </h2>
                                     <img src={auth_side_frame} className='sideframe_img' />
                                 </div>

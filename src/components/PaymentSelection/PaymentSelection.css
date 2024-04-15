@@ -1,5 +1,6 @@
 .payment-feature {
     display: flex;
+
 }
 
 .payment-modal-selection-title {
@@ -53,7 +54,8 @@
 }
 
 .regular-card {
-    height: 430px;
+    min-height: 430px;
+    overflow: hidden;
     padding: 20px;
     position: relative;
     border-radius: 16px;
@@ -64,11 +66,12 @@
 .payment-selection-modal {
     padding-top: 80px;
     min-width: 878px !important;
-    height: 538px;
+    min-height: 538px;
+    overflow: hidden;
 }
 
 .payment-modal-body {
-    width: 900px;
+    max-width: 900px;
     padding: 24px;
 }
 
@@ -97,7 +100,8 @@
 }
 
 .green-card {
-    height: 430px;
+    min-height: 430px;
+    overflow: hidden;
     padding: 20px;
     position: relative;
     border-radius: 16px;
@@ -113,6 +117,11 @@
 .most-popular {
     width: 79px;
     height: 22px;
+}
+
+.payment-feature-container {
+    min-height: 250px;
+    padding-bottom: 50px;
 }
 
 .button-upgrade-container {
@@ -137,7 +146,7 @@
 
 
 .btn-upgrade-plan {
-    width: 206px;
+    min-width: 206px;
     padding: 12px 24px;
     border-radius: 40px;
     font-weight: 400;
@@ -150,7 +159,6 @@
 }
 
 .btn-current-plan {
-    width: 206px;
     padding: 12px 24px;
     border-radius: 40px;
     font-weight: 400;
@@ -165,23 +173,9 @@
 
 @media (max-width: 767px) {
 
-
-    /* .regular-card {
-        height: 300px;
-    }
-
-    .green-card {
-        height: 300px;
-    } */
-
-    .button-upgrade-container-2 {
-        padding-top: 125px;
-    }
-
-
-
-    .button-upgrade-container {
-        padding-top: 80px;
+    .payment-feature-container {
+        min-height: 0px;
+        padding-bottom: 50px;
     }
 
     .payment-modal-header {
@@ -209,12 +203,53 @@
         font-size: 13px;
     }
 
+    .regular-card {
+        min-height: 300px;
+        margin-bottom: 24px;
+    }
 
+    .button-upgrade-container-2 {
+        position: relative;
+        padding-bottom: 0px;
+    }
+
+    .button-upgrade-container {
+        position: relative;
+        padding-bottom: 0px;
+    }
+
+    .green-card {
+        min-height: 350px;
+        margin-bottom: 24px;
+    }
 
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
+    .payment-feature-container {
+        min-height: 0px;
+        padding-bottom: 50px;
+    }
 
+    .button-upgrade-container {
+        position: relative;
+        padding-bottom: 0px;
+    }
+
+    .button-upgrade-container-2 {
+        position: relative;
+        padding-bottom: 0px;
+    }
+
+    .regular-card {
+        min-height: 350px;
+        margin-bottom: 24px;
+    }
+
+    .green-card {
+        min-height: 350px;
+        margin-bottom: 24px;
+    }
 
     .payment-feature-text {
         font-size: 13px;
@@ -230,27 +265,13 @@
     }
 
     .payment-selection-modal {
-        min-width: 750px !important;
+        min-width: 500px !important;
     }
 
-    .button-upgrade-container-2 {
-        padding-top: 92px;
-    }
-
-
-
-    .button-upgrade-container {
-        padding-top: 15px;
-    }
-
-
-    .btn-upgrade-plan {
-        width: 160px;
-
-    }
 
     .btn-current-plan {
-        width: 160px;
+        text-align: center;
+        min-width: 160px;
 
     }
 

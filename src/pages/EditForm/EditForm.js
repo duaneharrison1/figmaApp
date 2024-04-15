@@ -33,7 +33,12 @@ export default function EditForm() {
     const [modalMessage, setModalMessage] = useState('');
     const dbFirestore = firebase.firestore();
     const [subscriptionType, setSubscriptionType] = useState(location.state.subscriptionType);
+    const lng = navigator.language;
 
+    useEffect(() => {
+
+        i18n.changeLanguage(lng);
+    }, [])
     const handleShowErrorModal = () => {
         setShowErrorModal(true);
     };
@@ -207,7 +212,7 @@ export default function EditForm() {
                         </div>
 
                         <div className='preview-btn-container'>
-                            <ButtonColored className="preview-btn" label="Preview" onClick={goToPreview} />
+                            <ButtonColored className="preview-btn" label={t('preview')} onClick={goToPreview} />
                         </div>
 
                         <FormInstruction />
@@ -216,7 +221,7 @@ export default function EditForm() {
                     <PaymentSelectionModal show={showModal} handleClose={handleCloseModal}
                         handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_MONTHLY)}
                         handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_YEARLY)} />
-                    < AlertErrorModal show={showErrorModal} handleClose={handleCloseErrorModal} alertMessage={"You have entered a link to a Figma file. To publish your Figmafolio website, you must enter a link to a Figma prototype. Prototypes allow visitors to interact with your site."} />
+                    < AlertErrorModal show={showErrorModal} handleClose={handleCloseErrorModal} alertMessage={t('you-have-entered-a-link')} />
                 </div>
             </div>
 

@@ -9,6 +9,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import PaymentSelectionModal from '../../components/PaymentSelection/PaymentSelection';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
+
 export default function Billing() {
     const { t } = useTranslation();
     const dbFirestore = firebase.firestore();
@@ -19,7 +20,12 @@ export default function Billing() {
     const [changeSubPlan, setChangeSubPlan] = useState(null);
     const [showUpgradeModal, setShowUpgradeModal] = useState(false);
     const [name, setName] = useState([]);
+    const lng = navigator.language;
 
+    useEffect(() => {
+
+        i18n.changeLanguage(lng);
+    }, [])
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setUser(user);
@@ -37,7 +43,7 @@ export default function Billing() {
                         dbFirestore.collection('user').doc(user.uid).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
                             if (snapshot.empty) {
                                 setSubscriptionType("regular")
-                                setSubscriptionTypeDesc("Billed monthly at $0")
+                                setSubscriptionTypeDesc(t('billed-monthly-at-o'))
                             } else {
                                 snapshot.forEach(subscription => {
                                     if (subscription.data().status == "active") {
@@ -50,19 +56,20 @@ export default function Billing() {
                                         }
                                     } else if (subscription.data().status == "canceled") {
                                         setSubscriptionType("regular")
-                                        setSubscriptionTypeDesc("Billed monthly at $0")
+                                        setSubscriptionTypeDesc(t('billed-monthly-at-o'))
+
                                     } else {
                                         setSubscriptionType("regular")
-                                        setSubscriptionTypeDesc("Billed monthly at $0")
+                                        setSubscriptionTypeDesc(t('billed-monthly-at-o'))
                                     }
 
                                     if (subscriptionType == "regular") {
-                                        setSubscriptionTypeDesc("Billed monthly at $0")
+                                        setSubscriptionTypeDesc(t('billed-monthly-at-o'))
                                     } else if (subscriptionType == "monthlyPlan") {
                                         setSubscriptionTypeText("Monthly Plan")
-                                        setSubscriptionTypeDesc("Billed monthly at $5 USD")
+                                        setSubscriptionTypeDesc(t('billed-monthly-at-five'))
                                     } else if (subscriptionType == "annualPlan") {
-                                        setSubscriptionTypeDesc("Billed as one payment of $48 USD")
+                                        setSubscriptionTypeDesc(t('billed-as-one-payment'))
                                         setSubscriptionTypeText("Yearly Plan")
                                     }
                                 })

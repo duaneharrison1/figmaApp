@@ -15,6 +15,7 @@ import Footer from '../../components/Footer/Footer';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 function UserDashboard() {
+    const lng = navigator.language;
     const { t } = useTranslation();
     const [userIsDesktop, setUserIsDesktop] = useState(true);
     const navigate = useNavigate();
@@ -43,6 +44,9 @@ function UserDashboard() {
     // }, []);
 
 
+    useEffect(() => {
+        i18n.changeLanguage(lng);
+    }, [])
 
     useEffect(() => {
         window.innerWidth > 1280 ? setUserIsDesktop(true) : setUserIsDesktop(false);

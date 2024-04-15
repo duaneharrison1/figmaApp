@@ -8,10 +8,19 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import SignUpPage from './SignupPage.js'
 import LoginPage from './LoginPage.js'
 import auth_side_frame from '../../assets/images/sideframe.png'
-
+import { useTranslation } from 'react-i18next';
+import i18n from '../../i18n';
 export default function MainAuth(props) {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const [userIsDesktop, setUserIsDesktop] = useState(true);
+    const lng = navigator.language;
+
+    useEffect(() => {
+
+        i18n.changeLanguage(lng);
+    }, [])
+
     useEffect(() => {
         window.innerWidth > 1280 ? setUserIsDesktop(true) : setUserIsDesktop(false);
     }, [userIsDesktop]);
@@ -42,14 +51,14 @@ export default function MainAuth(props) {
                                 <div className=' container main-title-container'>
                                     <h1 onClick={navigateToHome} className='main-title'>Figmafolio</h1>
                                 </div>
-                                <h1 className='header-text'>Welcome to Figmafolio</h1>
+                                <h1 className='header-text'>{t('welcome-to-figmafolio')}o</h1>
                                 <Tabs className='nav-pills' defaultActiveKey={tab[0]}
                                     id="tabs" activeKey={selectedTab}
                                     onSelect={(k) => setSelectedTab(k)}>
-                                    <Tab eventKey="tab1" title="Log in">
+                                    <Tab eventKey="tab1" title={t('login')}>
                                         <LoginPage />
                                     </Tab>
-                                    <Tab eventKey="tab2" title="Sign up">
+                                    <Tab eventKey="tab2" title={t('signup')}>
                                         <SignUpPage />
                                     </Tab>
                                 </Tabs>
@@ -62,19 +71,19 @@ export default function MainAuth(props) {
                                     {selectedTab === "tab1" ?
                                         (<div className='auth-sub-header-container'>
                                             <h2 className='auth-sub-header'>
-                                                Glad you're back!
+                                                {t('glad-your-back')}
                                             </h2>
                                             <h2 className='auth-sub-header'>
-                                                Time to get creating.
+                                                {t('time-to-get-creating')}
                                             </h2>
                                         </div>) :
                                         (<div className='auth-sub-header-container'>
 
                                             <h2 className='auth-sub-header'>
-                                                You're almost there!
+                                                {t('youre-almost-there')}
                                             </h2>
                                             <h2 className='auth-sub-header'>
-                                                Sign up to showcase your designs.
+                                                {t('sign-up-to-showcase-your-designs')}
                                             </h2>
                                         </div>)}
                                     <img src={auth_side_frame} className='sideframe_img' />

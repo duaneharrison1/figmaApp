@@ -15,7 +15,7 @@ import FormInstruction from '../../components/FormInstruction/FormInstruction';
 import CustomDomainFunction from '../../components/CustomDomainInstruction/CustomDomainInstruction';
 import UpgradeAccountButton from '../../components/UpgradeAccountButton/UpgradeAccountButton';
 import { t } from 'i18next';
-
+import i18n from '../../i18n';
 export default function UrlForm() {
     const navigate = useNavigate();
     const location = useLocation();
@@ -28,7 +28,12 @@ export default function UrlForm() {
     const [showErrorModal, setShowErrorModal] = useState(false);
     const dbFirestore = firebase.firestore();
     const [subscriptionType, setSubscriptionType] = useState(location.state.subscriptionType);
+    const lng = navigator.language;
 
+    useEffect(() => {
+
+        i18n.changeLanguage(lng);
+    }, [])
 
     const handleShowModal = () => {
         setShowModal(true);
@@ -203,7 +208,7 @@ export default function UrlForm() {
                         </div>
 
                         <div className='preview-btn-container'>
-                            <ButtonColored className="preview-btn" label="Preview" onClick={goToPreview} />
+                            <ButtonColored className="preview-btn" label={t('preview')} onClick={goToPreview} />
                         </div>
 
                         <FormInstruction />
@@ -212,7 +217,7 @@ export default function UrlForm() {
                 <PaymentSelectionModal show={showModal} handleClose={handleCloseModal}
                     handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_MONTHLY)}
                     handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_YEARLY)} />
-                < AlertErrorModal show={showErrorModal} handleClose={handleCloseErrorModal} alertMessage={"You have entered a link to a Figma file. To publish your Figmafolio website, you must enter a link to a Figma prototype. Prototypes allow visitors to interact with your site."} />
+                < AlertErrorModal show={showErrorModal} handleClose={handleCloseErrorModal} alertMessage={t('you-have-entered-a-link')} />
             </div>
         </>
 

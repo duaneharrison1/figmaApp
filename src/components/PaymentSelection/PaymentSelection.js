@@ -25,7 +25,7 @@ const PaymentSelection = (props) => {
                     {monthlySubscription == "monthlyPlan" ?
                         (
                             <div className='row justify-content-center'>
-                                <div className='col-md-4'>
+                                <div className='col-lg-4'>
                                     <div className='regular-card'>
                                         <h1 className='payment-modal-selection-title'>{t('monthly')}</h1>
                                         <div className='amount-per-month'>
@@ -33,17 +33,19 @@ const PaymentSelection = (props) => {
                                             <span className='month'>/month</span>
                                         </div>
                                         <h4 className='bill-desc'>{t('billed-monthly-at')} </h4>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>{t('monthly-feat-one')}</h4>
-                                        </div>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>{t('monthly-yearly-feat-two')}</h4>
-                                        </div>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
+                                        <div className='payment-feature-container'>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>{t('monthly-feat-one')}</h4>
+                                            </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>{t('monthly-yearly-feat-two')}</h4>
+                                            </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
+                                            </div>
                                         </div>
                                         <div className='button-upgrade-container'>
                                             {monthlySubscription == "monthlyPlan" ?
@@ -54,7 +56,7 @@ const PaymentSelection = (props) => {
 
                                     </div>
                                 </div>
-                                <div className='col-md-4'>
+                                <div className='col-lg-4'>
                                     <div className='green-card'>
                                         <div className="heading-container">
                                             <h1 className='payment-modal-selection-title'> Yearly</h1>
@@ -66,24 +68,26 @@ const PaymentSelection = (props) => {
                                             <span className='month'>/month</span>
                                         </div>
                                         <h4 className='bill-desc'> Billed at one payment of $48</h4>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Unlimited projects/websites</h4>
-                                        </div>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Use custom domains</h4>
-                                        </div>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
-                                        </div>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Priority technical and product support</h4>
+                                        <div className='payment-feature-container'>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>{t('yearly-feat-one')}</h4>
+                                            </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>{t('monthly-yearly-feat-two')}</h4>
+                                            </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
+                                            </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>{t('monthly-yearly-feat-three')}</h4>
+                                            </div>
                                         </div>
                                         <div className='button-upgrade-container'>
-                                            <ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={handleYearlyPayment} />
+                                            <ButtonColored className="btn-upgrade-plan" label={t('upgrade-plan')} onClick={handleYearlyPayment} />
                                         </div>
 
                                     </div>
@@ -93,33 +97,35 @@ const PaymentSelection = (props) => {
 
                         ) : monthlySubscription == "annualPlan" ? (
                             <div className='row justify-content-center'>
-                                <div className='col-md-4'>
+                                <div className='col-lg-4'>
                                     <div className='regular-card'>
                                         <h1 className='payment-modal-selection-title'> Monthly</h1>
                                         <div className='amount-per-month'>
                                             <span className='amount'>$5 </span>
                                             <span className='month'>/month</span>
                                         </div>
-                                        <h4 className='bill-desc'> Billed monthly at $5 USD </h4>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>5 projects/websites</h4>
-                                        </div>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Use custom domains</h4>
-                                        </div>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
+                                        <div className='payment-feature-container'>
+                                            <h4 className='bill-desc'> {t('billed-monthly-at')} </h4>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>{t('monthly-feat-one')}</h4>
+                                            </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>{t('monthly-yearly-feat-two')}</h4>
+                                            </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
+                                            </div>
                                         </div>
                                         <div className='button-upgrade-container'>
-                                            <ButtonColored className="btn-upgrade-plan" label="Change plan" onClick={ManagePlan} />
+                                            <ButtonColored className="btn-upgrade-plan" label={t('change-plan')} onClick={ManagePlan} />
                                         </div>
 
                                     </div>
                                 </div>
-                                <div className='col-md-4'>
+                                <div className='col-lg-4'>
                                     <div className='green-card'>
                                         <div className="heading-container">
                                             <h1 className='payment-modal-selection-title'> Yearly</h1>
@@ -130,26 +136,28 @@ const PaymentSelection = (props) => {
                                             <span className='amount'>$4</span>
                                             <span className='month'>/month</span>
                                         </div>
-                                        <h4 className='bill-desc'> Billed as one payment of $48 USD</h4>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Unlimited projects/websites</h4>
-                                        </div>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Use custom domains</h4>
-                                        </div>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
-                                        </div>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Priority technical and product support</h4>
+                                        <h4 className='bill-desc'> {t('billed-yearly-at')}</h4>
+                                        <div className='payment-feature-container'>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>{t('yearly-feat-one')}</h4>
+                                            </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>{t('monthly-yearly-feat-two')}</h4>
+                                            </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
+                                            </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>{t('monthly-yearly-feat-three')}</h4>
+                                            </div>
                                         </div>
 
                                         <div className='button-upgrade-container-2'>
-                                            <ButtonColored className="btn-current-plan" label="Current plan" />
+                                            <ButtonColored className="btn-current-plan" label={t('monthly-yearly-feat-three')} />
                                         </div>
                                     </div>
 
@@ -157,62 +165,66 @@ const PaymentSelection = (props) => {
                             </div>
                         ) : (
                             <div className='row'>
-                                <div className='col-md-4'>
+                                <div className='col-lg-4'>
                                     <div className='regular-card'>
-                                        <h1 className='payment-modal-selection-title'> Free</h1>
+                                        <h1 className='payment-modal-selection-title'> {t('free')}</h1>
                                         <div className='amount-per-month'>
                                             <span className='amount'>$0 </span>
                                             <span className='month'>/month</span>
                                         </div>
-                                        <h4 className='bill-desc'> No bills! </h4>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>1 project/websites</h4>
-                                        </div>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'> Free Figmafolio domain</h4>
-                                        </div>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Cross} />
-                                            <h4 className='payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
+                                        <h4 className='bill-desc'> {t('no-bills')}  </h4>
+                                        <div className='payment-feature-container'>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>{t('free-feat-one')}</h4>
+                                            </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'> {t('free-feat-two')}</h4>
+                                            </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Cross} />
+                                                <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
+                                            </div>
                                         </div>
                                         <div className='button-upgrade-container-2'>
-                                            <ButtonColored className="btn-current-plan" label="Current plan" />
+                                            <ButtonColored className="btn-current-plan" label={t('current-plan')} />
                                         </div>
 
                                     </div>
                                 </div>
-                                <div className='col-md-4'>
+                                <div className='col-lg-4'>
                                     <div className='regular-card'>
-                                        <h1 className='payment-modal-selection-title'> Monthly</h1>
+                                        <h1 className='payment-modal-selection-title'> {t('monthly')}</h1>
                                         <div className='amount-per-month'>
                                             <span className='amount'>$5 </span>
                                             <span className='month'>/month</span>
                                         </div>
-                                        <h4 className='bill-desc'> Billed monthly at $5 USD </h4>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>5 projects/websites</h4>
-                                        </div>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Use custom domains</h4>
-                                        </div>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
+                                        <h4 className='bill-desc'> {t('billed-monthly-at')} </h4>
+                                        <div className='payment-feature-container'>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>{t('monthly-feat-one')}</h4>
+                                            </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>{t('monthly-yearly-feat-two')}</h4>
+                                            </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
+                                            </div>
                                         </div>
                                         <div className='button-upgrade-container-2'>
                                             {monthlySubscription == "monthlyPlan" ?
-                                                (<ButtonColored className="btn-current-plan" label="Current plan" />) :
-                                                (<ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={handleMonthlyPayment} />)
+                                                (<ButtonColored className="btn-current-plan" label={t('current-plan')} />) :
+                                                (<ButtonColored className="btn-upgrade-plan" label={t('upgrade-plan')} onClick={handleMonthlyPayment} />)
                                             }
                                         </div>
 
                                     </div>
                                 </div>
-                                <div className='col-md-4'>
+                                <div className='col-lg-4'>
                                     <div className='green-card'>
                                         <div className="heading-container">
                                             <h1 className='payment-modal-selection-title'> Yearly</h1>
@@ -223,26 +235,27 @@ const PaymentSelection = (props) => {
                                             <span className='amount'>$4</span>
                                             <span className='month'>/month</span>
                                         </div>
-                                        <h4 className='bill-desc'> Billed as one payment of $48 USD</h4>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Unlimited projects/websites</h4>
+                                        <h4 className='bill-desc'> {t('billed-yearly-at')}</h4>
+                                        <div className='payment-feature-container'>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>{t('yearly-feat-one')}</h4>
+                                            </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>{t('monthly-yearly-feat-two')}</h4>
+                                            </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
+                                            </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>{t('monthly-yearly-feat-three')}</h4>
+                                            </div>
                                         </div>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Use custom domains</h4>
-                                        </div>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
-                                        </div>
-                                        <div className="payment-feature">
-                                            <img className='check-icon' src={Check} />
-                                            <h4 className='payment-feature-text'>Priority technical and product support</h4>
-                                        </div>
-
                                         <div className='button-upgrade-container'>
-                                            <ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={handleYearlyPayment} />
+                                            <ButtonColored className="btn-upgrade-plan" label={t('upgrade-plan')} onClick={handleYearlyPayment} />
                                         </div>
 
                                     </div>

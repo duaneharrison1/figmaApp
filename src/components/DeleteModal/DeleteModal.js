@@ -11,7 +11,9 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import ButtonColored from '../ButtonColored/ButtonColored';
 import ButtonClear from '../ButtonClear/ButtonClear';
 import axios from "axios";
+import { useTranslation } from 'react-i18next';
 const DeleteModal = (props) => {
+    const { t } = useTranslation();
     const { show, handleClose } = props;
     const [userId] = useAuthState(auth);
     const [user, setUser] = useState(null);
@@ -94,16 +96,16 @@ const DeleteModal = (props) => {
         <Modal className='delete-modal' show={show} onHide={handleClose}>
             <Modal.Body className='modal-body'>
                 <img src={DeleteHeaderImage} />
-                <h1 className='delete-header'> Delete site</h1>
-                <h2 className='delete-subheader'> Once being deleted, this file cannot be recover. Are you sure?</h2>
+                <h1 className='delete-header'>{t('delete-site')}</h1>
+                <h2 className='delete-subheader'> {t('once-being-deleted')}</h2>
             </Modal.Body>
             <Modal.Footer>
                 <div className='container'>
-                    <ButtonColored className="delete-btn" onClick={handleDelete} label="Delete" />
+                    <ButtonColored className="delete-btn" onClick={handleDelete} label={t('delete')} />
                 </div>
 
                 <div className='container'>
-                    <ButtonClear className="cancel-delete-btn" onClick={handleClose} label="Cancel" />
+                    <ButtonClear className="cancel-delete-btn" onClick={handleClose} label={t('cancel')} />
                 </div>
             </Modal.Footer >
         </Modal >

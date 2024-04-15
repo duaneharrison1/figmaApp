@@ -30,15 +30,22 @@ export default function LandingPage() {
   const [userId] = useAuthState(auth);
   const [user, setUser] = useState(null);
   const lng = navigator.language;
+  // const [columnHeights, setColumnHeights] = useState([300, 300, 400]);
 
-  const scrollToDiv = () => {
-    divGuide.current.scrollIntoView({ behavior: 'smooth' });
-  }
+  // const updateColumnHeights = () => {
+  //   const columnElements = document.querySelectorAll('.col-lg-4'); // Select all columns
+  //   const newHeights = Array.from(columnElements).map(col => col.scrollHeight); // Get heights
+  //   setColumnHeights(newHeights); // Update state with new heights
+  // };
+
 
   useEffect(() => {
 
     i18n.changeLanguage(lng);
   }, [])
+  const scrollToDiv = () => {
+    divGuide.current.scrollIntoView({ behavior: 'smooth' });
+  }
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
@@ -59,7 +66,7 @@ export default function LandingPage() {
   };
   return (
     <>
-      < div className='container-fluid main-landing-page m-0 p-0'>
+      < div className='container-fluid main-landing-page'>
         <div className='navbar-container'>
           <div className="row">
             <div className="col-sm-8 col-4">
@@ -160,18 +167,21 @@ export default function LandingPage() {
 
             </div>
           </div>
+          <h1 className='tier-header'>{t('pick-a-plan')} </h1>
 
-          <div className='row landing-page-tier-div'>
-            <h1 className='tier-header'>{t('pick-a-plan')} </h1>
-            <div className='col-md-4'>
-              <div className='landing-page-tier'>
-                <div className='landing-page-tier-content'>
-                  <h1 className='landing-page-payment-selection-title'>{t('free')}</h1>
-                  <div className='amount-per-month'>
-                    <span className='landing-page-amount'>$0 </span>
-                    <span className='landing-page-month'>/month</span>
-                  </div>
-                  <h4 className='landing-page-bill-desc'>{t('no-bills')}</h4>
+
+
+          <div className='flex landing-page-tier-div'>
+
+            <div className='landing-page-tier' >
+              <div className='landing-page-tier-content'>
+                <h1 className='landing-page-payment-selection-title'>{t('free')}</h1>
+                <div className='amount-per-month'>
+                  <span className='landing-page-amount'>$0 </span>
+                  <span className='landing-page-month'>/month</span>
+                </div>
+                <h4 className='landing-page-bill-desc'>{t('no-bills')}</h4>
+                <div className='landing-payment-feature-container'>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
                     <h4 className='landing-page-payment-feature-text'>{t('free-feat-one')}</h4>
@@ -185,26 +195,25 @@ export default function LandingPage() {
                     <h4 className='landing-page-payment-feature-text'>{t('removes-made-with')}</h4>
                   </div>
                 </div>
+              </div>
 
-                <div className='landing-page-button-upgrade-container'>
-                  <Link to="/auth" state={{ "name": "tab2" }} >
-                    <ButtonColored className="btn-get-started" label={t('try-for-free')} />
-
-                  </Link>
-
-                </div>
-
+              <div className='landing-page-button-upgrade-container'>
+                <Link to="/auth" state={{ "name": "tab2" }} >
+                  <ButtonColored className="btn-get-started" label={t('try-for-free')} />
+                </Link>
               </div>
             </div>
-            <div className='col-md-4'>
-              <div className='landing-page-tier'>
-                <div className='landing-page-tier-content'>
-                  <h1 className='landing-page-payment-selection-title'> {t('monthly')}</h1>
-                  <div className='amount-per-month'>
-                    <span className='landing-page-amount'>$5 </span>
-                    <span className='landing-page-month'>/month</span>
-                  </div>
-                  <h4 className='landing-page-bill-desc'> {t('billed-monthly-at')} </h4>
+
+            <div className='landing-page-tier' >
+              <div className='landing-page-tier-content'>
+                <h1 className='landing-page-payment-selection-title'> {t('monthly')}</h1>
+
+                <div className='amount-per-month'>
+                  <span className='landing-page-amount'>$5 </span>
+                  <span className='landing-page-month'>/month</span>
+                </div>
+                <h4 className='landing-page-bill-desc'> {t('billed-monthly-at')} </h4>
+                <div className='landing-payment-feature-container'>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
                     <h4 className='landing-page-payment-feature-text'>{t('monthly-feat-one')}</h4>
@@ -217,33 +226,34 @@ export default function LandingPage() {
                     <img className='check-icon' src={WhiteCheck} />
                     <h4 className='landing-page-payment-feature-text'>{t('removes-made-with')}</h4>
                   </div>
-
-
-                </div>
-
-                <div className='landing-page-button-upgrade-container'>
-                  <Link to="/auth" state={{ "name": "tab2" }} >
-                    <ButtonColored className="btn-get-started" label={t('get-started')} />
-                  </Link>
                 </div>
 
               </div>
+
+              <div className='landing-page-button-upgrade-container'>
+                <Link to="/auth" state={{ "name": "tab2" }} >
+                  <ButtonColored className="btn-get-started" label={t('get-started')} />
+                </Link>
+              </div>
             </div>
-            <div className='col-md-4'>
 
-              <div className='landing-page-tier'>
-                <div className='landing-page-tier-content'>
-                  <div className="heading-container">
-                    <h1 className='landing-page-payment-selection-title'> {t('yearly')}</h1>
 
-                  </div>
 
-                  <div className='amount-per-month'>
+            <div className='landing-page-tier' >
+              <div className='landing-page-tier-content'>
+                <div className="heading-container">
+                  <h1 className='landing-page-payment-selection-title'> {t('yearly')}</h1>
 
-                    <span className='landing-page-amount'>$4 </span>
-                    <span className='landing-page-month'>/month</span>
-                  </div>
-                  <h4 className='landing-page-bill-desc'>{t('billed-yearly-at')}</h4>
+                </div>
+
+                <div className='amount-per-month'>
+
+                  <span className='landing-page-amount'>$4 </span>
+                  <span className='landing-page-month'>/month</span>
+                </div>
+                <h4 className='landing-page-bill-desc'>{t('billed-yearly-at')}</h4>
+
+                <div className='landing-payment-feature-container'>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
                     <h4 className='landing-page-payment-feature-text'>{t('yearly-feat-one')}</h4>
@@ -261,25 +271,21 @@ export default function LandingPage() {
                     <h4 className='landing-page-payment-feature-text'>{t('monthly-yearly-feat-three')}</h4>
                   </div>
                 </div>
-                <div className='landing-page-button-upgrade-container'>
-                  <Link to="/auth" state={{ "name": "tab2" }} >
-                    <ButtonColored className="btn-get-started" label={t('get-started')} />
-                  </Link>
-                </div>
-
+              </div>
+              <div className='landing-page-button-upgrade-container'>
+                <Link to="/auth" state={{ "name": "tab2" }} >
+                  <ButtonColored className="btn-get-started" label={t('get-started')} />
+                </Link>
               </div>
 
             </div>
+
+
           </div>
         </div>
-        {/* <div className='container guide-container-plan'>
-              <h3 className='guide-one-header'>Plan</h3>
-            </div> */}
-
-
-
+        <Footer />
       </div >
-      <Footer />
+
     </>
   )
 

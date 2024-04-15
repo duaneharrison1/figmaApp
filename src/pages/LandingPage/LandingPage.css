@@ -1,489 +1,532 @@
 .main-landing-page {
-    margin: 0px;
-    padding: 0px;
-    background-color: #F8F6F0;
-    ;
+	margin: 0px;
+	padding: 0px;
+	background-color: #F8F6F0;
 }
 
 
 .navbar-container {
 
-    padding: 36px 120px;
-    margin: 0 auto;
+	padding: 36px 120px;
+	margin: 0 auto;
 }
 
 .page-content-container {
 
-    padding: 0 120px;
-    margin: 0 auto;
+	padding: 0 120px;
+	margin: 0 auto;
 }
 
 .main-container {
-    padding: 0 150px 0 150px;
-    font-family: 'Poppins', sans-serif;
-    background-color: #F8F6F0;
+	padding: 0 150px 0 150px;
+	font-family: 'Poppins', sans-serif;
+	background-color: #F8F6F0;
 }
 
 .nav-bar {
-    padding: 20px;
+	padding: 20px;
 }
 
 .figmalio-logged {
-    padding-top: 12px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-    font-size: 29px;
+	padding-top: 12px;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 700;
+	font-size: 29px;
 }
 
 .figmalio-logged:hover {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .header-container {
-    text-align: center;
-    margin-top: 50px;
+	text-align: center;
+	margin-top: 50px;
 }
 
 .btn-go-to-app {
-    margin-right: 10px;
-    font-family: 'Poppins', sans-serif;
-    border-radius: 70px;
-    border: none;
-    background-color: #E4E4E4;
-    padding: 10px 20px 10px 20px;
+	margin-right: 10px;
+	font-family: 'Poppins', sans-serif;
+	border-radius: 70px;
+	border: none;
+	background-color: #E4E4E4;
+	padding: 10px 20px 10px 20px;
 }
 
 .header_one {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-    font-size: 66px;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 700;
+	font-size: 66px;
 }
 
 .header_two {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
-    font-size: 46px;
-    margin-top: 50px;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 400;
+	font-size: 46px;
+	margin-top: 50px;
 }
 
 .content_one {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-    font-size: 36px;
-    text-align: center;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 700;
+	font-size: 36px;
+	text-align: center;
 }
 
 .content_two {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
-    font-size: 20px;
-    padding-top: 50px;
-    text-align: center;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 400;
+	font-size: 20px;
+	padding-top: 50px;
+	text-align: center;
 }
 
 .row .col-md-6 {
-    align-self: center
+	align-self: center
 }
 
 .btn_column {
-    padding: 56px 0px 0px 0px;
+	padding: 56px 0px 0px 0px;
 }
 
 .landing-header {
-    padding: 18px 0 18px 0;
-    font-weight: 700;
-    font-size: 56px;
+	padding: 18px 0 18px 0;
+	font-weight: 700;
+	font-size: 56px;
 }
 
 .landing-subheader {
-    padding: 18px 0 18px 0;
-    font-weight: 700;
-    color: #9A8742;
-    font-size: 32px;
+	padding: 18px 0 18px 0;
+	font-weight: 700;
+	color: #9A8742;
+	font-size: 32px;
 }
 
 .landing-sec-subheader {
-    padding: 18px 0 18px 0;
-    font-size: 25px;
-    font-weight: 400;
-    font-family: 'Roboto', sans-serif;
+	padding: 18px 0 18px 0;
+	font-size: 25px;
+	font-weight: 400;
+	font-family: 'Roboto', sans-serif;
+}
+
+.btn-get-started {
+
+	width: 100%;
+	padding: 12px 24px;
+	border-radius: 40px;
+	color: #4D9F70;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 700;
+	border: none;
+	bottom: 0;
+	background: #F2F2F2;
+
 }
 
 .landing-page-tier {
-    height: 400px;
-    padding: 20px;
-    position: relative;
-    border-radius: 16px;
-    border: 1px solid var(--grey-4, #E5E6EB);
-    background: #4D9F70;
+	margin-left: 8px;
+	margin-right: 8px;
+	flex: 1 1 0;
+	max-width: 500px;
+	padding: 20px;
+	border-radius: 16px;
+	border: 1px solid var(--grey-4, #E5E6EB);
+	background: #4D9F70;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
 .landing-page-payment-feature-text {
-    margin-top: 4px;
-    color: white;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
+	margin-top: 4px;
+	color: white;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 500;
+	flex-grow: 1;
 }
 
 .landing-page-tier-div {
-    padding-bottom: 120px;
+	display: flex;
+	justify-content: center;
+	padding-bottom: 120px;
 }
 
 .landing-page-payment-selection-title {
-    color: white;
-    font-size: 30px;
-    font-style: normal;
-    font-weight: 700;
-    padding-bottom: 32px;
-    margin: 0;
+	color: white;
+	font-size: 30px;
+	font-style: normal;
+	font-weight: 700;
+	padding-bottom: 32px;
+	margin: 0;
 }
 
 .landing-page-bill-desc {
-    color: white;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    margin: 0;
-    padding-bottom: 20px;
+	color: white;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	margin: 0;
+	padding-bottom: 20px;
 }
 
 .landing-page-amount {
-    color: white;
-    font-size: 48px;
-    font-style: normal;
-    font-weight: 600;
-    display: inline-block;
-    height: .75rem;
+	color: white;
+	font-size: 48px;
+	font-style: normal;
+	font-weight: 600;
+	display: inline-block;
+	height: .75rem;
 }
 
 .landing-page-month {
-    color: white;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    margin: 0;
-    padding: 0;
+	color: white;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 500;
+	margin: 0;
+	padding: 0;
 }
 
 .guide-one-header {
-    text-align: start;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-    font-size: 40px;
+	text-align: start;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 700;
+	font-size: 40px;
 }
 
 .guide-one-subheader {
-    padding: 46px 0 0px 0;
-    font-weight: 400;
-    font-size: 26px;
-    font-family: 'Roboto', sans-serif;
+	padding: 46px 0 0px 0;
+	font-weight: 400;
+	font-size: 26px;
+	font-family: 'Roboto', sans-serif;
 }
 
 
 .guide-two-header {
-    padding: 18px 0 18px 0;
-    font-weight: 700;
-    font-size: 40px;
+	padding: 18px 0 18px 0;
+	font-weight: 700;
+	font-size: 40px;
 }
 
 .guide-two-subheader {
-    padding: 18px 0 18px 0;
-    font-weight: 400;
-    font-size: 16px;
+	padding: 18px 0 18px 0;
+	font-weight: 400;
+	font-size: 16px;
 }
 
 .second-guide {
-    text-align: end;
+	text-align: end;
 
 }
 
 .step-one-img {
-    object-fit: contain;
-    width: 100%;
+	object-fit: contain;
+	width: 100%;
 }
 
 .landing-page-bill-desc {
-    color: white;
-    font-size: 14px;
-    font-style: normal;
-    ;
+	color: white;
+	font-size: 14px;
+	font-style: normal;
+	;
 }
 
 .guide-container-version-two {
-    margin-bottom: 187px;
+	margin-bottom: 187px;
 }
 
 .guide-container {
-    margin: 50px 0 50px 0;
+	margin: 50px 0 50px 0;
 }
 
 .guide-container-plan {
-    margin: 0;
+	margin: 0;
 }
 
 .main-header {
-    padding-top: 100px;
+	padding-top: 100px;
 }
 
 .img-container {
-    text-align: center;
+	text-align: center;
 }
 
 .circular-background {
-    width: 62px;
-    /* Set the width and height to create a circle */
-    height: 62px;
-    border-radius: 50%;
-    /* Make it a circle */
-    background-color: #4D9F70;
-    /* Background color of the circle */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	width: 62px;
+	/* Set the width and height to create a circle */
+	height: 62px;
+	border-radius: 50%;
+	/* Make it a circle */
+	background-color: #4D9F70;
+	/* Background color of the circle */
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
 }
 
 .step-text {
-    color: #ffffff;
-    /* Text color */
-    font-size: 32px;
-    font-weight: bold;
+	color: #ffffff;
+	/* Text color */
+	font-size: 32px;
+	font-weight: bold;
 }
 
 .button-container {
-    display: flex;
+	display: flex;
 }
 
 .step-one {
-    height: 62px;
-    width: 62px;
+	height: 62px;
+	width: 62px;
 
 }
 
 .login-link {
-    width: 100%;
-    margin-right: 20px;
-    color: #4D9F70;
-    text-align: center;
-    font-family: Poppins;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 600;
-    text-decoration: none;
+	width: 100%;
+	margin-right: 20px;
+	color: #4D9F70;
+	text-align: center;
+	font-family: Poppins;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 600;
+	text-decoration: none;
 }
 
 
 
 .circle-img-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 5%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 5%;
 }
 
 .circle-img-container-two {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: end;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: end;
 }
 
 .landing-page-img {
 
-    width: 100%;
+	width: 100%;
 }
 
 .main-header {
-    padding: 48px 24px 0px 24px;
-    width: 100%;
+	padding: 48px 24px 0px 24px;
+	width: 100%;
 }
 
 .landing-page-guide-container {
-    padding: 161px 120px;
-    margin: 0 auto;
+	padding: 161px 120px;
+	margin: 0 auto;
 }
 
 .landing-page-tier-content {
-    min-height: 300px;
-    color: white;
-    font-weight: 400;
+	color: white;
+	font-weight: 400;
 }
 
 .tier-header {
-    color: #2D2B29;
-
-    text-align: center;
-    padding-top: 50px;
-    padding-bottom: 56px;
-    font-size: 40px;
-    font-style: normal;
-    font-weight: 700;
+	color: #2D2B29;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	text-align: center;
+	padding-top: 50px;
+	padding-bottom: 56px;
+	font-size: 40px;
+	font-style: normal;
+	font-weight: 700;
 }
 
 .landing-page-amount-strikethrough {
-    text-decoration: line-through;
+	text-decoration: line-through;
 }
 
+
 .landing-page-button-upgrade-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
+	padding-top: 16px;
 }
 
 /* MOBILE VIEW */
 
 .mobile-first-div {
-    text-align: center;
+	text-align: center;
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 782px) {
+	.landing-page-tier {
+		margin-bottom: 12px;
+		min-width: 0px;
+		max-width: 100%;
+	}
 
 
-    .landing-page-tier {
-        margin-bottom: 12px;
-    }
+	.landing-page-tier-div {
+
+		flex-direction: column;
+	}
 }
 
 
 
 @media only screen and (max-width: 1280px) {
-    .tier-header {
-
-        font-size: 24px;
-
-    }
-
-    .login-link {
-        width: 100%;
-        line-height: 30px;
-        padding-top: 0px;
-        margin: 0px;
-        color: #4D9F70;
-        text-align: center;
-        font-family: Poppins;
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 600;
-        text-decoration: none;
-    }
-
-    .button-container {
-        display: flex;
-        justify-content: end;
-    }
 
 
-    .page-content-container {
 
-        max-width: 100% !important;
-        padding: 48px 24px 0px 24px;
-        margin: 0 auto;
-    }
+	.landing-page-payment-selection-title {
+		font-size: 24px;
+	}
 
-    .navbar-container {
-        padding: 25px 24px 0px 24px;
-    }
+	.gotoapp {
+		font-size: 18px;
+		width: 100%;
+		padding: 4px 12px;
+		border-radius: 40px;
+		font-weight: 700;
+		color: white;
+		border: none;
+		background-color: #4D9F70;
+	}
 
-    .guide-container-version-two {
-        margin-bottom: 82px;
-    }
+	.tier-header {
+		font-size: 24px;
+	}
 
-    .guide-number {
-        width: 24px !important;
-        margin-right: 24px;
-    }
+	.login-link {
+		width: 100%;
+		line-height: 30px;
+		padding-top: 0px;
+		margin: 0px;
+		color: #4D9F70;
+		text-align: center;
+		font-family: Poppins;
+		font-size: 16px;
+		font-style: normal;
+		font-weight: 600;
+		text-decoration: none;
+	}
 
-    .landing-page-guide-container {
-        max-width: 100% !important;
-        padding: 83px 23px 0px 23px;
-        margin: 0 auto;
-    }
+	.button-container {
+		display: flex;
+		justify-content: end;
+	}
 
-    .guide-details {
-        padding-bottom: 34px;
-    }
 
-    .btn_column {
-        padding: 40px 8px 50px 8px;
-    }
+	.page-content-container {
 
-    .figmalio-guest {
-        padding-top: 8px;
-        font-size: 16px;
-    }
+		max-width: 100% !important;
+		padding: 48px 24px 0px 24px;
+		margin: 0 auto;
+	}
 
-    .figmalio-logged {
-        padding-top: 8px;
-        font-size: 16px;
-    }
+	.navbar-container {
+		padding: 25px 24px 0px 24px;
+	}
 
-    .landing-header {
-        padding: 0px;
-        font-weight: 700;
-        font-size: 32px;
-        text-align: center;
-    }
+	.guide-container-version-two {
+		margin-bottom: 82px;
+	}
 
-    .landing-subheader {
-        padding: 0px 24px 16px 24px;
-        font-weight: 700;
-        color: #9A8742;
-        font-size: 16px;
-    }
+	.guide-number {
+		width: 24px !important;
+		margin-right: 24px;
+	}
 
-    .landing-sec-subheader {
-        padding: 0px;
-        font-size: 14px;
-        font-weight: 400;
-        text-align: center;
-    }
+	.landing-page-guide-container {
+		max-width: 100% !important;
+		padding: 83px 23px 0px 23px;
+		margin: 0 auto;
+	}
 
-    .landing-page-img {
-        padding: 24px 24px 0px 24px;
-        width: 100%;
-    }
+	.guide-details {
+		padding-bottom: 34px;
+	}
 
-    .guide-container {
-        padding: 0px 24px 0px 24px;
-    }
+	.btn_column {
+		padding: 40px 8px 50px 8px;
+	}
 
-    .guide-one-header {
-        padding: 0px;
-        font-weight: 700;
-        font-size: 24px;
-    }
+	.figmalio-guest {
+		padding-top: 8px;
+		font-size: 16px;
+	}
 
-    .guide-one-subheader {
-        padding-top: 8px;
-        padding-bottom: 0px;
-        font-weight: 400;
-        font-size: 14px;
-    }
+	.figmalio-logged {
+		padding-top: 8px;
+		font-size: 16px;
+	}
 
-    .step-one {
-        height: 32px;
-        width: 32px;
-        padding: 0px;
-    }
+	.landing-header {
+		padding: 0px;
+		font-weight: 700;
+		font-size: 32px;
+		text-align: center;
+	}
 
-    .circle-img-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
+	.landing-subheader {
+		padding: 0px 24px 16px 24px;
+		font-weight: 700;
+		color: #9A8742;
+		font-size: 16px;
+	}
 
-    .header-guide-container {
-        padding: 0px;
-    }
+	.landing-sec-subheader {
+		padding: 0px;
+		font-size: 14px;
+		font-weight: 400;
+		text-align: center;
+	}
 
-    .step-one-img {
+	.landing-page-img {
+		padding: 24px 24px 0px 24px;
+		width: 100%;
+	}
 
-        object-fit: contain;
-        width: 100%;
-        padding: 0px;
-    }
+	.guide-container {
+		padding: 0px 24px 0px 24px;
+	}
+
+	.guide-one-header {
+		padding: 0px;
+		font-weight: 700;
+		font-size: 24px;
+	}
+
+	.guide-one-subheader {
+		padding-top: 8px;
+		padding-bottom: 0px;
+		font-weight: 400;
+		font-size: 14px;
+	}
+
+	.step-one {
+		height: 32px;
+		width: 32px;
+		padding: 0px;
+	}
+
+	.circle-img-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.header-guide-container {
+		padding: 0px;
+	}
+
+	.step-one-img {
+
+		object-fit: contain;
+		width: 100%;
+		padding: 0px;
+	}
 }

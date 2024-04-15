@@ -7,7 +7,9 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from "firebase/auth";
 import { db, auth } from '../../firebase';
+import { useTranslation } from 'react-i18next';
 export default function Navbar(props) {
+    const { t } = useTranslation();
     const currentUser = useAuth();
     const handleSwitchChange = props.handleSwitchChange
     const onClickLogout = props.onClickLogout
@@ -48,14 +50,14 @@ export default function Navbar(props) {
             <div className="row">
                 <div className="col d-flex  align-items-center">
                     {isFromForm == "newForm" || isFromForm == "editForm" ?
-                        (<a className="back-to-library" href="/dashboard"> &lt; Back to your library </a>)
+                        (<a className="back-to-library" href="/dashboard"> {t('back-to-your-library')} </a>)
                         : (<a className="nav-title" href="/dashboard"> Figmafolio</a>)}
                 </div>
 
                 <div className="col d-flex align-items-center justify-content-center">
-                    {isFromForm == "newForm" ? (<a className="nav-title">New project</a>) :
+                    {isFromForm == "newForm" ? (<a className="nav-title">{t('new-project')}</a>) :
                         isFromForm == "editForm" ? (<a className="nav-title">{title}</a>) :
-                            (<a className="nav-title">Your Library</a>)}
+                            (<a className="nav-title">{t('your-library')}</a>)}
                 </div>
                 <div className="col d-flex justify-content-end align-items-center">
                     <div className="dropdown">
@@ -64,9 +66,9 @@ export default function Navbar(props) {
                             {email}
                         </button>
                         <ul className="dropdown-menu  bg-light">
-                            <li><a className="dropdown-item" onClick={handleGoToProfile}>Profile</a></li>
-                            <li><a className="dropdown-item" onClick={handleGoToBilling}>Billing</a></li>
-                            <li><a className="dropdown-item" onClick={handleLogout}>Logout</a></li>
+                            <li><a className="dropdown-item" onClick={handleGoToProfile}>{t('profile')}</a></li>
+                            <li><a className="dropdown-item" onClick={handleGoToBilling}>{t('billing')}</a></li>
+                            <li><a className="dropdown-item" onClick={handleLogout}>{t('logout')}</a></li>
                         </ul>
                     </div>
                     <Link to="/profile" >
@@ -82,9 +84,9 @@ export default function Navbar(props) {
                             </svg>
                         </button>
                         <ul className="dropdown-menu dropdown-menu-dark bg-light">
-                            <li><a className="dropdown-item" onClick={handleGoToProfile}>Profile</a></li>
-                            <li><a className="dropdown-item" onClick={handleGoToBilling}>Billing</a></li>
-                            <li><a className="dropdown-item" onClick={handleLogout}>Logout</a></li>
+                            <li><a className="dropdown-item" onClick={handleGoToProfile}>{t('profile')}</a></li>
+                            <li><a className="dropdown-item" onClick={handleGoToBilling}>{t('billing')}</a></li>
+                            <li><a className="dropdown-item" onClick={handleLogout}>{t('logout')}</a></li>
                         </ul>
                     </div>
 

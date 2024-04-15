@@ -10,11 +10,6 @@
     /* Optional: collapse borders for a cleaner look */
 }
 
-
-.preview-btn {
-    width: 100px;
-}
-
 .button-container {
     display: flex;
     justify-content: center;

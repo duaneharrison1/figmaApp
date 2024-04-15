@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { collection, addDoc } from 'firebase/firestore'
 import { createUserWithEmailAndPassword } from 'firebase/auth';
@@ -9,6 +9,8 @@ import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import AlertModal from '../../components/AlertModal/AlertModal';
 import firebase from '../../firebase';
 import PasswordTextField from '../../components/PasswordTextfield/PasswordTextfield.js';
+import { useTranslation } from 'react-i18next';
+import i18n from '../../i18n';
 export default function SignupPage() {
     const navigate = useNavigate();
     const dbFirestore = firebase.firestore();
@@ -20,6 +22,13 @@ export default function SignupPage() {
     const [modalMessage, setModalMessage] = useState('');
     const [errorConfirmPassword, setErrorConfirmPassword] = useState(null);
     const isButtonActive = email && password && confirmPassword;
+    const { t } = useTranslation();
+    const lng = navigator.language;
+
+    useEffect(() => {
+
+        i18n.changeLanguage(lng);
+    }, [])
 
     const handleShowModal = () => {
         setShowModal(true);
@@ -111,64 +120,63 @@ export default function SignupPage() {
                 <form className='sign-up'>
                     <div>
                         <TextField
-                            formLabel='Email'
+                            formLabel={t('email')}
                             className='auth-input'
                             id="email-address"
                             name="email"
                             type="email"
                             required
-                            placeholder="Email address"
+                            placeholder={t('enter-your-email')}
                             onChange={handleEmailChange} />
                     </div>
 
                     <div className='textfield-holder'>
                         <TextField
-                            formLabel='Name'
+                            formLabel={t('name')}
                             className='auth-input'
                             id="email-address"
                             name="email"
                             required
-                            placeholder="Name"
+                            placeholder={t('enter-your-name')}
                             onChange={handleNameChange} />
                     </div>
 
                     <div>
                         <PasswordTextField
-                            formLabel='Password'
+                            formLabel={t('password')}
                             className='password-input'
                             id="password"
                             name="password"
                             type="password"
-                            placeholder="Password"
+                            placeholder={t('enter-your-password')}
                             onChange={handlePasswordChange} />
                     </div>
 
                     <div>
                         <PasswordTextField
-                            formLabel='Verify password'
+                            formLabel={t('verify-password')}
                             className='password-input'
                             type="password"
                             id="password"
                             name="password"
-                            label="Confirm password"
+                            label={t('confirm-password')}
                             value={confirmPassword}
                             onChange={handleConfirmPasswordChange}
-                            placeholder="Confirm password" />
+                            placeholder={t('confirm-password')} />
                         {errorConfirmPassword && < p className='error-message'>{errorConfirmPassword}</p>}
                     </div>
-
 
                     <div className='auth-button-container'>
                         {isButtonActive ?
                             <ButtonColored
-                                label='Continue'
+                                label={t('continue')}
                                 onClick={onSubmit}
                                 className="sign-in-btn-block"
                             />
                             :
                             <ButtonColored
                                 className="sign-in-disabled"
-                                label='Continue'
+                                label={t('continue')}
                                 disabled
                             />}
                     </div>

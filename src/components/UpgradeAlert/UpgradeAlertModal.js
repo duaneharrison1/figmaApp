@@ -69,10 +69,10 @@ const UpgradeAlertModal = (props) => {
             {!isSuccessful ? (
                 <Modal className='upgrade-modal' show={show} onHide={handleClose}>
                     <Modal.Body className='modal-body'>
-                        <h1 className='upgrade-header'> You've reached your limit on websites</h1>
-                        <h2 className='upgrade-subheader'> looks like youve hit your website limit. Please upgrade your plan to create a new project/website.</h2>
-                        <ButtonColored className="btn-notify-me" label="Upgrade plan" onClick={handleNotifyMe} />
-                        <ButtonClear className="btn-cancel" onClick={handleClose} label="Cancel" />
+                        <h1 className='upgrade-header'>{t('youve-reached-your-limit')}</h1>
+                        <h2 className='upgrade-subheader'> {t('looks-like-you-ve-hit-your-website-limit')}</h2>
+                        <ButtonColored className="btn-notify-me" label={t('upgrade-plan')} onClick={handleNotifyMe} />
+                        <ButtonClear className="btn-cancel" onClick={handleClose} label={t('cancel')} />
                     </Modal.Body >
                 </Modal >
             ) : (
@@ -83,47 +83,47 @@ const UpgradeAlertModal = (props) => {
                         <div className='row'>
                             <div className='col-md-4'>
                                 <div className='regular-card'>
-                                    <h1 className='payment-modal-selection-title'> Free</h1>
+                                    <h1 className='payment-modal-selection-title'>{t('free')}</h1>
                                     <div className='amount-per-month'>
                                         <span className='amount'>$0 </span>
                                         <span className='month'>/month</span>
                                     </div>
-                                    <h4 className='bill-desc'> No bills! </h4>
+                                    <h4 className='bill-desc'> {t('no-bills')} </h4>
                                     <div className="payment-feature">
                                         <img className='check-icon' src={Check} />
-                                        <h4 className='payment-feature-text'>5 projects/websites</h4>
+                                        <h4 className='payment-feature-text'>{t('monthly-feat-one')}</h4>
                                     </div>
                                     <div className="payment-feature">
                                         <img className='check-icon' src={Check} />
-                                        <h4 className='payment-feature-text'> Free Figmafolio domain</h4>
+                                        <h4 className='payment-feature-text'> {t('free-feat-two')}</h4>
                                     </div>
-                                    <ButtonColored className="btn-current-plan" label="Current plan" />
+                                    <ButtonColored className="btn-current-plan" label={t('current-plan')} />
 
                                 </div>
                             </div>
                             <div className='col-md-4'>
                                 <div className='regular-card'>
-                                    <h1 className='payment-modal-selection-title'> Monthly</h1>
+                                    <h1 className='payment-modal-selection-title'> {t('monthly')}</h1>
                                     <div className='amount-per-month'>
                                         <span className='amount'>$5 </span>
                                         <span className='month'>/month</span>
                                     </div>
-                                    <h4 className='bill-desc'> Billed monthly at $5 USD </h4>
+                                    <h4 className='bill-desc'> {t('billed-monthly-at')} </h4>
                                     <div className="payment-feature">
                                         <img className='check-icon' src={Check} />
-                                        <h4 className='payment-feature-text'>5 projects/websites</h4>
+                                        <h4 className='payment-feature-text'>{t('monthly-feat-one')}</h4>
                                     </div>
                                     <div className="payment-feature">
                                         <img className='check-icon' src={Check} />
-                                        <h4 className='payment-feature-text'> Custom domains</h4>
+                                        <h4 className='payment-feature-text'>{t('monthly-yearly-feat-two')}</h4>
                                     </div>
-                                    <ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={MonthlyPayment} />
+                                    <ButtonColored className="btn-upgrade-plan" label={t('upgrade-plan')} onClick={MonthlyPayment} />
                                 </div>
                             </div>
                             <div className='col-md-4'>
                                 <div className='green-card'>
                                     <div className="heading-container">
-                                        <h1 className='payment-modal-selection-title'> Yearly</h1>
+                                        <h1 className='payment-modal-selection-title'> {t('yearly')}</h1>
                                         <img className='most-popular' src={MostPopular} />
                                     </div>
 
@@ -131,24 +131,24 @@ const UpgradeAlertModal = (props) => {
                                         <span className='amount'>4</span>
                                         <span className='month'>/month</span>
                                     </div>
-                                    <h4 className='bill-desc'> Billed as one payment of $48 USD</h4>
+                                    <h4 className='bill-desc'> {t('billed-yearly-at')}</h4>
                                     <div className="payment-feature">
                                         <img className='check-icon' src={Check} />
-                                        <h4 className='payment-feature-text'>Unlimited projects/websites</h4>
+                                        <h4 className='payment-feature-text'>{t('yearly-feat-one')}</h4>
                                     </div>
                                     <div className="payment-feature">
                                         <img className='check-icon' src={Check} />
-                                        <h4 className='payment-feature-text'>Custom domains</h4>
+                                        <h4 className='payment-feature-text'>{t('monthly-yearly-feat-two')}</h4>
                                     </div>
                                     <div className="payment-feature">
                                         <img className='check-icon' src={Check} />
-                                        <h4 className='payment-feature-text'>Removes 'Made with Figmafolio' label</h4>
+                                        <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
                                     </div>
                                     <div className="payment-feature">
                                         <img className='check-icon' src={Check} />
-                                        <h4 className='payment-feature-text'>Priority technical and product support</h4>
+                                        <h4 className='payment-feature-text'>{t('monthly-yearly-feat-three')}</h4>
                                     </div>
-                                    <ButtonColored className="btn-upgrade-plan" label="Upgrade plan" onClick={yearlyPayment} />
+                                    <ButtonColored className="btn-upgrade-plan" label={t('upgrade-plan')} onClick={yearlyPayment} />
                                 </div>
 
                             </div>

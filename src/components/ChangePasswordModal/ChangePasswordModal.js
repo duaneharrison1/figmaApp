@@ -11,6 +11,9 @@ import TextField from '../../components/TextField/TextField.js';
 import './ChangePasswordModal.css'
 import SuccessCheck from '../../assets/images/success-check.png';
 import { NavLink, useNavigate, Link } from 'react-router-dom';
+import PasswordTextField from '../PasswordTextfield/PasswordTextfield.js';
+import { useTranslation } from 'react-i18next';
+import i18n from '../../i18n';
 
 const ChangePasswordModal = (props) => {
     const { show, handleClose } = props;
@@ -23,6 +26,13 @@ const ChangePasswordModal = (props) => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
     const isButtonActive = password && newPassword && confirmNewPassword;
+    const { t } = useTranslation();
+    const lng = navigator.language;
+
+    useEffect(() => {
+
+        i18n.changeLanguage(lng);
+    }, [])
 
     const navigate = useNavigate();
 
@@ -105,55 +115,55 @@ const ChangePasswordModal = (props) => {
                 <Modal className='delete-modal' show={show} onHide={handleClose}>
                     <Modal.Body className='modal-body'>
                         <img src={SuccessCheck} />
-                        <h1 className='delete-header'> Password successfully reset</h1>
-                        <h2 className='delete-subheader'> Please log in again</h2>
-                        <ButtonColored className="btn-block" onClick={handleDelete} label="Login now" />
+                        <h1 className='delete-header'> {t('password-successfully-reset')}</h1>
+                        <h2 className='delete-subheader'>{t('please-login-again')}</h2>
+                        <ButtonColored className="btn-block" onClick={handleDelete} label={t('login-now')} />
                     </Modal.Body>
                 </Modal >
             ) : (
                 < Modal className='changepassword-modal' show={show} onHide={handleClose} >
                     <Modal.Body className='modal-body' >
-                        <h1 className='delete-header'>Change password</h1 >
-                        <TextField
-                            formLabel='Current Password'
-                            className='input'
+                        <h1 className='delete-header'>{t('change-password')}</h1 >
+                        <PasswordTextField
+                            formLabel={t('current-password')}
+                            className='password-input'
                             id="password"
                             name="password"
                             type="password"
-                            placeholder="Enter your current password"
+                            placeholder={t('enter-you-current-password')}
                             onChange={handlePasswordChange} />
 
                         {errorFirebase && < p className='error-message'>{errorFirebase}</p>}
 
-                        <TextField
-                            formLabel='New password'
-                            className='input'
+                        <PasswordTextField
+                            formLabel={t('new-password')}
+                            className='password-input'
                             id="password"
                             name="password"
                             type="password"
-                            placeholder="Create your new password"
+                            placeholder={t('create-your-new-password')}
                             onChange={handleNewPasswordChange} />
 
-                        <TextField
-                            formLabel='Verify new password'
-                            className='input'
+                        <PasswordTextField
+                            formLabel={t('verify-new-password')}
+                            className='password-input'
                             id="password"
                             name="password"
                             type="password"
-                            placeholder="Verify your new password"
+                            placeholder={t('verify-your-new-password')}
                             onChange={handleConfirmNewPasswordChange} />
                         {errorPassword && < p className='error-message'>{errorPassword}</p>}
                         {
                             isButtonActive ?
                                 <ButtonColored
-                                    label='Change password'
+                                    label={t('change-password')}
                                     className="btn-changepassword"
                                     onClick={handleChangePassword}
                                 />
                                 :
                                 <ButtonColored
                                     className="disabled-btn-changepassword"
-                                    label='Change password'
+                                    label={t('change-password')}
                                     disabled
                                 />
                         }
@@ -162,9 +172,6 @@ const ChangePasswordModal = (props) => {
             )}
 
         </>
-
-
-
     )
 };
 

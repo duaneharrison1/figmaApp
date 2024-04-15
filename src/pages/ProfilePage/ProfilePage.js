@@ -13,8 +13,9 @@ import ChangePasswordModal from '../../components/ChangePasswordModal/ChangePass
 import SuccessModal from '../../components/SuccessModal/SuccessModal';
 import UploadImage from '../../components/UploadImage/UploadImage';
 import ProfileIcon from '../../assets/images/profileicon.png'
-
+import { useTranslation } from 'react-i18next';
 export default function ProfilePage() {
+    const { t } = useTranslation();
     const dbFirestore = firebase.firestore();
     const navigate = useNavigate();
     const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
@@ -95,17 +96,17 @@ export default function ProfilePage() {
                         <div className='profile-card'>
                             <div className='container-personal-information'>
                                 <div className='container'>
-                                    <h1 className='profile-headers'> Personal Information</h1>
+                                    <h1 className='profile-headers'> {t('personal-information')}</h1>
                                 </div>
                                 <div className='container profile-buttons-container'>
-                                    <ButtonColored label='Edit' className="edit-cancel-save-btn" />
+                                    <ButtonColored label={t('edit')} className="edit-cancel-save-btn" />
                                 </div>
 
                             </div>
                             <div className='container'>
                                 <div className='row'>
                                     <div className='col-sm-6'>
-                                        <h1 className='profile-sub-headers'>Name</h1>
+                                        <h1 className='profile-sub-headers'>{t('name')}</h1>
                                         <input
                                             className='form-input'
                                             type="text"
@@ -116,7 +117,7 @@ export default function ProfilePage() {
 
                                     </div>
                                     <div className='col-sm-6'>
-                                        <h1 className='profile-sub-headers'>Email</h1>
+                                        <h1 className='profile-sub-headers'>{t('email')}</h1>
                                         <input
                                             className='form-input'
                                             type="text"
@@ -130,8 +131,8 @@ export default function ProfilePage() {
                         </div>
 
                         <div className='security-container'>
-                            <h1 className='profile-headers'> Security</h1>
-                            <ButtonClear label='Change password' className="change-password" onClick={handleShowModal} />
+                            <h1 className='profile-headers'> {t('email')}</h1>
+                            <ButtonClear label={t('change-password')} className="change-password" onClick={handleShowModal} />
                         </div>
 
                         <ChangePasswordModal show={showChangePasswordModal} handleClose={handleShowSuccessModal} />
