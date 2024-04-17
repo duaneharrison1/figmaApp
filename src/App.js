@@ -21,11 +21,10 @@ import SignupPage from './pages/Authentication/SignupPage.js';
 import AdminDashboard from './pages/AdminDashboard/AdminDashboard.js';
 import TermsAndConditions from './pages/TermsAndConditions/TermsAndConditions.js';
 import PrivacyPolicy from './pages/Privacy Policy/PrivacyPolicy.js';
-import './i18n.js'
+import i18n from './i18n';
 function App() {
   const dbFirestore = firebase.firestore();
   const [data, setData] = useState([]);
-
   const [isMainDomain, setIsMainDomain] = useState("false");
 
   useEffect(() => {
@@ -59,6 +58,7 @@ function App() {
     fetchData();
   }, []);
 
+  const currentLanguage = i18n.language;
   return (
     <div>
       {/* <Routes>
@@ -84,18 +84,19 @@ function App() {
         </Routes>
         :
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/:lang?/" element={<LandingPage />} />
           <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/billing" element={<BillingPage />} />
+          <Route path="/:lang?/billing" element={<BillingPage />} />
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/form" element={<UrlForm />} />
-          <Route path="/editform" element={<EditForm />} />
-          <Route path="/dashboard" element={<UserDashboard />} />
-          <Route path="/preview" element={<Preview />} />
-          <Route path="/auth" element={<Mainauth />} />
-          <Route path="/forgotpassword" element={<ForgotPassword />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/:lang?/form" element={<UrlForm />} />
+          <Route path="/:lang?/editform" element={<EditForm />} />
+          <Route path="/:lang?/dashboard" element={<UserDashboard />} />
+          <Route path="/:lang?/preview" element={<Preview />} />
+          <Route path={"/:lang?/auth"} element={<Mainauth />} />
+          {/* <Route path={i18n.resolvedLanguage + "/auth"} element={<Mainauth />} /> */}
+          <Route path="/:lang?/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/:lang?/profile" element={<ProfilePage />} />
           {data.map((item) => (
             < Route path={`/${item.generatedUrl}`} element={<DynamicPage url={item} />} />
           ))}

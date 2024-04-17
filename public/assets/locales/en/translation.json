@@ -135,5 +135,7 @@
   "enter-your-email-and-well-send": "Enter your email and we’ll send you a link to reset your password",
   "an-email-with-a-password": "An email with a password reset link has been sent to your email address.",
   "reset-password": "Reset Password",
-  "seamless-showcase": "Seamless Showcase: Unify Your Prototypes with a Custom URL"
+  "seamless-showcase": "Seamless Showcase: Unify Your Prototypes with a Custom URL",
+  "new-project": "New Project",
+  "taking-you-to-the-payment-page":"Taking you to the payment page..."
 }

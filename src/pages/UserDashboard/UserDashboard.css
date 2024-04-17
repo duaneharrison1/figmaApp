@@ -38,4 +38,8 @@
     .dashboard-view {
         padding: 24px 24px;
     }
+
+    .transfering-to-payment-text {
+        text-align: center;
+    }
 }

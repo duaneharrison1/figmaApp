@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { signOut } from "firebase/auth";
 import { db, auth } from '../../firebase';
 import { useTranslation } from 'react-i18next';
+import i18n from '../../i18n';
 export default function Navbar(props) {
     const { t } = useTranslation();
     const currentUser = useAuth();
@@ -19,7 +20,7 @@ export default function Navbar(props) {
     const title = props.title
     const [photoURL, setPhotoURL] = useState();
     const navigate = useNavigate();
-
+    const currentLanguage = i18n.language;
     useEffect(() => {
         if (currentUser?.photoURL) {
             setPhotoURL(currentUser.photoURL);
@@ -27,11 +28,11 @@ export default function Navbar(props) {
     }, [])
 
     const handleGoToProfile = () => {
-        navigate('/profile');
+        navigate('/' + currentLanguage + '/profile');
     }
 
     const handleGoToBilling = () => {
-        navigate('/billing');
+        navigate('/' + currentLanguage + '/billing');
     }
 
     const handleLogout = () => {
@@ -50,8 +51,8 @@ export default function Navbar(props) {
             <div className="row">
                 <div className="col d-flex  align-items-center">
                     {isFromForm == "newForm" || isFromForm == "editForm" ?
-                        (<a className="back-to-library" href="/dashboard"> {t('back-to-your-library')} </a>)
-                        : (<a className="nav-title" href="/dashboard"> Figmafolio</a>)}
+                        (<a className="back-to-library" href={"/" + currentLanguage + "/dashboard"}> {t('back-to-your-library')} </a>)
+                        : (<a className="nav-title" href={"/" + currentLanguage + "/dashboard"}> Figmafolio</a>)}
                 </div>
 
                 <div className="col d-flex align-items-center justify-content-center">
@@ -71,7 +72,7 @@ export default function Navbar(props) {
                             <li><a className="dropdown-item" onClick={handleLogout}>{t('logout')}</a></li>
                         </ul>
                     </div>
-                    <Link to="/profile" >
+                    <Link to={'/' + currentLanguage + "/profile"} >
 
                         <img src={!photoURL ? ProfileIcon : photoURL} alt="Avatar" className="nav-avatar-icon" />
 

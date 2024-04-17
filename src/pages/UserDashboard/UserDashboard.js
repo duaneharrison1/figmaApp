@@ -14,8 +14,9 @@ import PaymentSelectionModal from '../../components/PaymentSelection/PaymentSele
 import Footer from '../../components/Footer/Footer';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
+
 function UserDashboard() {
-    const lng = navigator.language;
+    const currentLanguage = i18n.language;
     const { t } = useTranslation();
     const [userIsDesktop, setUserIsDesktop] = useState(true);
     const navigate = useNavigate();
@@ -44,9 +45,6 @@ function UserDashboard() {
     // }, []);
 
 
-    useEffect(() => {
-        i18n.changeLanguage(lng);
-    }, [])
 
     useEffect(() => {
         window.innerWidth > 1280 ? setUserIsDesktop(true) : setUserIsDesktop(false);
@@ -185,12 +183,12 @@ function UserDashboard() {
     }
 
     const goToEdit = (object) => {
-        navigate('/editform', { state: { object, subscriptionType: subscriptionType } });
+        navigate("/" + currentLanguage + '/editform', { state: { object, subscriptionType: subscriptionType } });
     }
 
     const goToNewForm = () => {
         if (canCreate === "true" && docCount !== null) {
-            navigate('/form', { state: { subscriptionType: subscriptionType } });
+            navigate("/" + currentLanguage + '/form', { state: { subscriptionType: subscriptionType } });
         } else if (canCreate === "false" && docCount !== null) {
             setShowUpgradeModal(true);
         }
@@ -198,9 +196,11 @@ function UserDashboard() {
 
     return (
         <>
+
+
             {upgradeClick ? (
                 <div className='transfering-to-payment'>
-                    <h1 className='transfering-to-payment-text'> Taking you to the payment page...</h1>
+                    <h1 className='transfering-to-payment-text'> {t('taking-you-to-the-payment-page')} </h1>
                 </div>
             ) : (
                 <div>
@@ -313,7 +313,6 @@ function UserDashboard() {
                     }
                 </div>
             )}
-
 
             <PaymentSelectionModal
                 monthlySubscription={subscriptionType}

@@ -34,11 +34,11 @@ export default function EditForm() {
     const dbFirestore = firebase.firestore();
     const [subscriptionType, setSubscriptionType] = useState(location.state.subscriptionType);
     const lng = navigator.language;
+    const currentLanguage = i18n.language;
+    // useEffect(() => {
 
-    useEffect(() => {
-
-        i18n.changeLanguage(lng);
-    }, [])
+    //     i18n.changeLanguage(lng);
+    // }, [])
     const handleShowErrorModal = () => {
         setShowErrorModal(true);
     };
@@ -50,7 +50,7 @@ export default function EditForm() {
         if ((!figmaDesktopUrl.includes('figma.com/file') && !figmaMobileUrl.includes('figma.com/file')) &&
             (figmaMobileUrl.includes('figma.com/proto') || figmaMobileUrl.includes('figma.com/embed') ||
                 figmaDesktopUrl.includes('figma.com/proto') || figmaDesktopUrl.includes('figma.com/embed'))) {
-            navigate('/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl, fromEdit: true, isDraft: location.state.object.isDraft, docId: location.state.object.id, generatedUrl: generatedUrl, domain: customDomain, newCustomDomain: newCustomDomain } });
+            navigate("/" + currentLanguage + '/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl, fromEdit: true, isDraft: location.state.object.isDraft, docId: location.state.object.id, generatedUrl: generatedUrl, domain: customDomain, newCustomDomain: newCustomDomain } });
         } else {
             setShowErrorModal(true);
         }

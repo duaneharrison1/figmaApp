@@ -14,10 +14,12 @@ export default function ForgotpasswordPage() {
     const { t } = useTranslation();
     const lng = navigator.language;
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        i18n.changeLanguage(lng);
-    }, [])
+    //     i18n.changeLanguage(lng);
+    // }, [])
+
+
     useEffect(() => {
         window.innerWidth > 1280 ? setUserIsDesktop(true) : setUserIsDesktop(false);
     }, [userIsDesktop]);

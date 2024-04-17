@@ -6,7 +6,7 @@
     "landing-subheader": "Du kannst eine interaktive Website oder ein Portfolio direkt aus deinem Figma veröffentlichen, ohne dass Programmierung erforderlich ist.",
     "start-for-free": "Kostenlos starten",
     "guide": "Wie es funktioniert",
-    "design-in-figma": "Design in Figma",
+    "design-in-figma": "Gestalten in Figma",
     "instruc-one": "Verzichte auf das Erlernen anderer Tools oder Programmierung. Bringe deine gesamte Website oder dein Portfolio direkt in Figma zum Leben. Nutze Funktionen wie Übergänge, GIFs und Videos, um sie interaktiv und ansprechend zu gestalten.",
     "simple-setup": "Einfaches Setup",
     "instruc-two": "Registriere dich und füge deine Figma-Prototypenlinks für Desktop- und Mobilansichten ein - dies stellt sicher, dass deine Website für jeden Besucher funktioniert. Vorschau der Website, um deine fantastischen Figma-Designs zum Leben zu erwecken.",
@@ -135,6 +135,8 @@
     "enter-your-email-and-well-send": "Gib deine E-Mail-Adresse ein und wir senden dir einen Link zum Zurücksetzen deines Passworts",
     "an-email-with-a-password": "Eine E-Mail mit einem Link zum Zurücksetzen des Passworts wurde an deine E-Mail-Adresse gesendet.",
     "reset-password": "Passwort zurücksetzen",
-    "seamless-showcase": "Nahtlose Präsentation: Vereinige deine Prototypen mit einer benutzerdefinierten URL"
+    "seamless-showcase": "Nahtlose Präsentation: Vereinige deine Prototypen mit einer benutzerdefinierten URL",
+    "new-project": "Neues Projekt",
+    "taking-you-to-the-payment-page": "Sie werden zur Zahlungsseite weitergeleitet..."
   }
   

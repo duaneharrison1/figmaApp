@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase';
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import './Auths.css';
 import TextField from '../../components/TextField/TextField.js';
 import ButtonColored from '../../components/ButtonColored/ButtonColored.js';
@@ -16,13 +16,8 @@ export default function LoginPage() {
     const [password, setPassword] = useState('');
     const isButtonActive = email && password;
     const { t } = useTranslation();
-    const lng = navigator.language;
-
-    useEffect(() => {
-
-        i18n.changeLanguage(lng);
-    }, [])
-
+    const currentLanguage = i18n.language;
+    const location = useLocation();
     const handleEmailChange = (email) => {
         setEmail(email);
     };
@@ -30,13 +25,17 @@ export default function LoginPage() {
     const handlePasswordChange = (password) => {
         setPassword(password);
     };
+    const goToForgotPassword = () => {
+        const newPath = `/${currentLanguage}/forgotpassword`; // Prepend language code
+        navigate(newPath);
+    }
 
     const onLogin = (e) => {
         e.preventDefault();
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                navigate("/dashboard")
+                navigate(`/${currentLanguage}/dashboard`)
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -85,9 +84,8 @@ export default function LoginPage() {
                             onChange={handlePasswordChange} />
                         {errorPassword && < p className='error-message'>{errorPassword}</p>}
                     </div>
-                    <NavLink className='forgot-password' to="/forgotpassword" >
-                        {t('forgot-password')}
-                    </NavLink>
+                    <h1 className='forgot-password' onClick={goToForgotPassword}> {t('forgot-password')} </h1>
+
                     <div className='auth-button-container'>
                         {isButtonActive ?
                             <ButtonColored

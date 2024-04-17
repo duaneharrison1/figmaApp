@@ -10,16 +10,13 @@ i18next
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
-        supportedLngs: ['en', 'es', 'de', 'zh'],
+        supportedLngs: ['en', 'es', 'de', 'zh', 'ja', 'fr'],
         fallbackLng: 'en',
-        debug: false,
-        // Options for language detector
+        debug: true,
         detection: {
             order: ['path'],
-            caches: [],
-            lookupFromPathIndex: 0,
+            lookupPath: 'lang'
         },
-        // react: { useSuspense: false },
         backend: {
             loadPath: '/assets/locales/{{lng}}/translation.json',
         },

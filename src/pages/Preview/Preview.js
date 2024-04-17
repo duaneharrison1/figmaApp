@@ -29,6 +29,7 @@ export default function Preview() {
 
     const locationStateDomain = location.state.domain?.toLowerCase()
     const locationStateNewDomain = location.state.newCustomDomain?.toLowerCase()
+    const currentLanguage = i18n.language;
     const [postData, setPostData] = useState({
         "name": locationStateDomain
     });
@@ -43,10 +44,10 @@ export default function Preview() {
     };
     const lng = navigator.language;
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        i18n.changeLanguage(lng);
-    }, [])
+    //     i18n.changeLanguage(lng);
+    // }, [])
     useEffect(() => {
         if (location.state.figmaMobileUrl == "") {
             setMobile(location.state.figmaDesktopUrl)
@@ -498,7 +499,7 @@ export default function Preview() {
         } finally {
             alert("success")
             setSaveAsDraftBtnClick(false);
-            navigate('/dashboard');
+            navigate("/" + currentLanguage + '/dashboard');
         }
     }
 
@@ -522,7 +523,7 @@ export default function Preview() {
         } finally {
             alert("success")
             window.open('https://figmafolio.com/' + randomurl, '_blank');
-            navigate('/dashboard');
+            navigate("/" + currentLanguage + '/dashboard');
         }
     }
 
@@ -573,7 +574,7 @@ export default function Preview() {
                             <div className="mobile-nav-container m-0">
                                 <div className="row">
                                     <div className="col m-0 p-0">
-                                        <a className="back-to-library" href="/dashboard"> {t('back-to-dashboard')}</a>
+                                        <a className="back-to-library" href={"/" + currentLanguage + "/dashboard"}> {t('back-to-dashboard')}</a>
                                     </div>
                                     <div className="col m-0 p-0">
                                         <div className='switch-container'>
