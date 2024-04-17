@@ -22,10 +22,10 @@ export default function Billing() {
     const [name, setName] = useState([]);
     const lng = navigator.language;
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        i18n.changeLanguage(lng);
-    }, [])
+    //     i18n.changeLanguage(lng);
+    // }, [])
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setUser(user);

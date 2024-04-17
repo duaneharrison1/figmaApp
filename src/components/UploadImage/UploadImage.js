@@ -27,6 +27,7 @@ const DragAndDropImageUpload = (props) => {
             (snapshot) => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                     console.log("success")
+                    window.location.reload();
                 });
             },
             (error) => {

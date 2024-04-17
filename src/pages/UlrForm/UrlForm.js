@@ -29,11 +29,7 @@ export default function UrlForm() {
     const dbFirestore = firebase.firestore();
     const [subscriptionType, setSubscriptionType] = useState(location.state.subscriptionType);
     const lng = navigator.language;
-
-    useEffect(() => {
-
-        i18n.changeLanguage(lng);
-    }, [])
+    const currentLanguage = i18n.language;
 
     const handleShowModal = () => {
         setShowModal(true);
@@ -71,7 +67,7 @@ export default function UrlForm() {
         if ((!figmaDesktopUrl.includes('figma.com/file') && !figmaMobileUrl.includes('figma.com/file')) &&
             (figmaMobileUrl.includes('figma.com/proto') || figmaMobileUrl.includes('figma.com/embed') ||
                 figmaDesktopUrl.includes('figma.com/proto') || figmaDesktopUrl.includes('figma.com/embed'))) {
-            navigate('/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl, domain: domain } });
+            navigate("/" + currentLanguage + '/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl, domain: domain } });
         } else {
             setShowErrorModal(true);
         }
@@ -82,7 +78,7 @@ export default function UrlForm() {
     const handleLogout = () => {
         signOut(auth).then(() => {
             // Sign-out successful.
-            navigate("/");
+            navigate(currentLanguage + "/");
             console.log("Signed out successfully")
         }).catch((error) => {
             // An error happened.

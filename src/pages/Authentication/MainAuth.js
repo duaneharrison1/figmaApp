@@ -14,19 +14,18 @@ export default function MainAuth(props) {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const [userIsDesktop, setUserIsDesktop] = useState(true);
-    const lng = navigator.language;
+    // const lng = navigator.language;
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        i18n.changeLanguage(lng);
-    }, [])
+    //     i18n.changeLanguage(lng);
+    // }, [])
 
     useEffect(() => {
         window.innerWidth > 1280 ? setUserIsDesktop(true) : setUserIsDesktop(false);
     }, [userIsDesktop]);
 
     const location = useLocation();
-    const tab = useState(location.state.name);
     const [user, setUser] = useState(null);
     const [selectedTab, setSelectedTab] = useState("tab2");
 
@@ -52,7 +51,7 @@ export default function MainAuth(props) {
                                     <h1 onClick={navigateToHome} className='main-title'>Figmafolio</h1>
                                 </div>
                                 <h1 className='header-text'>{t('welcome-to-figmafolio')}</h1>
-                                <Tabs className='nav-pills' defaultActiveKey={tab[0]}
+                                <Tabs className='nav-pills'
                                     id="tabs" activeKey={selectedTab}
                                     onSelect={(k) => setSelectedTab(k)}>
                                     <Tab eventKey="tab1" title={t('login')}>

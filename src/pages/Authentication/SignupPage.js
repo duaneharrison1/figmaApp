@@ -23,12 +23,7 @@ export default function SignupPage() {
     const [errorConfirmPassword, setErrorConfirmPassword] = useState(null);
     const isButtonActive = email && password && confirmPassword;
     const { t } = useTranslation();
-    const lng = navigator.language;
-
-    useEffect(() => {
-
-        i18n.changeLanguage(lng);
-    }, [])
+    const currentLanguage = i18n.language;
 
     const handleShowModal = () => {
         setShowModal(true);
@@ -78,21 +73,6 @@ export default function SignupPage() {
                         .catch((error) => {
                             console.error('Error writing document: ', error);
                         });
-                    // try {
-
-                    //     const ref = collection(db, "user", user.uid, "profile")
-                    //     let userData = {
-                    //         name: name,
-                    //         email: user.email,
-                    //     }
-                    //     addDoc(ref, userData)
-                    //     setShowModal(true);
-                    //     setModalMessage("Sign up successful")
-                    //     navigate("/dashboard")
-                    // } catch (err) {
-                    //     console.log(err)
-
-                    // }
                 })
                 .catch((error) => {
                     const errorCode = error.code;

@@ -14,7 +14,7 @@ import WhiteCross from '../../assets/images/crosswhite.png';
 import WhiteCheck from '../../assets/images/white-check.png';
 import stepThree from './../../assets/images/stepThree.png';
 import Footer from '../../components/Footer/Footer';
-import { NavLink, useNavigate, Link } from 'react-router-dom';
+import { NavLink, useNavigate, Link, useLocation } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import ButtonColored from '../../components/ButtonColored/ButtonColored';
@@ -29,7 +29,6 @@ export default function LandingPage() {
   const navigate = useNavigate();
   const [userId] = useAuthState(auth);
   const [user, setUser] = useState(null);
-  const lng = navigator.language;
   // const [columnHeights, setColumnHeights] = useState([300, 300, 400]);
 
   // const updateColumnHeights = () => {
@@ -39,10 +38,13 @@ export default function LandingPage() {
   // };
 
 
-  useEffect(() => {
+  // const lng = navigator.language;
 
-    i18n.changeLanguage(lng);
-  }, [])
+  // useEffect(() => {
+
+  //   i18n.changeLanguage(lng);
+  // }, [])
+
   const scrollToDiv = () => {
     divGuide.current.scrollIntoView({ behavior: 'smooth' });
   }
@@ -54,9 +56,11 @@ export default function LandingPage() {
   }, []);
 
   const [userIsDesktop, setUserIsDesktop] = useState(true);
+
   useEffect(() => {
     window.innerWidth > 1280 ? setUserIsDesktop(true) : setUserIsDesktop(false);
   }, [userIsDesktop]);
+
   const navigateToHome = () => {
     if (user) {
       navigate("/dashboard");
@@ -64,6 +68,16 @@ export default function LandingPage() {
       navigate("/");
     }
   };
+  const currentLanguage = i18n.language;
+
+  const goToDashboard = () => {
+    const newPath = `/${currentLanguage}/dashboard`; // Prepend language code
+    navigate(newPath);
+  }
+  const goToAuthPage = () => {
+    const newPath = `/${currentLanguage}/auth`; // Prepend language code
+    navigate(newPath);
+  }
   return (
     <>
       < div className='container-fluid main-landing-page'>
@@ -75,16 +89,13 @@ export default function LandingPage() {
             <div className="col-lg-4 d-flex justify-content-end col-8">
               {user ?
                 <div className="landing-button-container">
-                  <Link to="/dashboard" >
-                    <ButtonColored className="gotoapp" label={t('go-to-app')} />
-                  </Link>
+                  <ButtonColored onClick={goToDashboard} className="gotoapp" label={t('go-to-app')} />
                 </div>
                 :
                 <div className="landing-button-container">
-                  <Link to="/auth" className='login-link' state={{ "name": "tab1" }}>{t('login')}</Link>
-                  <Link to="/auth" state={{ "name": "tab2" }} >
-                    <ButtonColored className="signup-btn" label={t('signup')} />
-                  </Link>
+                  <Link to={"/" + currentLanguage + "/auth"} className='login-link' state={{ "name": "tab1" }}>{t('login')}</Link>
+                  <ButtonColored onClick={goToAuthPage} className="signup-btn" label={t('signup')} />
+
                 </div>
               }
             </div >
@@ -99,9 +110,7 @@ export default function LandingPage() {
 
               <div className='row btn_column  '>
                 <div className='col-md-10 m-0 p-0'>
-                  <Link to="/auth" state={{ "name": "tab2" }} >
-                    <ButtonStartForFree className="start-for-free-btn-second" label={t('start-for-free')} />
-                  </Link>
+                  <ButtonStartForFree onClick={goToAuthPage} className="start-for-free-btn-second" label={t('start-for-free')} />
                   <ButtonGuide onClick={scrollToDiv} className="guide-btn" label={t('guide')} />
                 </div>
               </div>
