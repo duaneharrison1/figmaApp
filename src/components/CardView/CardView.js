@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 const CardView = (props) => {
+    const currentLanguage = i18n.language;
     const { t } = useTranslation();
     const index = props.index
     const subscriptionType = props.subscriptionType
@@ -28,7 +29,7 @@ const CardView = (props) => {
     return (
         <>
             <div className="card preview-card" >
-                <a href={url} target="_blank">
+                <a href={`https://www.figmafolio.com/${url}`} target="_blank">
                     <div className='figmaThumbnail' style={subscriptionType == "regular" && index != 0 ? inactiveApp :
                         subscriptionType == "monthlyPlan" && index > 4 ? inactiveApp :
                             {}}>
