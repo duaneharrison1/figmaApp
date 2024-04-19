@@ -1,12 +1,12 @@
 .text-overlay {
     position: absolute;
-    bottom: 0px;
+    bottom: 20px;
     left: 50px;
     z-index: 1;
-    background-color: #C4C2BD;
-    padding: 4px 8px;
+    background-color: #FFFAE1;
+    padding: 8px 14px;
     margin: 0;
-    border-radius: 10px 10px 0 0;
+    border-radius: 20px;
 }
 
 .dynamicpage_view_figma_view {
