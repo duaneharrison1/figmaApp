@@ -83,8 +83,8 @@ function App() {
             <Route path="/:lang?/" element={<LandingPage />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/:lang?/billing" element={<BillingPage />} />
-            <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/:lang?/terms-and-conditions" element={<TermsAndConditions />} />
+            <Route path="/:lang?/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/:lang?/form" element={<UrlForm />} />
             <Route path="/:lang?/editform" element={<EditForm />} />
             <Route path="/:lang?/dashboard" element={<UserDashboard />} />
