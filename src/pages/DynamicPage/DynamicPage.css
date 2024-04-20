@@ -4,7 +4,9 @@
     left: 32px;
     z-index: 1;
     background-color: #EEEBE4;
-    padding: 18px 8px;
+    padding: 0px 14px;
+    height: 36px;
+    line-height: 36px;
     font-size: 14px;
     margin: 0;
     border-radius: 20px;
