@@ -22,12 +22,12 @@
 
 .made-with-figmaolio {
     font-weight: 600;
-    font-size: 10px;
+    font-size: 13px;
 }
 
 .made-with {
     margin: 0;
-    font-size: 10px;
+    font-size: 13px;
 }
 
 @media only screen and (max-width: 768px) {
