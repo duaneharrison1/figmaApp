@@ -10,7 +10,7 @@ function DynamicPage({ url }) {
   const [isMobile, setIsMobile] = useState(false);
   const [mobile, setMobile] = useState("");
   const [desktop, setDesktop] = useState("");
-  const [activeSubscriber, setActiveSubscriber] = useState("");
+  const [activeSubscriber, setActiveSubscriber] = useState("true");
   const isOpenInMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const navigateToHome = () => {
     navigate("/");
