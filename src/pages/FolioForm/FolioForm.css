@@ -1,0 +1,77 @@
+.vertical-tabs {
+    display: flex;
+    flex-direction: column;
+    max-width: 226px !important;
+    border: 1px solid #C9C9C9;
+    border-radius: 30px;
+}
+
+.nav-tabs .nav-link {
+    color: black;
+    padding: 1rem;
+    padding-left: 28px;
+    border-top-right-radius:0px
+}
+
+.tab-content {
+    padding: 1rem;
+}
+
+.folioform {
+    padding: 24px 120px;
+}
+
+.folio-form-tab-content {
+    max-width: 546px !important;
+}
+
+.form-title-notes {
+    padding-top: 12px;
+    font-size: 14px;
+}
+
+.form-content-upper-notes{
+    font-size: 14px;
+    padding-top: 24px;
+    margin: 0;
+}
+
+.form-content-note{
+    font-size: 14px;
+    padding-top: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.form-content-note-list li {
+    font-size: 14px;
+}
+
+.form-custom-domain-note {
+    font-size: 14px;   
+}
+.form-favicon-note{
+    padding-top: 24px;
+    padding-bottom: 24px;
+    font-size: 14px;   
+    margin: 0;
+}
+
+
+.nav-tabs .nav-link.active{
+    background-color: transparent;
+    color: #4D9F70;
+    font-weight: 700;
+}
+
+.nav.nav-tabs li:not(:last-child) a {
+    border-bottom: 1px solid #ccc;
+    border-radius: 0;    
+}
+
+.favicon-prev {
+    width: 48px;
+    height: 48px;
+    border: 1px solid  #ccc;
+    border-radius: 10px;
+}

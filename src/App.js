@@ -22,6 +22,7 @@ import AdminDashboard from './pages/AdminDashboard/AdminDashboard.js';
 import TermsAndConditions from './pages/TermsAndConditions/TermsAndConditions.js';
 import PrivacyPolicy from './pages/Privacy Policy/PrivacyPolicy.js';
 import i18n from './i18n';
+import FolioForm from './pages/FolioForm/FolioForm.js';
 
 function App() {
   const dbFirestore = firebase.firestore();
@@ -80,9 +81,10 @@ function App() {
           </Routes>
           :
           <Routes>
+             <Route path="/:lang?/billing" element={<FolioForm />} />
             <Route path="/:lang?/" element={<LandingPage />} />
             <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/:lang?/billing" element={<BillingPage />} />
+            {/* <Route path="/:lang?/billing" element={<BillingPage />} /> */}
             <Route path="/:lang?/terms-and-conditions" element={<TermsAndConditions />} />
             <Route path="/:lang?/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/:lang?/form" element={<UrlForm />} />
