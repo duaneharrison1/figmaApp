@@ -5,7 +5,6 @@ import ButtonColored from '../ButtonColored/ButtonColored';
 import { db, auth } from '../../firebase';
 import Check from '../../assets/images/check.png';
 import Cross from '../../assets/images/cross.png';
-import MostPopular from '../../assets/images/popular.png';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 const PaymentSelection = (props) => {
@@ -21,7 +20,6 @@ const PaymentSelection = (props) => {
             <Modal dialogClassName='payment-selection-modal' show={show} onHide={handleClose} >
                 <Modal.Body dialogClassName='payment-modal-body' >
                     <h1 className='payment-modal-header'>{t('pick-a-plan')} </h1>
-                    <h2 className='payment-modal-subheader'>{t('all-plans-are')}</h2>
                     {monthlySubscription == "monthlyPlan" ?
                         (
                             <div className='row justify-content-center'>
@@ -60,7 +58,6 @@ const PaymentSelection = (props) => {
                                     <div className='green-card'>
                                         <div className="heading-container">
                                             <h1 className='payment-modal-selection-title'> Yearly</h1>
-                                            <img className='most-popular' src={MostPopular} />
                                         </div>
 
                                         <div className='amount-per-month'>
@@ -129,7 +126,6 @@ const PaymentSelection = (props) => {
                                     <div className='green-card'>
                                         <div className="heading-container">
                                             <h1 className='payment-modal-selection-title'> Yearly</h1>
-                                            <img className='most-popular' src={MostPopular} />
                                         </div>
 
                                         <div className='amount-per-month'>
@@ -228,7 +224,6 @@ const PaymentSelection = (props) => {
                                     <div className='green-card'>
                                         <div className="heading-container">
                                             <h1 className='payment-modal-selection-title'> Yearly</h1>
-                                            <img className='most-popular' src={MostPopular} />
                                         </div>
 
                                         <div className='amount-per-month'>

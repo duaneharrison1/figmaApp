@@ -7,7 +7,6 @@ import ButtonColored from '../ButtonColored/ButtonColored';
 import ButtonClear from '../ButtonClear/ButtonClear';
 import { db, auth } from '../../firebase';
 import { collection, addDoc, doc, getDocs, updateDoc, QuerySnapshot, query, where } from 'firebase/firestore'
-import MostPopular from '../../assets/images/popular.png';
 import { loadStripe } from '@stripe/stripe-js';
 import Check from '../../assets/images/check.png';
 import { useTranslation } from 'react-i18next';
@@ -79,7 +78,6 @@ const UpgradeAlertModal = (props) => {
                 <Modal dialogClassName='payment-selection-modal' show={show} onHide={handleClose} >
                     <Modal.Body dialogClassName='payment-modal-body' >
                         <h1 className='payment-modal-header'>{t('pick-a-plan')}</h1>
-                        <h2 className='payment-modal-subheader'>{t('all-plans-are')}</h2>
                         <div className='row'>
                             <div className='col-md-4'>
                                 <div className='regular-card'>
@@ -124,7 +122,6 @@ const UpgradeAlertModal = (props) => {
                                 <div className='green-card'>
                                     <div className="heading-container">
                                         <h1 className='payment-modal-selection-title'> {t('yearly')}</h1>
-                                        <img className='most-popular' src={MostPopular} />
                                     </div>
 
                                     <div className='amount-per-month'>
