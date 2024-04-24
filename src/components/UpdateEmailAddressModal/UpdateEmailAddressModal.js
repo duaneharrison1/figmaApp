@@ -47,14 +47,9 @@ const UpdateEmailAdressModal = (props) => {
         )
 
         try {
-
-            // Re-authenticate user with current email and password
-            // await reauthenticateWithCredential(credentials);
             await reauthenticateWithCredential(user, credentials);
-            // Update user's email address
             await updateEmail(user, newEmail);
-
-            dbFirestore
+            await dbFirestore
                 .collection('user')
                 .doc(user.uid)
                 .update({
@@ -69,8 +64,9 @@ const UpdateEmailAdressModal = (props) => {
                 });
 
             alert('Email updated successfully!');
+            setErrorConfirmPassword("");
+            window.location.reload();
         } catch (error) {
-            console.log("xx" + error.message)
             if (error.message == "Firebase: Error (auth/user-mismatch).") {
                 setErrorConfirmPassword("Invalid email address, please check your current email address");
             } else if (error.message == "Firebase: Error (auth/wrong-password).") {
@@ -80,7 +76,6 @@ const UpdateEmailAdressModal = (props) => {
             } else {
                 setErrorConfirmPassword(error.message.toString());
             }
-
         }
     };
 
