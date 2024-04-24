@@ -43,6 +43,7 @@ function DynamicPage2() {
                   if (value.isDraft == "false") {
                     document.title = value.title;
                     setFaviconUrl(value.faviconUrl)
+                    console.log("favicon1" + value.faviconUrl);
                     setDesktop(value.urls.figmaDesktopUrl)
                     setMobile(value.urls.figmaMobileUrl)
                   }
@@ -56,6 +57,7 @@ function DynamicPage2() {
                 if (value.isDraft == "false") {
                   document.title = value.title;
                   setFaviconUrl(value.faviconUrl)
+                  console.log("favicon2" + value.faviconUrl);
                   setDesktop(value.urls.figmaDesktopUrl)
                   setMobile(value.urls.figmaMobileUrl)
                 }
