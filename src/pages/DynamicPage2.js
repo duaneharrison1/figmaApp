@@ -24,6 +24,7 @@ function DynamicPage2() {
       document.getElementsByTagName('head')[0].appendChild(link);
     }
     link.href = faviconUrl;
+    console.log("favicon" + faviconUrl);
   }, []);
 
   useEffect(() => {
