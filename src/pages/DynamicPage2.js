@@ -25,7 +25,7 @@ function DynamicPage2() {
     }
     link.href = faviconUrl;
     console.log("favicon" + faviconUrl);
-  }, []);
+  }, [faviconUrl]);
 
   useEffect(() => {
     var domain = window.location.host
@@ -114,7 +114,7 @@ function DynamicPage2() {
       };
       fetchData();
     }
-  }, []
+  }, [faviconUrl]
   );
 
   useEffect(() => {
