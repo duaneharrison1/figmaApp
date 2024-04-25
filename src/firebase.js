@@ -22,6 +22,7 @@ export async function upload(file, currentUser) {
   const photoURL = await getDownloadURL(fileRef);
   updateProfile(currentUser, { photoURL });
   alert("Uploaded file!");
+  window.location.reload();
 }
 
 export function useAuth() {

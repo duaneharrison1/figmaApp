@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { auth, storage, upload, useAuth } from '../../firebase';
 import { Modal } from 'react-bootstrap';
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-
-
-import { useDropzone } from 'react-dropzone';
 import './UploadImage.css'
 import ButtonColored from '../ButtonColored/ButtonColored';
+import { useTranslation } from 'react-i18next';
 const DragAndDropImageUpload = (props) => {
+    const { t } = useTranslation();
     const { show, handleClose } = props;
     const [imgUrl, setImgUrl] = useState(null);
     const userId = auth.currentUser;
@@ -91,7 +90,7 @@ const DragAndDropImageUpload = (props) => {
             <Modal.Body className='modal-body'>
                 <div className="fields">
                     <input type="file" onChange={handleChange} />
-                    <button onClick={handleClick}>Upload</button>
+                    <ButtonColored onClick={handleClick} label={t('upload')} className="edit-cancel-save-btn" />
 
                 </div>
                 {/* <form onSubmit={handleClick} className='form'>
