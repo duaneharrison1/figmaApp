@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import firebase from '../../firebase';
 import { useNavigate, NavLink, useParams, useLocation } from 'react-router-dom';
 import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc } from 'firebase/firestore'
@@ -18,6 +18,8 @@ import FormInstruction from '../../components/FormInstruction/FormInstruction';
 import CustomDomainFunction from '../../components/CustomDomainInstruction/CustomDomainInstruction';
 import UpgradeAccountButton from '../../components/UpgradeAccountButton/UpgradeAccountButton';
 export default function EditForm() {
+
+    const inputFile = useRef(null);
     const { t } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
@@ -26,6 +28,8 @@ export default function EditForm() {
     const [generatedUrl, setgeneratedUrl] = useState(location.state.object.generatedUrl);
     const [title, setTitle] = useState(location.state.object.title);
     const [customDomain, setCustomDomain] = useState(location.state.object.customDomain);
+    const [faviconImage, setFaviconImage] = useState(location.state.object.faviconUrl) ?? '';
+    const [imgUrl, setImgUrl] = useState(location.state.object.faviconUrl) ?? '';
     const [newCustomDomain, setNewCustomDomain] = useState(location.state.object.customDomain);
     const user = auth.currentUser;
     const [showErrorModal, setShowErrorModal] = useState(false);
@@ -33,12 +37,9 @@ export default function EditForm() {
     const [modalMessage, setModalMessage] = useState('');
     const dbFirestore = firebase.firestore();
     const [subscriptionType, setSubscriptionType] = useState(location.state.subscriptionType);
+    const [isNewFavicon, setIsNewFavicon] = useState("false");
     const lng = navigator.language;
     const currentLanguage = i18n.language;
-    // useEffect(() => {
-
-    //     i18n.changeLanguage(lng);
-    // }, [])
     const handleShowErrorModal = () => {
         setShowErrorModal(true);
     };
@@ -50,7 +51,7 @@ export default function EditForm() {
         if ((!figmaDesktopUrl.includes('figma.com/file') && !figmaMobileUrl.includes('figma.com/file')) &&
             (figmaMobileUrl.includes('figma.com/proto') || figmaMobileUrl.includes('figma.com/embed') ||
                 figmaDesktopUrl.includes('figma.com/proto') || figmaDesktopUrl.includes('figma.com/embed'))) {
-            navigate("/" + currentLanguage + '/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl, fromEdit: true, isDraft: location.state.object.isDraft, docId: location.state.object.id, generatedUrl: generatedUrl, domain: customDomain, newCustomDomain: newCustomDomain } });
+            navigate("/" + currentLanguage + '/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl, fromEdit: true, isDraft: location.state.object.isDraft, docId: location.state.object.id, generatedUrl: generatedUrl, domain: customDomain, newCustomDomain: newCustomDomain, imgUrl: isNewFavicon == "true" ? imgUrl : faviconImage, isNewFavicon: isNewFavicon } });
         } else {
             setShowErrorModal(true);
         }
@@ -128,6 +129,20 @@ export default function EditForm() {
         })
     }
 
+    function handleChange(e) {
+        if (e.target.files[0]) {
+            setImgUrl(e.target.files[0])
+            setFaviconImage(URL.createObjectURL(e.target.files[0]));
+            setIsNewFavicon("true");
+        }
+    }
+
+    const onButtonClick = (e) => {
+        // `current` points to the mounted file input element
+        inputFile.current && inputFile.current.click();
+
+    };
+
     return (
         <>
             < Navbar className={"dashboardNavBar"} email={user.email} onClickLogout={handleLogout} isFromForm={"editForm"} />
@@ -146,7 +161,28 @@ export default function EditForm() {
                                     value={title}
                                     onChange={handleTitle} />
                             </div>
-                            <div className='col-md-6'></div>
+                            <div className='col-md-6'>
+                                <div className='row'>
+                                    {subscriptionType == "regular" ? (<div></div>) : (
+                                        <div className='favicon-container'>
+                                            <h2 className='form-sub-header'>Favicon</h2>
+                                            <div className='row favicon-img-container'>
+                                                {imgUrl !== '' || faviconImage !== '' ? <img src={faviconImage} className='favicon-prev' /> : null}
+                                                <ButtonClear className='upload-image' onClick={onButtonClick} label="Upload image" />
+                                                <input
+                                                    type="file"
+                                                    accept="image/*"
+                                                    id="file"
+                                                    ref={inputFile}
+                                                    onChange={handleChange}
+                                                    style={{ display: "none" }}
+                                                />
+                                            </div>
+                                            <p className='form-favicon-note'>Submit a PNG, JGP or SVG which is at least 70px x 70px. For best results, use an image which is 260px x 260px or more. </p>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
                         </div>
 
                         <div className='row div-form-instruction'>
@@ -155,6 +191,7 @@ export default function EditForm() {
                                 <p> figmafolio.com/{generatedUrl} </p>
                             </div>
                             <div className='col-md-6'>
+                                <h1 className='sub-title'>Domain</h1>
                                 <h2 className='form-sub-header'>{t('custom-domain')}</h2>
                                 {subscriptionType == "regular" ? (
                                     <UpgradeAccountButton onClick={handleShowModal} />
