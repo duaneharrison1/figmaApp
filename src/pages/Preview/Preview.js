@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+
 import Form from 'react-bootstrap/Form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { collection, addDoc, doc, getDocs, updateDoc, QuerySnapshot, query, where, collectionGroup } from 'firebase/firestore'
-import { db, auth } from '../../firebase';
+import { db, auth, uploadFaviconUrl } from '../../firebase';
 import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import ButtonClear from '../../components/ButtonClear/ButtonClear';
 import AlertModal from '../../components/AlertModal/AlertModal';
@@ -26,7 +27,7 @@ export default function Preview() {
     const [mobile, setMobile] = useState("");
     const [desktop, setDesktop] = useState("");
     const dbFirestore = firebase.firestore();
-
+    const locationStateImgUrl = location.state.imgUrl
     const locationStateDomain = location.state.domain?.toLowerCase()
     const locationStateNewDomain = location.state.newCustomDomain?.toLowerCase()
     const currentLanguage = i18n.language;
@@ -390,13 +391,25 @@ export default function Preview() {
         }
     }
 
-    const updateApp = () => {
+    const updateApp = async () => {
+        console.log("xxx" + locationStateImgUrl)
+        console.log("yyyy" + locationStateImgUrl !== '')
         try {
-            const ref = doc(db, "user", user.uid, "url", location.state.docId)
+            if (locationStateImgUrl != '') {
+                if (location.state.isNewFavicon == "true") {
+                    var faviconUrlFromFirebase = await uploadFaviconUrl(locationStateImgUrl, randomurl);
+                    console.log("wentHere")
+                } else {
+                    faviconUrlFromFirebase = location.state.imgUrl;
+                    console.log("wentHere1")
+                }
+            }
+            const ref = await doc(db, "user", user.uid, "url", location.state.docId)
             updateDoc(ref, {
                 title: location.state.title,
                 customDomain: locationStateNewDomain,
                 isDraft: "false",
+                faviconUrl: faviconUrlFromFirebase,
                 urls: {
                     figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
                     figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
@@ -413,13 +426,17 @@ export default function Preview() {
         }
     }
 
-    const updateAppAsDraft = () => {
+    const updateAppAsDraft = async () => {
         try {
-            const ref = doc(db, "user", user.uid, "url", location.state.docId)
+            if (locationStateImgUrl != '') {
+                var faviconUrlFromFirebase = await uploadFaviconUrl(locationStateImgUrl, randomurl);
+            }
+            const ref = await doc(db, "user", user.uid, "url", location.state.docId)
             updateDoc(ref, {
                 title: location.state.title,
                 customDomain: locationStateNewDomain,
                 isDraft: "true",
+                faviconUrl: faviconUrlFromFirebase,
                 urls: {
                     figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
                     figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
@@ -480,6 +497,11 @@ export default function Preview() {
     };
     const saveNewFormAsDraft = async () => {
         try {
+            if (locationStateImgUrl != '') {
+                var faviconUrlFromFirebase = await uploadFaviconUrl(locationStateImgUrl, randomurl);
+                console.log("xxx" + faviconUrlFromFirebase)
+
+            }
             const docRef = await dbFirestore.collection('user').doc(user.uid).collection
                 ("url").add({
                     userId: user.uid,
@@ -487,6 +509,7 @@ export default function Preview() {
                     customDomain: locationStateDomain,
                     isDraft: "true",
                     generatedUrl: randomurl,
+                    faviconUrl: faviconUrlFromFirebase,
                     urls: {
                         figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
                         figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
@@ -503,14 +526,21 @@ export default function Preview() {
         }
     }
 
+
+
     const saveNewForm = async () => {
         try {
+            if (locationStateImgUrl != '') {
+                var faviconUrlFromFirebase = await uploadFaviconUrl(locationStateImgUrl, randomurl);
+                console.log("xxx" + faviconUrlFromFirebase)
+            }
             const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
                 userId: user.uid,
                 title: location.state.title,
                 customDomain: locationStateDomain,
                 isDraft: "false",
                 generatedUrl: randomurl,
+                faviconUrl: faviconUrlFromFirebase,
                 urls: {
                     figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
                     figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
@@ -565,9 +595,7 @@ export default function Preview() {
         <>
             {!user || !location.state ? (
                 navigate("/")
-
             ) : (
-
                 <div>
                     {!userIsDesktop ? (
                         <div>
@@ -603,11 +631,13 @@ export default function Preview() {
                             </iframe>
 
                             <div className='mobile-button-container'>
-                                <ButtonClear
+                                {/* <ButtonClear
                                     className="save-as-draft"
                                     label={t('save-as-draft')}
                                     isDisabled={isSaveAsDraftBtnClick}
-                                    onClick={location.state.fromEdit === true ? handleUpdateFormAsDraft : handleSaveFormAsDraft} />
+                                    onClick={location.state.fromEdit === true ?
+                                        handleUpdateFormAsDraft :
+                                        handleSaveFormAsDraft} /> */}
                                 {location.state.fromEdit === true ?
                                     (<ButtonColored
                                         className="update-btn"
@@ -652,11 +682,13 @@ export default function Preview() {
                                 </div>
                                 <div className="col m-0 p-0">
                                     < div className='draft-publish-container'>
-                                        <ButtonClear
+                                        {/* <ButtonClear
                                             className="save-as-draft"
                                             label={t('save-as-draft')}
                                             isDisabled={isSaveAsDraftBtnClick}
-                                            onClick={location.state.fromEdit === true ? handleUpdateFormAsDraft : handleSaveFormAsDraft} />
+                                            onClick={location.state.fromEdit === true ?
+                                                handleUpdateFormAsDraft :
+                                                handleSaveFormAsDraft} /> */}
                                         {location.state.fromEdit === true ?
                                             (<ButtonColored
                                                 className="update-btn"
