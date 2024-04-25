@@ -19,23 +19,22 @@ const DeleteModal = (props) => {
     const [user, setUser] = useState(null);
     const id = props.id;
     const customDomain = props.customDomain;
-    const faviconUrl = props.faviconUrl;
+    const faviconUrl = props.faviconUrl ?? '';
     const [outputValue, setOutputValue] = useState('');
 
-
     useEffect(() => {
-        const regex = /^(https?:\/\/|www\.) /i;
-        const unsubscribe = auth.onAuthStateChanged((user) => {
-            setUser(user);
-        });
-        if (regex.test(customDomain)) {
-            const removedPrefix = customDomain.replace(regex, '');
-            setOutputValue(removedPrefix);
-        } else {
-            setOutputValue(customDomain);
+        async function updateDomain() {
+            const regex = /^(https?:\/\/|www\.) /i;
+            if (regex.test(props.customDomain)) {
+                const removedPrefix = props.customDomain.replace(regex, '');
+                setOutputValue(removedPrefix);
+            } else {
+                setOutputValue(props.customDomain);
+            }
         }
-        return () => unsubscribe();
-    }, []);
+        updateDomain();
+    }, [props.customDomain]);
+
 
 
     const handleDeleteDomainAndData = async () => {
@@ -61,17 +60,16 @@ const DeleteModal = (props) => {
     const dataInDb = async () => {
         console.log("xxxx" + faviconUrl)
         try {
-            //STILL NEED TO WORK ON THIS
-            // if (faviconUrl != "" || faviconUrl != undefined) {
-            //     const storage = getStorage();
-            //     const desertRef = ref(storage, faviconUrl) // how can I find url (image/study.png)
-            //     deleteObject(desertRef).then(() => {
-            //         console.log("delete success");
-            //     }).catch((error) => {
-            //         console.log("delete error");
-            //     })
-            // }
-
+            if (faviconUrl !== '') {
+                console.log("yyyyy")
+                const storage = getStorage();
+                const desertRef = ref(storage, faviconUrl)
+                await deleteObject(desertRef).then(() => {
+                    console.log("delete success");
+                }).catch((error) => {
+                    console.log("delete error");
+                })
+            }
             await deleteDoc(doc(db, "user", user.uid, "url", id));
             window.location.reload();
             handleClose()
@@ -82,9 +80,10 @@ const DeleteModal = (props) => {
 
     const handleDelete = async () => {
         try {
-            if (props.customDomain == '' || props.customDomain == undefined) {
+            if (props.customDomain == '' || props.customDomain == "undefined") {
                 dataInDb()
             } else {
+                console.log(props.customDomain)
                 handleDeleteDomainAndData()
             }
         } catch (error) {
