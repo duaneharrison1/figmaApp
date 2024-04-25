@@ -253,6 +253,7 @@ function UserDashboard() {
                                                         show={showModal}
                                                         handleClose={handleCloseModal}
                                                         id={data[showModal?.index]?.id}
+                                                        customDomain={data[showModal?.index]?.customDomain}
                                                     // faviconUrl={data[showModal?.index]?.faviconUrl}
                                                     />
                                                 </div>
@@ -275,6 +276,7 @@ function UserDashboard() {
                                                         show={showModal}
                                                         handleClose={handleCloseModal}
                                                         id={data[showModal?.index]?.id}
+                                                        customDomain={data[showModal?.index]?.customDomain}
                                                     // faviconUrl={data[showModal?.index]?.faviconUrl}
                                                     />
                                                 </div>
@@ -298,6 +300,7 @@ function UserDashboard() {
                                                         show={showModal}
                                                         handleClose={handleCloseModal}
                                                         id={data[showModal?.index]?.id}
+                                                        customDomain={data[showModal?.index]?.customDomain}
                                                     // faviconUrl={data[showModal?.index]?.faviconUrl}
                                                     />
                                                 </div>

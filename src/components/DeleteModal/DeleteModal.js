@@ -35,7 +35,7 @@ const DeleteModal = (props) => {
             setOutputValue(customDomain);
         }
         return () => unsubscribe();
-    }, []);
+    }, [outputValue]);
 
 
     const handleDeleteDomainAndData = async () => {
@@ -82,7 +82,7 @@ const DeleteModal = (props) => {
 
     const handleDelete = async () => {
         try {
-            if (props.customDomain == '' || props.customDomain == undefined) {
+            if (props.customDomain == '' || props.customDomain === "undefined") {
                 dataInDb()
             } else {
                 handleDeleteDomainAndData()
