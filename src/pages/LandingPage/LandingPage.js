@@ -104,7 +104,7 @@ export default function LandingPage() {
 
         <div className='page-content-container'>
           <div className='row'>
-            <div className='col-md-6 col-md-push-6'>
+            <div className='col-md-6 landing-page-container col-md-push-6'>
               <h1 className='landing-header'>{t('landing-header')}</h1>
               <h1 className='landing-sec-subheader'>{t('landing-subheader')}</h1>
 
@@ -116,7 +116,7 @@ export default function LandingPage() {
               </div>
 
             </div>
-            <div className='col-md-6 col-md-push-6'>
+            <div className='col-md-6 landing-page-container col-md-push-6'>
               <img className="landing-page-img" src={main_header_image} />
             </div>
           </div>
@@ -125,10 +125,10 @@ export default function LandingPage() {
         <div className='landing-page-guide-container'>
 
           <div className='row guide-container-version-two'>
-            <div className='col-md-6 col-md-push-6 order-2'>
+            <div className='col-md-6 landing-page-container col-md-push-6 order-2'>
               <img src={guideOne} className='step-one-img' />
             </div>
-            <div className='col-md-6 col-md-pull-6 order-1 guide-details' ref={divGuide}>
+            <div className='col-md-6 landing-page-container col-md-pull-6 order-1 guide-details' ref={divGuide}>
               <div className='row'>
                 <div className='col-2 guide-number '>
                   <img src={one} className='step-one' />
@@ -142,7 +142,7 @@ export default function LandingPage() {
             </div>
           </div>
           <div className='row guide-container-version-two'>
-            <div className='col-md-6 col-md-push-6 guide-details'>
+            <div className='col-md-6 landing-page-container col-md-push-6 guide-details'>
               <div className='row'>
                 <div className='col-2 guide-number'>
                   <img src={two} className='step-one' />
@@ -154,16 +154,16 @@ export default function LandingPage() {
               </div>
 
             </div>
-            <div className='col-md-6 col-md-push-6'>
+            <div className='col-md-6 landing-page-container col-md-push-6'>
               <img src={guideTwo} className='step-one-img' />
             </div>
           </div>
 
           <div className='row '>
-            <div className='col-md-6 col-md-push-6 order-2'>
+            <div className='col-md-6 landing-page-container col-md-push-6 order-2'>
               <img src={guideThree} className='step-one-img' />
             </div>
-            <div className='col-md-6 col-md-push-6 order-1 guide-details'>
+            <div className='col-md-6 landing-page-container col-md-push-6 order-1 guide-details'>
               <div className='row'>
                 <div className='col-2 guide-number'>
                   <img src={three} className='step-one' />
