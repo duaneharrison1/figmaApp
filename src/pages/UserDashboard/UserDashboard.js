@@ -253,7 +253,8 @@ function UserDashboard() {
                                                         show={showModal}
                                                         handleClose={handleCloseModal}
                                                         id={data[showModal?.index]?.id}
-                                                    // faviconUrl={data[showModal?.index]?.faviconUrl}
+                                                        customDomain={data[showModal?.index]?.customDomain}
+                                                        faviconUrl={data[showModal?.index]?.faviconUrl}
                                                     />
                                                 </div>
                                             ) : subscriptionType == "monthlyPlan" ? (
@@ -275,7 +276,8 @@ function UserDashboard() {
                                                         show={showModal}
                                                         handleClose={handleCloseModal}
                                                         id={data[showModal?.index]?.id}
-                                                    // faviconUrl={data[showModal?.index]?.faviconUrl}
+                                                        customDomain={data[showModal?.index]?.customDomain}
+                                                        faviconUrl={data[showModal?.index]?.faviconUrl}
                                                     />
                                                 </div>
                                             ) : (
@@ -298,7 +300,8 @@ function UserDashboard() {
                                                         show={showModal}
                                                         handleClose={handleCloseModal}
                                                         id={data[showModal?.index]?.id}
-                                                    // faviconUrl={data[showModal?.index]?.faviconUrl}
+                                                        customDomain={data[showModal?.index]?.customDomain}
+                                                        faviconUrl={data[showModal?.index]?.faviconUrl}
                                                     />
                                                 </div>
                                             )}
