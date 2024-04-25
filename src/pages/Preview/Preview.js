@@ -392,16 +392,12 @@ export default function Preview() {
     }
 
     const updateApp = async () => {
-        console.log("xxx" + locationStateImgUrl)
-        console.log("yyyy" + locationStateImgUrl !== '')
         try {
             if (locationStateImgUrl != '') {
                 if (location.state.isNewFavicon == "true") {
                     var faviconUrlFromFirebase = await uploadFaviconUrl(locationStateImgUrl, randomurl);
-                    console.log("wentHere")
                 } else {
                     faviconUrlFromFirebase = location.state.imgUrl;
-                    console.log("wentHere1")
                 }
             }
             const ref = await doc(db, "user", user.uid, "url", location.state.docId)
@@ -529,10 +525,13 @@ export default function Preview() {
 
 
     const saveNewForm = async () => {
+        console.log(locationStateImgUrl != '')
         try {
             if (locationStateImgUrl != '') {
                 var faviconUrlFromFirebase = await uploadFaviconUrl(locationStateImgUrl, randomurl);
                 console.log("xxx" + faviconUrlFromFirebase)
+            } else {
+                faviconUrlFromFirebase = ""
             }
             const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
                 userId: user.uid,
