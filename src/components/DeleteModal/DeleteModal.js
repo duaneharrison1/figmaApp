@@ -3,7 +3,7 @@ import React from 'react';
 import './DeleteModal.css';
 import { Modal } from 'react-bootstrap';
 import DeleteHeaderImage from '../../assets/images/delete-header-img.png';
-import { db, auth } from '../../firebase';
+import { db, useAuth } from '../../firebase';
 import { useState, useEffect } from 'react';
 import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc, query, where } from 'firebase/firestore'
 import { ref, deleteObject, getStorage } from "firebase/storage";
@@ -15,10 +15,8 @@ import { useTranslation } from 'react-i18next';
 const DeleteModal = (props) => {
     const { t } = useTranslation();
     const { show, handleClose } = props;
-    const [userId] = useAuthState(auth);
-    const [user, setUser] = useState(null);
+    const user = useAuth();
     const id = props.id;
-    const customDomain = props.customDomain;
     const faviconUrl = props.faviconUrl ?? '';
     const [outputValue, setOutputValue] = useState('');
 
@@ -58,7 +56,6 @@ const DeleteModal = (props) => {
     }
 
     const dataInDb = async () => {
-        console.log("xxxx" + faviconUrl)
         try {
             if (faviconUrl !== '') {
                 console.log("yyyyy")
@@ -73,8 +70,9 @@ const DeleteModal = (props) => {
             await deleteDoc(doc(db, "user", user.uid, "url", id));
             window.location.reload();
             handleClose()
-        } catch {
-            alert("Error Deleting data")
+        } catch (e) {
+            alert("Error Deleting data");
+            console.log(e);
         }
     }
 
