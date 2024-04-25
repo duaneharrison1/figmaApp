@@ -20,22 +20,32 @@ const DeleteModal = (props) => {
     const id = props.id;
     const customDomain = props.customDomain;
     const faviconUrl = props.faviconUrl;
-    const [outputValue, setOutputValue] = useState('');
+    const [outputValue, setOutputValue] = useState(props.customDomain);
+
+
+
 
 
     useEffect(() => {
-        const regex = /^(https?:\/\/|www\.) /i;
+        async function updateDomain() {
+            const regex = /^(https?:\/\/|www\.) /i;
+            if (regex.test(props.customDomain)) {
+                const removedPrefix = props.customDomain.replace(regex, '');
+                setOutputValue(removedPrefix);
+            } else {
+                setOutputValue(props.customDomain);
+            }
+        }
+        updateDomain();
+    }, [props.customDomain]);
+
+
+    useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setUser(user);
         });
-        if (regex.test(customDomain)) {
-            const removedPrefix = customDomain.replace(regex, '');
-            setOutputValue(removedPrefix);
-        } else {
-            setOutputValue(customDomain);
-        }
         return () => unsubscribe();
-    }, [outputValue]);
+    }, []);
 
 
     const handleDeleteDomainAndData = async () => {
@@ -81,6 +91,8 @@ const DeleteModal = (props) => {
     }
 
     const handleDelete = async () => {
+        console.log("xxx" + outputValue)
+        console.log("xxx" + props.customDomain)
         try {
             if (props.customDomain == '' || props.customDomain === "undefined") {
                 dataInDb()
