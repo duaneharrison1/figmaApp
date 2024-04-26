@@ -10,6 +10,7 @@ function DynamicPage({ url }) {
   const [isMobile, setIsMobile] = useState(false);
   const [mobile, setMobile] = useState("");
   const [desktop, setDesktop] = useState("");
+  const [faviconUrl, setFaviconUrl] = useState('');
   const [activeSubscriber, setActiveSubscriber] = useState("true");
   const isOpenInMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const navigateToHome = () => {
@@ -23,7 +24,19 @@ function DynamicPage({ url }) {
       link.rel = 'icon';
       document.getElementsByTagName('head')[0].appendChild(link);
     }
-    link.href = url.faviconUrl;
+    if (activeSubscriber == "true") {
+      console.log("wentHere00")
+      if (faviconUrl) {
+        console.log("wentHere11")
+        console.log(faviconUrl)
+        console.log("xx" + faviconUrl + "xx")
+        console.log("xx" + activeSubscriber + "xx")
+        link.href = faviconUrl;
+      } else {
+        console.log("wentHere22")
+        link.href = '';
+      }
+    }
   }, []);
 
   useEffect(() => {
@@ -42,6 +55,16 @@ function DynamicPage({ url }) {
         )
       }
     })
+
+    if (activeSubscriber == "true") {
+      if (url.faviconUrl) {
+        setFaviconUrl(url.faviconUrl)
+        console.log("wentHere1")
+      } else {
+        setFaviconUrl('')
+        console.log("wentHere2")
+      }
+    }
 
     if (url.urls.figmaMobileUrl === "") {
       setMobile(url.urls.figmaDesktopUrl)
