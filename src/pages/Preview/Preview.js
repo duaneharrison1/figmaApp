@@ -399,6 +399,8 @@ export default function Preview() {
                 } else {
                     faviconUrlFromFirebase = location.state.imgUrl;
                 }
+            } else {
+                faviconUrlFromFirebase = ""
             }
             const ref = await doc(db, "user", user.uid, "url", location.state.docId)
             updateDoc(ref, {
