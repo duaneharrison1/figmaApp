@@ -17,6 +17,16 @@ function DynamicPage({ url }) {
   };
 
   useEffect(() => {
+    let link = document.querySelector("link[rel~='icon']");
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      document.getElementsByTagName('head')[0].appendChild(link);
+    }
+    link.href = url.faviconUrl;
+  }, []);
+
+  useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
@@ -55,6 +65,7 @@ function DynamicPage({ url }) {
     };
 
   }, []);
+
   return (
     <>
       {activeSubscriber == "true" ? (<div></div>) :
