@@ -24,6 +24,8 @@ function DynamicPage({ url }) {
       link.rel = 'icon';
       document.getElementsByTagName('head')[0].appendChild(link);
     }
+
+
     if (activeSubscriber == "true") {
       console.log("wentHere00")
       if (faviconUrl) {
@@ -33,8 +35,9 @@ function DynamicPage({ url }) {
         console.log("xx" + activeSubscriber + "xx")
         link.href = faviconUrl;
       } else {
-        console.log("wentHere33")
-        link.remove();
+        console.log("wentHere33   faviconUrl is not provided, removing favicon")
+        // link.remove();
+        link.href = `?nocache=${Math.random()}`;
       }
     }
   }, [activeSubscriber, faviconUrl]);
