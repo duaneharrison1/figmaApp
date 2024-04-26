@@ -23,8 +23,20 @@ function DynamicPage2() {
       link.rel = 'icon';
       document.getElementsByTagName('head')[0].appendChild(link);
     }
-    link.href = faviconUrl;
-  }, []);
+    if (faviconUrl) {
+      console.log("wentHere11")
+      console.log(faviconUrl)
+      console.log("xx" + faviconUrl + "xx")
+      link.href = faviconUrl;
+    } else {
+      console.log("wentHere22")
+      console.log(faviconUrl)
+      console.log("xx" + faviconUrl + "xx")
+      link.href = '';
+    }
+
+    console.log("favicon" + faviconUrl);
+  }, [faviconUrl]);
 
   useEffect(() => {
     var domain = window.location.host
@@ -42,6 +54,7 @@ function DynamicPage2() {
                   if (value.isDraft == "false") {
                     document.title = value.title;
                     setFaviconUrl(value.faviconUrl)
+                    console.log("favicon1" + value.faviconUrl);
                     setDesktop(value.urls.figmaDesktopUrl)
                     setMobile(value.urls.figmaMobileUrl)
                   }
@@ -55,6 +68,7 @@ function DynamicPage2() {
                 if (value.isDraft == "false") {
                   document.title = value.title;
                   setFaviconUrl(value.faviconUrl)
+                  console.log("favicon2" + value.faviconUrl);
                   setDesktop(value.urls.figmaDesktopUrl)
                   setMobile(value.urls.figmaMobileUrl)
                 }
@@ -111,7 +125,7 @@ function DynamicPage2() {
       };
       fetchData();
     }
-  }, []
+  }, [faviconUrl]
   );
 
   useEffect(() => {
@@ -136,5 +150,3 @@ function DynamicPage2() {
 }
 
 export default DynamicPage2;
-
-
