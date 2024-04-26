@@ -33,11 +33,11 @@ function DynamicPage({ url }) {
         console.log("xx" + activeSubscriber + "xx")
         link.href = faviconUrl;
       } else {
-        console.log("wentHere22")
-        link.href = '';
+        console.log("wentHere33")
+        link.remove();
       }
     }
-  }, []);
+  }, [activeSubscriber, faviconUrl]);
 
   useEffect(() => {
     const handleResize = () => {
