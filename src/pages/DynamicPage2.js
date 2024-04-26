@@ -24,12 +24,14 @@ function DynamicPage2() {
       document.getElementsByTagName('head')[0].appendChild(link);
     }
     if (faviconUrl != '' || faviconUrl !== "undefined") {
-      console.log("wentHere1")
+      console.log("wentHere11")
       console.log(faviconUrl)
+      console.log("xx" + faviconUrl + "xx")
       link.href = faviconUrl;
     } else {
-      console.log("wentHere2")
+      console.log("wentHere22")
       console.log(faviconUrl)
+      console.log("xx" + faviconUrl + "xx")
       link.href = '';
     }
 
