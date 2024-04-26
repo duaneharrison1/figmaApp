@@ -23,7 +23,7 @@ function DynamicPage2() {
       link.rel = 'icon';
       document.getElementsByTagName('head')[0].appendChild(link);
     }
-    if (faviconUrl != '' || faviconUrl !== "undefined") {
+    if (faviconUrl !== '' || faviconUrl !== "undefined") {
       console.log("wentHere11")
       console.log(faviconUrl)
       console.log("xx" + faviconUrl + "xx")
