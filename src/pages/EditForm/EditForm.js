@@ -28,8 +28,8 @@ export default function EditForm() {
     const [generatedUrl, setgeneratedUrl] = useState(location.state.object.generatedUrl);
     const [title, setTitle] = useState(location.state.object.title);
     const [customDomain, setCustomDomain] = useState(location.state.object.customDomain);
-    const [faviconImage, setFaviconImage] = useState(location.state.object.faviconUrl) ?? '';
-    const [imgUrl, setImgUrl] = useState(location.state.object.faviconUrl) ?? '';
+    const [faviconImage, setFaviconImage] = useState(location.state.object.faviconUrl || "");
+    const [imgUrl, setImgUrl] = useState(location.state.object.faviconUrl || "");
     const [newCustomDomain, setNewCustomDomain] = useState(location.state.object.customDomain);
     const user = auth.currentUser;
     const [showErrorModal, setShowErrorModal] = useState(false);
@@ -138,9 +138,7 @@ export default function EditForm() {
     }
 
     const onButtonClick = (e) => {
-        // `current` points to the mounted file input element
         inputFile.current && inputFile.current.click();
-
     };
 
     return (
