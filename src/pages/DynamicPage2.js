@@ -25,9 +25,11 @@ function DynamicPage2() {
     }
     if (faviconUrl != '' || faviconUrl !== "undefined") {
       console.log("wentHere1")
+      console.log(faviconUrl)
       link.href = faviconUrl;
     } else {
       console.log("wentHere2")
+      console.log(faviconUrl)
       link.href = '';
     }
 
