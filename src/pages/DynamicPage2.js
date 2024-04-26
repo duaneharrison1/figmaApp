@@ -23,7 +23,12 @@ function DynamicPage2() {
       link.rel = 'icon';
       document.getElementsByTagName('head')[0].appendChild(link);
     }
-    link.href = faviconUrl;
+    if (faviconUrl != '' || faviconUrl !== "undefined") {
+      link.href = faviconUrl;
+    } else {
+      link.href = '';
+    }
+
     console.log("favicon" + faviconUrl);
   }, [faviconUrl]);
 
