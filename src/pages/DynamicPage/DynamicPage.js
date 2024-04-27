@@ -27,18 +27,13 @@ function DynamicPage({ url }) {
 
 
     if (activeSubscriber == "true") {
-      console.log("wentHere00")
       if (faviconUrl) {
-        console.log("wentHere11")
-        console.log(faviconUrl)
-        console.log("xx" + faviconUrl + "xx")
-        console.log("xx" + activeSubscriber + "xx")
         link.href = faviconUrl;
       } else {
-        console.log("wentHere33   faviconUrl is not provided, removing favicon")
-        // link.remove();
-        link.href = `?nocache=${Math.random()}`;
+        link.remove();
       }
+    } else {
+      link.href = "https://firebasestorage.googleapis.com/v0/b/figmawebapp.appspot.com/o/figmafolio-favicon.png?alt=media&token=3b9cc2d9-01c6-470e-910a-a64c168ed870?v=2";
     }
   }, [activeSubscriber, faviconUrl]);
 
