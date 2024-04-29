@@ -184,12 +184,12 @@ export default function EditForm() {
                         </div>
 
                         <div className='row div-form-instruction'>
+                            <h1 className='sub-title'>Domain</h1>
                             <div className='col-6 align-items-start'>
                                 <h1 className='form-sub-header'>{t('your-domain')}</h1>
                                 <p> figmafolio.com/{generatedUrl} </p>
                             </div>
                             <div className='col-md-6'>
-                                <h1 className='sub-title'>Domain</h1>
                                 <h2 className='form-sub-header'>{t('custom-domain')}</h2>
                                 {subscriptionType == "regular" ? (
                                     <UpgradeAccountButton onClick={handleShowModal} />
