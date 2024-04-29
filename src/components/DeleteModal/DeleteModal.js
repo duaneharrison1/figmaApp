@@ -3,7 +3,7 @@ import React from 'react';
 import './DeleteModal.css';
 import { Modal } from 'react-bootstrap';
 import DeleteHeaderImage from '../../assets/images/delete-header-img.png';
-import { db, auth } from '../../firebase';
+import { db, useAuth } from '../../firebase';
 import { useState, useEffect } from 'react';
 import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc, query, where } from 'firebase/firestore'
 import { ref, deleteObject, getStorage } from "firebase/storage";
@@ -15,16 +15,10 @@ import { useTranslation } from 'react-i18next';
 const DeleteModal = (props) => {
     const { t } = useTranslation();
     const { show, handleClose } = props;
-    const [userId] = useAuthState(auth);
-    const [user, setUser] = useState(null);
+    const user = useAuth();
     const id = props.id;
-    const customDomain = props.customDomain;
-    const faviconUrl = props.faviconUrl;
-    const [outputValue, setOutputValue] = useState(props.customDomain);
-
-
-
-
+    const faviconUrl = props.faviconUrl ?? '';
+    const [outputValue, setOutputValue] = useState('');
 
     useEffect(() => {
         async function updateDomain() {
@@ -39,13 +33,6 @@ const DeleteModal = (props) => {
         updateDomain();
     }, [props.customDomain]);
 
-
-    useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((user) => {
-            setUser(user);
-        });
-        return () => unsubscribe();
-    }, []);
 
 
     const handleDeleteDomainAndData = async () => {
@@ -69,34 +56,32 @@ const DeleteModal = (props) => {
     }
 
     const dataInDb = async () => {
-        console.log("xxxx" + faviconUrl)
         try {
-            //STILL NEED TO WORK ON THIS
-            // if (faviconUrl != "" || faviconUrl != undefined) {
-            //     const storage = getStorage();
-            //     const desertRef = ref(storage, faviconUrl) // how can I find url (image/study.png)
-            //     deleteObject(desertRef).then(() => {
-            //         console.log("delete success");
-            //     }).catch((error) => {
-            //         console.log("delete error");
-            //     })
-            // }
-
+            if (faviconUrl !== '') {
+                console.log("yyyyy")
+                const storage = getStorage();
+                const desertRef = ref(storage, faviconUrl)
+                await deleteObject(desertRef).then(() => {
+                    console.log("delete success");
+                }).catch((error) => {
+                    console.log("delete error");
+                })
+            }
             await deleteDoc(doc(db, "user", user.uid, "url", id));
             window.location.reload();
             handleClose()
-        } catch {
-            alert("Error Deleting data")
+        } catch (e) {
+            alert("Error Deleting data");
+            console.log(e);
         }
     }
 
     const handleDelete = async () => {
-        console.log("xxx" + outputValue)
-        console.log("xxx" + props.customDomain)
         try {
-            if (props.customDomain == '' || props.customDomain === "undefined") {
+            if (props.customDomain == '' || props.customDomain == "undefined") {
                 dataInDb()
             } else {
+                console.log(props.customDomain)
                 handleDeleteDomainAndData()
             }
         } catch (error) {

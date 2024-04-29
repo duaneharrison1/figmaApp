@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc, query, where } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
 import firebase from '../../firebase';
@@ -30,7 +30,9 @@ export default function UrlForm() {
     const [subscriptionType, setSubscriptionType] = useState(location.state.subscriptionType);
     const lng = navigator.language;
     const currentLanguage = i18n.language;
-
+    const [imgUrl, setImgUrl] = useState('');
+    const [image, setImage] = useState('')
+    const inputFile = useRef(null);
     const handleShowModal = () => {
         setShowModal(true);
     };
@@ -67,13 +69,25 @@ export default function UrlForm() {
         if ((!figmaDesktopUrl.includes('figma.com/file') && !figmaMobileUrl.includes('figma.com/file')) &&
             (figmaMobileUrl.includes('figma.com/proto') || figmaMobileUrl.includes('figma.com/embed') ||
                 figmaDesktopUrl.includes('figma.com/proto') || figmaDesktopUrl.includes('figma.com/embed'))) {
-            navigate("/" + currentLanguage + '/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl, domain: domain } });
+            navigate("/" + currentLanguage + '/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl, domain: domain, imgUrl: imgUrl } });
         } else {
             setShowErrorModal(true);
         }
-
-
     }
+
+
+    function handleChange(e) {
+        if (e.target.files[0]) {
+            setImgUrl(e.target.files[0])
+            setImage(URL.createObjectURL(e.target.files[0]));
+        }
+    }
+
+    const onButtonClick = (e) => {
+        // `current` points to the mounted file input element
+        inputFile.current && inputFile.current.click();
+
+    };
 
     const handleLogout = () => {
         signOut(auth).then(() => {
@@ -130,7 +144,7 @@ export default function UrlForm() {
                     <div className='form-container'>
                         <div className='row first-div'>
                             <h1 className='form-title'>{t('general')}</h1>
-                            <div className='col-md-6'>
+                            <div className='col-md-6 form-title-div'>
                                 <h2 className='form-sub-header'>{t('title')}</h2>
                                 <input
                                     className='form-input'
@@ -139,20 +153,45 @@ export default function UrlForm() {
                                     value={title}
                                     onChange={handleTitle} />
                             </div>
-                            <div className='col-md-6'></div>
+                            <div className='col-md-6 '>
+                                <div className='row'>
+                                    {subscriptionType == "regular" ? (<div></div>) : (
+                                        <div className='favicon-container'>
+                                            <h2 className='form-sub-header'>Favicon</h2>
+                                            <div className='row favicon-img-container'>
+                                                {imgUrl !== '' || image !== '' ? <img src={image} className='favicon-prev' /> : null}
+                                                <ButtonClear className='upload-image' onClick={onButtonClick} label="Upload image" />
+                                                <input
+                                                    type="file"
+                                                    accept="image/*"
+                                                    id="file"
+                                                    ref={inputFile}
+                                                    onChange={handleChange}
+                                                    style={{ display: "none" }}
+                                                />
+                                            </div>
+                                            <p className='form-favicon-note'>Submit a PNG, JGP or SVG which is at least 70px x 70px. For best results, use an image which is 260px x 260px or more. </p>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
                         </div>
 
                         <div className='row div-form-instruction'>
+                            <h1 className='sub-title'>Domain</h1>
                             <div className='col-6 align-items-start'>
+
                                 <h1 className='form-sub-header'>{t('your-domain')}</h1>
                                 <p>{t('this-will-be-assigned')}</p>
                             </div>
                             <div className='col-md-6'>
+
                                 <h2 className='form-sub-header'>{t('custom-domain')}</h2>
                                 {subscriptionType == "regular" ? (
                                     <UpgradeAccountButton onClick={handleShowModal} />
                                 ) : (
                                     <div>
+
                                         <input
                                             className='form-input'
                                             type="text"

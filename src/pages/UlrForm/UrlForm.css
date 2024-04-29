@@ -99,6 +99,11 @@ h2 {
 
 .div-form-instruction {
     padding-bottom: 48px;
+    padding-top: 48px;
+}
+
+.favicon-img-container {
+    width: fit-content;
 }
 
 .instruction {
@@ -160,6 +165,18 @@ td {
     font-size: 15px;
     font-style: normal;
     font-weight: 400;
+}
+
+.favicon-prev {
+    height: 64px !important;
+    width: 64px !important;
+    margin: 0;
+    padding: 0;
+    object-fit: contain;
+}
+
+.form-favicon-note {
+    padding-top: 8px;
 }
 
 @media only screen and (max-width: 767px) {

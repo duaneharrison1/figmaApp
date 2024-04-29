@@ -21,13 +21,20 @@ export async function upload(file, currentUser) {
   const snapshot = await uploadBytes(fileRef, file);
   const photoURL = await getDownloadURL(fileRef);
   updateProfile(currentUser, { photoURL });
-  alert("Uploaded file!");
+  alert("Image succesfully uploaded!");
   window.location.reload();
 }
 
+export async function uploadFaviconUrl(file, generatedUrl) {
+  const fileRef = ref(storage, "favicons/" + generatedUrl + '.png');
+  const snapshot = await uploadBytes(fileRef, file);
+  const photoURL = await getDownloadURL(fileRef);
+  return photoURL;
+}
+
+
 export function useAuth() {
   const [currentUser, setCurrentUser] = useState();
-
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, user => setCurrentUser(user));
     return unsub;

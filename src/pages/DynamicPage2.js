@@ -24,14 +24,8 @@ function DynamicPage2() {
       document.getElementsByTagName('head')[0].appendChild(link);
     }
     if (faviconUrl) {
-      console.log("wentHere11")
-      console.log(faviconUrl)
-      console.log("xx" + faviconUrl + "xx")
       link.href = faviconUrl;
     } else {
-      console.log("wentHere22")
-      console.log(faviconUrl)
-      console.log("xx" + faviconUrl + "xx")
       link.href = '';
     }
 
