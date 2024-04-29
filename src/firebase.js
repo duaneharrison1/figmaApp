@@ -7,7 +7,7 @@ import { getAuth, getAdditionalUserInfoetAuth, createUserWithEmailAndPassword, s
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyDerK_WLES9rmbeW0y-nnhYr6IycedWvCk",
   authDomain: "figmawebapp.firebaseapp.com",
   projectId: "figmawebapp",
@@ -44,7 +44,8 @@ export function useAuth() {
 }
 
 // Initialize Firebase and Firestore
-const app = initializeApp(firebaseConfig)
+
+export const app = initializeApp(firebaseConfig)
 export const auth = getAuth(app);
 export const db = getFirestore(app)
 export const storage = getStorage(app);
