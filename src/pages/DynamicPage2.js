@@ -46,25 +46,50 @@ function DynamicPage2() {
               dbFirestore.collectionGroup('url').where('customDomain', '==', domain).get().then(snapshot => {
                 const fetchedData = snapshot.docs.map(doc => doc.data());
                 fetchedData.forEach((value) => {
-                  if (value.isDraft == "false") {
-                    document.title = value.title;
-                    setFaviconUrl(value.faviconUrl)
-                    console.log("favicon1" + value.faviconUrl);
-                    setDesktop(value.urls.figmaDesktopUrl)
-                    setMobile(value.urls.figmaMobileUrl)
-                  }
+                  dbFirestore.collection('user').doc(value.userId).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
+                    if (snapshot.size === 0) {
+                      console.log("wentHere1")
+                    } else {
+                      snapshot.forEach(subscription => {
+                        if (subscription.data().status === "active") {
+                          if (value.isDraft == "false") {
+                            document.title = value.title;
+                            setFaviconUrl(value.faviconUrl)
+                            console.log("favicon1" + value.faviconUrl);
+                            setDesktop(value.urls.figmaDesktopUrl)
+                            setMobile(value.urls.figmaMobileUrl)
+                          }
+                        }
+                      }
+                      )
+                    }
+                  })
                 });
               })
             } else {
-              console.log("wenthere2")
+
               const fetchedData = snapshot.docs.map(doc => doc.data());
               fetchedData.forEach((value) => {
-                console.log("figmalink " + value.urls.figmaDesktopUrl)
-                console.log("figmalink " + value.urls.figmaMobileUrl)
+                dbFirestore.collection('user').doc(value.userId).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
+                  if (snapshot.size === 0) {
+                    console.log("wentHere1")
+                  } else {
+                    snapshot.forEach(subscription => {
+                      if (subscription.data().status === "active") {
+                        if (value.isDraft == "false") {
+                          document.title = value.title;
+                          setFaviconUrl(value.faviconUrl)
+                          setDesktop(value.urls.figmaDesktopUrl)
+                          setMobile(value.urls.figmaMobileUrl)
+                        }
+                      }
+                    }
+                    )
+                  }
+                })
                 if (value.isDraft == "false") {
                   document.title = value.title;
                   setFaviconUrl(value.faviconUrl)
-                  console.log("favicon2" + value.faviconUrl);
                   setDesktop(value.urls.figmaDesktopUrl)
                   setMobile(value.urls.figmaMobileUrl)
                 }
