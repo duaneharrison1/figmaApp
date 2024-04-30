@@ -214,6 +214,10 @@ export default function LandingPage() {
                     <img className='check-icon' src={Cross} />
                     <h4 className='landing-page-payment-feature-text'>{t('removes-made-with')}</h4>
                   </div>
+                  <div className="payment-feature">
+                    <img className='check-icon' src={Cross} />
+                    <h4 className='landing-page-payment-feature-text'>Customize Favicon</h4>
+                  </div>
                 </div>
               </div>
 
@@ -245,6 +249,10 @@ export default function LandingPage() {
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
                     <h4 className='landing-page-payment-feature-text'>{t('removes-made-with')}</h4>
+                  </div>
+                  <div className="payment-feature">
+                    <img className='check-icon' src={WhiteCheck} />
+                    <h4 className='landing-page-payment-feature-text'>Customize Favicon</h4>
                   </div>
                 </div>
 
@@ -285,6 +293,10 @@ export default function LandingPage() {
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
                     <h4 className='landing-page-payment-feature-text'>{t('removes-made-with')}</h4>
+                  </div>
+                  <div className="payment-feature">
+                    <img className='check-icon' src={WhiteCheck} />
+                    <h4 className='landing-page-payment-feature-text'>Customize Favicon</h4>
                   </div>
                   <div className="payment-feature">
                     <img className='check-icon' src={WhiteCheck} />
