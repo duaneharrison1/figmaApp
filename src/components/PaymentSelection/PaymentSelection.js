@@ -44,6 +44,10 @@ const PaymentSelection = (props) => {
                                                 <img className='check-icon' src={Check} />
                                                 <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
                                             </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>Customize Favicon</h4>
+                                            </div>
                                         </div>
                                         <div className='button-upgrade-container'>
                                             {monthlySubscription == "monthlyPlan" ?
@@ -78,6 +82,11 @@ const PaymentSelection = (props) => {
                                                 <img className='check-icon' src={Check} />
                                                 <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
                                             </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>Customize Favicon</h4>
+                                            </div>
+
                                             <div className="payment-feature">
                                                 <img className='check-icon' src={Check} />
                                                 <h4 className='payment-feature-text'>{t('monthly-yearly-feat-three')}</h4>
@@ -115,6 +124,10 @@ const PaymentSelection = (props) => {
                                                 <img className='check-icon' src={Check} />
                                                 <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
                                             </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>Customize Favicon</h4>
+                                            </div>
                                         </div>
                                         <div className='button-upgrade-container'>
                                             <ButtonColored className="btn-upgrade-plan" label={t('change-plan')} onClick={ManagePlan} />
@@ -145,6 +158,10 @@ const PaymentSelection = (props) => {
                                             <div className="payment-feature">
                                                 <img className='check-icon' src={Check} />
                                                 <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
+                                            </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>Customize Favicon</h4>
                                             </div>
                                             <div className="payment-feature">
                                                 <img className='check-icon' src={Check} />
@@ -182,6 +199,10 @@ const PaymentSelection = (props) => {
                                                 <img className='check-icon' src={Cross} />
                                                 <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
                                             </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Cross} />
+                                                <h4 className='payment-feature-text'>Customize Favicon</h4>
+                                            </div>
                                         </div>
                                         <div className='button-upgrade-container-2'>
                                             <ButtonColored className="btn-current-plan" label={t('current-plan')} />
@@ -209,6 +230,10 @@ const PaymentSelection = (props) => {
                                             <div className="payment-feature">
                                                 <img className='check-icon' src={Check} />
                                                 <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
+                                            </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>Customize Favicon</h4>
                                             </div>
                                         </div>
                                         <div className='button-upgrade-container-2'>
@@ -243,6 +268,10 @@ const PaymentSelection = (props) => {
                                             <div className="payment-feature">
                                                 <img className='check-icon' src={Check} />
                                                 <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
+                                            </div>
+                                            <div className="payment-feature">
+                                                <img className='check-icon' src={Check} />
+                                                <h4 className='payment-feature-text'>Customize Favicon</h4>
                                             </div>
                                             <div className="payment-feature">
                                                 <img className='check-icon' src={Check} />

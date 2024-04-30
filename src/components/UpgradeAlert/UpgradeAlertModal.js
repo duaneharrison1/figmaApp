@@ -143,6 +143,10 @@ const UpgradeAlertModal = (props) => {
                                     </div>
                                     <div className="payment-feature">
                                         <img className='check-icon' src={Check} />
+                                        <h4 className='payment-feature-text'>Customize Favicon</h4>
+                                    </div>
+                                    <div className="payment-feature">
+                                        <img className='check-icon' src={Check} />
                                         <h4 className='payment-feature-text'>{t('monthly-yearly-feat-three')}</h4>
                                     </div>
                                     <ButtonColored className="btn-upgrade-plan" label={t('upgrade-plan')} onClick={yearlyPayment} />
