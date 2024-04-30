@@ -42,6 +42,7 @@ function DynamicPage2() {
           const modifiedDomain = domain.replace(/^(https?:\/\/)?(www\.)?/, '');
           dbFirestore.collectionGroup('url').where('customDomain', '==', modifiedDomain).get().then(snapshot => {
             if (snapshot.docs.length === 0) {
+              console.log("wenthere1")
               dbFirestore.collectionGroup('url').where('customDomain', '==', domain).get().then(snapshot => {
                 const fetchedData = snapshot.docs.map(doc => doc.data());
                 fetchedData.forEach((value) => {
@@ -55,6 +56,7 @@ function DynamicPage2() {
                 });
               })
             } else {
+              console.log("wenthere2")
               const fetchedData = snapshot.docs.map(doc => doc.data());
               fetchedData.forEach((value) => {
                 console.log("figmalink " + value.urls.figmaDesktopUrl)
