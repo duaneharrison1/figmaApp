@@ -47,10 +47,10 @@ function DynamicPage({ url }) {
         setActiveSubscriber("false")
       } else {
         snapshot.forEach(subscription => {
-          if (subscription.data().status == "active") {
+          if (subscription.data().status === "active") {
             setActiveSubscriber("true")
-            console.log("xx" + subscription.data().status)
-            console.log("wentHere2")
+          } else {
+            setActiveSubscriber("false")
           }
         }
         )
