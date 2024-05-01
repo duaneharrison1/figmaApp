@@ -42,7 +42,6 @@ function DynamicPage2() {
           const modifiedDomain = domain.replace(/^(https?:\/\/)?(www\.)?/, '');
           dbFirestore.collectionGroup('url').where('customDomain', '==', modifiedDomain).get().then(snapshot => {
             if (snapshot.docs.length === 0) {
-              console.log("wenthere1")
               dbFirestore.collectionGroup('url').where('customDomain', '==', domain).get().then(snapshot => {
                 const fetchedData = snapshot.docs.map(doc => doc.data());
                 fetchedData.forEach((value) => {
@@ -50,12 +49,12 @@ function DynamicPage2() {
                     if (snapshot.size === 0) {
                       console.log("wentHere1")
                     } else {
+                      console.log("wentHere2")
                       snapshot.forEach(subscription => {
                         if (subscription.data().status === "active") {
                           if (value.isDraft == "false") {
                             document.title = value.title;
                             setFaviconUrl(value.faviconUrl)
-                            console.log("favicon1" + value.faviconUrl);
                             setDesktop(value.urls.figmaDesktopUrl)
                             setMobile(value.urls.figmaMobileUrl)
                           }
@@ -67,15 +66,17 @@ function DynamicPage2() {
                 });
               })
             } else {
-
+              console.log("wentHere3")
               const fetchedData = snapshot.docs.map(doc => doc.data());
               fetchedData.forEach((value) => {
                 dbFirestore.collection('user').doc(value.userId).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
                   if (snapshot.size === 0) {
-                    console.log("wentHere1")
+                    console.log("wentHere4")
                   } else {
+                    console.log("wentHere4")
                     snapshot.forEach(subscription => {
                       if (subscription.data().status === "active") {
+                        console.log("wentHere5")
                         if (value.isDraft == "false") {
                           document.title = value.title;
                           setFaviconUrl(value.faviconUrl)
@@ -87,6 +88,7 @@ function DynamicPage2() {
                     )
                   }
                 })
+
                 if (value.isDraft == "false") {
                   document.title = value.title;
                   setFaviconUrl(value.faviconUrl)
@@ -96,48 +98,6 @@ function DynamicPage2() {
               });
             }
           })
-
-          // const response = await axios.get(process.env.REACT_APP_URL_DATA);
-          // response.data.result.forEach((mainDoc, index) => {
-          //   mainDoc.subcollectionData.forEach((subData, subIndex) => {
-          //     if (subData.status == "active") {
-          //       if (subData.items[0].plan.id == process.env.REACT_APP_MONTHLY) {
-          //         mainDoc.subcollectionUrlData.forEach((url, urlIndex) => {
-          //           setUrlData(url)
-
-          //           const modifiedCustomDomain = url.customDomain.replace(/^(https?:\/\/)?(www\.)?/, '');
-          //           const modifiedDomain = domain.replace(/^(https?:\/\/)?(www\.)?/, '');
-          //           if (modifiedCustomDomain == modifiedDomain) {
-          //             if (url.isDraft == "false") {
-          //               document.title = url.title;
-          //               setDesktop(url.urls.figmaDesktopUrl)
-          //               setMobile(url.urls.figmaMobileUrl)
-          //             }
-          //             console.log("finish getting data");
-          //           } else {
-          //             console.log("error");
-          //           }
-          //         });
-          //       } else if (subData.items[0].plan.id == process.env.REACT_APP_YEARLY) {
-          //         mainDoc.subcollectionUrlData.forEach((url, urlIndex) => {
-          //           setUrlData(url)
-          //           if (url.customDomain == domain) {
-          //             if (url.isDraft == "false") {
-
-          //               document.title = url.title;
-          //               setDesktop(url.urls.figmaDesktopUrl)
-          //               setMobile(url.urls.figmaMobileUrl)
-          //             }
-          //           } else {
-          //             console.log("error 2")
-          //           }
-          //         });
-          //       } else {
-          //         console.log("error 3");
-          //       }
-          //     }
-          //   });
-          // });
         } catch (error) {
           setError(error);
         } finally {
