@@ -73,10 +73,10 @@ function DynamicPage2() {
                   if (snapshot.size === 0) {
                     console.log("wentHere4")
                   } else {
-                    console.log("wentHere4")
+                    console.log("wentHere5")
                     snapshot.forEach(subscription => {
                       if (subscription.data().status === "active") {
-                        console.log("wentHere5")
+                        console.log("wentHere6")
                         if (value.isDraft == "false") {
                           document.title = value.title;
                           setFaviconUrl(value.faviconUrl)
@@ -88,13 +88,6 @@ function DynamicPage2() {
                     )
                   }
                 })
-
-                if (value.isDraft == "false") {
-                  document.title = value.title;
-                  setFaviconUrl(value.faviconUrl)
-                  setDesktop(value.urls.figmaDesktopUrl)
-                  setMobile(value.urls.figmaMobileUrl)
-                }
               });
             }
           })
