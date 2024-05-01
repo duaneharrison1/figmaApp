@@ -43,11 +43,14 @@ function DynamicPage({ url }) {
     };
     dbFirestore.collection('user').doc(url.userId).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
       if (snapshot.size === 0) {
+        console.log("wentHere1")
         setActiveSubscriber("false")
       } else {
         snapshot.forEach(subscription => {
-          if (subscription.data().status == "active") {
+          if (subscription.data().status === "active") {
             setActiveSubscriber("true")
+          } else {
+            setActiveSubscriber("false")
           }
         }
         )
