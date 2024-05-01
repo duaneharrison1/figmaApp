@@ -10,6 +10,7 @@ function DynamicPage({ url }) {
   const [isMobile, setIsMobile] = useState(false);
   const [mobile, setMobile] = useState("");
   const [desktop, setDesktop] = useState("");
+  const [faviconUrl, setFaviconUrl] = useState('');
   const [activeSubscriber, setActiveSubscriber] = useState("true");
   const isOpenInMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const navigateToHome = () => {
@@ -17,21 +18,54 @@ function DynamicPage({ url }) {
   };
 
   useEffect(() => {
+    let link = document.querySelector("link[rel~='icon']");
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      document.getElementsByTagName('head')[0].appendChild(link);
+    }
+
+
+    if (activeSubscriber == "true") {
+      if (faviconUrl) {
+        link.href = faviconUrl;
+      } else {
+        link.remove();
+      }
+    } else {
+      link.href = "https://firebasestorage.googleapis.com/v0/b/figmawebapp.appspot.com/o/figmafolio-favicon.png?alt=media&token=3b9cc2d9-01c6-470e-910a-a64c168ed870?v=2";
+    }
+  }, [activeSubscriber, faviconUrl]);
+
+  useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
     dbFirestore.collection('user').doc(url.userId).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
       if (snapshot.size === 0) {
+        console.log("wentHere1")
         setActiveSubscriber("false")
       } else {
         snapshot.forEach(subscription => {
-          if (subscription.data().status == "active") {
+          if (subscription.data().status === "active") {
             setActiveSubscriber("true")
+          } else {
+            setActiveSubscriber("false")
           }
         }
         )
       }
     })
+
+    if (activeSubscriber == "true") {
+      if (url.faviconUrl) {
+        setFaviconUrl(url.faviconUrl)
+        console.log("wentHere1")
+      } else {
+        setFaviconUrl('')
+        console.log("wentHere2")
+      }
+    }
 
     if (url.urls.figmaMobileUrl === "") {
       setMobile(url.urls.figmaDesktopUrl)
@@ -55,6 +89,7 @@ function DynamicPage({ url }) {
     };
 
   }, []);
+
   return (
     <>
       {activeSubscriber == "true" ? (<div></div>) :

@@ -13,18 +13,24 @@ function DynamicPage2() {
   const [urlData, setUrlData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  // const [faviconUrl, setFaviconUrl] = useState('');
+  const [faviconUrl, setFaviconUrl] = useState('');
   const dbFirestore = firebase.firestore();
 
-  // useEffect(() => {
-  //   let link = document.querySelector("link[rel~='icon']");
-  //   if (!link) {
-  //     link = document.createElement('link');
-  //     link.rel = 'icon';
-  //     document.getElementsByTagName('head')[0].appendChild(link);
-  //   }
-  //   link.href = faviconUrl;
-  // }, []);
+  useEffect(() => {
+    let link = document.querySelector("link[rel~='icon']");
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      document.getElementsByTagName('head')[0].appendChild(link);
+    }
+    if (faviconUrl) {
+      link.href = faviconUrl;
+    } else {
+      link.href = '';
+    }
+
+    console.log("favicon" + faviconUrl);
+  }, [faviconUrl]);
 
   useEffect(() => {
     var domain = window.location.host
@@ -36,25 +42,54 @@ function DynamicPage2() {
           const modifiedDomain = domain.replace(/^(https?:\/\/)?(www\.)?/, '');
           dbFirestore.collectionGroup('url').where('customDomain', '==', modifiedDomain).get().then(snapshot => {
             if (snapshot.docs.length === 0) {
+              console.log("wenthere1")
               dbFirestore.collectionGroup('url').where('customDomain', '==', domain).get().then(snapshot => {
                 const fetchedData = snapshot.docs.map(doc => doc.data());
                 fetchedData.forEach((value) => {
-                  if (value.isDraft == "false") {
-                    document.title = value.title;
-                    // setFaviconUrl(value.faviconUrl)
-                    setDesktop(value.urls.figmaDesktopUrl)
-                    setMobile(value.urls.figmaMobileUrl)
-                  }
+                  dbFirestore.collection('user').doc(value.userId).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
+                    if (snapshot.size === 0) {
+                      console.log("wentHere1")
+                    } else {
+                      snapshot.forEach(subscription => {
+                        if (subscription.data().status === "active") {
+                          if (value.isDraft == "false") {
+                            document.title = value.title;
+                            setFaviconUrl(value.faviconUrl)
+                            console.log("favicon1" + value.faviconUrl);
+                            setDesktop(value.urls.figmaDesktopUrl)
+                            setMobile(value.urls.figmaMobileUrl)
+                          }
+                        }
+                      }
+                      )
+                    }
+                  })
                 });
               })
             } else {
+
               const fetchedData = snapshot.docs.map(doc => doc.data());
               fetchedData.forEach((value) => {
-                console.log("figmalink " + value.urls.figmaDesktopUrl)
-                console.log("figmalink " + value.urls.figmaMobileUrl)
+                dbFirestore.collection('user').doc(value.userId).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
+                  if (snapshot.size === 0) {
+                    console.log("wentHere1")
+                  } else {
+                    snapshot.forEach(subscription => {
+                      if (subscription.data().status === "active") {
+                        if (value.isDraft == "false") {
+                          document.title = value.title;
+                          setFaviconUrl(value.faviconUrl)
+                          setDesktop(value.urls.figmaDesktopUrl)
+                          setMobile(value.urls.figmaMobileUrl)
+                        }
+                      }
+                    }
+                    )
+                  }
+                })
                 if (value.isDraft == "false") {
                   document.title = value.title;
-                  // setFaviconUrl(value.faviconUrl)
+                  setFaviconUrl(value.faviconUrl)
                   setDesktop(value.urls.figmaDesktopUrl)
                   setMobile(value.urls.figmaMobileUrl)
                 }
@@ -111,7 +146,7 @@ function DynamicPage2() {
       };
       fetchData();
     }
-  }, []
+  }, [faviconUrl]
   );
 
   useEffect(() => {
@@ -136,5 +171,3 @@ function DynamicPage2() {
 }
 
 export default DynamicPage2;
-
-

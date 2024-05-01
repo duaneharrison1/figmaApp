@@ -7,7 +7,7 @@ import { getAuth, getAdditionalUserInfoetAuth, createUserWithEmailAndPassword, s
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyDerK_WLES9rmbeW0y-nnhYr6IycedWvCk",
   authDomain: "figmawebapp.firebaseapp.com",
   projectId: "figmawebapp",
@@ -21,12 +21,20 @@ export async function upload(file, currentUser) {
   const snapshot = await uploadBytes(fileRef, file);
   const photoURL = await getDownloadURL(fileRef);
   updateProfile(currentUser, { photoURL });
-  alert("Uploaded file!");
+  alert("Image succesfully uploaded!");
+  window.location.reload();
 }
+
+export async function uploadFaviconUrl(file, generatedUrl) {
+  const fileRef = ref(storage, "favicons/" + generatedUrl + '.png');
+  const snapshot = await uploadBytes(fileRef, file);
+  const photoURL = await getDownloadURL(fileRef);
+  return photoURL;
+}
+
 
 export function useAuth() {
   const [currentUser, setCurrentUser] = useState();
-
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, user => setCurrentUser(user));
     return unsub;
@@ -36,7 +44,8 @@ export function useAuth() {
 }
 
 // Initialize Firebase and Firestore
-const app = initializeApp(firebaseConfig)
+
+export const app = initializeApp(firebaseConfig)
 export const auth = getAuth(app);
 export const db = getFirestore(app)
 export const storage = getStorage(app);

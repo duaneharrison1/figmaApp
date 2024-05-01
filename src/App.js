@@ -1,34 +1,42 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import UrlForm from './pages/UlrForm/UrlForm';
 import EditForm from './pages/EditForm/EditForm';
 import DynamicPage from './pages/DynamicPage/DynamicPage';
 import DynamicPage2 from './pages/DynamicPage2.js';
 import LandingPage from './pages/LandingPage/LandingPage';
 import UserDashboard from './pages/UserDashboard/UserDashboard';
-import { collection, collectionGroup, getDocs } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import { db, auth } from './firebase';
 import firebase from './firebase';
 import ForgotPassword from './pages/Authentication/ForgotPassword/ForgotpasswordPage';
 import Preview from './pages/Preview/Preview.js';
 import Mainauth from './pages/Authentication/MainAuth';
 import BillingPage from './pages/BillingPage/Billing.js';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
-import SignupPage from './pages/Authentication/SignupPage.js';
 import AdminDashboard from './pages/AdminDashboard/AdminDashboard.js';
 import TermsAndConditions from './pages/TermsAndConditions/TermsAndConditions.js';
 import PrivacyPolicy from './pages/Privacy Policy/PrivacyPolicy.js';
 import i18n from './i18n';
 import FolioForm from './pages/FolioForm/FolioForm.js';
-
+import { app } from './firebase';
+import 'firebase/analytics';
+import { getAnalytics, logEvent } from "firebase/analytics";
 function App() {
   const dbFirestore = firebase.firestore();
   const [data, setData] = useState([]);
   const [isMainDomain, setIsMainDomain] = useState("false");
   const [isDynamicPage, setIsDynamicPage] = useState("false");
+  const analytics = getAnalytics();
+  const location = useLocation();
+
+  useEffect(() => {
+    logEvent(analytics, 'page_view', {
+      page_location: location.pathname,
+      page_path: window.location.pathname,
+    });
+  }, [location]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,7 +89,7 @@ function App() {
           </Routes>
           :
           <Routes>
-             <Route path="/:lang?/billing" element={<FolioForm />} />
+            <Route path="/:lang?/billing" element={<FolioForm />} />
             <Route path="/:lang?/" element={<LandingPage />} />
             <Route path="/admin" element={<AdminDashboard />} />
             {/* <Route path="/:lang?/billing" element={<BillingPage />} /> */}

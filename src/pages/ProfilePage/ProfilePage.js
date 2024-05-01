@@ -14,11 +14,13 @@ import SuccessModal from '../../components/SuccessModal/SuccessModal';
 import UploadImage from '../../components/UploadImage/UploadImage';
 import ProfileIcon from '../../assets/images/profileicon.png'
 import { useTranslation } from 'react-i18next';
+import UpdateEmailAdressModal from '../../components/UpdateEmailAddressModal/UpdateEmailAddressModal';
 export default function ProfilePage() {
     const { t } = useTranslation();
     const dbFirestore = firebase.firestore();
     const navigate = useNavigate();
     const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
+    const [showUpdateEmailAddressModal, setShowUpdateEmailAddressModal] = useState(false);
     const [showUploadImageModal, setShowUploadImageModal] = useState(false);
     const [showSuccessModal, setshowSuccessModal] = useState(false);
     const [user, setUser] = useState(null);
@@ -60,6 +62,19 @@ export default function ProfilePage() {
         setShowUploadImageModal(true);
     };
 
+    const handleShowUpdateEmailAddressModal = () => {
+        setShowUpdateEmailAddressModal(true);
+    };
+
+    const handleCloseUpdateEmailAddressModal = () => {
+        setShowUpdateEmailAddressModal(false);
+    };
+
+    const handleShowSuccessUpdateEmailAddressModal = () => {
+        setShowUpdateEmailAddressModal(false);
+    };
+
+
     const handleShowModal = () => {
         setShowChangePasswordModal(true);
     };
@@ -75,15 +90,13 @@ export default function ProfilePage() {
     return (
         <>
             < Navbar className={"dashboardNavBar"} email={!userEmail ? "" : userEmail.email} isFromForm={"false"} />
-
-
             <div className='container main-profile-container'>
                 <div className="row">
-                    <div className="col-4">
+                    <div className="col-lg-2">
                         <div className="profile-img-container">
                             <div className="outer" style={{ backgroundImage: `url(${!photoURL ? ProfileIcon : photoURL})` }}>
                                 <div className="inner" onClick={handleUpload}>
-                                    <label>
+                                    <label className='uploadImageIcon'>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                             <path d="M12 20.0002H21M3 20.0002H4.67454C5.16372 20.0002 5.40832 20.0002 5.63849 19.945C5.84256 19.896 6.03765 19.8152 6.2166 19.7055C6.41843 19.5818 6.59138 19.4089 6.93729 19.063L19.5 6.50023C20.3285 5.6718 20.3285 4.32865 19.5 3.50023C18.6716 2.6718 17.3285 2.6718 16.5 3.50023L3.93726 16.063C3.59136 16.4089 3.4184 16.5818 3.29472 16.7837C3.18506 16.9626 3.10425 17.1577 3.05526 17.3618C3 17.5919 3 17.8365 3 18.3257V20.0002Z" stroke="black" stroke-width="2" stroke-linecap="round" strokeLinejoin="round" />
                                         </svg>
@@ -92,14 +105,14 @@ export default function ProfilePage() {
                             </div>
                         </div>
                     </div>
-                    <div className="col-8">
+                    <div className="col-lg-10">
                         <div className='profile-card'>
                             <div className='container-personal-information'>
-                                <div className='container'>
+                                <div className='profile-headers-container'>
                                     <h1 className='profile-headers'> {t('personal-information')}</h1>
                                 </div>
-                                <div className='container profile-buttons-container'>
-                                    <ButtonColored label={t('edit')} className="edit-cancel-save-btn" />
+                                <div className='profile-buttons-container'>
+                                    <ButtonColored label={t('edit')} className="edit-cancel-save-btn" onClick={handleShowUpdateEmailAddressModal} />
                                 </div>
 
                             </div>
@@ -110,7 +123,7 @@ export default function ProfilePage() {
                                         <input
                                             className='form-input'
                                             type="text"
-                                            placeholder='Custom Desktop Url'
+                                            placeholder='Name'
                                             value={!name ? "" : name}
                                             disabled
                                         />
@@ -137,6 +150,7 @@ export default function ProfilePage() {
 
                         <ChangePasswordModal show={showChangePasswordModal} handleClose={handleShowSuccessModal} />
                         <SuccessModal show={showSuccessModal} handleClose={handleCloseModal} />
+                        <UpdateEmailAdressModal show={showUpdateEmailAddressModal} handleClose={handleShowSuccessUpdateEmailAddressModal} />
                         <UploadImage show={showUploadImageModal} />
                     </div>
                 </div>
