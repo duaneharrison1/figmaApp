@@ -1,11 +1,11 @@
 import React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import './LandingPage.css';
-import main_header_image from './../../assets/images/main-header-image.png';
+import main_header_image from './../../assets/images/main-header-image-v2.png';
 import stepOne from './../../assets/images/stepOne.png';
-import guideOne from './../../assets/images/guide_one_image.png';
-import guideTwo from './../../assets/images/guide_two_image.png';
-import guideThree from './../../assets/images/guide_three_image.png';
+import guideOne from './../../assets/images/guide_one_image_v2.png';
+import guideTwo from './../../assets/images/guide_two_imag_v2.png';
+import guideThree from './../../assets/images/guide_three_image_v2.png';
 import one from './../../assets/images/one.png';
 import two from './../../assets/images/two.png';
 import three from './../../assets/images/three.png';
