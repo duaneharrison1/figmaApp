@@ -89,14 +89,14 @@ function App() {
           </Routes>
           :
           <Routes>
-            <Route path="/:lang?/billing" element={<FolioForm />} />
+            <Route path="/billing" element={<FolioForm />} />
             <Route path="/:lang?/" element={<LandingPage />} />
             <Route path="/admin" element={<AdminDashboard />} />
             {/* <Route path="/:lang?/billing" element={<BillingPage />} /> */}
             <Route path="/:lang?/terms-and-conditions" element={<TermsAndConditions />} />
             <Route path="/:lang?/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/:lang?/form" element={<UrlForm />} />
-            <Route path="/:lang?/editform" element={<EditForm />} />
+            <Route path="/:lang?/new-folio" element={<FolioForm />} />
+            <Route path="/:lang?/edit-folio" element={<FolioForm />} />
             <Route path="/:lang?/dashboard" element={<UserDashboard />} />
             <Route path="/:lang?/preview" element={<Preview />} />
             <Route path="/:lang?/auth" element={<Mainauth />} />

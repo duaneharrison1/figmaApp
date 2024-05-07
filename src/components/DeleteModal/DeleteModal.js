@@ -78,7 +78,7 @@ const DeleteModal = (props) => {
 
     const handleDelete = async () => {
         try {
-            if (props.customDomain == '' || props.customDomain == "undefined") {
+            if (props.customDomain === '' || props.customDomain === undefined) {
                 dataInDb()
             } else {
                 console.log(props.customDomain)

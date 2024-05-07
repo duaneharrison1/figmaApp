@@ -8,7 +8,16 @@
 
 .footer-item {
     display: flex;
+
+    align-items: center;
     justify-content: space-between;
+
+}
+
+.footer-left-item {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
 }
 
 .footer-figmafolio {
@@ -17,7 +26,7 @@
 }
 
 .footer-center {
-    text-align: center;
+    margin: 0;
     font-size: 14px;
     font-weight: 500;
 
@@ -25,11 +34,14 @@
 
 .email-support-container {
     text-align: end;
+
 }
 
 .email-support-link {
+    font-size: 14px;
     text-decoration: none;
     color: black;
+    font-weight: 500;
 }
 
 
@@ -39,19 +51,23 @@
         padding: 40px 0px;
     }
 
-    .email-support-container {
+    .footer-left-item {
+        flex-direction: column;
+    }
+
+    /* .email-support-container {
         text-align: center;
     }
 
     .footer-figmafolio {
         text-align: center;
-    }
+    } */
 
-    .footer-item {
+    /* .footer-item {
         padding-top: 8px;
         display: flex;
         flex-direction: column;
-    }
+    } */
 
 }
 

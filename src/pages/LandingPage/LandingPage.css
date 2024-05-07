@@ -260,7 +260,6 @@
 	border-radius: 50%;
 	/* Make it a circle */
 	background-color: #4D9F70;
-	/* Background color of the circle */
 	display: flex;
 	justify-content: center;
 	align-items: center;

@@ -181,12 +181,13 @@ function UserDashboard() {
     }
 
     const goToEdit = (object) => {
-        navigate("/" + currentLanguage + '/editform', { state: { object, subscriptionType: subscriptionType } });
+
+        navigate("/" + currentLanguage + '/edit-folio', { state: { object, subscriptionType: subscriptionType } });
     }
 
     const goToNewForm = () => {
         if (canCreate === "true" && docCount !== null) {
-            navigate("/" + currentLanguage + '/form', { state: { subscriptionType: subscriptionType } });
+            navigate("/" + currentLanguage + '/new-folio', { state: { subscriptionType: subscriptionType } });
         } else if (canCreate === "false" && docCount !== null) {
             setShowUpgradeModal(true);
         }
