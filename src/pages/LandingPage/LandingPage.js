@@ -91,7 +91,7 @@ export default function LandingPage() {
   }
   return (
     <>
-      < div className='container-fluid main-landing-page'>
+      < div className='container-fluid main-landing-page p-0'>
         <div className='navbar-container'>
           <div className="row">
             <div className="col-lg-8 col-4">

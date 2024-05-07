@@ -14,43 +14,43 @@ export default function FormInstruction() {
         <div className='div-form-instruction'>
             <h1 className='sub-title'>{t('need-help-setting')}</h1>
             <div className='row instruction-div'>
-                <div className="col-lg-3">
-                    <div className='div-instruction-img'>
-                        <img src={insOne} className='instruction-img' />
-                    </div>
+                <div className="col-md-6">
+
+                    <img src={insOne} className='instruction-img' />
+
                     <h1 className='instruction-title'>{t('instruct-one')}</h1>
-                    <p className='instructions'>{t('instruct-one-one')}</p>
-                    <p className='instructions'> {t('instruct-one-note')}</p>
+                    <p className='instructions'> &#8226; {t('instruct-one-one')}</p>
+                    <p className='instruction-note'> {t('instruct-one-note')}</p>
                 </div>
-                <div className="col-lg-3">
-                    <div className='div-instruction-img'>
-                        <img src={insTwo} className='instruction-img' />
-                    </div>
+                <div className="col-md-6">
+
+                    <img src={insTwo} className='instruction-img' />
+
                     <h1 className='instruction-title'>{t('instruct-two')}</h1>
-                    <p className='instructions'>{t('instruct-two-one')}</p>
-                    <p className='instructions'>{t('instruct-two-two')}</p>
-                    <p className='instructions'>{t('instruct-two-three')}</p>
-                    <p className='instructions'> {t('instruct-two-note')}</p>
+                    <p className='instructions'> &#8226; {t('instruct-two-one')}</p>
+                    <p className='instructions'> &#8226; {t('instruct-two-two')}</p>
+                    <p className='instructions'> &#8226; {t('instruct-two-three')}</p>
+                    <p className='instruction-note'> {t('instruct-two-note')}</p>
                 </div>
-                <div className="col-lg-3">
-                    <div className='div-instruction-img'>
-                        <img src={insThree} className='instruction-img' />
-                    </div>
+                <div className="col-md-6">
+
+                    <img src={insThree} className='instruction-img' />
+
                     <h1 className='instruction-title'>{t('instruct-three')}</h1>
-                    <p className='instructions'>{t('instruct-three-one')}</p>
-                    <p className='instructions'>{t('instruct-three-two')} </p>
-                    <p className='instructions'>{t('instruct-three-three')}</p>
+                    <p className='instructions'>&#8226; {t('instruct-three-one')}</p>
+                    <p className='instructions'>&#8226;  {t('instruct-three-two')} </p>
+                    <p className='instructions'> &#8226; {t('instruct-three-three')}</p>
                 </div>
-                <div className="col-lg-3">
-                    <div className='div-instruction-img'>
-                        <img src={insFour} className='instruction-img' />
-                    </div>
+                <div className="col-md-6">
+
+                    <img src={insFour} className='instruction-img' />
+
                     <h1 className='instruction-title'>{t('instruct-four')}</h1>
-                    <p className='instructions'>{t('instruct-four-one')}</p>
-                    <p className='instructions'>{t('instruct-four-two')} </p>
-                    <p className='instructions'>{t('instruct-four-three')}</p>
-                    <p className='instructions'>{t('instruct-four-four')}</p>
-                    <p className='instructions'>{t('instruct-four-note')}</p>
+                    <p className='instructions'>&#8226; {t('instruct-four-one')}</p>
+                    <p className='instructions'>&#8226; {t('instruct-four-two')} </p>
+                    <p className='instructions'>&#8226; {t('instruct-four-three')}</p>
+                    <p className='instructions'>&#8226; {t('instruct-four-four')}</p>
+                    <p className='instruction-note'>{t('instruct-four-note')}</p>
                 </div>
             </div>
 

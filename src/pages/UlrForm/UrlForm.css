@@ -58,6 +58,17 @@ h2 {
     box-sizing: border-box;
 }
 
+.form-input-disabled {
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid #CFCFCF;
+    width: 100%;
+}
+
+.form-input-disabled::placeholder {
+    color: #CFCFCF;
+}
+
 .form-input {
     padding: 16px;
     border-radius: 16px;
@@ -97,9 +108,10 @@ h2 {
     font-weight: 500;
 }
 
-.div-form-instruction {
-    padding-bottom: 48px;
-    padding-top: 48px;
+.regular-user-header {
+    font-size: 16px;
+    font-weight: bold;
+    color: #4D9F70;
 }
 
 .favicon-img-container {
@@ -149,7 +161,7 @@ td {
 }
 
 .instruction-img {
-    max-width: 100%;
+    width: 100%;
     height: auto;
     padding-bottom: 12px;
 }
@@ -160,7 +172,16 @@ td {
     font-weight: 600;
 }
 
+.instruction-note {
+    padding-top: 16px;
+    color: #403D3B;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+}
+
 .instructions {
+    margin: 0;
     color: #403D3B;
     font-size: 15px;
     font-style: normal;
@@ -178,6 +199,7 @@ td {
 .form-favicon-note {
     padding-top: 8px;
 }
+
 
 @media only screen and (max-width: 767px) {
     .instructions {

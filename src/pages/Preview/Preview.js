@@ -273,11 +273,6 @@ export default function Preview() {
     }
     const handleDeleteDomain = async () => {
         try {
-            const headers = {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer 83YzDqNvO4OoVtKXQXJ4mTyj'
-            };
-
             const response = await axios.delete(`https://api.vercel.com/v9/projects/${process.env.REACT_APP_VERCEL_PROJECT_ID}/domains/${locationStateDomain}?teamId=${process.env.REACT_APP_VERCEL_TEAM_ID}`,
                 {
                     headers: headers,
@@ -639,7 +634,7 @@ export default function Preview() {
                                     onClick={location.state.fromEdit === true ?
                                         handleUpdateFormAsDraft :
                                         handleSaveFormAsDraft} /> */}
-                                {location.state.fromEdit === true ?
+                                {/* {location.state.fromEdit === true ?
                                     (<ButtonColored
                                         className="update-btn"
                                         label={t('update')}
@@ -649,7 +644,7 @@ export default function Preview() {
                                         isDisabled={ispublicBtnClick}
                                         label={t('publish')}
                                         onClick={handleSaveForm} />
-                                    )}
+                                    )} */}
 
                             </div>
                         </div >
@@ -690,7 +685,7 @@ export default function Preview() {
                                             onClick={location.state.fromEdit === true ?
                                                 handleUpdateFormAsDraft :
                                                 handleSaveFormAsDraft} /> */}
-                                        {location.state.fromEdit === true ?
+                                        {/* {location.state.fromEdit === true ?
                                             (<ButtonColored
                                                 className="update-btn"
                                                 label={t('update')}
@@ -700,7 +695,7 @@ export default function Preview() {
                                                 isDisabled={ispublicBtnClick}
                                                 label={t('publish')}
                                                 onClick={handleSaveForm} />
-                                            )}
+                                            )} */}
                                     </div >
                                 </div>
                             </div>

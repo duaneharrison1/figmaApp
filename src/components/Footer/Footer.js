@@ -35,23 +35,23 @@ export default function Footer() {
 
         <footer className="footer">
             <div className="container-fluid main-footer-container">
-                <div className="row row-container">
-                    <div className="col-lg-4">
-                        <h1 className='footer-figmafolio'> Figmafolio</h1>
-                    </div>
-                    <div className="col-lg-4">
-                        <div className="flex-container footer-item">
-                            <h1 className='footer-center' onClick={goToTermsAndConditions}> {t('terms-and-conditions')}</h1>
-                            <h1 className='footer-center' onClick={goToPrivacyPolicy}> {t('privacy-policy')}</h1>
-                        </div>
-                    </div>
-                    <div className="email-support-container col-lg-4">
-                        {user ? <p> <a className="email-support-link" href="mailto:support@figmafolio.com">support@figmafolio.com</a>
-                        </p> : <p> </p>}
+
+
+                <div className="flex-container footer-item">
+                    <div className='footer-left-item'>
+                        <p className='footer-center' onClick={goToTermsAndConditions}> {t('terms-and-conditions')}</p>
+                        <p className='footer-center' onClick={goToPrivacyPolicy}> {t('privacy-policy')}</p>
+
                     </div>
 
+                    {user ? <p> <a className="email-support-link" href="mailto:support@figmafolio.com">support@figmafolio.com</a>
+                    </p> : null}
+
                 </div>
+
+
             </div>
+
         </footer>
 
 
