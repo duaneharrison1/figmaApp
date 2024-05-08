@@ -1,17 +1,14 @@
-import React from 'react';
+import React from 'react'
 import { useTranslation } from 'react-i18next';
-import insOne from './../../assets/images/ins-1.png';
-import insTwo from './../../assets/images/ins-2.png';
-import insThree from './../../assets/images/ins-3.png';
-import insFour from './../../assets/images/ins-4.png';
-import './../../pages/UlrForm/UrlForm.css';
+import insOne from './../../../assets/images/ins-1.png';
+import insTwo from './../../../assets/images/ins-2.png';
+import insThree from './../../../assets/images/ins-3.png';
+import insFour from './../../../assets/images/ins-4.png';
 
-export default function FormInstruction() {
-
+const MobileFormInstruction = () => {
     const { t } = useTranslation();
-
     return (
-        <div className='div-form-instruction'>
+        <div className='div-form-instruction-mobile'>
             <h1 className='sub-title'>{t('need-help-setting')}</h1>
             <div className='row instruction-div'>
                 <div className="col-md-6">
@@ -55,5 +52,6 @@ export default function FormInstruction() {
             </div>
         </div>
     )
-
 }
+
+export default MobileFormInstruction

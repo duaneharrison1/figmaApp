@@ -23,6 +23,7 @@ import FolioForm from './pages/FolioForm/FolioForm.js';
 import { app } from './firebase';
 import 'firebase/analytics';
 import { getAnalytics, logEvent } from "firebase/analytics";
+import MobileFormInstruction from './pages/MobileForm/MobileInstructionForm/MobileFormInstruction.js';
 function App() {
   const dbFirestore = firebase.firestore();
   const [data, setData] = useState([]);
@@ -102,6 +103,7 @@ function App() {
             <Route path="/:lang?/auth" element={<Mainauth />} />
             <Route path="/:lang?/forgotpassword" element={<ForgotPassword />} />
             <Route path="/:lang?/profile" element={<ProfilePage />} />
+            <Route path="/:lang?/instruction" element={<MobileFormInstruction />} />
           </Routes>
       }
     </div>

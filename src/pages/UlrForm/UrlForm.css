@@ -201,15 +201,7 @@ td {
 }
 
 
-@media only screen and (max-width: 767px) {
-    .instructions {
-        font-size: 12px;
-    }
 
-    .instruction-title {
-        font-size: 14px;
-    }
-}
 
 
 @media only screen and (max-width: 1023px) {
@@ -218,15 +210,27 @@ td {
     }
 
     .instructions {
-        font-size: 12px;
+        font-size: 15px;
     }
 
     .instruction-title {
-        font-size: 14px;
+        font-size: 17px;
+    }
+
+    .instruction-note {
+        font-size: 13px;
     }
 }
 
 
+@media only screen and (max-width: 1024px) {
+
+    .instruction-img {
+        height: 185;
+        padding-top: 24px;
+        padding-bottom: 24px;
+    }
+}
 
 @media only screen and (min-width: 1024px) and (max-width: 1279px) {
 

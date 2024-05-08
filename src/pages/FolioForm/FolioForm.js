@@ -349,7 +349,12 @@ export default function FolioForm() {
 
   const handleTabClickMobile = (tabId, event) => {
     event.preventDefault();
-    if (tabId === "tab1") { } else if (tabId === "tab2") { } else if (tabId === "tab3") { } else if (tabId === "tab4") { } else if (tabId === "tab5") { }
+    console.log(tabId)
+    if (tabId === "tab1") { } else if (tabId === "tab2") { } else if (tabId === "tab3") { } else if (tabId === "tab4") { } else if (tabId === "tab5") {
+      console.log(tabId)
+
+      navigate("/" + currentLanguage + "/instruction");
+    }
   };
 
   const handleLogout = () => {
@@ -368,35 +373,35 @@ export default function FolioForm() {
             <ul className="nav flex-column nav-tabs vertical-tabs-mobile">
               <li className="nav-item-mobile">
                 <a className={`folio-form ${activeTab === 'tab1' ? 'active' : ''}`}
-                  onClick={(e) => handleTabClick('tab1', e)}
+                  onClick={(e) => handleTabClickMobile('tab1', e)}
                   href="#tab1">
                   General
                 </a>
               </li>
               <li className="nav-item-mobile">
                 <a className={`folio-form ${activeTab === 'tab2' ? 'active' : ''}`}
-                  onClick={(e) => handleTabClick('tab2', e)}
+                  onClick={(e) => handleTabClickMobile('tab2', e)}
                   href="#tab2">
                   Figma Links
                 </a>
               </li>
               <li className="nav-item-mobile">
                 <a className={`folio-form ${activeTab === 'tab3' ? 'active' : ''}`}
-                  onClick={(e) => handleTabClick('tab3', e)}
+                  onClick={(e) => handleTabClickMobile('tab3', e)}
                   href="#tab3">
                   Custom Domain
                 </a>
               </li>
               <li className="nav-item-mobile">
                 <a className={`folio-form ${activeTab === 'tab4' ? 'active' : ''}`}
-                  onClick={(e) => handleTabClick('tab4', e)}
+                  onClick={(e) => handleTabClickMobile('tab4', e)}
                   href="#tab3">
                   Favicon
                 </a>
               </li>
               <li className="nav-item-mobile">
                 <a className={`folio-form ${activeTab === 'tab5' ? 'active' : ''}`}
-                  onClick={(e) => handleTabClick('tab5', e)}
+                  onClick={(e) => handleTabClickMobile('tab5', e)}
                   href="#tab3">
                   Need help?
                 </a>
