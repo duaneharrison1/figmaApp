@@ -89,7 +89,7 @@ export default function ProfilePage() {
 
     return (
         <>
-            < Navbar className={"dashboardNavBar"} email={!userEmail ? "" : userEmail.email} isFromForm={"false"} />
+            < Navbar email={!userEmail ? "" : userEmail.email} isFromForm={"false"} />
             <div className='container main-profile-container'>
                 <div className="row">
                     <div className="col-lg-2">

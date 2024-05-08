@@ -56,7 +56,7 @@ export default function FormContent(props) {
                 <li>If you only provide one prototype link, we will show that on both desktop and mobile.</li>
                 <li>For best results, match prototype’s background colour to your sites background colour in Figma in prototype settings.</li>
             </ul>
-            <ButtonClear className='go-to-preview' onClick={props.goToPreview} label="View Site" />
+            <ButtonClear className='go-to-preview' onClick={props.goToPreview} label="View site" />
             <ButtonColored className="folio-form-save-btn" label={"Save"} onClick={props.saveFigmaUrl} />
         </>
     );

@@ -65,7 +65,6 @@ export default function FormFavicon(props) {
             setImgFromLocal(e.target.files[0])
             setImage(URL.createObjectURL(e.target.files[0]));
             props.onChildFavicon(e.target.files[0]);
-            props.saveFavicon()
         }
     }
 

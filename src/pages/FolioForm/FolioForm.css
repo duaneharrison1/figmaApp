@@ -67,17 +67,27 @@
     padding: 0
 }
 
-.tab-content {
-    padding: 1rem;
+.app-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Ensure app takes at least the full height of the viewport */
 }
 
 .folioform {
-    height: 1100px;
-    padding: 24px 120px;
+    flex: 1;
+    box-sizing: border-box;
+    padding-left: 120px;
+    padding-right: 120px;
 }
 
 .folio-form-tab-content {
+    padding-top: 44px;
     max-width: 600px !important;
+}
+
+.tab-container {
+    padding-top: 44px;
 }
 
 .form-title-notes {

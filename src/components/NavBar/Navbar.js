@@ -10,6 +10,8 @@ import { db, auth } from '../../firebase';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 import ButtonClear from '../ButtonClear/ButtonClear';
+import chevronLeft from '../../assets/images/chevron-left.png';
+
 export default function Navbar(props) {
     const { t } = useTranslation();
     const currentUser = useAuth();
@@ -23,8 +25,6 @@ export default function Navbar(props) {
     const [photoURL, setPhotoURL] = useState();
     const navigate = useNavigate();
     const currentLanguage = i18n.language;
-
-
 
     useEffect(() => {
         if (currentUser?.photoURL) {
@@ -53,14 +53,22 @@ export default function Navbar(props) {
             // An error happened.
         });
     }
+    const backToDashboard = () => {
+        navigate("/" + currentLanguage + "/dashboard");
+    }
 
     return (
 
-        <nav className={className}>
-            <div className="row">
+        <nav className="dashboardNavBar container-fluid" >
+            <div className="row navbar-row">
                 <div className="col d-flex  align-items-center">
                     {isFromForm === "newForm" ?
-                        (<a className="back-to-library" href={"/" + currentLanguage + "/dashboard"}> {t('back-to-your-library')} </a>)
+                        (<div className='d-flex align-items-center your-library-container' onClick={backToDashboard}>
+                            <img src={chevronLeft} className='chevron-left' />
+                            <p className='back-your-library'> Your Library</p>
+                        </div>)
+
+                        // (<a className="back-to-library" href={"/" + currentLanguage + "/dashboard"}> <img src={chevronLeft} className='chevron-left' />Your Library </a>)
                         : (<a className="nav-title" href={"/" + currentLanguage + "/dashboard"}> Figmafolio</a>)}
                 </div>
 
@@ -89,7 +97,7 @@ export default function Navbar(props) {
                         <>
                             {
                                 generatedUrl.trim() !== "" ? (
-                                    <ButtonClear className='view-site' onClick={viewSite} label="View Site" />
+                                    <ButtonClear className='view-site' onClick={viewSite} label="View site" />
                                 ) : (
                                     null
                                 )

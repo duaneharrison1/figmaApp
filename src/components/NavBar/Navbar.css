@@ -4,7 +4,6 @@
 }
 
 .dashboardNavBar {
-    padding: 24px 120px;
     background-color: #F8F6F0;
 }
 
@@ -33,6 +32,7 @@
     text-decoration: none;
     font-size: 20px;
     font-weight: 700;
+    margin: 0;
 }
 
 .dropdown-menu {
@@ -72,6 +72,12 @@
     height: 40px !important;
 }
 
+.navbar-row {
+    padding-left: 120px;
+    padding-right: 120px;
+    height: 90px;
+}
+
 .username {
     color: black;
     text-decoration: none;
@@ -80,21 +86,25 @@
 
 
 
+.back-your-library {
+    margin: 0;
+    text-decoration: underline;
+}
+
+.your-library-container:hover {
+    cursor: pointer;
+}
+
+
 
 @media only screen and (max-width: 1280px) {
     .dashboardNavBar {
-        padding: 18px 24px 24px 24px;
         background-color: #F8F6F0;
     }
 
     .custom-navbar {
         padding: 18px 24px 24px 24px;
         background-color: #F2EFE5;
-    }
-
-    .nav-title {
-
-        font-size: 12px;
     }
 
     .username {

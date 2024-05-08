@@ -1,6 +1,8 @@
-body, html { 
+body,
+html {
   font-family: 'Poppins', sans-serif;
 }
+
 .figma_view {
   border: 0;
 }

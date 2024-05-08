@@ -210,10 +210,10 @@ function UserDashboard() {
                         ) : (
                             <div>
                                 {!profile ?
-                                    < Navbar className={"dashboardNavBar"} email={" "} isFromForm={"false"} />
+                                    < Navbar email={" "} isFromForm={"false"} />
                                     :
                                     <div>
-                                        < Navbar className={"dashboardNavBar"} email={user.email} isFromForm={"false"} />
+                                        < Navbar email={user.email} isFromForm={"false"} />
                                     </div>
                                 }
 

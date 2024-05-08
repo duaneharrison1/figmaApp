@@ -148,10 +148,10 @@ export default function Billing() {
     return (
         <>
             {!name ?
-                < Navbar className={"dashboardNavBar"} email={user.email} isFromForm={"false"} />
+                < Navbar email={user.email} isFromForm={"false"} />
                 :
                 <div>
-                    < Navbar className={"dashboardNavBar"} email={name} isFromForm={"false"} />
+                    < Navbar email={name} isFromForm={"false"} />
                 </div>
             }
 

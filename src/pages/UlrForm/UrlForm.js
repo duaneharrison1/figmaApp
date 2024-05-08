@@ -137,7 +137,7 @@ export default function UrlForm() {
 
     return (
         <>
-            <Navbar className={"dashboardNavBar"} email={user.email} onClickLogout={handleLogout} isFromForm={"newForm"} />
+            <Navbar email={user.email} onClickLogout={handleLogout} isFromForm={"newForm"} />
 
             <div className='form'>
                 <div className="url-form">
