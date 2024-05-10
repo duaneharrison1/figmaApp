@@ -67,7 +67,7 @@ export default function FormCustomDomain(props) {
 
     return (
         <>
-            <h1 className='sub-title'>Free Domain</h1>
+            <h1 className='sub-title'>Free domain</h1>
             {props.generatedUrl ?
                 <p className='free-domain'>  www.figmafoliocom/{props.generatedUrl} </p>
                 :
