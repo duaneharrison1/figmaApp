@@ -68,6 +68,11 @@ export default function FormCustomDomain(props) {
     return (
         <>
             <h1 className='sub-title'>Custom Domain</h1>
+            {props.generatedUrl ?
+                <p className='free-domain'>  www.figmafoliocom/{props.generatedUrl} </p>
+                :
+                null
+            }
             {subscriptionType === "regular" ?
                 <>
                     <h2 className='form-sub-header-disable'>Domain name</h2>

@@ -94,8 +94,12 @@ export default function FolioForm() {
     'Authorization': 'Bearer 83YzDqNvO4OoVtKXQXJ4mTyj'
   };
   const goToPreview = async () => {
-    if (figmaDesktopUrl || figmaMobileUrl) {
-      navigate("/" + currentLanguage + '/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl } });
+    if ((!figmaDesktopUrl.includes('figma.com/file') && !figmaMobileUrl.includes('figma.com/file')) &&
+      (figmaMobileUrl.includes('figma.com/proto') || figmaMobileUrl.includes('figma.com/embed') ||
+        figmaDesktopUrl.includes('figma.com/proto') || figmaDesktopUrl.includes('figma.com/embed'))) {
+      navigate("/" + currentLanguage + '/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl, docId: docId } });
+    } else {
+      setShowErrorModal(true);
     }
   }
 
@@ -468,7 +472,7 @@ export default function FolioForm() {
                         <FormContent onChildDesktopUrl={handleFigmaDesktopUrl} onChildFigmaMobileUrl={handleFigmaMobileUrl} setFigmaMobileUrl={figmaMobileUrl} setFigmaDesktopUrl={figmaDesktopUrl} saveFigmaUrl={saveFigmaUrl} goToPreview={goToPreview} />
                       </div>
                       <div className={`tab-pane fade ${activeTab === 'tab3' ? 'show active' : ''}`} id="tab3">
-                        <FormCustomDomain onChildDomain={handleDomain} setDomain={domain} saveDomain={saveDomain} subscriptionType={subscriptionType} />
+                        <FormCustomDomain onChildDomain={handleDomain} setDomain={domain} saveDomain={saveDomain} subscriptionType={subscriptionType} generatedUrl={generatedUrl} />
                       </div>
                       <div className={`tab-pane fade ${activeTab === 'tab4' ? 'show active' : ''}`} id="tab4">
                         <FormFavicon onChildFavicon={handleFaviconImage} setFaviconImage={faviconImage} subscriptionType={subscriptionType} />
