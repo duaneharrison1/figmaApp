@@ -90,10 +90,9 @@ function App() {
           </Routes>
           :
           <Routes>
-            <Route path="/billing" element={<FolioForm />} />
             <Route path="/:lang?/" element={<LandingPage />} />
             <Route path="/admin" element={<AdminDashboard />} />
-            {/* <Route path="/:lang?/billing" element={<BillingPage />} /> */}
+            <Route path="/:lang?/billing" element={<BillingPage />} />
             <Route path="/:lang?/terms-and-conditions" element={<TermsAndConditions />} />
             <Route path="/:lang?/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/:lang?/new-folio" element={<FolioForm />} />
