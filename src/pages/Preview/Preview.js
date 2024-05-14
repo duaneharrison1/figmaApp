@@ -12,8 +12,10 @@ import './Preview.css';
 import firebase from '../../firebase';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
+import chevronLeft from '../../assets/images/chevron-left.png';
 export default function Preview() {
     const { t } = useTranslation();
+
     const [ispublicBtnClick, setIsPublicBtnClick] = useState(false);
     const [isSaveAsDraftBtnClick, setSaveAsDraftBtnClick] = useState(false);
     const navigate = useNavigate();
@@ -31,6 +33,9 @@ export default function Preview() {
     const locationStateDomain = location.state.domain?.toLowerCase()
     const locationStateNewDomain = location.state.newCustomDomain?.toLowerCase()
     const currentLanguage = i18n.language;
+    const [docId, setDocId] = useState(
+        location.state.docId
+    );
     const [postData, setPostData] = useState({
         "name": locationStateDomain
     });
@@ -585,6 +590,39 @@ export default function Preview() {
         }
     }
 
+    const saveFigmaUrl = async () => {
+        try {
+            if (docId) {
+                const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
+                    urls: {
+                        figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
+                        figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
+                    },
+                    updatedAt: new Date()
+                })
+            } else {
+                const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
+                    userId: user.uid,
+                    generatedUrl: randomurl,
+                    isDraft: "false",
+                    urls: {
+                        figmaDesktopUrl: editUrl(location.state.figmaDesktopUrl),
+                        figmaMobileUrl: editUrl(location.state.figmaMobileUrl)
+                    },
+                    createdAt: new Date(),
+                })
+                setDocId(docRef.id);
+            }
+        } catch (err) {
+            alert(err.message)
+        } finally {
+            alert("Success")
+        }
+    }
+
+    const backToDashboard = () => {
+        window.history.back();
+    }
 
 
     return (
@@ -593,12 +631,16 @@ export default function Preview() {
                 navigate("/")
             ) : (
                 <div>
+
                     {!userIsDesktop ? (
                         <div>
                             <div className="mobile-nav-container m-0">
                                 <div className="row">
                                     <div className="col m-0 p-0">
-                                        <a className="back-to-library" href={"/" + currentLanguage + "/dashboard"}> {t('back-to-dashboard')}</a>
+                                        <div className='d-flex align-items-center your-library-container' onClick={backToDashboard}>
+                                            <img src={chevronLeft} className='chevron-left' />
+                                            <p className='back-your-library'> Figma Links</p>
+                                        </div>
                                     </div>
                                     <div className="col m-0 p-0">
                                         <div className='switch-container'>
@@ -627,6 +669,11 @@ export default function Preview() {
                             </iframe>
 
                             <div className='mobile-button-container'>
+
+                                <ButtonColored
+                                    className="update-btn"
+                                    label={t('update')}
+                                    onClick={saveFigmaUrl} />
                                 {/* <ButtonClear
                                     className="save-as-draft"
                                     label={t('save-as-draft')}
@@ -654,7 +701,10 @@ export default function Preview() {
 
                             <div className="row nav-container  m-0 ">
                                 <div className="col m-0 p-0">
-                                    <a className="back-to-library" href="/dashboard"> {t('back-to-dashboard')}</a>
+                                    <div className='d-flex align-items-center your-library-container' onClick={backToDashboard}>
+                                        <img src={chevronLeft} className='chevron-left' />
+                                        <p className='back-your-library'> Figma Links</p>
+                                    </div>
                                 </div>
                                 <div className="col m-0 p-0 ">
                                     <div className='switch-container'>
@@ -678,6 +728,11 @@ export default function Preview() {
                                 </div>
                                 <div className="col m-0 p-0">
                                     < div className='draft-publish-container'>
+
+                                        <ButtonColored
+                                            className="update-btn"
+                                            label={t('update')}
+                                            onClick={saveFigmaUrl} />
                                         {/* <ButtonClear
                                             className="save-as-draft"
                                             label={t('save-as-draft')}
