@@ -14,6 +14,8 @@ const CardView = (props) => {
     const figmaDesktopUrl = props.figmaDesktopUrl
     const isDraft = props.isDraft
     const siteTitle = props.siteTitle
+    const createdAt = props.createdAt
+    const updatedAt = props.updatedAt
     const url = props.url
     const onClickDelete = props.onClickDelete
     const onClickUpdate = props.onClickUpdate
@@ -24,6 +26,19 @@ const CardView = (props) => {
         backgroundColor: 'gray',
     };
 
+
+
+        const formatDate = (date) => {
+          const options = {
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true,
+            month: '2-digit',
+            day: '2-digit',
+            year: '2-digit'
+          };
+          return new Date(date.seconds * 1000).toLocaleTimeString("en-US") + ' on ' + new Date(date.seconds * 1000).toLocaleDateString("en-US");
+        };
 
 
     return (
@@ -42,9 +57,11 @@ const CardView = (props) => {
                 </a >
 
                 <div className="holder d-flex justify-content-between">
-                    <div className='container d-flex'>
+                    <div className='container'>
                         <h1 className='site-title'> {siteTitle}</h1>
-                        {isDraft == "false" ? <h1 className='published'> {t('published')}</h1> : <h1 className='draft'> {t('draft')}</h1>}
+                        {/* {isDraft == "false" ? <h1 className='published'> {t('published')}</h1> : <h1 className='draft'> {t('draft')}</h1>} */}
+                        <h1 className='last-updated-on'> Last updated on {formatDate((updatedAt) ? updatedAt : createdAt)}</h1>
+                        
                     </div>
                     <div>
                         <div className="dropdown" >

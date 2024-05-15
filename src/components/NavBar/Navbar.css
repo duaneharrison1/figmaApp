@@ -95,9 +95,19 @@
     cursor: pointer;
 }
 
-
+@media only screen and (max-width: 768px) {
+    .navbar-email {
+        display: none;
+    }
+}
 
 @media only screen and (max-width: 1280px) {
+
+    .navbar-row {
+        padding: 24px 24px 24px 24px;
+        height: 90px;
+    }
+
     .dashboardNavBar {
         background-color: #F8F6F0;
     }

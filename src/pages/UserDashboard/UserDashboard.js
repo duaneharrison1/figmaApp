@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
 import firebase from '../../firebase';
@@ -14,6 +13,7 @@ import PaymentSelectionModal from '../../components/PaymentSelection/PaymentSele
 import Footer from '../../components/Footer/Footer';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
+import EmptyCardView from '../../components/EmptyCardView/EmptyCardView';
 
 function UserDashboard() {
     const currentLanguage = i18n.language;
@@ -195,8 +195,6 @@ function UserDashboard() {
 
     return (
         <>
-
-
             {upgradeClick ? (
                 <div className='transfering-to-payment'>
                     <h1 className='transfering-to-payment-text'> {t('taking-you-to-the-payment-page')} </h1>
@@ -220,90 +218,116 @@ function UserDashboard() {
                                 <div className='dashboard-view'>
                                     {docCount !== null && canCreate !== null ? (
                                         <div >
-                                            <ButtonColored label={t('new-site')} className="new-site" onClick={goToNewForm}>
-                                            </ButtonColored>
-                                            {subscriptionType == "regular" ? (
-                                                <div className='row'>
-                                                    {data.map((item, index) => (
-                                                        < div className='col-sm-4' key={index} style={{ pointerEvents: index != 0 ? 'none' : '' }} >
-                                                            {index == 0 ? (
-                                                                <CardView index={index}
-                                                                    subscriptionType={subscriptionType}
-                                                                    figmaMobileUrl={item.urls?.figmaMobileUrl}
-                                                                    figmaDesktopUrl={item.urls?.figmaDesktopUrl}
-                                                                    siteTitle={item?.title}
-                                                                    url={item?.generatedUrl}
-                                                                    isDraft={item.isDraft}
-                                                                    onClickDelete={() => handleShowModal(index)}
-                                                                    onClickUpdate={() => goToEdit(item)} />
+                                            <div className='row'>
+                                                <div className='col-md-8'>
+                                                    <h1 className='dashboard-header'> Your library</h1>
+                                                    <h1 className='dashboard-sub-header'>You’re just a few clicks away from creating your first site on Figmafolio.</h1>
+                                                </div>
+                                                <div className='col-md-4 new-site-container'>
 
-                                                            ) : (
-                                                                <CardView index={index}
-                                                                    subscriptionType={subscriptionType}
-                                                                    figmaMobileUrl={item.urls?.figmaMobileUrl}
-                                                                    figmaDesktopUrl={item.urls?.figmaDesktopUrl}
-                                                                    siteTitle={item?.title}
-                                                                    isDraft={item.isDraft}
-                                                                />
-                                                            )}
-                                                        </div>
-                                                    ))}
-                                                    <DeleteModal
-                                                        show={showModal}
-                                                        handleClose={handleCloseModal}
-                                                        id={data[showModal?.index]?.id}
-                                                        customDomain={data[showModal?.index]?.customDomain}
-                                                        faviconUrl={data[showModal?.index]?.faviconUrl}
-                                                    />
+                                                    <ButtonColored label={t('new-site')} className="new-site" onClick={goToNewForm}>
+                                                    </ButtonColored>
                                                 </div>
-                                            ) : subscriptionType == "monthlyPlan" ? (
-                                                <div className='row'>
-                                                    {data.map((item, index) => (
-                                                        <div className='col-sm-4' key={index} style={{ pointerEvents: index > 4 ? 'none' : '' }} >
-                                                            <CardView index={index}
-                                                                subscriptionType={subscriptionType}
-                                                                figmaMobileUrl={item.urls?.figmaMobileUrl}
-                                                                figmaDesktopUrl={item.urls?.figmaDesktopUrl}
-                                                                siteTitle={item?.title}
-                                                                url={item?.generatedUrl}
-                                                                isDraft={item.isDraft}
-                                                                onClickDelete={() => handleShowModal(index)}
-                                                                onClickUpdate={() => goToEdit(item)} />
-                                                        </div>
-                                                    ))}
-                                                    <DeleteModal
-                                                        show={showModal}
-                                                        handleClose={handleCloseModal}
-                                                        id={data[showModal?.index]?.id}
-                                                        customDomain={data[showModal?.index]?.customDomain}
-                                                        faviconUrl={data[showModal?.index]?.faviconUrl}
-                                                    />
-                                                </div>
-                                            ) : (
+                                            </div>
+                                            {docCount !== 0 ?
+                                                <>
+                                                    {subscriptionType == "regular" ? (
+                                                        <div className='row'>
+                                                            {data.map((item, index) => (
+                                                                < div className='col-sm-4 folio-container' key={index} style={{ pointerEvents: index != 0 ? 'none' : '' }} >
+                                                                    {index == 0 ? (
+                                                                        <CardView index={index}
+                                                                            subscriptionType={subscriptionType}
+                                                                            figmaMobileUrl={item.urls?.figmaMobileUrl}
+                                                                            figmaDesktopUrl={item.urls?.figmaDesktopUrl}
+                                                                            siteTitle={item?.title}
+                                                                            url={item?.generatedUrl}
+                                                                            isDraft={item.isDraft}
+                                                                            createdAt={item.createdAt}
+                                                                            updatedAt={item.updatedAt}
+                                                                            onClickDelete={() => handleShowModal(index)}
+                                                                            onClickUpdate={() => goToEdit(item)} />
 
-                                                <div className='row'>
-                                                    {data.map((item, index) => (
-                                                        < div className='col-sm-4' key={index} >
-                                                            <CardView index={index}
-                                                                subscriptionType={subscriptionType}
-                                                                figmaMobileUrl={item.urls?.figmaMobileUrl}
-                                                                figmaDesktopUrl={item.urls?.figmaDesktopUrl}
-                                                                siteTitle={item?.title}
-                                                                url={item?.generatedUrl}
-                                                                isDraft={item.isDraft}
-                                                                onClickDelete={() => handleShowModal(index)}
-                                                                onClickUpdate={() => goToEdit(item)} />
+                                                                    ) : (
+                                                                        <CardView index={index}
+                                                                            subscriptionType={subscriptionType}
+                                                                            figmaMobileUrl={item.urls?.figmaMobileUrl}
+                                                                            figmaDesktopUrl={item.urls?.figmaDesktopUrl}
+                                                                            siteTitle={item?.title}
+                                                                            isDraft={item.isDraft}
+                                                                            createdAt={item.createdAt}
+                                                                            updatedAt={item.updatedAt}
+                                                                        />
+                                                                    )}
+                                                                </div>
+                                                            ))}
+                                                            <DeleteModal
+                                                                show={showModal}
+                                                                handleClose={handleCloseModal}
+                                                                id={data[showModal?.index]?.id}
+                                                                customDomain={data[showModal?.index]?.customDomain}
+                                                                faviconUrl={data[showModal?.index]?.faviconUrl}
+                                                            />
                                                         </div>
-                                                    ))}
-                                                    <DeleteModal
-                                                        show={showModal}
-                                                        handleClose={handleCloseModal}
-                                                        id={data[showModal?.index]?.id}
-                                                        customDomain={data[showModal?.index]?.customDomain}
-                                                        faviconUrl={data[showModal?.index]?.faviconUrl}
-                                                    />
-                                                </div>
-                                            )}
+                                                    ) : subscriptionType == "monthlyPlan" ? (
+                                                        <div className='row'>
+                                                            {data.map((item, index) => (
+                                                                <div className='col-sm-4 folio-container' key={index} style={{ pointerEvents: index > 4 ? 'none' : '' }} >
+                                                                    <CardView index={index}
+                                                                        subscriptionType={subscriptionType}
+                                                                        figmaMobileUrl={item.urls?.figmaMobileUrl}
+                                                                        figmaDesktopUrl={item.urls?.figmaDesktopUrl}
+                                                                        siteTitle={item?.title}
+                                                                        url={item?.generatedUrl}
+                                                                        isDraft={item.isDraft}
+                                                                        createdAt={item.createdAt}
+                                                                        updatedAt={item.updatedAt}
+                                                                        onClickDelete={() => handleShowModal(index)}
+                                                                        onClickUpdate={() => goToEdit(item)} />
+                                                                </div>
+                                                            ))}
+                                                            <DeleteModal
+                                                                show={showModal}
+                                                                handleClose={handleCloseModal}
+                                                                id={data[showModal?.index]?.id}
+                                                                customDomain={data[showModal?.index]?.customDomain}
+                                                                faviconUrl={data[showModal?.index]?.faviconUrl}
+                                                            />
+                                                        </div>
+                                                    ) : (
+
+                                                        <div className='row'>
+                                                            {data.map((item, index) => (
+                                                                < div className='col-sm-4 folio-container' key={index} >
+                                                                    <CardView index={index}
+                                                                        subscriptionType={subscriptionType}
+                                                                        figmaMobileUrl={item.urls?.figmaMobileUrl}
+                                                                        figmaDesktopUrl={item.urls?.figmaDesktopUrl}
+                                                                        siteTitle={item?.title}
+                                                                        url={item?.generatedUrl}
+                                                                        isDraft={item.isDraft}
+                                                                        createdAt={item.createdAt}
+                                                                        updatedAt={item.updatedAt}
+                                                                        onClickDelete={() => handleShowModal(index)}
+                                                                        onClickUpdate={() => goToEdit(item)} />
+                                                                </div>
+                                                            ))}
+                                                            <DeleteModal
+                                                                show={showModal}
+                                                                handleClose={handleCloseModal}
+                                                                id={data[showModal?.index]?.id}
+                                                                customDomain={data[showModal?.index]?.customDomain}
+                                                                faviconUrl={data[showModal?.index]?.faviconUrl}
+                                                            />
+                                                        </div>
+                                                    )}
+                                                </>
+                                                :
+                                                <EmptyCardView goToNewForm={goToNewForm} />
+
+
+                                            }
+
                                         </div >
                                     ) : (<div> </div>)
 

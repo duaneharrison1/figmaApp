@@ -86,7 +86,7 @@ export default function Navbar(props) {
                             }
                         </>
                         : (
-                            <h1 className="nav-title">Your Library</h1>
+                            <h1 className="nav-title"></h1>
                         )
                     }
                 </div>
@@ -106,7 +106,7 @@ export default function Navbar(props) {
                         : (
                             <>
                                 <div className="dropdown">
-                                    <button className='btn-dropdown' type="button" data-bs-toggle="dropdown" >
+                                    <button className='btn-dropdown navbar-email' type="button" data-bs-toggle="dropdown" >
                                         {email}
                                     </button>
                                     <ul className="dropdown-menu  bg-light">

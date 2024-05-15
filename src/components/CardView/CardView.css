@@ -12,6 +12,10 @@
 .holder {
   padding-top: 8px;
 }
+.last-updated-on{
+  font-size: 14px;
+  color: #424242;
+}
 
 .site-title {
   padding-right: 10px;
@@ -79,17 +83,43 @@
   width: 100%;
   height: 208px;
 }
+.empty-figmaThumbnail {
+  border-radius: 16px;
+  border: 1px solid #E8E8E8;
+  width: 100%;
+  height: 208px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.empty-figmaThumbnail:hover {
+  cursor: pointer;
+}
+.empty-card-container {
+  text-align: center;
+}
 
 .preview-card {
-
   max-width: 388px !important;
 }
+
+
 
 .dashboard-figma-view {
   border-radius: 16px;
   width: 100% !important;
   height: 208px !important;
   pointer-events: none;
+}
+
+.new-site-cardview-header{
+  font-size: 18px;
+  font-weight: bold;
+}
+.new-site-cardview-subheader{
+  font-size: 14px;
+  font-weight:normal;
+  color:#424242;
 }
 
 @media only screen and (max-width: 1280px) {

@@ -1,7 +1,9 @@
 .new-site-div {
     text-align: end;
 }
-
+.folio-container{
+    align-items: center;
+}
 .published-draft-holder {
     position: relative;
 
@@ -27,11 +29,23 @@
     height: 100vh;
 
 }
-
+.new-site-container{
+    align-items: center;
+    display: flex;
+    justify-content: end;
+}
 .transfering-to-payment-text {
     color: black;
     font-size: 32px;
     font-weight: 700;
+}
+
+.dashboard-sub-header{
+    font-size: 14px;
+}
+.dashboard-header{
+    font-size: 24px;
+    font-weight: bold;
 }
 
 @media only screen and (max-width: 1280px) {
