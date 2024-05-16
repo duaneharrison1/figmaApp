@@ -28,6 +28,7 @@
 
 .form-favicon-note-disabled {
     padding-top: 8px;
+    font-size: 14px;
     color: #CFCFCF;
 }
 
@@ -63,9 +64,6 @@
     text-decoration: none;
 }
 
-.button-img-upload-container {
-    padding: 0
-}
 
 .app-wrapper {
     display: flex;
@@ -96,7 +94,7 @@
     font-size: 14px;
 }
 
-.form-content-upper-notes {
+.form-content-upper-note {
     font-size: 14px;
     padding-top: 24px;
     margin: 0;
@@ -120,6 +118,7 @@
 .form-favicon-note {
     padding-top: 24px;
     padding-bottom: 24px;
+    font-size: 14px;
     font-size: 14px;
     margin: 0;
 }

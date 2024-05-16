@@ -7,11 +7,6 @@
     background-color: #F8F6F0;
 }
 
-.main-nav-container {
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
-
 .back-to-library {
     color: black;
     text-decoration: underline;
@@ -26,6 +21,15 @@
     font-size: 20px;
     font-weight: 700;
 }
+
+.figmafolio-nav-title {
+    color: black;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+}
+
 
 .nav-title {
     color: black;
@@ -99,22 +103,17 @@
     .navbar-email {
         display: none;
     }
+    .figmafolio-nav-title {
+        font-size: 16px;
+    }
+    
 }
 
-@media only screen and (max-width: 1280px) {
+@media only screen and (max-width: 768px) {
 
     .navbar-row {
         padding: 24px 24px 24px 24px;
         height: 90px;
-    }
-
-    .dashboardNavBar {
-        background-color: #F8F6F0;
-    }
-
-    .custom-navbar {
-        padding: 18px 24px 24px 24px;
-        background-color: #F2EFE5;
     }
 
     .username {

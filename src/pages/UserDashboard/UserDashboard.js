@@ -221,7 +221,11 @@ function UserDashboard() {
                                             <div className='row'>
                                                 <div className='col-md-8'>
                                                     <h1 className='dashboard-header'> Your library</h1>
-                                                    <h1 className='dashboard-sub-header'>You’re just a few clicks away from creating your first site on Figmafolio.</h1>
+                                                    {docCount === 0 ?
+                                                        <h1 className='dashboard-sub-header'>You’re just a few clicks away from creating your first site on Figmafolio.</h1>
+                                                        :
+                                                        <h1 className='dashboard-sub-header'>{docCount} project</h1>
+                                                    }
                                                 </div>
                                                 <div className='col-md-4 new-site-container'>
 

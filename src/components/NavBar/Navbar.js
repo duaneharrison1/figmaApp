@@ -61,7 +61,7 @@ export default function Navbar(props) {
 
         <nav className="dashboardNavBar container-fluid" >
             <div className="row navbar-row">
-                <div className="col d-flex  align-items-center">
+                <div className="col d-flex align-items-center p-0">
                     {isFromForm === "newForm" ?
                         (<div className='d-flex align-items-center your-library-container' onClick={backToDashboard}>
                             <img src={chevronLeft} className='chevron-left' />
@@ -69,7 +69,7 @@ export default function Navbar(props) {
                         </div>)
 
                         // (<a className="back-to-library" href={"/" + currentLanguage + "/dashboard"}> <img src={chevronLeft} className='chevron-left' />Your Library </a>)
-                        : (<a className="nav-title" href={"/" + currentLanguage + "/dashboard"}> Figmafolio</a>)}
+                        : (<a className="figmafolio-nav-title" href={"/" + currentLanguage + "/dashboard"}> Figmafolio</a>)}
                 </div>
 
                 <div className="col d-flex align-items-center justify-content-center">
@@ -91,7 +91,7 @@ export default function Navbar(props) {
                     }
                 </div>
 
-                <div className="col d-flex justify-content-end align-items-center">
+                <div className="col d-flex justify-content-end align-items-center p-0">
 
                     {isFromForm === "newForm" ?
                         <>

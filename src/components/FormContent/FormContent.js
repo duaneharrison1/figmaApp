@@ -23,7 +23,7 @@ export default function FormContent(props) {
     return (
         <>
             <h1 className='sub-title'>Figma Links</h1>
-            <p className='.form-content-upper-notes'>Paste in the links of your desktop and mobile prototypes from Figma below to have them create your Figmafolio site. By adding separate desktop and mobile links, all viewers can easily preview your work on any device. We'll detect the device and show the appropriate prototype.</p>
+            <p className='form-content-upper-notes'>Paste in the links of your desktop and mobile prototypes from Figma below to have them create your Figmafolio site. By adding separate desktop and mobile links, all viewers can easily preview your work on any device. We'll detect the device and show the appropriate prototype.</p>
             <h2 className='form-sub-header'>
                 {t('desktop-prototype-link')}
             </h2>

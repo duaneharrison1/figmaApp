@@ -85,10 +85,8 @@ border-color: #4D9F70 !important;
             justify-content: end; 
             width: 100%;
         }
-        }
-  
-@media only screen and (max-width: 1280px) {
-  
+
+          
     .nav-container {
         width: 100%;
         position: fixed;
@@ -101,6 +99,10 @@ border-color: #4D9F70 !important;
         justify-content: center; 
         align-items: center;
     }
+        }
+  
+@media only screen and (max-width: 1280px) {
+
 
     .mobile-nav-container {
         padding: 24px;

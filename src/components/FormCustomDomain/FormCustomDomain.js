@@ -77,6 +77,7 @@ export default function FormCustomDomain(props) {
             {subscriptionType === "regular" ?
 
                 <>
+                <div>
                     <h1 className='sub-title'>Domain</h1>
                     <h2 className='form-sub-header-disable'>Domain name</h2>
                     <input
@@ -97,6 +98,7 @@ export default function FormCustomDomain(props) {
                                 <ButtonColored className="upgrade-now" label="Upgrade now" onClick={handleShowModal} />
                             </div>
                         </div>
+                    </div>
                     </div>
                 </>
 

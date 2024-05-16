@@ -48,10 +48,18 @@
     font-weight: bold;
 }
 
-@media only screen and (max-width: 1280px) {
+@media only screen and (max-width: 768px) {
     .dashboard-view {
         padding: 24px 24px;
     }
+    .dashboard-header{
+        font-size: 18px;
+        font-weight: bold;
+    } 
+}
+
+@media only screen and (max-width: 1280px) {
+   
 
     .transfering-to-payment-text {
         text-align: center;
