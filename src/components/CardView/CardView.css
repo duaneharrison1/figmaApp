@@ -117,6 +117,7 @@
   font-weight: 600;
 }
 .new-site-cardview-subheader{
+  margin-bottom: 16px;
   font-size: 14px;
   font-weight:normal;
   color:#424242;
