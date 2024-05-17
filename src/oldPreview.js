@@ -623,7 +623,7 @@ export default function Preview() {
     const backToDashboard = () => {
         //  window.history.back();
         // navigate("/" + currentLanguage + '/edit-folio', { state: { object, subscriptionType: subscriptionType } });
-        navigate("/" + currentLanguage + '/edit-folio', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl, docId: docId , subscriptionType: subscriptionType, generatedUrl: generatedUrl, faviconUrl: faviconUrl, domain: domain} });
+        // navigate("/" + currentLanguage + '/edit-folio', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl, docId: docId , subscriptionType: subscriptionType, generatedUrl: generatedUrl, faviconUrl: faviconUrl, domain: domain} });
         // navigate("/" + currentLanguage + '/dashboard', { state: { docId: docId } });
     }
 
