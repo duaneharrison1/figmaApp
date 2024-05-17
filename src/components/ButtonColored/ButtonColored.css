@@ -4,7 +4,7 @@
     margin-bottom: 12px;
     padding: 12px 24px;
     border-radius: 40px;
-    font-weight: 700;
+    font-weight: 600;
     color: white;
     border: none;
     background-color: #4D9F70;
@@ -19,7 +19,7 @@
     margin-top: 10px;
     padding: 12px 24px;
     border-radius: 40px;
-    font-weight: 700;
+    font-weight: 600;
     color: white;
     border: none;
     background-color: #4D9F70;
@@ -30,7 +30,7 @@
     margin-top: 80px;
     padding: 12px 24px;
     border-radius: 40px;
-    font-weight: 700;
+    font-weight: 600;
     color: white;
     border: none;
     background-color: #4D9F70;
@@ -40,7 +40,7 @@
     width: 100%;
     padding: 12px 24px;
     border-radius: 40px;
-    font-weight: 700;
+    font-weight: 600;
     color: white;
     border: none;
     background-color: #4D9F70;
@@ -53,7 +53,7 @@
     padding-left: 24px;
     padding-right: 24px;
     border-radius: 40px;
-    font-weight: 700;
+    font-weight: 600;
     color: white;
     border: none;
     background-color: #4D9F70;
@@ -65,7 +65,7 @@
     padding-left: 12px;
     padding-right: 12px;
     border-radius: 40px;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 16px;
     color: white;
     border: none;
@@ -75,7 +75,7 @@
 .preview-btn {
     padding: 12px;
     border-radius: 40px;
-    font-weight: 700;
+    font-weight: 600;
     color: white;
     border: none;
     background-color: #4D9F70;
@@ -86,7 +86,7 @@
     margin-top: 12px;
     padding: 12px 24px;
     border-radius: 40px;
-    font-weight: 700;
+    font-weight: 600;
     color: white;
     border: none;
     background-color: #E95B5B;
@@ -98,7 +98,7 @@
     margin-top: 50px;
     padding: 12px 24px;
     border-radius: 40px;
-    font-weight: 500;
+    font-weight: 600;
     color: white;
     border: none;
     background-color: #4D9F70;
@@ -107,7 +107,7 @@
     font-size: 16px;
     padding: 12px 22px;
     border-radius: 40px;
-    font-weight: 500;
+    font-weight: 600;
     color: white;
     border: none;
     background-color: #4D9F70;
@@ -116,7 +116,7 @@
     font-size: 16px;
     padding: 12px 22px;
     border-radius: 40px;
-    font-weight: 500;
+    font-weight: 600;
     color: white;
     border: none;
     background-color: #4D9F70;
@@ -129,7 +129,7 @@
     margin-top: 10px;
     padding: 12px 24px;
     border-radius: 40px;
-    font-weight: 700;
+    font-weight: 600;
     color: grey;
     border: none;
 }
@@ -139,7 +139,7 @@
     margin-top: 80px;
     padding: 12px 24px;
     border-radius: 40px;
-    font-weight: 700;
+    font-weight: 600;
     color: grey;
     border: none;
 }
@@ -148,7 +148,7 @@
     margin: 0;
     padding: 8px 24px;
     border-radius: 40px;
-    font-weight: 700;
+    font-weight: 600;
     color: white;
     border: none;
     background-color: #4D9F70;
@@ -159,7 +159,7 @@
     width: 100%;
     padding: 8px 24px;
     border-radius: 40px;
-    font-weight: 700;
+    font-weight: 600;
     color: white;
     border: none;
     background-color: #4D9F70;
@@ -169,7 +169,7 @@
     margin: 0;
     padding: 8px 24px;
     border-radius: 40px;
-    font-weight: 700;
+    font-weight: 600;
     color: white;
     color: grey;
     border: none;
@@ -182,7 +182,7 @@
     padding: 12px 24px;
     border-radius: 40px;
     border: solid;
-    font-weight: 700;
+    font-weight: 600;
     color: white;
     border-color: #4D9F70;
     background-color: #4D9F70;
@@ -193,7 +193,7 @@
     margin: 10px;
     padding: 12px 24px;
     border-radius: 40px;
-    font-weight: 700;
+    font-weight: 600;
     color: white;
     border: none;
     background-color: #4D9F70;
@@ -207,7 +207,7 @@
     font-size: 20px;
     padding: 12px 20px;
     border-radius: 40px;
-    font-weight: 700;
+    font-weight: 600;
     color: white;
     border: none;
     background-color: #4D9F70;
@@ -218,7 +218,7 @@
     width: 100%;
     padding: 12px 20px;
     border-radius: 40px;
-    font-weight: 700;
+    font-weight: 600;
     color: white;
     border: none;
     background-color: #4D9F70;
@@ -240,7 +240,7 @@
         width: 100%;
         padding: 8px 12px;
         border-radius: 40px;
-        font-weight: 700;
+        font-weight: 600;
         color: white;
         border-color: #4D9F70;
         background-color: #4D9F70;
@@ -252,7 +252,7 @@
         width: 100%;
         padding: 8px 12px;
         border-radius: 40px;
-        font-weight: 700;
+        font-weight: 600;
         color: white;
         border: none;
         background-color: #4D9F70;
@@ -265,7 +265,7 @@
         padding: 4px 12px;
         font-size: 16px;
         border-radius: 40px;
-        font-weight: 700;
+        font-weight: 600;
         color: white;
         border: none;
         background-color: #4D9F70;
@@ -274,7 +274,7 @@
     .preview-btn {
         margin-top: 0;
         border-radius: 40px;
-        font-weight: 700;
+        font-weight: 600;
         color: white;
         border: none;
         background-color: #4D9F70;

@@ -12,14 +12,14 @@
     text-decoration: underline;
     font-size: 16px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .your-library {
     color: black;
     text-decoration: underline;
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .figmafolio-nav-title {
@@ -35,7 +35,7 @@
     color: black;
     text-decoration: none;
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 600;
     margin: 0;
 }
 
@@ -50,7 +50,7 @@
 }
 
 .dropdown-menu>li>a {
-    font-weight: 500;
+    font-weight: 600;
     color: black;
 }
 

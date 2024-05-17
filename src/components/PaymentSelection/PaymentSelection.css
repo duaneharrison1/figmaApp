@@ -22,7 +22,7 @@
     color: #2D2B29;
     font-size: 14px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .bill-desc {
@@ -88,7 +88,7 @@
     color: #2D2B29;
     font-size: 16px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     margin: 0;
     padding: 0;
 }
@@ -155,7 +155,7 @@
     border: none;
     bottom: 0;
     background-color: #4D9F70;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .btn-current-plan {
@@ -167,7 +167,7 @@
     border: none;
     bottom: 0;
     background: #F2F2F2;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 

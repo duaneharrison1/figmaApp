@@ -30,7 +30,7 @@
 .figmalio-logged {
 	padding-top: 12px;
 	font-family: 'Poppins', sans-serif;
-	font-weight: 700;
+	font-weight: 600;
 	font-size: 29px;
 }
 
@@ -54,7 +54,7 @@
 
 .header_one {
 	font-family: 'Poppins', sans-serif;
-	font-weight: 700;
+	font-weight: 600;
 	font-size: 66px;
 }
 
@@ -67,7 +67,7 @@
 
 .content_one {
 	font-family: 'Poppins', sans-serif;
-	font-weight: 700;
+	font-weight: 600;
 	font-size: 36px;
 	text-align: center;
 }
@@ -90,13 +90,13 @@
 
 .landing-header {
 	padding: 18px 0 18px 0;
-	font-weight: 700;
+	font-weight: 600;
 	font-size: 56px;
 }
 
 .landing-subheader {
 	padding: 18px 0 18px 0;
-	font-weight: 700;
+	font-weight: 600;
 	color: #9A8742;
 	font-size: 32px;
 }
@@ -116,7 +116,7 @@
 	color: #4D9F70;
 	font-size: 20px;
 	font-style: normal;
-	font-weight: 700;
+	font-weight: 600;
 	border: none;
 	bottom: 0;
 	background: #F2F2F2;
@@ -142,7 +142,7 @@
 	color: white;
 	font-size: 14px;
 	font-style: normal;
-	font-weight: 500;
+	font-weight: 600;
 	flex-grow: 1;
 }
 
@@ -156,7 +156,7 @@
 	color: white;
 	font-size: 30px;
 	font-style: normal;
-	font-weight: 700;
+	font-weight: 600;
 	padding-bottom: 32px;
 	margin: 0;
 }
@@ -184,7 +184,7 @@
 	color: white;
 	font-size: 16px;
 	font-style: normal;
-	font-weight: 500;
+	font-weight: 600;
 	margin: 0;
 	padding: 0;
 }
@@ -192,7 +192,7 @@
 .guide-one-header {
 	text-align: start;
 	font-family: 'Poppins', sans-serif;
-	font-weight: 700;
+	font-weight: 600;
 	font-size: 40px;
 }
 
@@ -206,7 +206,7 @@
 
 .guide-two-header {
 	padding: 18px 0 18px 0;
-	font-weight: 700;
+	font-weight: 600;
 	font-size: 40px;
 }
 
@@ -270,7 +270,7 @@
 	color: #ffffff;
 	/* Text color */
 	font-size: 32px;
-	font-weight: bold;
+	font-weight: 600;
 }
 
 .button-container {
@@ -341,7 +341,7 @@
 	padding-bottom: 56px;
 	font-size: 40px;
 	font-style: normal;
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .landing-page-amount-strikethrough {
@@ -388,7 +388,7 @@
 		width: 100%;
 		padding: 4px 12px;
 		border-radius: 40px;
-		font-weight: 700;
+		font-weight: 600;
 		color: white;
 		border: none;
 		background-color: #4D9F70;
@@ -464,14 +464,14 @@
 
 	.landing-header {
 		padding: 0px;
-		font-weight: 700;
+		font-weight: 600;
 		font-size: 32px;
 		text-align: center;
 	}
 
 	.landing-subheader {
 		padding: 0px 24px 16px 24px;
-		font-weight: 700;
+		font-weight: 600;
 		color: #9A8742;
 		font-size: 16px;
 	}
@@ -494,7 +494,7 @@
 
 	.guide-one-header {
 		padding: 0px;
-		font-weight: 700;
+		font-weight: 600;
 		font-size: 24px;
 	}
 
