@@ -26,12 +26,13 @@ export default function FolioForm() {
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [subscriptionType, setSubscriptionType] = useState(location.state.subscriptionType);
   const user = auth.currentUser;
-  
+
   useEffect(() => {
     const handleResize = () => {
       console.log("ity is mobile")
-      setIsMobile(window.innerWidth <= 1024);
+      setIsMobile(window.innerWidth <= 768);
     };
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -39,7 +40,7 @@ export default function FolioForm() {
   }, []);
 
   useEffect(() => {
-    if(fromPreview === "true") {
+    if (fromPreview === "true") {
       setActiveTab('tab2');
     }
   }, []);
@@ -381,10 +382,55 @@ export default function FolioForm() {
   const handleTabClickMobile = (tabId, event) => {
     event.preventDefault();
     console.log(tabId)
-    if (tabId === "tab1") { } else if (tabId === "tab2") { } else if (tabId === "tab3") { } else if (tabId === "tab4") { } else if (tabId === "tab5") {
-      console.log(tabId)
-
-      navigate("/" + currentLanguage + "/instruction");
+    if (tabId === "tab1") {
+      navigate("/" + currentLanguage + "/mobile-form-title", {
+        state: {
+          object: {
+            id: docId,
+            title: title,
+            generatedUrl: generatedUrl
+          }
+        }
+      })
+    } else if (tabId === "tab2") {
+      navigate("/" + currentLanguage + "/mobile-form-content", {
+        state: {
+          object: {
+            id: docId,
+            generatedUrl: generatedUrl,
+            faviconUrl: faviconImage,
+            customDomain: domain,
+            urls: {
+              figmaDesktopUrl: figmaDesktopUrl,
+              figmaMobileUrl: figmaMobileUrl
+            }
+          }
+        }
+      });
+    } else if (tabId === "tab3") {
+      navigate("/" + currentLanguage + "/mobile-form-domain", {
+        state: {
+          object: {
+            id: docId,
+            subscriptionType: subscriptionType,
+            generatedUrl: generatedUrl,
+            customDomain: domain
+          }
+        }
+      });
+    } else if (tabId === "tab4") {
+      navigate("/" + currentLanguage + "/mobile-form-favicon", {
+        state: {
+          object: {
+            id: docId,
+            subscriptionType: subscriptionType,
+            generatedUrl: generatedUrl,
+            faviconUrl: faviconImage
+          }
+        }
+      });
+    } else if (tabId === "tab5") {
+      navigate("/" + currentLanguage + "/mobile-instruction");
     }
   };
 
@@ -397,124 +443,126 @@ export default function FolioForm() {
 
   return (
 
-    // <>
-
-    //   {
-    //     isMobile ?
-    //       <>
-    //         <div className='tab-container-mobile'>
-    //           <ul className="nav flex-column nav-tabs vertical-tabs-mobile">
-    //             <li className="nav-item-mobile">
-    //               <a className={`folio-form ${activeTab === 'tab1' ? 'active' : ''}`}
-    //                 onClick={(e) => handleTabClickMobile('tab1', e)}
-    //                 href="#tab1">
-    //                 General
-    //               </a>
-    //             </li>
-    //             <li className="nav-item-mobile">
-    //               <a className={`folio-form ${activeTab === 'tab2' ? 'active' : ''}`}
-    //                 onClick={(e) => handleTabClickMobile('tab2', e)}
-    //                 href="#tab2">
-    //                 Figma Links
-    //               </a>
-    //             </li>
-    //             <li className="nav-item-mobile">
-    //               <a className={`folio-form ${activeTab === 'tab3' ? 'active' : ''}`}
-    //                 onClick={(e) => handleTabClickMobile('tab3', e)}
-    //                 href="#tab3">
-    //                 Custom Domain
-    //               </a>
-    //             </li>
-    //             <li className="nav-item-mobile">
-    //               <a className={`folio-form ${activeTab === 'tab4' ? 'active' : ''}`}
-    //                 onClick={(e) => handleTabClickMobile('tab4', e)}
-    //                 href="#tab3">
-    //                 Favicon
-    //               </a>
-    //             </li>
-    //             <li className="nav-item-mobile">
-    //               <a className={`folio-form ${activeTab === 'tab5' ? 'active' : ''}`}
-    //                 onClick={(e) => handleTabClickMobile('tab5', e)}
-    //                 href="#tab3">
-    //                 Need help?
-    //               </a>
-    //             </li>
-    //           </ul>
-    //         </div>
-    //       </>
-    //       :
     <>
-      <div className="app-wrapper">
-        <Navbar title={title} email={user.email} onClickLogout={handleLogout} isFromForm={"newForm"} generatedUrl={generatedUrl} />
-        <div className="folioform">
-          <div className="row">
-            <div className="col-md-3 tab-container">
-              <ul className="nav flex-column nav-tabs vertical-tabs">
-                <li className="nav-item">
+      {
+        isMobile ?
+          <>
+          <div className='app-wrapper-mobile'>
+            <Navbar title={title} email={user.email} onClickLogout={handleLogout} isFromForm={"newForm"} generatedUrl={generatedUrl} />
+            <div className='tab-container-mobile'>
+              <ul className="nav flex-column nav-tabs vertical-tabs-mobile">
+                <li className="nav-item-mobile">
                   <a className={`folio-form ${activeTab === 'tab1' ? 'active' : ''}`}
-                    onClick={(e) => handleTabClick('tab1', e)}
+                    onClick={(e) => handleTabClickMobile('tab1', e)}
                     href="#tab1">
                     General
                   </a>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item-mobile">
                   <a className={`folio-form ${activeTab === 'tab2' ? 'active' : ''}`}
-                    onClick={(e) => handleTabClick('tab2', e)}
+                    onClick={(e) => handleTabClickMobile('tab2', e)}
                     href="#tab2">
                     Figma Links
                   </a>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item-mobile">
                   <a className={`folio-form ${activeTab === 'tab3' ? 'active' : ''}`}
-                    onClick={(e) => handleTabClick('tab3', e)}
+                    onClick={(e) => handleTabClickMobile('tab3', e)}
                     href="#tab3">
-                    Domain
+                    Custom Domain
                   </a>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item-mobile">
                   <a className={`folio-form ${activeTab === 'tab4' ? 'active' : ''}`}
-                    onClick={(e) => handleTabClick('tab4', e)}
+                    onClick={(e) => handleTabClickMobile('tab4', e)}
                     href="#tab3">
                     Favicon
                   </a>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item-mobile">
                   <a className={`folio-form ${activeTab === 'tab5' ? 'active' : ''}`}
-                    onClick={(e) => handleTabClick('tab5', e)}
+                    onClick={(e) => handleTabClickMobile('tab5', e)}
                     href="#tab3">
                     Need help?
                   </a>
                 </li>
               </ul>
             </div>
-            <div className="col-md-9 folio-form-tab-content">
-              <div className="tab-content">
-                <div className={`tab-pane fade ${activeTab === 'tab1' ? 'show active' : ''}`} id="tab1">
-                  <FormTitle onChildDataSubmit={handleTitle} setTitle={title} saveTitle={saveTitle} />
-                </div>
-                <div className={`tab-pane fade ${activeTab === 'tab2' ? 'show active' : ''}`} id="tab2">
-                  <FormContent onChildDesktopUrl={handleFigmaDesktopUrl} onChildFigmaMobileUrl={handleFigmaMobileUrl} setFigmaMobileUrl={figmaMobileUrl} setFigmaDesktopUrl={figmaDesktopUrl} saveFigmaUrl={saveFigmaUrl} goToPreview={goToPreview} />
-                </div>
-                <div className={`tab-pane fade ${activeTab === 'tab3' ? 'show active' : ''}`} id="tab3">
-                  <FormCustomDomain onChildDomain={handleDomain} setDomain={domain} saveDomain={saveDomain} subscriptionType={subscriptionType} generatedUrl={generatedUrl} />
-                </div>
-                <div className={`tab-pane fade ${activeTab === 'tab4' ? 'show active' : ''}`} id="tab4">
-                  <FormFavicon onChildFavicon={handleFaviconImage} setFaviconImage={faviconImage} subscriptionType={subscriptionType} />
-                </div>
-                <div className={`tab-pane fade ${activeTab === 'tab5' ? 'show active' : ''}`} id="tab5">
-                  <FormInstruction />
+            <Footer />
+            </div>
+          </>
+          :
+          <>
+            <div className="app-wrapper">
+              <Navbar title={title} email={user.email} onClickLogout={handleLogout} isFromForm={"newForm"} generatedUrl={generatedUrl} />
+              <div className="folioform">
+                <div className="row">
+                  <div className="col-md-3 tab-container">
+                    <ul className="nav flex-column nav-tabs vertical-tabs">
+                      <li className="nav-item">
+                        <a className={`folio-form ${activeTab === 'tab1' ? 'active' : ''}`}
+                          onClick={(e) => handleTabClick('tab1', e)}
+                          href="#tab1">
+                          General
+                        </a>
+                      </li>
+                      <li className="nav-item">
+                        <a className={`folio-form ${activeTab === 'tab2' ? 'active' : ''}`}
+                          onClick={(e) => handleTabClick('tab2', e)}
+                          href="#tab2">
+                          Figma Links
+                        </a>
+                      </li>
+                      <li className="nav-item">
+                        <a className={`folio-form ${activeTab === 'tab3' ? 'active' : ''}`}
+                          onClick={(e) => handleTabClick('tab3', e)}
+                          href="#tab3">
+                          Domain
+                        </a>
+                      </li>
+                      <li className="nav-item">
+                        <a className={`folio-form ${activeTab === 'tab4' ? 'active' : ''}`}
+                          onClick={(e) => handleTabClick('tab4', e)}
+                          href="#tab3">
+                          Favicon
+                        </a>
+                      </li>
+                      <li className="nav-item">
+                        <a className={`folio-form ${activeTab === 'tab5' ? 'active' : ''}`}
+                          onClick={(e) => handleTabClick('tab5', e)}
+                          href="#tab3">
+                          Need help?
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="col-md-9 folio-form-tab-content">
+                    <div className="tab-content">
+                      <div className={`tab-pane fade ${activeTab === 'tab1' ? 'show active' : ''}`} id="tab1">
+                        <FormTitle onChildDataSubmit={handleTitle} setTitle={title} saveTitle={saveTitle} />
+                      </div>
+                      <div className={`tab-pane fade ${activeTab === 'tab2' ? 'show active' : ''}`} id="tab2">
+                        <FormContent onChildDesktopUrl={handleFigmaDesktopUrl} onChildFigmaMobileUrl={handleFigmaMobileUrl} setFigmaMobileUrl={figmaMobileUrl} setFigmaDesktopUrl={figmaDesktopUrl} saveFigmaUrl={saveFigmaUrl} goToPreview={goToPreview} />
+                      </div>
+                      <div className={`tab-pane fade ${activeTab === 'tab3' ? 'show active' : ''}`} id="tab3">
+                        <FormCustomDomain onChildDomain={handleDomain} setDomain={domain} saveDomain={saveDomain} subscriptionType={subscriptionType} generatedUrl={generatedUrl} />
+                      </div>
+                      <div className={`tab-pane fade ${activeTab === 'tab4' ? 'show active' : ''}`} id="tab4">
+                        <FormFavicon onChildFavicon={handleFaviconImage} setFaviconImage={faviconImage} subscriptionType={subscriptionType} />
+                      </div>
+                      <div className={`tab-pane fade ${activeTab === 'tab5' ? 'show active' : ''}`} id="tab5">
+                        <FormInstruction />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
+              <Footer />
             </div>
-          </div>
-
-        </div>
-        <Footer />
-      </div>
-      < AlertErrorModal show={showErrorModal} handleClose={handleCloseErrorModal} alertMessage={t('you-have-entered-a-link')} />
+            < AlertErrorModal show={showErrorModal} handleClose={handleCloseErrorModal} alertMessage={t('you-have-entered-a-link')} />
+          </>
+      }
     </>
-    //   }
-    // </>
   );
 };
 
