@@ -46,6 +46,20 @@
     background-color: #4D9F70;
 }
 
+
+.mobile-folio-form-save-btn {
+    margin-top: 32px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 24px;
+    padding-right: 24px;
+    border-radius: 40px;
+    font-weight: 600;
+    color: white;
+    border: none;
+    background-color: #4D9F70;
+    width: 100%;
+}
 .folio-form-save-btn {
     margin-top: 32px;
     padding-top: 12px;
@@ -105,7 +119,7 @@
 }
 .empty-card-new-site-btn{
     font-size: 16px;
-    padding: 12px 22px;
+    padding: 12px 24px 12px 22px;
     border-radius: 40px;
     font-weight: 600;
     color: white;
@@ -114,7 +128,7 @@
 }
 .new-site {
     font-size: 16px;
-    padding: 12px 22px;
+    padding: 12px 24px 12px 22px;
     border-radius: 40px;
     font-weight: 600;
     color: white;

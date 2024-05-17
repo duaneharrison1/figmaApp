@@ -14,6 +14,7 @@ import Footer from '../../components/Footer/Footer';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 import EmptyCardView from '../../components/EmptyCardView/EmptyCardView';
+import NewSiteButton from '../../components/NewSiteButton/NewSiteButton';
 
 function UserDashboard() {
     const currentLanguage = i18n.language;
@@ -182,12 +183,12 @@ function UserDashboard() {
 
     const goToEdit = (object) => {
 
-        navigate("/" + currentLanguage + '/edit-folio', { state: { object, subscriptionType: subscriptionType } });
+        navigate("/" + currentLanguage + '/folio-form', { state: { object, subscriptionType: subscriptionType } });
     }
 
     const goToNewForm = () => {
         if (canCreate === "true" && docCount !== null) {
-            navigate("/" + currentLanguage + '/new-folio', { state: { subscriptionType: subscriptionType } });
+            navigate("/" + currentLanguage + '/folio-form', { state: { subscriptionType: subscriptionType } });
         } else if (canCreate === "false" && docCount !== null) {
             setShowUpgradeModal(true);
         }
@@ -228,9 +229,9 @@ function UserDashboard() {
                                                     }
                                                 </div>
                                                 <div className='col-md-4 new-site-container'>
-
-                                                    <ButtonColored label={t('new-site')} className="new-site" onClick={goToNewForm}>
-                                                    </ButtonColored>
+                                                        <NewSiteButton className={"new-site"} onClick={goToNewForm}> </NewSiteButton>
+                                                    {/* <ButtonColored label={  t('new-site')} className="new-site" onClick={goToNewForm}>
+                                                    </ButtonColored> */}
                                                 </div>
                                             </div>
                                             {docCount !== 0 ?

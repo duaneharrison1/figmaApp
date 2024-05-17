@@ -30,7 +30,7 @@
 .figmalio-logged {
 	padding-top: 12px;
 	font-family: 'Poppins', sans-serif;
-	font-weight: 600;
+	font-weight: 700;
 	font-size: 29px;
 }
 
@@ -142,7 +142,7 @@
 	color: white;
 	font-size: 14px;
 	font-style: normal;
-	font-weight: 600;
+	font-weight: 400;
 	flex-grow: 1;
 }
 

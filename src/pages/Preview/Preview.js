@@ -215,7 +215,7 @@ export default function Preview() {
     }
 
     const backToDashboard = () => {
-        navigate("/" + currentLanguage + '/edit-folio', {
+        navigate("/" + currentLanguage + '/folio-form', {
             state: {
                 object: {
                     fromPreview: "true",

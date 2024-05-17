@@ -6,6 +6,7 @@ import ButtonClear from '../ButtonClear/ButtonClear';
 import { auth } from '../../firebase';
 import firebase from '../../firebase';
 import { loadStripe } from '@stripe/stripe-js';
+import PaymentSelection from '../PaymentSelection/PaymentSelection';
 export default function FormFavicon(props) {
     const [imgFromLocal, setImgFromLocal] = useState("");
     const subscriptionType = props.subscriptionType
@@ -122,6 +123,9 @@ export default function FormFavicon(props) {
                     </>
                 }
             </div>
+            <PaymentSelection show={showModal} handleClose={handleCloseModal}
+                handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_MONTHLY)}
+                handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_YEARLY)} />
         </>
     );
 }
