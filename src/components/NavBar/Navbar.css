@@ -7,31 +7,35 @@
     background-color: #F8F6F0;
 }
 
-.main-nav-container {
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
-
 .back-to-library {
     color: black;
     text-decoration: underline;
     font-size: 16px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .your-library {
     color: black;
     text-decoration: underline;
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 600;
 }
+
+.figmafolio-nav-title {
+    color: black;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+}
+
 
 .nav-title {
     color: black;
     text-decoration: none;
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 600;
     margin: 0;
 }
 
@@ -46,7 +50,7 @@
 }
 
 .dropdown-menu>li>a {
-    font-weight: 500;
+    font-weight: 600;
     color: black;
 }
 
@@ -95,16 +99,21 @@
     cursor: pointer;
 }
 
-
-
-@media only screen and (max-width: 1280px) {
-    .dashboardNavBar {
-        background-color: #F8F6F0;
+@media only screen and (max-width: 768px) {
+    .navbar-email {
+        display: none;
     }
+    .figmafolio-nav-title {
+        font-size: 16px;
+    }
+    
+}
 
-    .custom-navbar {
-        padding: 18px 24px 24px 24px;
-        background-color: #F2EFE5;
+@media only screen and (max-width: 768px) {
+
+    .navbar-row {
+        padding: 24px 24px 24px 24px;
+        height: 90px;
     }
 
     .username {

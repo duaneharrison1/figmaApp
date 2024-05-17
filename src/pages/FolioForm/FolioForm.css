@@ -21,13 +21,14 @@
 .form-sub-header-disable {
     padding-top: 24px;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
     color: #CFCFCF;
 }
 
 
 .form-favicon-note-disabled {
     padding-top: 8px;
+    font-size: 14px;
     color: #CFCFCF;
 }
 
@@ -52,26 +53,27 @@
 .folio-form {
     color: black;
     border-top-right-radius: 0px;
-    font-weight: 500;
+    font-weight: 600;
     text-decoration: none;
 }
 
 .folio-form.active {
     color: #4D9F70;
-    font-weight: bold;
+    font-weight: 600;
     border-top-right-radius: 0px;
     text-decoration: none;
 }
 
-.button-img-upload-container {
-    padding: 0
-}
 
 .app-wrapper {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    /* Ensure app takes at least the full height of the viewport */
+}
+
+.folioform-mobile {
+    flex: 1;
+    box-sizing: border-box;
 }
 
 .folioform {
@@ -96,7 +98,7 @@
     font-size: 14px;
 }
 
-.form-content-upper-notes {
+.form-content-upper-note {
     font-size: 14px;
     padding-top: 24px;
     margin: 0;
@@ -105,7 +107,7 @@
 .form-content-note {
     font-size: 14px;
     padding-top: 24px;
-    font-weight: bold;
+    font-weight: 600;
     margin: 0;
 }
 
@@ -121,6 +123,7 @@
     padding-top: 24px;
     padding-bottom: 24px;
     font-size: 14px;
+    font-size: 14px;
     margin: 0;
 }
 
@@ -133,8 +136,15 @@
 
 /* Mobile View */
 
+.app-wrapper-mobile{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 
 .tab-container-mobile {
+    flex: 1;
+    box-sizing: border-box;
     padding-left: 20px;
     padding-right: 20px;
 }

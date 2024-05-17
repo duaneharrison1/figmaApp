@@ -6,6 +6,7 @@ import ButtonClear from '../ButtonClear/ButtonClear';
 import { auth } from '../../firebase';
 import firebase from '../../firebase';
 import { loadStripe } from '@stripe/stripe-js';
+import PaymentSelection from '../PaymentSelection/PaymentSelection';
 export default function FormFavicon(props) {
     const [imgFromLocal, setImgFromLocal] = useState("");
     const subscriptionType = props.subscriptionType
@@ -80,6 +81,7 @@ export default function FormFavicon(props) {
 
                 {subscriptionType === "regular" ?
                     <>
+                    <div> 
                         <p className='form-favicon-note-disabled'>This is a small icon which will represent your website at the top of a web browser and in browser's bookmark bar, history and in search results.</p>
                         <h2 className='form-sub-header-disable'>Website Icon</h2>
                         <div className='button-img-upload-container'>
@@ -96,6 +98,7 @@ export default function FormFavicon(props) {
                                     <ButtonColored className="upgrade-now" label="Upgrade now" onClick={handleShowModal} />
                                 </div>
                             </div>
+                        </div>
                         </div>
                     </>
                     :
@@ -120,6 +123,9 @@ export default function FormFavicon(props) {
                     </>
                 }
             </div>
+            <PaymentSelection show={showModal} handleClose={handleCloseModal}
+                handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_MONTHLY)}
+                handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_YEARLY)} />
         </>
     );
 }

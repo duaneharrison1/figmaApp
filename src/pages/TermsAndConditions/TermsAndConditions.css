@@ -12,16 +12,16 @@
 .terms-and-privacy-header {
     text-align: center;
     padding-bottom: 40px;
-    font-weight: bold;
+    font-weight: 600;
 
 }
 
 .terms-and-privacy-subheader {
     font-size: 24px;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .terms-and-privacy-title {
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 600;
 }

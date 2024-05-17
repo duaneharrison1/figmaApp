@@ -26,9 +26,7 @@ export default function FolioForm() {
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [subscriptionType, setSubscriptionType] = useState(location.state.subscriptionType);
   const user = auth.currentUser;
-
-
-
+  
   useEffect(() => {
     const handleResize = () => {
       console.log("ity is mobile")
@@ -40,9 +38,21 @@ export default function FolioForm() {
     };
   }, []);
 
+  useEffect(() => {
+    if(fromPreview === "true") {
+      setActiveTab('tab2');
+    }
+  }, []);
+
   const [docId, setDocId] = useState(
     location && location.state && location.state.object
       ? location.state.object.id
+      : ""
+  );
+
+  const [fromPreview, setFromPreview] = useState(
+    location && location.state && location.state.object && location.state.object.fromPreview
+      ? location.state.object.fromPreview
       : ""
   );
   const [title, setTitle] = useState(
@@ -97,7 +107,21 @@ export default function FolioForm() {
     if ((!figmaDesktopUrl.includes('figma.com/file') && !figmaMobileUrl.includes('figma.com/file')) &&
       (figmaMobileUrl.includes('figma.com/proto') || figmaMobileUrl.includes('figma.com/embed') ||
         figmaDesktopUrl.includes('figma.com/proto') || figmaDesktopUrl.includes('figma.com/embed'))) {
-      navigate("/" + currentLanguage + '/preview', { state: { title: title, figmaMobileUrl: figmaMobileUrl, figmaDesktopUrl: figmaDesktopUrl, docId: docId } });
+      navigate("/" + currentLanguage + '/preview', {
+        state: {
+          object: {
+            id: docId,
+            title: title,
+            generatedUrl: generatedUrl,
+            faviconUrl: faviconImage,
+            customDomain: domain,
+            urls: {
+              figmaDesktopUrl: figmaDesktopUrl,
+              figmaMobileUrl: figmaMobileUrl
+            }
+          }
+        }
+      });
     } else {
       setShowErrorModal(true);
     }
@@ -444,7 +468,7 @@ export default function FolioForm() {
                   <a className={`folio-form ${activeTab === 'tab3' ? 'active' : ''}`}
                     onClick={(e) => handleTabClick('tab3', e)}
                     href="#tab3">
-                    Custom Domain
+                    Domain
                   </a>
                 </li>
                 <li className="nav-item">
@@ -491,7 +515,6 @@ export default function FolioForm() {
     </>
     //   }
     // </>
-
   );
 };
 

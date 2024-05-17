@@ -4,11 +4,10 @@
     padding: 24px 120px;
     background-color: #F8F6F0;
     display: flex;
-
     top: 0;
     left: 0;
     right: 0;
-    justify-content: center; /* Horizontally center the column within the container */
+    justify-content: center; 
     align-items: center;
 }
 .draft-publish-container {
@@ -57,9 +56,53 @@ background-color: #4D9F70 !important;
 border-color: #4D9F70 !important;
 }
   
+ .desktop-mobile-label{
+        color: #2D2B29;
+        text-align: center;
+        font-family: Poppins;
+        font-size: 14px;
+        font-weight: 400;
+        padding-top: 6px;
+    }
 
+    .mobile-form-switch-container{
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+    .mobile-preview-back-your-library{
+        margin: 0;
+        text-decoration: underline;
+        font-size: 14px;
+    }
+
+    .mobile-preview-figmalinks{
+        padding-top: 6px;
+    }
+
+    @media only screen and (max-width: 768px) {
+        .switch-container {
+            display: flex;
+            justify-content: end; 
+            width: 100%;
+        }
+
+          
+    .nav-container {
+        width: 100%;
+        position: fixed;
+        padding: 24px 90px;
+        background-color: #F8F6F0;
+        display: flex;
+        top: 0;
+        left: 0;
+        right: 0;
+        justify-content: center; 
+        align-items: center;
+    }
+        }
   
 @media only screen and (max-width: 1280px) {
+
 
     .mobile-nav-container {
         padding: 24px;
@@ -86,7 +129,7 @@ border-color: #4D9F70 !important;
         font-family: Poppins;
         font-size: 14px;
         font-style: normal;
-        font-weight: 500;
+        font-weight: 600;
         line-height: 35px;
     }
     .desktop-mobile-label{
@@ -98,7 +141,6 @@ border-color: #4D9F70 !important;
         padding-top: 6px;
     }
     .form-switch .form-check-input {
-       
         width: 28px !important;
         background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='4' fill='white'/%3e%3c/svg%3e") !important;
     }

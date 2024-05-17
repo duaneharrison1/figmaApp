@@ -1,0 +1,14 @@
+.mobile-form-title-container{
+    flex: 1;
+box-sizing: border-box;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.mobile-form-content-container{
+    flex: 1;
+box-sizing: border-box;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+

@@ -22,13 +22,13 @@
 
 .footer-figmafolio {
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .footer-center {
     margin: 0;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
 
 }
 
@@ -41,10 +41,17 @@
     font-size: 14px;
     text-decoration: none;
     color: black;
-    font-weight: 500;
+    font-weight: 600;
 }
 
-
+@media only screen and (max-width: 768px) {
+    .footer-center {
+        font-size: 12px;    
+    }
+    .email-support-link{
+        font-size: 12px;    
+    }
+}
 
 @media only screen and (max-width: 1000px) {
     .footer {
@@ -70,24 +77,3 @@
     } */
 
 }
-
-/* @media only screen and (max-width: 767px) {}
-
-
-
-@media only screen and (min-width: 768px) and (max-width: 1280px) {
-
-    .footer {
-        padding: 20px 24px;
-        background-color: white;
-
-    }
-
-    .main-footer-container {
-        text-align: center;
-    }
-
-    .footer-item {
-        padding: 31px 66px 31px 66px;
-    }
-} */

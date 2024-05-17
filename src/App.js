@@ -24,6 +24,10 @@ import { app } from './firebase';
 import 'firebase/analytics';
 import { getAnalytics, logEvent } from "firebase/analytics";
 import MobileFormInstruction from './pages/MobileForm/MobileInstructionForm/MobileFormInstruction.js';
+import { MobileFormTitle } from './pages/MobileForm/MobileFormTitle/MobileFormTitle.js';
+import { MobileFormContent } from './pages/MobileForm/MobileFormContent/MobileFormContent.js';
+import { MobileFormDomain } from './pages/MobileForm/MobileFormDomain/MobileFormDomain.js';
+import { MobileFormFavicon } from './pages/MobileForm/MobileFormFavicon/MobileFormFavicon.js';
 function App() {
   const dbFirestore = firebase.firestore();
   const [data, setData] = useState([]);
@@ -95,14 +99,17 @@ function App() {
             <Route path="/:lang?/billing" element={<BillingPage />} />
             <Route path="/:lang?/terms-and-conditions" element={<TermsAndConditions />} />
             <Route path="/:lang?/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/:lang?/new-folio" element={<FolioForm />} />
-            <Route path="/:lang?/edit-folio" element={<FolioForm />} />
+            <Route path="/:lang?/folio-form" element={<FolioForm />} />
             <Route path="/:lang?/dashboard" element={<UserDashboard />} />
             <Route path="/:lang?/preview" element={<Preview />} />
             <Route path="/:lang?/auth" element={<Mainauth />} />
             <Route path="/:lang?/forgotpassword" element={<ForgotPassword />} />
             <Route path="/:lang?/profile" element={<ProfilePage />} />
-            <Route path="/:lang?/instruction" element={<MobileFormInstruction />} />
+            <Route path="/:lang?/mobile-instruction" element={<MobileFormInstruction />} />
+            <Route path="/:lang?/mobile-form-title" element={<MobileFormTitle />} />
+            <Route path="/:lang?/mobile-form-content" element={<MobileFormContent />} />
+            <Route path="/:lang?/mobile-form-domain" element={<MobileFormDomain />} />
+            <Route path="/:lang?/mobile-form-favicon" element={<MobileFormFavicon />} />
           </Routes>
       }
     </div>
