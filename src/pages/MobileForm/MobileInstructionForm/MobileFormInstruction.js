@@ -1,14 +1,84 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import insOne from './../../../assets/images/ins-1.png';
 import insTwo from './../../../assets/images/ins-2.png';
 import insThree from './../../../assets/images/ins-3.png';
 import insFour from './../../../assets/images/ins-4.png';
+import MobileNavBar from '../MobileNavBar/MobileNavbar';
+import { useNavigate, useLocation } from 'react-router-dom';
+import i18n from '../../../i18n';
 
 const MobileFormInstruction = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
     const { t } = useTranslation();
+    const currentLanguage = i18n.language;
+
+    const [docId, setDocId] = useState(
+        location && location.state && location.state.object
+          ? location.state.object.id
+          : ""
+      );
+    
+      const [title, setTitle] = useState(
+        location && location.state && location.state.object && location.state.object.title
+          ? location.state.object.title
+          : ""
+      );
+      const [generatedUrl, setGeneratedUrl] = useState(
+        location && location.state && location.state.object && location.state.object.generatedUrl
+          ? location.state.object.generatedUrl
+          : ""
+      );
+      const [faviconImage, setFaviconImage] = useState(
+        location && location.state && location.state.object && location.state.object.faviconUrl
+          ? location.state.object.faviconUrl
+          : ""
+      );
+    
+      const [figmaDesktopUrl, setFigmaDesktopUrl] = useState(
+        location.state && location.state.object && location.state.object.urls && location.state.object.urls.figmaDesktopUrl
+          ? location.state.object.urls.figmaDesktopUrl
+          : ""
+      );
+      const [figmaMobileUrl, setFigmaMobileUrl] = useState(
+        location.state && location.state.object && location.state.object.urls && location.state.object.urls.figmaMobileUrl
+          ? location.state.object.urls.figmaMobileUrl
+          : ""
+      );
+    
+      const [domain, setDomain] = useState(
+        location && location.state && location.state.object && location.state.object.customDomain
+          ? location.state.object.customDomain
+          : ""
+      );
+
+      const [subscriptionType, setSubscriptionType] = useState(location && location.state  && location.state.subscriptionType ? location.state.subscriptionType : "");
+
+    const backToMobileFolioForm = () => {
+  
+        navigate("/" + currentLanguage + "/folio-form",
+        {
+            state: {
+              object: {
+                id: docId,
+                title: title,
+                generatedUrl: generatedUrl,
+                faviconUrl: faviconImage,
+                customDomain: domain,
+                urls: {
+                  figmaDesktopUrl: figmaDesktopUrl,
+                  figmaMobileUrl: figmaMobileUrl
+                }
+              }, subscriptionType : subscriptionType
+            }
+          }
+        );
+      }
+
     return (
         <div className='div-form-instruction-mobile'>
+              <MobileNavBar title={title} backToMobileFolioForm={backToMobileFolioForm}/>
             <h1 className='sub-title'>{t('need-help-setting')}</h1>
             <div className='row instruction-div'>
                 <div className="col-md-6">

@@ -9,6 +9,7 @@ import { auth } from '../../../firebase';
 import ButtonClear from '../../../components/ButtonClear/ButtonClear';
 import AlertErrorModal from '../../../components/AlertErrorModal/AlertErrorModal';
 import Footer from '../../../components/Footer/Footer';
+import MobileNavBar from '../MobileNavBar/MobileNavbar';
 export const MobileFormContent = (props) => {
     const currentLanguage = i18n.language;
     const navigate = useNavigate();
@@ -20,6 +21,23 @@ export const MobileFormContent = (props) => {
     const [generatedUrl, setGeneratedUrl] = useState(location && location.state && location.state.object && location.state.object.generatedUrl ? location.state.object.generatedUrl : "");
     const [figmaDesktopUrl, setFigmaDesktopUrl] = useState(location.state && location.state.object && location.state.object.urls && location.state.object.urls.figmaDesktopUrl ? location.state.object.urls.figmaDesktopUrl : "");
     const [figmaMobileUrl, setFigmaMobileUrl] = useState(location.state && location.state.object && location.state.object.urls && location.state.object.urls.figmaMobileUrl ? location.state.object.urls.figmaMobileUrl : "");
+    const [title, setTitle] = useState(
+      location && location.state && location.state.object && location.state.object.title
+          ? location.state.object.title
+          : ""
+  );
+  const [faviconImage, setFaviconImage] = useState(
+    location && location.state && location.state.object && location.state.object.faviconUrl
+      ? location.state.object.faviconUrl
+      : ""
+  );
+
+  const [subscriptionType, setSubscriptionType] = useState(location && location.state  && location.state.subscriptionType ? location.state.subscriptionType : "");
+  const [domain, setDomain] = useState(
+    location && location.state && location.state.object && location.state.object.customDomain
+      ? location.state.object.customDomain
+      : ""
+  );
     const [showErrorModal, setShowErrorModal] = useState(false);
     const handleCloseErrorModal = () => {
         setShowErrorModal(false);
@@ -164,9 +182,32 @@ export const MobileFormContent = (props) => {
     //     }
     //   }
 
+    
+    const backToMobileFolioForm = () => {
+  
+      navigate("/" + currentLanguage + "/folio-form",
+      {
+          state: {
+            object: {
+              id: docId,
+              title: title,
+              generatedUrl: generatedUrl,
+              faviconUrl: faviconImage,
+              customDomain: domain,
+              urls: {
+                figmaDesktopUrl: figmaDesktopUrl,
+                figmaMobileUrl: figmaMobileUrl
+              }
+            }, subscriptionType : subscriptionType
+          }
+        }
+      );
+    }
+
     return (
         <>
            <div className='app-wrapper-mobile'>
+           <MobileNavBar title={title} backToMobileFolioForm={backToMobileFolioForm} />
             <div className='mobile-form-content-container'>
                 <h1 className='sub-title'>Figma Links</h1>
                 <p className='form-content-upper-notes'>Paste in the links of your desktop and mobile prototypes from Figma below to have them create your Figmafolio site. By adding separate desktop and mobile links, all viewers can easily preview your work on any device. We'll detect the device and show the appropriate prototype.</p>

@@ -15,6 +15,7 @@ import FormFavicon from '../../components/FormFavicon/FormFavicon';
 import firebase from '../../firebase';
 import axios from "axios";
 import AlertErrorModal from '../../components/AlertErrorModal/AlertErrorModal';
+import MobileNavBar from '../MobileForm/MobileNavBar/MobileNavbar';
 const isOpenInMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 export default function FolioForm() {
   const [isMobile, setIsMobile] = useState(false);
@@ -45,17 +46,27 @@ export default function FolioForm() {
     }
   }, []);
 
+  const [fromPreview, setFromPreview] = useState(
+    location && location.state && location.state.object && location.state.object.fromPreview
+      ? location.state.object.fromPreview
+      : ""
+  );
+
+  const [faviconFromLocal, setFaviconFromLocal] = useState(null);
+
+
+  const [oldDomain, setOldDomain] = useState(
+    location && location.state && location.state.object && location.state.object.customDomain
+      ? location.state.object.customDomain
+      : ""
+  );
+
   const [docId, setDocId] = useState(
     location && location.state && location.state.object
       ? location.state.object.id
       : ""
   );
 
-  const [fromPreview, setFromPreview] = useState(
-    location && location.state && location.state.object && location.state.object.fromPreview
-      ? location.state.object.fromPreview
-      : ""
-  );
   const [title, setTitle] = useState(
     location && location.state && location.state.object && location.state.object.title
       ? location.state.object.title
@@ -71,7 +82,7 @@ export default function FolioForm() {
       ? location.state.object.faviconUrl
       : ""
   );
-  const [faviconFromLocal, setFaviconFromLocal] = useState(null);
+
   const [figmaDesktopUrl, setFigmaDesktopUrl] = useState(
     location.state && location.state.object && location.state.object.urls && location.state.object.urls.figmaDesktopUrl
       ? location.state.object.urls.figmaDesktopUrl
@@ -82,11 +93,7 @@ export default function FolioForm() {
       ? location.state.object.urls.figmaMobileUrl
       : ""
   );
-  const [oldDomain, setOldDomain] = useState(
-    location && location.state && location.state.object && location.state.object.customDomain
-      ? location.state.object.customDomain
-      : ""
-  );
+
   const [domain, setDomain] = useState(
     location && location.state && location.state.object && location.state.object.customDomain
       ? location.state.object.customDomain
@@ -309,7 +316,6 @@ export default function FolioForm() {
     setOldDomain(domain)
   }
 
-
   const saveFigmaUrl = async () => {
     if ((!figmaDesktopUrl.includes('figma.com/file') && !figmaMobileUrl.includes('figma.com/file')) &&
       (figmaMobileUrl.includes('figma.com/proto') || figmaMobileUrl.includes('figma.com/embed') ||
@@ -388,15 +394,6 @@ export default function FolioForm() {
           object: {
             id: docId,
             title: title,
-            generatedUrl: generatedUrl
-          }
-        }
-      })
-    } else if (tabId === "tab2") {
-      navigate("/" + currentLanguage + "/mobile-form-content", {
-        state: {
-          object: {
-            id: docId,
             generatedUrl: generatedUrl,
             faviconUrl: faviconImage,
             customDomain: domain,
@@ -404,7 +401,23 @@ export default function FolioForm() {
               figmaDesktopUrl: figmaDesktopUrl,
               figmaMobileUrl: figmaMobileUrl
             }
-          }
+          }, subscriptionType : subscriptionType
+        }
+      })
+    } else if (tabId === "tab2") {
+      navigate("/" + currentLanguage + "/mobile-form-content", {
+        state: {
+          object: {
+            id: docId,
+            title: title,
+            generatedUrl: generatedUrl,
+            faviconUrl: faviconImage,
+            customDomain: domain,
+            urls: {
+              figmaDesktopUrl: figmaDesktopUrl,
+              figmaMobileUrl: figmaMobileUrl
+            }
+          }, subscriptionType : subscriptionType
         }
       });
     } else if (tabId === "tab3") {
@@ -412,25 +425,49 @@ export default function FolioForm() {
         state: {
           object: {
             id: docId,
-            subscriptionType: subscriptionType,
+            title: title,
             generatedUrl: generatedUrl,
-            customDomain: domain
-          }
+            faviconUrl: faviconImage,
+            customDomain: domain,
+            urls: {
+              figmaDesktopUrl: figmaDesktopUrl,
+              figmaMobileUrl: figmaMobileUrl
+            }
+          }, subscriptionType : subscriptionType
         }
       });
     } else if (tabId === "tab4") {
-      navigate("/" + currentLanguage + "/mobile-form-favicon", {
+      navigate("/" + currentLanguage + "/mobile-form-favicon",  {
         state: {
           object: {
             id: docId,
-            subscriptionType: subscriptionType,
+            title: title,
             generatedUrl: generatedUrl,
-            faviconUrl: faviconImage
-          }
+            faviconUrl: faviconImage,
+            customDomain: domain,
+            urls: {
+              figmaDesktopUrl: figmaDesktopUrl,
+              figmaMobileUrl: figmaMobileUrl
+            }
+          }, subscriptionType : subscriptionType
         }
       });
     } else if (tabId === "tab5") {
-      navigate("/" + currentLanguage + "/mobile-instruction");
+      navigate("/" + currentLanguage + "/mobile-instruction", {
+        state: {
+          object: {
+            id: docId,
+            title: title,
+            generatedUrl: generatedUrl,
+            faviconUrl: faviconImage,
+            customDomain: domain,
+            urls: {
+              figmaDesktopUrl: figmaDesktopUrl,
+              figmaMobileUrl: figmaMobileUrl
+            }
+          }, subscriptionType : subscriptionType
+        }
+      });
     }
   };
 
@@ -448,7 +485,7 @@ export default function FolioForm() {
         isMobile ?
           <>
           <div className='app-wrapper-mobile'>
-            <Navbar title={title} email={user.email} onClickLogout={handleLogout} isFromForm={"newForm"} generatedUrl={generatedUrl} />
+            <MobileNavBar title={title} isFromTab={"fromTab"} />
             <div className='tab-container-mobile'>
               <ul className="nav flex-column nav-tabs vertical-tabs-mobile">
                 <li className="nav-item-mobile">

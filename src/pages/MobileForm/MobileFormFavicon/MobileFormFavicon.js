@@ -10,15 +10,54 @@ import PaymentSelection from '../../../components/PaymentSelection/PaymentSelect
 import ButtonClear from '../../../components/ButtonClear/ButtonClear';
 import { loadStripe } from '@stripe/stripe-js';
 import Footer from '../../../components/Footer/Footer';
+import MobileNavBar from '../MobileNavBar/MobileNavbar';
 export const MobileFormFavicon = (props) => {
     const currentLanguage = i18n.language;
+    const navigate = useNavigate();
     const dbFirestore = firebase.firestore();
     const user = auth.currentUser;
     const location = useLocation();
     const [randomurl, setRandomUrl] = useState('');
-    const [docId, setDocId] = useState(location && location.state && location.state.object? location.state.object.id: "");
-    const [generatedUrl, setGeneratedUrl] = useState(location && location.state && location.state.object && location.state.object.generatedUrl? location.state.object.generatedUrl: "");
-    const [subscriptionType, setSubscriptionType] = useState(location && location.state && location.state.object && location.state.object.subscriptionType? location.state.object.subscriptionType: "");
+    const [docId, setDocId] = useState(
+        location && location.state && location.state.object
+          ? location.state.object.id
+          : ""
+      );
+    
+      const [title, setTitle] = useState(
+        location && location.state && location.state.object && location.state.object.title
+          ? location.state.object.title
+          : ""
+      );
+      const [generatedUrl, setGeneratedUrl] = useState(
+        location && location.state && location.state.object && location.state.object.generatedUrl
+          ? location.state.object.generatedUrl
+          : ""
+      );
+      const [faviconImage, setFaviconImage] = useState(
+        location && location.state && location.state.object && location.state.object.faviconUrl
+          ? location.state.object.faviconUrl
+          : ""
+      );
+    
+      const [figmaDesktopUrl, setFigmaDesktopUrl] = useState(
+        location.state && location.state.object && location.state.object.urls && location.state.object.urls.figmaDesktopUrl
+          ? location.state.object.urls.figmaDesktopUrl
+          : ""
+      );
+      const [figmaMobileUrl, setFigmaMobileUrl] = useState(
+        location.state && location.state.object && location.state.object.urls && location.state.object.urls.figmaMobileUrl
+          ? location.state.object.urls.figmaMobileUrl
+          : ""
+      );
+    
+      const [domain, setDomain] = useState(
+        location && location.state && location.state.object && location.state.object.customDomain
+          ? location.state.object.customDomain
+          : ""
+      );
+
+      const [subscriptionType, setSubscriptionType] = useState(location && location.state  && location.state.subscriptionType ? location.state.subscriptionType : "");
       const [image, setImage]  = useState(
         location && location.state && location.state.object && location.state.object.faviconUrl
           ? location.state.object.faviconUrl
@@ -147,9 +186,32 @@ export const MobileFormFavicon = (props) => {
         }
     }
 
+    
+    const backToMobileFolioForm = () => {
+  
+        navigate("/" + currentLanguage + "/folio-form",
+        {
+            state: {
+              object: {
+                id: docId,
+                title: title,
+                generatedUrl: generatedUrl,
+                faviconUrl: faviconImage,
+                customDomain: domain,
+                urls: {
+                  figmaDesktopUrl: figmaDesktopUrl,
+                  figmaMobileUrl: figmaMobileUrl
+                }
+              }, subscriptionType : subscriptionType
+            }
+          }
+        );
+      }
+
     return (
         <>
          <div className='app-wrapper-mobile'>
+         <MobileNavBar title={title} backToMobileFolioForm={backToMobileFolioForm}/>
             <div className='mobile-form-content-container'>
         <div className='row first-div'>
             <h1 className='form-title'>Favicon</h1>
