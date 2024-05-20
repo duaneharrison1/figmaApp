@@ -154,7 +154,7 @@ export const MobileFormTitle = (props) => {
       <div className='app-wrapper-mobile'>
         <MobileNavBar title={title} backToMobileFolioForm={backToMobileFolioForm} />
         <div className='mobile-form-title-container'>
-          <h1 className='form-title'>{t('general')}</h1>
+          <h1 className='mobile-form-title'>{t('general')}</h1>
           <h2 className='form-sub-header'>{t('title')}</h2>
           <input
             className='form-input'

@@ -16,6 +16,7 @@ import firebase from '../../firebase';
 import axios from "axios";
 import AlertErrorModal from '../../components/AlertErrorModal/AlertErrorModal';
 import MobileNavBar from '../MobileForm/MobileNavBar/MobileNavbar';
+import ButtonClear from '../../components/ButtonClear/ButtonClear';
 const isOpenInMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 export default function FolioForm() {
   const [isMobile, setIsMobile] = useState(false);
@@ -401,7 +402,7 @@ export default function FolioForm() {
               figmaDesktopUrl: figmaDesktopUrl,
               figmaMobileUrl: figmaMobileUrl
             }
-          }, subscriptionType : subscriptionType
+          }, subscriptionType: subscriptionType
         }
       })
     } else if (tabId === "tab2") {
@@ -417,7 +418,7 @@ export default function FolioForm() {
               figmaDesktopUrl: figmaDesktopUrl,
               figmaMobileUrl: figmaMobileUrl
             }
-          }, subscriptionType : subscriptionType
+          }, subscriptionType: subscriptionType
         }
       });
     } else if (tabId === "tab3") {
@@ -433,11 +434,11 @@ export default function FolioForm() {
               figmaDesktopUrl: figmaDesktopUrl,
               figmaMobileUrl: figmaMobileUrl
             }
-          }, subscriptionType : subscriptionType
+          }, subscriptionType: subscriptionType
         }
       });
     } else if (tabId === "tab4") {
-      navigate("/" + currentLanguage + "/mobile-form-favicon",  {
+      navigate("/" + currentLanguage + "/mobile-form-favicon", {
         state: {
           object: {
             id: docId,
@@ -449,7 +450,7 @@ export default function FolioForm() {
               figmaDesktopUrl: figmaDesktopUrl,
               figmaMobileUrl: figmaMobileUrl
             }
-          }, subscriptionType : subscriptionType
+          }, subscriptionType: subscriptionType
         }
       });
     } else if (tabId === "tab5") {
@@ -465,7 +466,7 @@ export default function FolioForm() {
               figmaDesktopUrl: figmaDesktopUrl,
               figmaMobileUrl: figmaMobileUrl
             }
-          }, subscriptionType : subscriptionType
+          }, subscriptionType: subscriptionType
         }
       });
     }
@@ -477,6 +478,9 @@ export default function FolioForm() {
     }).catch((error) => {
     });
   }
+  const viewSite = () => {
+    window.open(`https://figmafolio.com/${generatedUrl}`, "_blank");
+}
 
   return (
 
@@ -484,87 +488,96 @@ export default function FolioForm() {
       {
         isMobile ?
           <>
-          <div className='app-wrapper-mobile'>
-            <MobileNavBar title={title} isFromTab={"fromTab"} />
-            <div className='tab-container-mobile'>
-              <ul className="nav flex-column nav-tabs vertical-tabs-mobile">
-                <li className="nav-item-mobile">
-                  <a className={`folio-form ${activeTab === 'tab1' ? 'active' : ''}`}
-                    onClick={(e) => handleTabClickMobile('tab1', e)}
-                    href="#tab1">
-                    General
-                  </a>
-                </li>
-                <li className="nav-item-mobile">
-                  <a className={`folio-form ${activeTab === 'tab2' ? 'active' : ''}`}
-                    onClick={(e) => handleTabClickMobile('tab2', e)}
-                    href="#tab2">
-                    Figma Links
-                  </a>
-                </li>
-                <li className="nav-item-mobile">
-                  <a className={`folio-form ${activeTab === 'tab3' ? 'active' : ''}`}
-                    onClick={(e) => handleTabClickMobile('tab3', e)}
-                    href="#tab3">
-                    Custom Domain
-                  </a>
-                </li>
-                <li className="nav-item-mobile">
-                  <a className={`folio-form ${activeTab === 'tab4' ? 'active' : ''}`}
-                    onClick={(e) => handleTabClickMobile('tab4', e)}
-                    href="#tab3">
-                    Favicon
-                  </a>
-                </li>
-                <li className="nav-item-mobile">
-                  <a className={`folio-form ${activeTab === 'tab5' ? 'active' : ''}`}
-                    onClick={(e) => handleTabClickMobile('tab5', e)}
-                    href="#tab3">
-                    Need help?
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <Footer />
+            <div className='app-wrapper-mobile'>
+
+              <MobileNavBar title={title} isFromTab={"fromTab"} />
+              <div className='tab-container-mobile'>
+                <h1 className='mobile-form-title'>{title}</h1>
+                <ul className="nav flex-column nav-tabs vertical-tabs-mobile">
+                  <li className="nav-item-mobile">
+                    <a className={`folio-form ${activeTab === 'tab1' ? 'active' : ''}`}
+                      onClick={(e) => handleTabClickMobile('tab1', e)}
+                      href="#tab1">
+                      General
+                    </a>
+                  </li>
+                  <li className="nav-item-mobile">
+                    <a className={`folio-form ${activeTab === 'tab2' ? 'active' : ''}`}
+                      onClick={(e) => handleTabClickMobile('tab2', e)}
+                      href="#tab2">
+                      Figma Links
+                    </a>
+                  </li>
+                  <li className="nav-item-mobile">
+                    <a className={`folio-form ${activeTab === 'tab3' ? 'active' : ''}`}
+                      onClick={(e) => handleTabClickMobile('tab3', e)}
+                      href="#tab3">
+                      Custom Domain
+                    </a>
+                  </li>
+                  <li className="nav-item-mobile">
+                    <a className={`folio-form ${activeTab === 'tab4' ? 'active' : ''}`}
+                      onClick={(e) => handleTabClickMobile('tab4', e)}
+                      href="#tab3">
+                      Favicon
+                    </a>
+                  </li>
+                  <li className="nav-item-mobile-last">
+                    <a className={`folio-form ${activeTab === 'tab5' ? 'active' : ''}`}
+                      onClick={(e) => handleTabClickMobile('tab5', e)}
+                      href="#tab3">
+                      Need help?
+                    </a>
+                  </li>
+                </ul>
+                {generatedUrl.trim() !== "" ? (
+                <ButtonClear className='mobile-form-view-site' onClick={viewSite} label="View site" />
+              ) : (
+                null
+              )}
+              </div>
+              
+              <Footer />
             </div>
           </>
           :
           <>
             <div className="app-wrapper">
               <Navbar title={title} email={user.email} onClickLogout={handleLogout} isFromForm={"newForm"} generatedUrl={generatedUrl} />
+
               <div className="folioform">
                 <div className="row">
                   <div className="col-md-3 tab-container">
                     <ul className="nav flex-column nav-tabs vertical-tabs">
-                      <li className="nav-item">
+                      <li className="folio-form-nav-item">
                         <a className={`folio-form ${activeTab === 'tab1' ? 'active' : ''}`}
                           onClick={(e) => handleTabClick('tab1', e)}
                           href="#tab1">
                           General
                         </a>
                       </li>
-                      <li className="nav-item">
+                      <li className="folio-form-nav-item">
                         <a className={`folio-form ${activeTab === 'tab2' ? 'active' : ''}`}
                           onClick={(e) => handleTabClick('tab2', e)}
                           href="#tab2">
                           Figma Links
                         </a>
                       </li>
-                      <li className="nav-item">
+                      <li className="folio-form-nav-item">
                         <a className={`folio-form ${activeTab === 'tab3' ? 'active' : ''}`}
                           onClick={(e) => handleTabClick('tab3', e)}
                           href="#tab3">
                           Domain
                         </a>
                       </li>
-                      <li className="nav-item">
+                      <li className="folio-form-nav-item">
                         <a className={`folio-form ${activeTab === 'tab4' ? 'active' : ''}`}
                           onClick={(e) => handleTabClick('tab4', e)}
                           href="#tab3">
                           Favicon
                         </a>
                       </li>
-                      <li className="nav-item">
+                      <li className="folio-form-nav-item">
                         <a className={`folio-form ${activeTab === 'tab5' ? 'active' : ''}`}
                           onClick={(e) => handleTabClick('tab5', e)}
                           href="#tab3">

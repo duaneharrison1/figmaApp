@@ -26,9 +26,27 @@ h2 {
 
 }
 
+.mobile-form-title {
+    font-size: 18px;
+    font-weight: 600;
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+.mobile-form-title-free-domain {
+    font-size: 18px;
+    font-weight: 600;
+    padding-top: 24px;
+}
+
+.mobile-form-title-domain {
+    font-size: 18px;
+    font-weight: 600;
+}
 .instruction-div {
     padding-top: 24px;
 }
+
 
 .sub-title {
     font-size: 20px;
@@ -188,13 +206,7 @@ td {
     font-weight: 400;
 }
 
-.favicon-prev {
-    height: 64px !important;
-    width: 64px !important;
-    margin: 0;
-    padding: 0;
-    object-fit: contain;
-}
+
 
 .form-favicon-note {
     padding-top: 8px;
@@ -202,8 +214,14 @@ td {
 
 
 
-
-
+@media only screen and (max-width: 768px) {
+.favicon-prev {
+    width: 48px;
+    height: 48px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+}
 @media only screen and (max-width: 1023px) {
     .form {
         padding: 24px 24px;

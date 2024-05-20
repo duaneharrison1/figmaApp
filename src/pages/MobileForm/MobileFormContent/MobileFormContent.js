@@ -209,7 +209,7 @@ export const MobileFormContent = (props) => {
            <div className='app-wrapper-mobile'>
            <MobileNavBar title={title} backToMobileFolioForm={backToMobileFolioForm} />
             <div className='mobile-form-content-container'>
-                <h1 className='sub-title'>Figma Links</h1>
+                <h1 className='mobile-form-title'>Figma Links</h1>
                 <p className='form-content-upper-notes'>Paste in the links of your desktop and mobile prototypes from Figma below to have them create your Figmafolio site. By adding separate desktop and mobile links, all viewers can easily preview your work on any device. We'll detect the device and show the appropriate prototype.</p>
                 <h2 className='form-sub-header'>
                     {t('desktop-prototype-link')}
@@ -243,8 +243,8 @@ export const MobileFormContent = (props) => {
                     <li>If you only provide one prototype link, we will show that on both desktop and mobile.</li>
                     <li>For best results, match prototype’s background colour to your sites background colour in Figma in prototype settings.</li>
                 </ul>
-                <ButtonClear className='go-to-preview' label="Preview" />
-                <ButtonColored className="folio-form-save-btn" label={"Save"} onClick={saveFigmaUrl} />
+                <ButtonClear className='mobile-form-go-to-preview' label="Preview" />
+                <ButtonColored className="mobile-folio-form-save-btn" label={"Save"} onClick={saveFigmaUrl} />
             </div>
             < AlertErrorModal show={showErrorModal} handleClose={handleCloseErrorModal} alertMessage={t('you-have-entered-a-link')} />
             <Footer/>

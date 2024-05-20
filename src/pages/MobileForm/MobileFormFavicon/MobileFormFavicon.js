@@ -214,7 +214,7 @@ export const MobileFormFavicon = (props) => {
          <MobileNavBar title={title} backToMobileFolioForm={backToMobileFolioForm}/>
             <div className='mobile-form-content-container'>
         <div className='row first-div'>
-            <h1 className='form-title'>Favicon</h1>
+            <h1 className='mobile-form-title'>Favicon</h1>
 
             {subscriptionType === "regular" ?
                 <>
@@ -222,7 +222,7 @@ export const MobileFormFavicon = (props) => {
                     <p className='form-favicon-note-disabled'>This is a small icon which will represent your website at the top of a web browser and in browser's bookmark bar, history and in search results.</p>
                     <h2 className='form-sub-header-disable'>Website Icon</h2>
                     <div className='button-img-upload-container'>
-                        <ButtonClear className='upload-image-disabled' onClick={onButtonClick} label={image !== '' ? "Change image" : "Upload image"} />
+                        <ButtonClear className='mobile-form-upload-image-disabled' onClick={onButtonClick} label={image !== '' ? "Change image" : "Upload image"} />
                     </div>
                     <p className='form-favicon-note-disabled'>&#8226; Submit a PNG, JGP or SVG which is at least 70px x 70px. For best results, use an image which is 260px x 260px or more. </p>
                     <div className='regular-user-message-container'>
@@ -232,7 +232,7 @@ export const MobileFormFavicon = (props) => {
                                 <p className='regular-user-message'> Take your website to the next level by upgrading your Figmafolio plan</p>
                             </div>
                             <div className='upgrade-now-btn-container col-md-4'>
-                                <ButtonColored className="upgrade-now" label="Upgrade now" onClick={handleShowModal} />
+                                <ButtonColored className="mobile-form-upgrade-now" label="Upgrade now" onClick={handleShowModal} />
                             </div>
                         </div>
                     </div>
@@ -242,10 +242,12 @@ export const MobileFormFavicon = (props) => {
                 <>
                     <p className='form-favicon-note'>This is a small icon which will represent your website at the top of a web browser and in browser's bookmark bar, history and in search results.</p>
                     <h2 className='form-sub-header'>Website Icon</h2>
-
+                    <div>
                     {image !== '' ? <img src={image} className='favicon-prev' /> : null}
+                    </div>
+                   
                     <div className='button-img-upload-container'>
-                        <ButtonClear className='upload-image' onClick={onButtonClick} label={image !== '' ? "Change image" : "Upload image"} />
+                        <ButtonClear className='mobile-form-upload-image' onClick={onButtonClick} label={image !== '' ? "Change image" : "Upload image"} />
                     </div>
 
                     <input

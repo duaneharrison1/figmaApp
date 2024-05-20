@@ -7,6 +7,7 @@ import insFour from './../../../assets/images/ins-4.png';
 import MobileNavBar from '../MobileNavBar/MobileNavbar';
 import { useNavigate, useLocation } from 'react-router-dom';
 import i18n from '../../../i18n';
+import Footer from '../../../components/Footer/Footer';
 
 const MobileFormInstruction = () => {
     const location = useLocation();
@@ -77,10 +78,12 @@ const MobileFormInstruction = () => {
       }
 
     return (
+      <div className='app-wrapper-mobile'>
+            <MobileNavBar title={title} backToMobileFolioForm={backToMobileFolioForm}/>
         <div className='div-form-instruction-mobile'>
-              <MobileNavBar title={title} backToMobileFolioForm={backToMobileFolioForm}/>
-            <h1 className='sub-title'>{t('need-help-setting')}</h1>
-            <div className='row instruction-div'>
+          
+            <h1 className='mobile-form-title'>{t('need-help-setting')}</h1>
+            <div className='row mobile-instruction-div'>
                 <div className="col-md-6">
 
                     <img src={insOne} className='instruction-img' />
@@ -120,6 +123,8 @@ const MobileFormInstruction = () => {
                     <p className='instruction-note'>{t('instruct-four-note')}</p>
                 </div>
             </div>
+        </div>
+        <Footer/>
         </div>
     )
 }
