@@ -57,7 +57,11 @@ export const MobileFormDomain = (props) => {
       ? location.state.object.customDomain
       : ""
   );
-  const [domain, setDomain] = useState(props.setDomain || "");
+  const [domain, setDomain] = useState(
+    location && location.state && location.state.object && location.state.object.customDomain
+      ? location.state.object.customDomain
+      : ""
+  );
   const [showModal, setShowModal] = useState(false);
   const headers = {
     'Content-Type': 'application/json',
@@ -124,8 +128,7 @@ export const MobileFormDomain = (props) => {
     if (docId) {
       if (oldDomain !== domain) {
         console.log("wentHere1")
-      }
-      try {
+   try {
         await deleteDomainFromVercel();
         await addDomainToVercel();
         await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
@@ -137,6 +140,8 @@ export const MobileFormDomain = (props) => {
         alert(error.response.data.error.code);
         return;
       }
+      }
+   
     } else {
       console.log(domain)
       if (domain) {

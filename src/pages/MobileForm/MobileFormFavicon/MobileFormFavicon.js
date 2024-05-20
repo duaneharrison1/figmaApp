@@ -155,6 +155,7 @@ export const MobileFormFavicon = (props) => {
               faviconUrl: faviconUrlFromFirebase,
               updatedAt: new Date()
             })
+            setFaviconImage(faviconUrlFromFirebase)
             alert("Success");
           } catch (error) {
             alert(error);
@@ -171,6 +172,7 @@ export const MobileFormFavicon = (props) => {
             })
             setGeneratedUrl(randomurl);
             setDocId(docRef.id);
+            setFaviconImage(newFaviconImage)
             alert("Success");
           } catch (error) {
             alert(error);
