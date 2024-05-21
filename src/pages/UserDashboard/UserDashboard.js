@@ -144,7 +144,7 @@ function UserDashboard() {
                 price: priceId,
                 success_url: window.location.origin,
                 cancel_url: window.location.origin,
-                trial_period_days: 7, // Added the trial period here
+                // trial_period_days: 7, // Added the trial period here
             })
         docRef.onSnapshot(async (snap) => {
             const { error, sessionId } = snap.data();
