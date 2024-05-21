@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './PaymentSelection.css';
 import { Modal } from 'react-bootstrap';
 import ButtonColored from '../ButtonColored/ButtonColored';
-import { db, auth } from '../../firebase';
 import Check from '../../assets/images/check.png';
-import Cross from '../../assets/images/cross.png';
+import WhiteCheck from '../../assets/images/white-check.png';
+import freeImage from '../../assets/images/free-img.png';
+import BasicImage from '../../assets/images/basic-img.png';
+import ProImage from '../../assets/images/pro-img.png';
 import { useTranslation } from 'react-i18next';
-import i18n from '../../i18n';
+
 const PaymentSelection = (props) => {
     const { show, handleClose, handleMonthlyPayment, handleYearlyPayment, monthlySubscription } = props;
     const { t } = useTranslation();
@@ -14,285 +16,94 @@ const PaymentSelection = (props) => {
     const ManagePlan = () => {
         window.open('https://billing.stripe.com/p/login/cN24habbC4JMga44gg', '_blank');
     }
+
+    const PlanCard = ({ planIcon, title, amount, month, billDesc, features, buttonLabel, buttonClass, onClick }) => (
+        <div className='col-lg-4'>
+            <div className={`plan-card ${buttonClass.includes('yearly') ? 'green-card' : 'regular-card'}`}>
+                <img className='plan-icon' src={planIcon} alt={`${title} Plan`} />
+                <h1 className={`payment-modal-selection-title${buttonClass.includes('yearly') ? '-yearly' : ''}`}>{title}</h1>
+
+                <div className='amount-moonth-container'> 
+                <div className='amount-per-month'>
+                    <span className={`amount${buttonClass.includes('yearly') ? '-yearly' : ''}`}>{amount}</span>
+                    <span className={`month${buttonClass.includes('yearly') ? '-yearly' : ''}`}>{month}</span>
+                </div>
+                <h4 className={`bill-desc${buttonClass.includes('yearly') ? '-yearly' : ''}`}>{billDesc}</h4>
+                </div>
+                <hr className= {`solid plancard-divider${buttonClass.includes('yearly') ? '-yearly' : ''}`} ></hr>
+                <div className='payment-feature-container'>
+                    {features.map((feature, index) => (
+                        <div className="payment-feature" key={index}>
+                            <img className='check-icon' src={buttonClass.includes('yearly') ? WhiteCheck : Check} alt='Check' />
+                            <h4 className={`payment-feature-text${buttonClass.includes('yearly') ? '-yearly' : ''}`}>{feature}</h4>
+                        </div>
+                    ))}
+                </div>
+                <div className='button-upgrade-container'>
+                    <ButtonColored className={buttonClass} label={buttonLabel} onClick={onClick} />
+                </div>
+            </div>
+        </div>
+    );
+
+    const planData = [
+
+        {
+            planIcon: freeImage,
+            title: t('free'),
+            amount: '$0',
+            month: '/month',
+            billDesc: 'No bills, no frills.',
+            features: [t('free-feat-one'), t('free-feat-two'), "Has 'Made with Figmafolio' label on site"],
+            buttonLabel: t('current-plan'),
+            buttonClass: 'btn-current-plan',
+            onClick: null
+        },
+        {
+            planIcon: BasicImage,
+            title: 'Basic',
+            amount: '$5',
+            month: '/month',
+            billDesc: 'Billed as 5 USD monthly after the trial period',
+            features: [t('monthly-feat-one'), t('monthly-yearly-feat-two'), t('removes-made-with'), 'Customize Favicon'],
+            buttonLabel: monthlySubscription === "monthlyPlan" ? t('current-plan') : t('upgrade-plan'),
+            buttonClass: monthlySubscription === "monthlyPlan" ? 'btn-current-plan' : 'btn-upgrade-plan',
+            onClick:  monthlySubscription === "monthlyPlan" ? ManagePlan : handleMonthlyPayment         
+        },
+        {
+            planIcon: ProImage,
+            title: 'Pro',
+            amount: '$48',
+            month: '/year',
+            billDesc: 'Billed as a yearly payment of $48 USD after the trial period.',
+            features: [t('yearly-feat-one'), t('monthly-yearly-feat-two'), t('removes-made-with'), 'Customize Favicon', t('monthly-yearly-feat-three')],
+            buttonLabel: 'Start free 30 day trial',
+            buttonClass: 'btn-upgrade-plan-yearly',
+            onClick: handleYearlyPayment
+        }
+    ];
+
+    const renderPlanCards = (filter) => (
+        <div className='row justify-content-center'>
+            {planData.filter(filter).map((plan, index) => (
+                <PlanCard key={index} {...plan} />
+            ))}
+        </div>
+    );
+
     return (
-        <>
+        <Modal dialogClassName='payment-selection-modal' show={show} onHide={handleClose}>
+            <Modal.Body className='payment-modal-body'>
+                <div className='payment-header-container'>
+                    <h1 className='payment-modal-header'>{t('pick-a-plan')}</h1>
+                    <h1 className='payment-modal-sub-header'>Try it out for free to see if it works for you. Cancel anytime.</h1>
+                </div>
 
-            <Modal dialogClassName='payment-selection-modal' show={show} onHide={handleClose} >
-                <Modal.Body dialogClassName='payment-modal-body' >
-                    <h1 className='payment-modal-header'>{t('pick-a-plan')} </h1>
-                    <h1> Try it out for free to see if it works for you. Cancel anytime.</h1>
-                    {monthlySubscription == "monthlyPlan" ?
-                        (
-                            <div className='row justify-content-center'>
-                                <div className='col-lg-4'>
-                                    <div className='regular-card'>
-                                        <h1 className='payment-modal-selection-title'>{t('monthly')}</h1>
-                                    
-                                        <div className='amount-per-month'>
-                                            <span className='amount'>$5 </span>
-                                            <span className='month'>/month</span>
-                                        </div>
-                                        <h4 className='bill-desc'>{t('billed-monthly-at')} </h4>
-                                        <div className='payment-feature-container'>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>{t('monthly-feat-one')}</h4>
-                                            </div>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>{t('monthly-yearly-feat-two')}</h4>
-                                            </div>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
-                                            </div>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>Customize Favicon</h4>
-                                            </div>
-                                        </div>
-                                        <div className='button-upgrade-container'>
-                                            {monthlySubscription == "monthlyPlan" ?
-                                                (<ButtonColored className="btn-current-plan" label={t('current-plan')} />) :
-                                                (<ButtonColored className="btn-upgrade-plan" label={t('upgrade-plan')} onClick={handleMonthlyPayment} />)
-                                            }
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div className='col-lg-4'>
-                                    <div className='green-card'>
-                                        <div className="heading-container">
-                                            <h1 className='payment-modal-selection-title'> Yearly</h1>
-                                        </div>
-
-                                        <div className='amount-per-month'>
-                                            <span className='amount'>$4 </span>
-                                            <span className='month'>/month</span>
-                                        </div>
-                                        <h4 className='bill-desc'> Billed at one payment of $48</h4>
-                                        <div className='payment-feature-container'>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>{t('yearly-feat-one')}</h4>
-                                            </div>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>{t('monthly-yearly-feat-two')}</h4>
-                                            </div>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
-                                            </div>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>Customize Favicon</h4>
-                                            </div>
-
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>{t('monthly-yearly-feat-three')}</h4>
-                                            </div>
-                                        </div>
-                                        <div className='button-upgrade-container'>
-                                            <ButtonColored className="btn-upgrade-plan" label={t('upgrade-plan')} onClick={handleYearlyPayment} />
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        ) : monthlySubscription == "annualPlan" ? (
-                            <div className='row justify-content-center'>
-                                <div className='col-lg-4'>
-                                    <div className='regular-card'>
-                                        <h1 className='payment-modal-selection-title'> Monthly</h1>
-                                        <div className='amount-per-month'>
-                                            <span className='amount'>$5 </span>
-                                            <span className='month'>/month</span>
-                                        </div>
-                                        <div className='payment-feature-container'>
-                                            <h4 className='bill-desc'> {t('billed-monthly-at')} </h4>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>{t('monthly-feat-one')}</h4>
-                                            </div>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>{t('monthly-yearly-feat-two')}</h4>
-                                            </div>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
-                                            </div>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>Customize Favicon</h4>
-                                            </div>
-                                        </div>
-                                        <div className='button-upgrade-container'>
-                                            <ButtonColored className="btn-upgrade-plan" label={t('change-plan')} onClick={ManagePlan} />
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div className='col-lg-4'>
-                                    <div className='green-card'>
-                                        <div className="heading-container">
-                                            <h1 className='payment-modal-selection-title'> Yearly</h1>
-                                        </div>
-
-                                        <div className='amount-per-month'>
-                                            <span className='amount'>$4</span>
-                                            <span className='month'>/month</span>
-                                        </div>
-                                        <h4 className='bill-desc'> {t('billed-yearly-at')}</h4>
-                                        <div className='payment-feature-container'>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>{t('yearly-feat-one')}</h4>
-                                            </div>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>{t('monthly-yearly-feat-two')}</h4>
-                                            </div>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
-                                            </div>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>Customize Favicon</h4>
-                                            </div>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>{t('monthly-yearly-feat-three')}</h4>
-                                            </div>
-                                        </div>
-
-                                        <div className='button-upgrade-container-2'>
-                                            <ButtonColored className="btn-current-plan" label={t('monthly-yearly-feat-three')} />
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        ) : (
-                            <div className='row'>
-                                <div className='col-lg-4'>
-                                    <div className='regular-card'>
-                                        <h1 className='payment-modal-selection-title'> {t('free')}</h1>
-                                        <div className='amount-per-month'>
-                                            <span className='amount'>$0 </span>
-                                            <span className='month'>/month</span>
-                                        </div>
-                                        <h4 className='bill-desc'> {t('no-bills')}  </h4>
-                                        <div className='payment-feature-container'>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>{t('free-feat-one')}</h4>
-                                            </div>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'> {t('free-feat-two')}</h4>
-                                            </div>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Cross} />
-                                                <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
-                                            </div>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Cross} />
-                                                <h4 className='payment-feature-text'>Customize Favicon</h4>
-                                            </div>
-                                        </div>
-                                        <div className='button-upgrade-container-2'>
-                                            <ButtonColored className="btn-current-plan" label={t('current-plan')} />
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div className='col-lg-4'>
-                                    <div className='regular-card'>
-                                        <h1 className='payment-modal-selection-title'> {t('monthly')}</h1>
-                                        <div className='amount-per-month'>
-                                            <span className='amount'>$5 </span>
-                                            <span className='month'>/month</span>
-                                        </div>
-                                        <h4 className='bill-desc'> {t('billed-monthly-at')} </h4>
-                                        <div className='payment-feature-container'>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>{t('monthly-feat-one')}</h4>
-                                            </div>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>{t('monthly-yearly-feat-two')}</h4>
-                                            </div>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
-                                            </div>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>Customize Favicon</h4>
-                                            </div>
-                                        </div>
-                                        <div className='button-upgrade-container-2'>
-                                            {monthlySubscription == "monthlyPlan" ?
-                                                (<ButtonColored className="btn-current-plan" label={t('current-plan')} />) :
-                                                (<ButtonColored className="btn-upgrade-plan" label={t('upgrade-plan')} onClick={handleMonthlyPayment} />)
-                                            }
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div className='col-lg-4'>
-                                    <div className='green-card'>
-                                        <div className="heading-container">
-                                            <h1 className='payment-modal-selection-title'> Yearly</h1>
-                                        </div>
-
-                                        <div className='amount-per-month'>
-                                            <span className='amount'>$4</span>
-                                            <span className='month'>/month</span>
-                                        </div>
-                                        <h4 className='bill-desc'> {t('billed-yearly-at')}</h4>
-                                        <div className='payment-feature-container'>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>{t('yearly-feat-one')}</h4>
-                                            </div>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>{t('monthly-yearly-feat-two')}</h4>
-                                            </div>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>{t('removes-made-with')}</h4>
-                                            </div>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>Customize Favicon</h4>
-                                            </div>
-                                            <div className="payment-feature">
-                                                <img className='check-icon' src={Check} />
-                                                <h4 className='payment-feature-text'>{t('monthly-yearly-feat-three')}</h4>
-                                            </div>
-                                        </div>
-                                        <div className='button-upgrade-container'>
-                                            <ButtonColored className="btn-upgrade-plan" label={t('upgrade-plan')} onClick={handleYearlyPayment} />
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        )}
-
-                </Modal.Body >
-            </Modal >
-        </>
+                {monthlySubscription === "monthlyPlan" && renderPlanCards(plan => plan.title !== 'Free')}
+                {monthlySubscription === "annualPlan" && renderPlanCards(plan => plan.title !== 'Free')}
+                {monthlySubscription !== "monthlyPlan" && monthlySubscription !== "annualPlan" && renderPlanCards(() => true)}
+            </Modal.Body>
+        </Modal>
     );
 };
 

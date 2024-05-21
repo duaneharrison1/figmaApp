@@ -28,7 +28,8 @@ export default function FormFavicon(props) {
             ("checkout_sessions").add({
                 price: priceId,
                 success_url: window.location.origin,
-                cancel_url: window.location.origin
+                cancel_url: window.location.origin,
+                trial_period_days: 7,
             })
         docRef.onSnapshot(async (snap) => {
             const { error, sessionId } = snap.data();
@@ -47,7 +48,8 @@ export default function FormFavicon(props) {
             ("checkout_sessions").add({
                 price: priceId,
                 success_url: window.location.origin,
-                cancel_url: window.location.origin
+                cancel_url: window.location.origin,
+                trial_period_days: 30,
             })
         docRef.onSnapshot(async (snap) => {
             const { error, sessionId } = snap.data();

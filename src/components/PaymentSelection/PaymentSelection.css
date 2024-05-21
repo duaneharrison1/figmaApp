@@ -12,27 +12,53 @@
     margin: 0;
 }
 
-.amount {
-    display: inline-block;
-    height: .75rem;
+.payment-modal-selection-title-yearly {
+    color: white;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    padding-bottom: 32px;
+    margin: 0;
 }
+
 
 .payment-feature-text {
     margin-top: 4px;
     color: #2D2B29;
     font-size: 14px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 300;
+}
+
+.payment-feature-text-yearly {
+    margin-top: 4px;
+    color: white;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
 }
 
 .bill-desc {
     color: #A0A0A0;
     font-size: 12px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 300;
     line-height: normal;
     margin: 0;
-    padding-bottom: 20px;
+    height: 2em;
+}
+
+.bill-desc-yearly {
+    height: 2em;
+    color: White;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    margin: 0;
+}
+.payment-header-container{
+    text-align: center;
 }
 
 .payment-modal-header {
@@ -40,10 +66,18 @@
     font-size: 24px;
     font-style: normal;
     font-weight: 600;
-    padding-bottom: 16px;
+    padding-bottom: 12px;
     margin: 0;
 }
 
+.payment-modal-sub-header {
+    color: var(--grey-10, #272E3B);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    padding-bottom: 32px;
+    margin: 0;
+}
 .payment-modal-subheader {
     color: #4E5969;
     font-size: 16px;
@@ -54,7 +88,7 @@
 }
 
 .regular-card {
-    min-height: 430px;
+    min-height: 578px;
     overflow: hidden;
     padding: 20px;
     position: relative;
@@ -82,8 +116,20 @@
     font-weight: 600;
     margin: 0;
     padding: 0;
+    display: inline-block;
+    height: .75rem;
 }
 
+.amount-yearly {
+    color: white;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    height: .75rem;
+}
 .month {
     color: #2D2B29;
     font-size: 16px;
@@ -93,20 +139,33 @@
     padding: 0;
 }
 
+.month-yearly{
+    color: white;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+}
+
 .check-icon {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     margin-right: 12px;
+}
+.plan-icon {
+    height: 60px;
+    padding-top: 10px;
+    padding-bottom: 19px;
 }
 
 .green-card {
-    min-height: 430px;
+    min-height: 578px;
     overflow: hidden;
     padding: 20px;
     position: relative;
     border-radius: 16px;
-    border: 2px solid #036D21;
-    background: #E6F0E9;
+    background: #4D9F70;
 }
 
 .heading-container {
@@ -144,7 +203,29 @@
     padding-bottom: 20px;
 }
 
+.plancard-divider{
+    margin-top: 32px;
+    margin-bottom: 32px;
+    border-top: 1px solid #BCBCBC;
+}
 
+.plancard-divider-yearly{
+    margin-top: 32px;
+    margin-bottom: 32px;
+    border-top: 1px solid white;
+}
+.btn-upgrade-plan-yearly{
+    min-width: 206px;
+    padding: 12px 20px;
+    border-radius: 40px;
+    font-weight: 400;
+    color: #4D9F70;
+    font-size: 16px;
+    border: none;
+    bottom: 0;
+    background-color: white;
+    font-weight: 600;
+}
 .btn-upgrade-plan {
     min-width: 206px;
     padding: 12px 24px;
@@ -159,6 +240,7 @@
 }
 
 .btn-current-plan {
+    min-width: 206px;
     padding: 12px 24px;
     border-radius: 40px;
     font-weight: 400;
@@ -200,6 +282,10 @@
     }
 
     .payment-feature-text {
+        font-size: 13px;
+    }
+
+    .payment-feature-text-yearly {
         font-size: 13px;
     }
 
@@ -252,6 +338,9 @@
     }
 
     .payment-feature-text {
+        font-size: 13px;
+    }
+    .payment-feature-text-yearly {
         font-size: 13px;
     }
 
