@@ -110,9 +110,11 @@
     font-weight: 600;
     margin: 0;
 }
-
-.form-content-note-list li {
+.mobile-form-content-upper-notes{
     font-size: 14px;
+}
+.form-content-note-list li {
+    font-size: 12px;
 }
 
 .form-custom-domain-note {

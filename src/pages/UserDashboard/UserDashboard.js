@@ -73,7 +73,7 @@ function UserDashboard() {
                                 setSubscriptionType("regular")
                             } else {
                                 snapshot.forEach(subscription => {
-                                    if (subscription.data().status == "active") {
+                                    if (subscription.data().status == "active" || subscription.data().status == "trialing") {
                                         if (subscription.data().items[0].plan.id == process.env.REACT_APP_YEARLY) {
                                             setCanCreate("true")
                                             setSubscriptionType("annualPlan")
@@ -136,13 +136,15 @@ function UserDashboard() {
     };
 
     const MonthlyPayment = async (priceId) => {
+        console.log("xxxx" +process.env.REACT_APP_STRIPE_KEY)
         setUpgradeClick(true)
         setShowUpgradeModal(false);
         const docRef = await dbFirestore.collection('user').doc(user.uid).collection
             ("checkout_sessions").add({
                 price: priceId,
                 success_url: window.location.origin,
-                cancel_url: window.location.origin
+                cancel_url: window.location.origin,
+                trial_period_days: 7, // Added the trial period here
             })
         docRef.onSnapshot(async (snap) => {
             const { error, sessionId } = snap.data();

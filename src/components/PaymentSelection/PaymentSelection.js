@@ -20,12 +20,14 @@ const PaymentSelection = (props) => {
             <Modal dialogClassName='payment-selection-modal' show={show} onHide={handleClose} >
                 <Modal.Body dialogClassName='payment-modal-body' >
                     <h1 className='payment-modal-header'>{t('pick-a-plan')} </h1>
+                    <h1> Try it out for free to see if it works for you. Cancel anytime.</h1>
                     {monthlySubscription == "monthlyPlan" ?
                         (
                             <div className='row justify-content-center'>
                                 <div className='col-lg-4'>
                                     <div className='regular-card'>
                                         <h1 className='payment-modal-selection-title'>{t('monthly')}</h1>
+                                    
                                         <div className='amount-per-month'>
                                             <span className='amount'>$5 </span>
                                             <span className='month'>/month</span>

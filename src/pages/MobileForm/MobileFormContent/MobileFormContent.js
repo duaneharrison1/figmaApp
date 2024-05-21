@@ -210,13 +210,13 @@ export const MobileFormContent = (props) => {
            <MobileNavBar title={title} backToMobileFolioForm={backToMobileFolioForm} />
             <div className='mobile-form-content-container'>
                 <h1 className='mobile-form-title'>Figma Links</h1>
-                <p className='form-content-upper-notes'>Paste in the links of your desktop and mobile prototypes from Figma below to have them create your Figmafolio site. By adding separate desktop and mobile links, all viewers can easily preview your work on any device. We'll detect the device and show the appropriate prototype.</p>
-                <h2 className='form-sub-header'>
+                <p className='mobile-form-content-upper-notes'>Paste in the links of your desktop and mobile prototypes from Figma below to have them create your Figmafolio site. By adding separate desktop and mobile links, all viewers can easily preview your work on any device. We'll detect the device and show the appropriate prototype.</p>
+                <h2 className='mobile-form-sub-header'>
                     {t('desktop-prototype-link')}
                 </h2>
                 <div>
                     <input
-                        className='form-input'
+                        className='mobile-form-input'
                         type="text"
                         placeholder={t('custom-desktop-url')}
                         value={figmaDesktopUrl}
@@ -224,12 +224,12 @@ export const MobileFormContent = (props) => {
 
                     />
                 </div>
-                <h2 className='form-sub-header'>
+                <h2 className='mobile-form-sub-header'>
                     {t('mobile-prototype-link')}
                 </h2>
                 <div>
                     <input
-                        className='form-input'
+                        className='mobile-form-input'
                         type="text"
                         placeholder={t('custom-mobile-url')}
                         value={figmaMobileUrl}

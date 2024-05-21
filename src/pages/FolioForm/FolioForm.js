@@ -492,7 +492,7 @@ export default function FolioForm() {
 
               <MobileNavBar title={title} isFromTab={"fromTab"} />
               <div className='tab-container-mobile'>
-                <h1 className='mobile-form-title'>{title}</h1>
+                <h1 className='mobile-form-title m-0'>{title}</h1>
                 <ul className="nav flex-column nav-tabs vertical-tabs-mobile">
                   <li className="nav-item-mobile">
                     <a className={`folio-form ${activeTab === 'tab1' ? 'active' : ''}`}

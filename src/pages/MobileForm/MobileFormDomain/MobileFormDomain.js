@@ -247,9 +247,9 @@ export const MobileFormDomain = (props) => {
             <>
               <div>
                 <h1 className='mobile-form-title-domain m-0'>Domain</h1>
-                <h2 className='form-sub-header-disable'>Domain name</h2>
+                <h2 className='mobile-mobile-form-sub-header-disable'>Domain name</h2>
                 <input
-                  className='form-input-disabled'
+                  className='mobile-form-input-disabled'
                   type="text"
                   placeholder={t('enter-your-domain')}
                   value={domain}
@@ -273,10 +273,10 @@ export const MobileFormDomain = (props) => {
             :
             <>
               <h1 className='sub-title'>Domain</h1>
-              <h2 className='form-sub-header'>Domain name</h2>
+              <h2 className='mobile-mobile-form-sub-header'>Domain name</h2>
               <div>
                 <input
-                  className='form-input'
+                  className='mobile-form-input'
                   type="text"
                   placeholder={t('enter-your-domain')}
                   value={domain}

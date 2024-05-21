@@ -222,7 +222,7 @@ export const MobileFormFavicon = (props) => {
                 <>
                 <div> 
                     <p className='form-favicon-note-disabled'>This is a small icon which will represent your website at the top of a web browser and in browser's bookmark bar, history and in search results.</p>
-                    <h2 className='form-sub-header-disable'>Website Icon</h2>
+                    <h2 className='mobile-form-sub-header-disable'>Website Icon</h2>
                     <div className='button-img-upload-container'>
                         <ButtonClear className='mobile-form-upload-image-disabled' onClick={onButtonClick} label={image !== '' ? "Change image" : "Upload image"} />
                     </div>
@@ -243,7 +243,7 @@ export const MobileFormFavicon = (props) => {
                 :
                 <>
                     <p className='form-favicon-note'>This is a small icon which will represent your website at the top of a web browser and in browser's bookmark bar, history and in search results.</p>
-                    <h2 className='form-sub-header'>Website Icon</h2>
+                    <h2 className='mobile-form-sub-header'>Website Icon</h2>
                     <div>
                     {image !== '' ? <img src={image} className='favicon-prev' /> : null}
                     </div>
