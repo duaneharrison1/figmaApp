@@ -128,7 +128,8 @@ export default function FolioForm() {
               figmaDesktopUrl: figmaDesktopUrl,
               figmaMobileUrl: figmaMobileUrl
             }
-          }
+          },
+          subscriptionType: subscriptionType
         }
       });
     } else {

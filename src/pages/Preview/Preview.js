@@ -29,6 +29,7 @@ export default function Preview() {
     const [desktop, setDesktop] = useState("");
     const dbFirestore = firebase.firestore();
     const isOpenInMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const [subscriptionType, setSubscriptionType] = useState(location.state.subscriptionType);
     const [docId, setDocId] = useState(
         location && location.state && location.state.object
             ? location.state.object.id
@@ -229,7 +230,8 @@ export default function Preview() {
                         figmaMobileUrl: figmaMobileUrl
                     }
                    
-                }
+                },
+                subscriptionType: subscriptionType
             }
         });
     }
