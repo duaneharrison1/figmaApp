@@ -113,7 +113,7 @@ const ChangePasswordModal = (props) => {
         <>
             {isChangePasswordSuccessful ? (
                 <Modal className='delete-modal' show={show} onHide={handleClose}>
-                    <Modal.Body className='modal-body'>
+                    <Modal.Body className='change-password-modal-body'>
                         <img src={SuccessCheck} />
                         <h1 className='delete-header'> {t('password-successfully-reset')}</h1>
                         <h2 className='delete-subheader'>{t('please-login-again')}</h2>
@@ -122,7 +122,7 @@ const ChangePasswordModal = (props) => {
                 </Modal >
             ) : (
                 < Modal className='changepassword-modal' show={show} onHide={handleClose} >
-                    <Modal.Body className='modal-body' >
+                    <Modal.Body className='change-password-modal-body' >
                         <h1 className='delete-header'>{t('change-password')}</h1 >
                         <PasswordTextField
                             formLabel={t('current-password')}

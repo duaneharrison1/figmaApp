@@ -39,13 +39,14 @@
 }
 
 .bill-desc {
-    color: #A0A0A0;
+    color: #666666;
     font-size: 12px;
     font-style: normal;
     font-weight: 300;
     line-height: normal;
     margin: 0;
     height: 2em;
+       padding-top: 10px;
 }
 
 .bill-desc-yearly {
@@ -56,13 +57,14 @@
     font-weight: 300;
     line-height: normal;
     margin: 0;
+    padding-top: 10px;
 }
 .payment-header-container{
     text-align: center;
 }
 
 .payment-modal-header {
-    color: var(--grey-10, #272E3B);
+    color:#272E3B;
     font-size: 24px;
     font-style: normal;
     font-weight: 600;
@@ -71,7 +73,7 @@
 }
 
 .payment-modal-sub-header {
-    color: var(--grey-10, #272E3B);
+    color: #000000;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -98,15 +100,15 @@
 }
 
 .payment-selection-modal {
+    border-radius: 12px;
     padding-top: 80px;
-    min-width: 878px !important;
+    min-width: 1041px !important;
     min-height: 538px;
     overflow: hidden;
 }
 
 .payment-modal-body {
-    max-width: 900px;
-    padding: 24px;
+    margin: 60px;
 }
 
 .amount {
@@ -147,6 +149,9 @@
     margin: 0;
     padding: 0;
 }
+.modal-body {
+    padding: 0;
+}
 
 .check-icon {
     width: 20px;
@@ -154,7 +159,7 @@
     margin-right: 12px;
 }
 .plan-icon {
-    height: 60px;
+    height: 42px;
     padding-top: 10px;
     padding-bottom: 19px;
 }

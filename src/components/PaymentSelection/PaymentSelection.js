@@ -4,9 +4,9 @@ import { Modal } from 'react-bootstrap';
 import ButtonColored from '../ButtonColored/ButtonColored';
 import Check from '../../assets/images/check.png';
 import WhiteCheck from '../../assets/images/white-check.png';
-import freeImage from '../../assets/images/free-img.png';
-import BasicImage from '../../assets/images/basic-img.png';
-import ProImage from '../../assets/images/pro-img.png';
+import freeImage from '../../assets/images/free-img@2x.png';
+import BasicImage from '../../assets/images/basic-img@2x.png';
+import ProImage from '../../assets/images/pro-img@2x.png';
 import { useTranslation } from 'react-i18next';
 
 const PaymentSelection = (props) => {
@@ -66,7 +66,7 @@ const PaymentSelection = (props) => {
             month: '/month',
             billDesc: 'Billed as 5 USD monthly after the trial period',
             features: [t('monthly-feat-one'), t('monthly-yearly-feat-two'), t('removes-made-with'), 'Customize Favicon'],
-            buttonLabel: monthlySubscription === "monthlyPlan" ? t('current-plan') : t('upgrade-plan'),
+            buttonLabel: monthlySubscription === "monthlyPlan" ? t('current-plan') : "Start free 7 day trial",
             buttonClass: monthlySubscription === "monthlyPlan" ? 'btn-current-plan' : 'btn-upgrade-plan',
             onClick:  monthlySubscription === "monthlyPlan" ? ManagePlan : handleMonthlyPayment         
         },
@@ -93,16 +93,16 @@ const PaymentSelection = (props) => {
 
     return (
         <Modal dialogClassName='payment-selection-modal' show={show} onHide={handleClose}>
-            <Modal.Body className='payment-modal-body'>
+            <div className='payment-modal-body'>
                 <div className='payment-header-container'>
-                    <h1 className='payment-modal-header'>{t('pick-a-plan')}</h1>
-                    <h1 className='payment-modal-sub-header'>Try it out for free to see if it works for you. Cancel anytime.</h1>
+                    <h1 className='payment-modal-header'>Upgrade your Figmafolio account</h1>
+                    <h1 className='payment-modal-sub-header'> Try it free (7 or 30 days) and cancel anytime during the trial period.</h1>
                 </div>
 
                 {monthlySubscription === "monthlyPlan" && renderPlanCards(plan => plan.title !== 'Free')}
                 {monthlySubscription === "annualPlan" && renderPlanCards(plan => plan.title !== 'Free')}
                 {monthlySubscription !== "monthlyPlan" && monthlySubscription !== "annualPlan" && renderPlanCards(() => true)}
-            </Modal.Body>
+            </div>
         </Modal>
     );
 };
