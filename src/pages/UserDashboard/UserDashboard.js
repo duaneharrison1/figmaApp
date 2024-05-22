@@ -145,6 +145,7 @@ function UserDashboard() {
                 success_url: window.location.origin,
                 cancel_url: window.location.origin,
                  trial_period_days: 7,
+                 allow_promotion_codes: true,
             })
         docRef.onSnapshot(async (snap) => {
             const { error, sessionId } = snap.data();
@@ -170,6 +171,8 @@ function UserDashboard() {
                     success_url: window.location.origin,
                     cancel_url: window.location.origin,
                     trial_period_days: 30,
+                    allow_promotion_codes: true,
+                    // automatic_tax: true,
                 })
             docRef.onSnapshot(async (snap) => {
                 const { error, sessionId } = snap.data();

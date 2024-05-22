@@ -7,6 +7,8 @@ import WhiteCheck from '../../assets/images/white-check.png';
 import freeImage from '../../assets/images/free-img@2x.png';
 import BasicImage from '../../assets/images/basic-img@2x.png';
 import ProImage from '../../assets/images/pro-img@2x.png';
+import CloseIcon from '../../assets/images/close-icon.png';
+
 import { useTranslation } from 'react-i18next';
 
 const PaymentSelection = (props) => {
@@ -91,8 +93,13 @@ const PaymentSelection = (props) => {
         </div>
     );
 
+
+ 
     return (
         <Modal dialogClassName='payment-selection-modal' show={show} onHide={handleClose}>
+             <div className='close-container'> 
+                <img className='' src={CloseIcon} alt='Close' onClick={handleClose} />
+                </div>
             <div className='payment-modal-body'>
                 <div className='payment-header-container'>
                     <h1 className='payment-modal-header'>Upgrade your Figmafolio account</h1>

@@ -220,7 +220,7 @@
     border-top: 1px solid white;
 }
 .btn-upgrade-plan-yearly{
-    min-width: 206px;
+    min-width: 250px;
     padding: 12px 20px;
     border-radius: 40px;
     font-weight: 400;
@@ -232,7 +232,7 @@
     font-weight: 600;
 }
 .btn-upgrade-plan {
-    min-width: 206px;
+    min-width: 250px;
     padding: 12px 24px;
     border-radius: 40px;
     font-weight: 400;
@@ -245,7 +245,7 @@
 }
 
 .btn-current-plan {
-    min-width: 206px;
+    min-width: 250px;
     padding: 12px 24px;
     border-radius: 40px;
     font-weight: 400;
@@ -257,6 +257,16 @@
     font-weight: 600;
 }
 
+.close-container {
+    position: absolute;
+    top: 30px; /* Adjust this value to position vertically */
+    right: 30px; /* Adjust this value to position horizontally */
+    z-index: 1000; /* Ensure it's above other elements */
+}
+
+.close-container img {
+    cursor: pointer;
+}
 
 @media (max-width: 767px) {
 

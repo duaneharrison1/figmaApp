@@ -158,29 +158,29 @@ export const MobileFormContent = (props) => {
         }
       }
 
-    //   const goToPreview = async () => {
-    //     if ((!figmaDesktopUrl.includes('figma.com/file') && !figmaMobileUrl.includes('figma.com/file')) &&
-    //       (figmaMobileUrl.includes('figma.com/proto') || figmaMobileUrl.includes('figma.com/embed') ||
-    //         figmaDesktopUrl.includes('figma.com/proto') || figmaDesktopUrl.includes('figma.com/embed'))) {
-    //       navigate("/" + currentLanguage + '/preview', {
-    //         state: {
-    //           object: {
-    //             id: docId,
-    //             title: title,
-    //             generatedUrl: generatedUrl,
-    //             faviconUrl: faviconImage,
-    //             customDomain: domain,
-    //             urls: {
-    //               figmaDesktopUrl: figmaDesktopUrl,
-    //               figmaMobileUrl: figmaMobileUrl
-    //             }
-    //           }
-    //         }
-    //       });
-    //     } else {
-    //       setShowErrorModal(true);
-    //     }
-    //   }
+      const goToPreview = async () => {
+        if ((!figmaDesktopUrl.includes('figma.com/file') && !figmaMobileUrl.includes('figma.com/file')) &&
+          (figmaMobileUrl.includes('figma.com/proto') || figmaMobileUrl.includes('figma.com/embed') ||
+            figmaDesktopUrl.includes('figma.com/proto') || figmaDesktopUrl.includes('figma.com/embed'))) {
+          navigate("/" + currentLanguage + '/preview', {
+            state: {
+              object: {
+                id: docId,
+                title: title,
+                generatedUrl: generatedUrl,
+                faviconUrl: faviconImage,
+                customDomain: domain,
+                urls: {
+                  figmaDesktopUrl: figmaDesktopUrl,
+                  figmaMobileUrl: figmaMobileUrl
+                }
+              }, subscriptionType: subscriptionType
+            }
+          });
+        } else {
+          setShowErrorModal(true);
+        }
+      }
 
     
     const backToMobileFolioForm = () => {

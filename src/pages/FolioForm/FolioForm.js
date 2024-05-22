@@ -490,7 +490,6 @@ export default function FolioForm() {
         isMobile ?
           <>
             <div className='app-wrapper-mobile'>
-
               <MobileNavBar title={title} isFromTab={"fromTab"} />
               <div className='tab-container-mobile'>
                 <h1 className='mobile-form-title m-0'>{title}</h1>
@@ -537,7 +536,6 @@ export default function FolioForm() {
                 null
               )}
               </div>
-              
               <Footer />
             </div>
           </>
