@@ -110,6 +110,9 @@
 
 .payment-modal-body {
     margin: 60px;
+    max-height: calc(100vh - 210px);
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 .amount {
