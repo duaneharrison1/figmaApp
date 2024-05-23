@@ -243,7 +243,7 @@ export const MobileFormContent = (props) => {
                     <li>If you only provide one prototype link, we will show that on both desktop and mobile.</li>
                     <li>For best results, match prototype’s background colour to your sites background colour in Figma in prototype settings.</li>
                 </ul>
-                <ButtonClear className='mobile-form-go-to-preview' label="Preview" />
+                <ButtonClear className='mobile-form-go-to-preview' label="Preview" onClick={goToPreview} />
                 <ButtonColored className="mobile-folio-form-save-btn" label={"Save"} onClick={saveFigmaUrl} />
             </div>
             < AlertErrorModal show={showErrorModal} handleClose={handleCloseErrorModal} alertMessage={t('you-have-entered-a-link')} />
