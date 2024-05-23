@@ -102,9 +102,11 @@
 .payment-selection-modal {
     border-radius: 12px;
     padding-top: 80px;
-    min-width: 1041px !important;
+    max-width: 1041px !important;
     min-height: 538px;
     overflow: hidden;
+    padding-left: 24px;
+    padding-right: 24px;
 }
 
 .payment-modal-body {
