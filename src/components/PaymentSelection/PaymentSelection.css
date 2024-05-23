@@ -100,7 +100,7 @@
 
 .payment-selection-modal {
     border-radius: 12px;
-    padding-top: 80px;
+    padding-top: 60px;
     max-width: 1041px !important;
     min-height: 538px;
     overflow: hidden;
@@ -282,6 +282,7 @@
     }
 
     .payment-selection-modal {
+        padding-top: 30px;
         min-width: 200px !important;
     }
 
@@ -311,7 +312,7 @@
         min-height: 350px;
         margin-bottom: 24px;
     }
-    
+
     .payment-modal-sub-header{
         font-size: 16px;
     }
@@ -356,6 +357,7 @@
     }
 
     .payment-selection-modal {
+        padding-top: 30px;
         min-width: 500px !important;
     }
 
