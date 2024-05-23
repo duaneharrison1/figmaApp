@@ -52,6 +52,7 @@ export const MobileFormDomain = (props) => {
       : ""
   );
   const [subscriptionType, setSubscriptionType] = useState(location && location.state && location.state.subscriptionType ? location.state.subscriptionType : "");
+  const [trialConsume, setTrialConsume] = useState(location && location.state  && location.state.trialConsume ? location.state.trialConsume : "");
   const [oldDomain, setOldDomain] = useState(
     location && location.state && location.state.object && location.state.object.customDomain
       ? location.state.object.customDomain
@@ -174,7 +175,7 @@ export const MobileFormDomain = (props) => {
         price: priceId,
         success_url: window.location.origin,
         cancel_url: window.location.origin,
-        trial_period_days: 7,
+        trial_period_days : trialConsume === "true" ? 0 : 7,
         allow_promotion_codes: true,
       })
     docRef.onSnapshot(async (snap) => {
@@ -195,7 +196,7 @@ export const MobileFormDomain = (props) => {
         price: priceId,
         success_url: window.location.origin,
         cancel_url: window.location.origin,
-        trial_period_days: 30,
+        trial_period_days : trialConsume === "true" ? 0 : 30,
         allow_promotion_codes: true,
       })
     docRef.onSnapshot(async (snap) => {
@@ -225,7 +226,8 @@ export const MobileFormDomain = (props) => {
               figmaDesktopUrl: figmaDesktopUrl,
               figmaMobileUrl: figmaMobileUrl
             }
-          }, subscriptionType: subscriptionType
+          }, subscriptionType: subscriptionType,
+          trialConsume: trialConsume
         }
       }
     );
@@ -251,7 +253,7 @@ export const MobileFormDomain = (props) => {
             <>
               <div>
                 <h1 className='mobile-form-title-domain m-0'>Domain</h1>
-                <h2 className='mobile-mobile-form-sub-header-disable'>Domain name</h2>
+                <h2 className='mobile-form-sub-header'>Domain name</h2>
                 <input
                   className='mobile-form-input-disabled'
                   type="text"

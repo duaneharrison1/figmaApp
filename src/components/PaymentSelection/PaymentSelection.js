@@ -103,7 +103,7 @@ const PaymentSelection = (props) => {
             <div className='payment-modal-body'>
                 <div className='payment-header-container'>
                     <h1 className='payment-modal-header'>Upgrade your Figmafolio account</h1>
-                    <h1 className='payment-modal-sub-header'> Try it free (7 or 30 days) and cancel anytime during the trial period.</h1>
+                    <h1 className='payment-modal-sub-header'>Try it for free (7 or 30 days) and cancel anytime during the trial period.</h1>
                 </div>
 
                 {monthlySubscription === "monthlyPlan" && renderPlanCards(plan => plan.title !== 'Free')}

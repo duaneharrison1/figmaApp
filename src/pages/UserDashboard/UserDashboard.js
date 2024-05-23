@@ -29,6 +29,7 @@ function UserDashboard() {
     const [showUpgradeModal, setShowUpgradeModal] = useState(false);
     const [canCreate, setCanCreate] = useState(null);
     const [docCount, setDocCount] = useState(null)
+    const [trialConsume, setTrialConsume] = useState(null)
     const [subscriptionType, setSubscriptionType] = useState("")
     const [changeSubPlan, setChangeSubPlan] = useState(null)
     const dbFirestore = firebase.firestore();
@@ -85,6 +86,7 @@ function UserDashboard() {
                                             setCanCreate("false")
                                         }
                                     } else if (subscription.data().status == "canceled" || subscription.data().status == "past_due") {
+                                        setTrialConsume("true")
                                         if (docCount === 0) {
                                             setCanCreate("true")
                                             setSubscriptionType("regular")
@@ -144,7 +146,7 @@ function UserDashboard() {
                 price: priceId,
                 success_url: window.location.origin,
                 cancel_url: window.location.origin,
-                 trial_period_days: 7,
+                 trial_period_days :trialConsume === "true" ? 0 : 7,
                  allow_promotion_codes: true,
             })
         docRef.onSnapshot(async (snap) => {
@@ -170,7 +172,7 @@ function UserDashboard() {
                     price: priceId,
                     success_url: window.location.origin,
                     cancel_url: window.location.origin,
-                    trial_period_days: 30,
+                    trial_period_days : trialConsume === "true" ? 0 : 30,
                     allow_promotion_codes: true,
                     // automatic_tax: true,
                 })
@@ -188,13 +190,12 @@ function UserDashboard() {
     }
 
     const goToEdit = (object) => {
-
-        navigate("/" + currentLanguage + '/folio-form', { state: { object, subscriptionType: subscriptionType } });
+        navigate("/" + currentLanguage + '/folio-form', { state: { object, subscriptionType: subscriptionType , trialConsume: trialConsume} });
     }
 
     const goToNewForm = () => {
         if (canCreate === "true" && docCount !== null) {
-            navigate("/" + currentLanguage + '/folio-form', { state: { subscriptionType: subscriptionType } });
+            navigate("/" + currentLanguage + '/folio-form', { state: { subscriptionType: subscriptionType , trialConsume: trialConsume} });
         } else if (canCreate === "false" && docCount !== null) {
             setShowUpgradeModal(true);
         }

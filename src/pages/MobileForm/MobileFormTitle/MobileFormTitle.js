@@ -57,6 +57,7 @@ export const MobileFormTitle = (props) => {
   );
 
   const [subscriptionType, setSubscriptionType] = useState(location && location.state  && location.state.subscriptionType ? location.state.subscriptionType : "");
+  const [trialConsume, setTrialConsume] = useState(location && location.state  && location.state.trialConsume ? location.state.trialConsume : "");
   
   const navigate = useNavigate();
   function generateRandomString(length) {
@@ -143,7 +144,8 @@ export const MobileFormTitle = (props) => {
             figmaDesktopUrl: figmaDesktopUrl,
             figmaMobileUrl: figmaMobileUrl
           }
-        }, subscriptionType : subscriptionType
+        }, subscriptionType : subscriptionType,
+        trialConsume: trialConsume
       }
     }
     );

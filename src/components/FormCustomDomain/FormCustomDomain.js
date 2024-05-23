@@ -12,6 +12,7 @@ export default function FormCustomDomain(props) {
     const user = auth.currentUser;
     const dbFirestore = firebase.firestore();
     const subscriptionType = props.subscriptionType
+    const trialConsume = props.trialConsume
     const [domain, setDomain] = useState(props.setDomain || "");
     const [showModal, setShowModal] = useState(false);
     const handleShowModal = () => {
@@ -33,7 +34,7 @@ export default function FormCustomDomain(props) {
                 price: priceId,
                 success_url: window.location.origin,
                 cancel_url: window.location.origin,
-                trial_period_days: 7,
+                trial_period_days : trialConsume === "true" ? 0 : 7,
                 allow_promotion_codes: true,
             })
         docRef.onSnapshot(async (snap) => {
@@ -54,7 +55,7 @@ export default function FormCustomDomain(props) {
                 price: priceId,
                 success_url: window.location.origin,
                 cancel_url: window.location.origin,
-                trial_period_days: 30,
+                trial_period_days : trialConsume === "true" ? 0 : 30,
                 allow_promotion_codes: true,
             })
         docRef.onSnapshot(async (snap) => {

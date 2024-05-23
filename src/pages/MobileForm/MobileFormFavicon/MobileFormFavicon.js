@@ -58,6 +58,7 @@ export const MobileFormFavicon = (props) => {
       );
 
       const [subscriptionType, setSubscriptionType] = useState(location && location.state  && location.state.subscriptionType ? location.state.subscriptionType : "");
+      const [trialConsume, setTrialConsume] = useState(location && location.state  && location.state.trialConsume ? location.state.trialConsume : "");
       const [image, setImage]  = useState(
         location && location.state && location.state.object && location.state.object.faviconUrl
           ? location.state.object.faviconUrl
@@ -86,7 +87,7 @@ export const MobileFormFavicon = (props) => {
                 price: priceId,
                 success_url: window.location.origin,
                 cancel_url: window.location.origin,
-                trial_period_days: 7,
+                trial_period_days : trialConsume === "true" ? 0 : 7,
                 allow_promotion_codes: true,
             })
         docRef.onSnapshot(async (snap) => {
@@ -107,7 +108,7 @@ export const MobileFormFavicon = (props) => {
                 price: priceId,
                 success_url: window.location.origin,
                 cancel_url: window.location.origin,
-                trial_period_days: 30,
+                trial_period_days : trialConsume === "true" ? 0 : 30,
                 allow_promotion_codes: true,
             })
         docRef.onSnapshot(async (snap) => {
@@ -208,7 +209,8 @@ export const MobileFormFavicon = (props) => {
                   figmaDesktopUrl: figmaDesktopUrl,
                   figmaMobileUrl: figmaMobileUrl
                 }
-              }, subscriptionType : subscriptionType
+              }, subscriptionType : subscriptionType,
+              trialConsume: trialConsume
             }
           }
         );
@@ -226,7 +228,7 @@ export const MobileFormFavicon = (props) => {
                 <>
                 <div> 
                     <p className='form-favicon-note-disabled'>This is a small icon which will represent your website at the top of a web browser and in browser's bookmark bar, history and in search results.</p>
-                    <h2 className='mobile-form-sub-header-disable'>Website Icon</h2>
+                    <h2 className='mobile-form-sub-header'>Website Icon</h2>
                     <div className='button-img-upload-container'>
                         <ButtonClear className='mobile-form-upload-image-disabled' onClick={onButtonClick} label={image !== '' ? "Change image" : "Upload image"} />
                     </div>

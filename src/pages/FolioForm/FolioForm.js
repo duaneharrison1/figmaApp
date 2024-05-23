@@ -27,6 +27,7 @@ export default function FolioForm() {
   const dbFirestore = firebase.firestore();
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [subscriptionType, setSubscriptionType] = useState(location.state.subscriptionType);
+  const [trialConsume, setTrialConsume] = useState(location.state.subscriptionType);
   const user = auth.currentUser;
 
   useEffect(() => {
@@ -389,87 +390,36 @@ export default function FolioForm() {
 
   const handleTabClickMobile = (tabId, event) => {
     event.preventDefault();
-    console.log(tabId)
-    if (tabId === "tab1") {
-      navigate("/" + currentLanguage + "/mobile-form-title", {
-        state: {
-          object: {
-            id: docId,
-            title: title,
-            generatedUrl: generatedUrl,
-            faviconUrl: faviconImage,
-            customDomain: domain,
-            urls: {
-              figmaDesktopUrl: figmaDesktopUrl,
-              figmaMobileUrl: figmaMobileUrl
-            }
-          }, subscriptionType: subscriptionType
+    console.log(tabId);
+  
+    const basePath = `/${currentLanguage}`;
+    const commonState = {
+      object: {
+        id: docId,
+        title: title,
+        generatedUrl: generatedUrl,
+        faviconUrl: faviconImage,
+        customDomain: domain,
+        urls: {
+          figmaDesktopUrl: figmaDesktopUrl,
+          figmaMobileUrl: figmaMobileUrl
         }
-      })
-    } else if (tabId === "tab2") {
-      navigate("/" + currentLanguage + "/mobile-form-content", {
-        state: {
-          object: {
-            id: docId,
-            title: title,
-            generatedUrl: generatedUrl,
-            faviconUrl: faviconImage,
-            customDomain: domain,
-            urls: {
-              figmaDesktopUrl: figmaDesktopUrl,
-              figmaMobileUrl: figmaMobileUrl
-            }
-          }, subscriptionType: subscriptionType
-        }
-      });
-    } else if (tabId === "tab3") {
-      navigate("/" + currentLanguage + "/mobile-form-domain", {
-        state: {
-          object: {
-            id: docId,
-            title: title,
-            generatedUrl: generatedUrl,
-            faviconUrl: faviconImage,
-            customDomain: domain,
-            urls: {
-              figmaDesktopUrl: figmaDesktopUrl,
-              figmaMobileUrl: figmaMobileUrl
-            }
-          }, subscriptionType: subscriptionType
-        }
-      });
-    } else if (tabId === "tab4") {
-      navigate("/" + currentLanguage + "/mobile-form-favicon", {
-        state: {
-          object: {
-            id: docId,
-            title: title,
-            generatedUrl: generatedUrl,
-            faviconUrl: faviconImage,
-            customDomain: domain,
-            urls: {
-              figmaDesktopUrl: figmaDesktopUrl,
-              figmaMobileUrl: figmaMobileUrl
-            }
-          }, subscriptionType: subscriptionType
-        }
-      });
-    } else if (tabId === "tab5") {
-      navigate("/" + currentLanguage + "/mobile-instruction", {
-        state: {
-          object: {
-            id: docId,
-            title: title,
-            generatedUrl: generatedUrl,
-            faviconUrl: faviconImage,
-            customDomain: domain,
-            urls: {
-              figmaDesktopUrl: figmaDesktopUrl,
-              figmaMobileUrl: figmaMobileUrl
-            }
-          }, subscriptionType: subscriptionType
-        }
-      });
+      },
+      subscriptionType: subscriptionType,
+      trialConsume: trialConsume
+    };
+  
+    const tabPaths = {
+      tab1: `${basePath}/mobile-form-title`,
+      tab2: `${basePath}/mobile-form-content`,
+      tab3: `${basePath}/mobile-form-domain`,
+      tab4: `${basePath}/mobile-form-favicon`,
+      tab5: `${basePath}/mobile-instruction`
+    };
+  
+    const navigatePath = tabPaths[tabId];
+    if (navigatePath) {
+      navigate(navigatePath, { state: commonState });
     }
   };
 
@@ -594,10 +544,10 @@ export default function FolioForm() {
                         <FormContent onChildDesktopUrl={handleFigmaDesktopUrl} onChildFigmaMobileUrl={handleFigmaMobileUrl} setFigmaMobileUrl={figmaMobileUrl} setFigmaDesktopUrl={figmaDesktopUrl} saveFigmaUrl={saveFigmaUrl} goToPreview={goToPreview} />
                       </div>
                       <div className={`tab-pane fade ${activeTab === 'tab3' ? 'show active' : ''}`} id="tab3">
-                        <FormCustomDomain onChildDomain={handleDomain} setDomain={domain} saveDomain={saveDomain} subscriptionType={subscriptionType} generatedUrl={generatedUrl} />
+                        <FormCustomDomain onChildDomain={handleDomain} setDomain={domain} saveDomain={saveDomain} subscriptionType={subscriptionType} trialConsume={trialConsume} generatedUrl={generatedUrl} />
                       </div>
                       <div className={`tab-pane fade ${activeTab === 'tab4' ? 'show active' : ''}`} id="tab4">
-                        <FormFavicon onChildFavicon={handleFaviconImage} setFaviconImage={faviconImage} subscriptionType={subscriptionType} />
+                        <FormFavicon onChildFavicon={handleFaviconImage} setFaviconImage={faviconImage} subscriptionType={subscriptionType} trialConsume = {trialConsume} />
                       </div>
                       <div className={`tab-pane fade ${activeTab === 'tab5' ? 'show active' : ''}`} id="tab5">
                         <FormInstruction />

@@ -33,6 +33,7 @@ export const MobileFormContent = (props) => {
   );
 
   const [subscriptionType, setSubscriptionType] = useState(location && location.state  && location.state.subscriptionType ? location.state.subscriptionType : "");
+  const [trialConsume, setTrialConsume] = useState(location && location.state  && location.state.trialConsume ? location.state.trialConsume : "");
   const [domain, setDomain] = useState(
     location && location.state && location.state.object && location.state.object.customDomain
       ? location.state.object.customDomain
@@ -174,7 +175,8 @@ export const MobileFormContent = (props) => {
                   figmaDesktopUrl: figmaDesktopUrl,
                   figmaMobileUrl: figmaMobileUrl
                 }
-              }, subscriptionType: subscriptionType
+              }, subscriptionType: subscriptionType,
+              trialConsume: trialConsume
             }
           });
         } else {
@@ -198,7 +200,8 @@ export const MobileFormContent = (props) => {
                 figmaDesktopUrl: figmaDesktopUrl,
                 figmaMobileUrl: figmaMobileUrl
               }
-            }, subscriptionType : subscriptionType
+            }, subscriptionType : subscriptionType,
+            trialConsume: trialConsume
           }
         }
       );
