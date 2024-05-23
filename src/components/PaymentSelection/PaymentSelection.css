@@ -1,6 +1,5 @@
 .payment-feature {
     display: flex;
-
 }
 
 .payment-modal-selection-title {
@@ -191,23 +190,10 @@
 }
 
 .button-upgrade-container {
-    position: absolute;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
     align-items: center;
     bottom: 0;
-    padding-bottom: 20px;
-}
-
-.button-upgrade-container-2 {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    bottom: 0;
-    padding-bottom: 20px;
 }
 
 .plancard-divider{
@@ -222,7 +208,7 @@
     border-top: 1px solid white;
 }
 .btn-upgrade-plan-yearly{
-    min-width: 250px;
+   width: 100%;
     padding: 12px 20px;
     border-radius: 40px;
     font-weight: 400;
@@ -234,7 +220,7 @@
     font-weight: 600;
 }
 .btn-upgrade-plan {
-    min-width: 250px;
+    width: 100%;
     padding: 12px 24px;
     border-radius: 40px;
     font-weight: 400;
@@ -247,7 +233,7 @@
 }
 
 .btn-current-plan {
-    min-width: 250px;
+    width: 100%;
     padding: 12px 24px;
     border-radius: 40px;
     font-weight: 400;
@@ -271,14 +257,16 @@
 }
 
 @media (max-width: 767px) {
-
+    .payment-modal-body {
+        margin: 64px 18px 18px 18px;
+    }
     .payment-feature-container {
         min-height: 0px;
         padding-bottom: 50px;
     }
 
     .payment-modal-header {
-        font-size: 12px;
+        font-size: 18px;
     }
 
     .payment-modal-selection-title {
@@ -311,11 +299,6 @@
         margin-bottom: 24px;
     }
 
-    .button-upgrade-container-2 {
-        position: relative;
-        padding-bottom: 0px;
-    }
-
     .button-upgrade-container {
         position: relative;
         padding-bottom: 0px;
@@ -328,18 +311,13 @@
 
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 768px) and (max-width: 1200px) {
     .payment-feature-container {
         min-height: 0px;
         padding-bottom: 50px;
     }
 
     .button-upgrade-container {
-        position: relative;
-        padding-bottom: 0px;
-    }
-
-    .button-upgrade-container-2 {
         position: relative;
         padding-bottom: 0px;
     }
@@ -361,9 +339,6 @@
         font-size: 13px;
     }
 
-    .payment-modal-header {
-        font-size: 12px;
-    }
 
     .payment-modal-selection-title {
         font-size: 14px;

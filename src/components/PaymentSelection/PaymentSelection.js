@@ -20,7 +20,7 @@ const PaymentSelection = (props) => {
     }
 
     const PlanCard = ({ planIcon, title, amount, month, billDesc, features, buttonLabel, buttonClass, onClick }) => (
-        <div className='col-lg-4'>
+        <div className='col-xl-4'>
             <div className={`plan-card ${buttonClass.includes('yearly') ? 'green-card' : 'regular-card'}`}>
                 <img className='plan-icon' src={planIcon} alt={`${title} Plan`} />
                 <h1 className={`payment-modal-selection-title${buttonClass.includes('yearly') ? '-yearly' : ''}`}>{title}</h1>
