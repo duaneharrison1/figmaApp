@@ -169,6 +169,8 @@ export const MobileFormDomain = (props) => {
   }
 
 
+
+  
   const MonthlyPayment = async (priceId) => {
     const docRef = await dbFirestore.collection('user').doc(user.uid).collection
       ("checkout_sessions").add({

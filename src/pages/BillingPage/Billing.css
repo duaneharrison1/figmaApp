@@ -21,3 +21,12 @@
 .unsub-div {
     padding-top: 20px;
 }
+
+
+@media only screen and (max-width: 768px) {
+    .billing-card {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+}

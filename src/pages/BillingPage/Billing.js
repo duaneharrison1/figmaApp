@@ -21,7 +21,7 @@ export default function Billing() {
     const [showUpgradeModal, setShowUpgradeModal] = useState(false);
     const [name, setName] = useState([]);
     const lng = navigator.language;
-
+    const [trialConsume, setTrialConsume] = useState(null)
     // useEffect(() => {
 
     //     i18n.changeLanguage(lng);
@@ -57,6 +57,7 @@ export default function Billing() {
                                     } else if (subscription.data().status == "canceled") {
                                         setSubscriptionType("regular")
                                         setSubscriptionTypeDesc(t('billed-monthly-at-o'))
+                                        setTrialConsume("true")
 
                                     } else {
                                         setSubscriptionType("regular")
@@ -109,7 +110,7 @@ export default function Billing() {
                 price: priceId,
                 success_url: window.location.origin,
                 cancel_url: window.location.origin,
-                trial_period_days: 7,
+                trial_period_days :trialConsume === "true" ? 0 : 7,
                 allow_promotion_codes: true,
             })
         docRef.onSnapshot(async (snap) => {
@@ -133,7 +134,7 @@ export default function Billing() {
                     price: priceId,
                     success_url: window.location.origin,
                     cancel_url: window.location.origin,
-                    trial_period_days: 30,
+                    trial_period_days :trialConsume === "true" ? 0 : 30,
                     allow_promotion_codes: true,
                 })
             docRef.onSnapshot(async (snap) => {

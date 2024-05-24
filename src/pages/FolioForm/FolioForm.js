@@ -27,7 +27,7 @@ export default function FolioForm() {
   const dbFirestore = firebase.firestore();
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [subscriptionType, setSubscriptionType] = useState(location.state.subscriptionType);
-  const [trialConsume, setTrialConsume] = useState(location.state.subscriptionType);
+  const [trialConsume, setTrialConsume] = useState(location.state.trialConsume);
   const user = auth.currentUser;
 
   useEffect(() => {
