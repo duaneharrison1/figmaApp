@@ -240,16 +240,14 @@ export default function Preview() {
     useEffect(() => {
         const handleResize = () => {
             setUserIsDesktop(window.innerWidth > 768);
-            // if (isOpenInMobile) {
-            //     setUserIsDesktop(false);
-            //   }
         };
+        handleResize()
         window.addEventListener('resize', handleResize);
         return () => {
             window.removeEventListener('resize', handleResize);
         };
        
-    }, [userIsDesktop]);
+    }, []);
 
     return (
         <>
