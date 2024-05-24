@@ -10,6 +10,7 @@ import PaymentSelection from '../PaymentSelection/PaymentSelection';
 export default function FormFavicon(props) {
     const [imgFromLocal, setImgFromLocal] = useState("");
     const subscriptionType = props.subscriptionType
+    const trialConsume = props.trialConsume
     const user = auth.currentUser;
     const dbFirestore = firebase.firestore();
     const [image, setImage] = useState(props.setFaviconImage || "");
@@ -28,7 +29,9 @@ export default function FormFavicon(props) {
             ("checkout_sessions").add({
                 price: priceId,
                 success_url: window.location.origin,
-                cancel_url: window.location.origin
+                cancel_url: window.location.origin,
+                trial_period_days : trialConsume === "true" ? 0 : 7,
+                allow_promotion_codes: true,
             })
         docRef.onSnapshot(async (snap) => {
             const { error, sessionId } = snap.data();
@@ -47,7 +50,9 @@ export default function FormFavicon(props) {
             ("checkout_sessions").add({
                 price: priceId,
                 success_url: window.location.origin,
-                cancel_url: window.location.origin
+                cancel_url: window.location.origin,
+                trial_period_days : trialConsume === "true" ? 0 : 30,
+                allow_promotion_codes: true,
             })
         docRef.onSnapshot(async (snap) => {
             const { error, sessionId } = snap.data();

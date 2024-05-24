@@ -10,15 +10,55 @@ import PaymentSelection from '../../../components/PaymentSelection/PaymentSelect
 import ButtonClear from '../../../components/ButtonClear/ButtonClear';
 import { loadStripe } from '@stripe/stripe-js';
 import Footer from '../../../components/Footer/Footer';
+import MobileNavBar from '../MobileNavBar/MobileNavbar';
 export const MobileFormFavicon = (props) => {
     const currentLanguage = i18n.language;
+    const navigate = useNavigate();
     const dbFirestore = firebase.firestore();
     const user = auth.currentUser;
     const location = useLocation();
     const [randomurl, setRandomUrl] = useState('');
-    const [docId, setDocId] = useState(location && location.state && location.state.object? location.state.object.id: "");
-    const [generatedUrl, setGeneratedUrl] = useState(location && location.state && location.state.object && location.state.object.generatedUrl? location.state.object.generatedUrl: "");
-    const [subscriptionType, setSubscriptionType] = useState(location && location.state && location.state.object && location.state.object.subscriptionType? location.state.object.subscriptionType: "");
+    const [docId, setDocId] = useState(
+        location && location.state && location.state.object
+          ? location.state.object.id
+          : ""
+      );
+    
+      const [title, setTitle] = useState(
+        location && location.state && location.state.object && location.state.object.title
+          ? location.state.object.title
+          : ""
+      );
+      const [generatedUrl, setGeneratedUrl] = useState(
+        location && location.state && location.state.object && location.state.object.generatedUrl
+          ? location.state.object.generatedUrl
+          : ""
+      );
+      const [faviconImage, setFaviconImage] = useState(
+        location && location.state && location.state.object && location.state.object.faviconUrl
+          ? location.state.object.faviconUrl
+          : ""
+      );
+    
+      const [figmaDesktopUrl, setFigmaDesktopUrl] = useState(
+        location.state && location.state.object && location.state.object.urls && location.state.object.urls.figmaDesktopUrl
+          ? location.state.object.urls.figmaDesktopUrl
+          : ""
+      );
+      const [figmaMobileUrl, setFigmaMobileUrl] = useState(
+        location.state && location.state.object && location.state.object.urls && location.state.object.urls.figmaMobileUrl
+          ? location.state.object.urls.figmaMobileUrl
+          : ""
+      );
+    
+      const [domain, setDomain] = useState(
+        location && location.state && location.state.object && location.state.object.customDomain
+          ? location.state.object.customDomain
+          : ""
+      );
+
+      const [subscriptionType, setSubscriptionType] = useState(location && location.state  && location.state.subscriptionType ? location.state.subscriptionType : "");
+      const [trialConsume, setTrialConsume] = useState(location && location.state  && location.state.trialConsume ? location.state.trialConsume : "");
       const [image, setImage]  = useState(
         location && location.state && location.state.object && location.state.object.faviconUrl
           ? location.state.object.faviconUrl
@@ -46,7 +86,9 @@ export const MobileFormFavicon = (props) => {
             ("checkout_sessions").add({
                 price: priceId,
                 success_url: window.location.origin,
-                cancel_url: window.location.origin
+                cancel_url: window.location.origin,
+                trial_period_days : trialConsume === "true" ? 0 : 7,
+                allow_promotion_codes: true,
             })
         docRef.onSnapshot(async (snap) => {
             const { error, sessionId } = snap.data();
@@ -65,7 +107,9 @@ export const MobileFormFavicon = (props) => {
             ("checkout_sessions").add({
                 price: priceId,
                 success_url: window.location.origin,
-                cancel_url: window.location.origin
+                cancel_url: window.location.origin,
+                trial_period_days : trialConsume === "true" ? 0 : 30,
+                allow_promotion_codes: true,
             })
         docRef.onSnapshot(async (snap) => {
             const { error, sessionId } = snap.data();
@@ -116,6 +160,7 @@ export const MobileFormFavicon = (props) => {
               faviconUrl: faviconUrlFromFirebase,
               updatedAt: new Date()
             })
+            setFaviconImage(faviconUrlFromFirebase)
             alert("Success");
           } catch (error) {
             alert(error);
@@ -132,6 +177,7 @@ export const MobileFormFavicon = (props) => {
             })
             setGeneratedUrl(randomurl);
             setDocId(docRef.id);
+            setFaviconImage(newFaviconImage)
             alert("Success");
           } catch (error) {
             alert(error);
@@ -147,20 +193,44 @@ export const MobileFormFavicon = (props) => {
         }
     }
 
+    
+    const backToMobileFolioForm = () => {
+  
+        navigate("/" + currentLanguage + "/folio-form",
+        {
+            state: {
+              object: {
+                id: docId,
+                title: title,
+                generatedUrl: generatedUrl,
+                faviconUrl: faviconImage,
+                customDomain: domain,
+                urls: {
+                  figmaDesktopUrl: figmaDesktopUrl,
+                  figmaMobileUrl: figmaMobileUrl
+                }
+              }, subscriptionType : subscriptionType,
+              trialConsume: trialConsume
+            }
+          }
+        );
+      }
+
     return (
         <>
          <div className='app-wrapper-mobile'>
+         <MobileNavBar title={title} backToMobileFolioForm={backToMobileFolioForm}/>
             <div className='mobile-form-content-container'>
         <div className='row first-div'>
-            <h1 className='form-title'>Favicon</h1>
+            <h1 className='mobile-form-title'>Favicon</h1>
 
             {subscriptionType === "regular" ?
                 <>
                 <div> 
                     <p className='form-favicon-note-disabled'>This is a small icon which will represent your website at the top of a web browser and in browser's bookmark bar, history and in search results.</p>
-                    <h2 className='form-sub-header-disable'>Website Icon</h2>
+                    <h2 className='mobile-form-sub-header'>Website Icon</h2>
                     <div className='button-img-upload-container'>
-                        <ButtonClear className='upload-image-disabled' onClick={onButtonClick} label={image !== '' ? "Change image" : "Upload image"} />
+                        <ButtonClear className='mobile-form-upload-image-disabled' onClick={onButtonClick} label={image !== '' ? "Change image" : "Upload image"} />
                     </div>
                     <p className='form-favicon-note-disabled'>&#8226; Submit a PNG, JGP or SVG which is at least 70px x 70px. For best results, use an image which is 260px x 260px or more. </p>
                     <div className='regular-user-message-container'>
@@ -170,7 +240,7 @@ export const MobileFormFavicon = (props) => {
                                 <p className='regular-user-message'> Take your website to the next level by upgrading your Figmafolio plan</p>
                             </div>
                             <div className='upgrade-now-btn-container col-md-4'>
-                                <ButtonColored className="upgrade-now" label="Upgrade now" onClick={handleShowModal} />
+                                <ButtonColored className="mobile-form-upgrade-now" label="Upgrade now" onClick={handleShowModal} />
                             </div>
                         </div>
                     </div>
@@ -179,11 +249,13 @@ export const MobileFormFavicon = (props) => {
                 :
                 <>
                     <p className='form-favicon-note'>This is a small icon which will represent your website at the top of a web browser and in browser's bookmark bar, history and in search results.</p>
-                    <h2 className='form-sub-header'>Website Icon</h2>
-
+                    <h2 className='mobile-form-sub-header'>Website Icon</h2>
+                    <div>
                     {image !== '' ? <img src={image} className='favicon-prev' /> : null}
+                    </div>
+                   
                     <div className='button-img-upload-container'>
-                        <ButtonClear className='upload-image' onClick={onButtonClick} label={image !== '' ? "Change image" : "Upload image"} />
+                        <ButtonClear className='mobile-form-upload-image' onClick={onButtonClick} label={image !== '' ? "Change image" : "Upload image"} />
                     </div>
 
                     <input

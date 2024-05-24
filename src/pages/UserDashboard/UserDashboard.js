@@ -29,6 +29,7 @@ function UserDashboard() {
     const [showUpgradeModal, setShowUpgradeModal] = useState(false);
     const [canCreate, setCanCreate] = useState(null);
     const [docCount, setDocCount] = useState(null)
+    const [trialConsume, setTrialConsume] = useState(null)
     const [subscriptionType, setSubscriptionType] = useState("")
     const [changeSubPlan, setChangeSubPlan] = useState(null)
     const dbFirestore = firebase.firestore();
@@ -73,7 +74,7 @@ function UserDashboard() {
                                 setSubscriptionType("regular")
                             } else {
                                 snapshot.forEach(subscription => {
-                                    if (subscription.data().status == "active") {
+                                    if (subscription.data().status == "active" || subscription.data().status == "trialing") {
                                         if (subscription.data().items[0].plan.id == process.env.REACT_APP_YEARLY) {
                                             setCanCreate("true")
                                             setSubscriptionType("annualPlan")
@@ -85,6 +86,7 @@ function UserDashboard() {
                                             setCanCreate("false")
                                         }
                                     } else if (subscription.data().status == "canceled" || subscription.data().status == "past_due") {
+                                        setTrialConsume("true")
                                         if (docCount === 0) {
                                             setCanCreate("true")
                                             setSubscriptionType("regular")
@@ -136,13 +138,16 @@ function UserDashboard() {
     };
 
     const MonthlyPayment = async (priceId) => {
+        console.log("xxxx" +process.env.REACT_APP_STRIPE_KEY)
         setUpgradeClick(true)
         setShowUpgradeModal(false);
         const docRef = await dbFirestore.collection('user').doc(user.uid).collection
             ("checkout_sessions").add({
                 price: priceId,
                 success_url: window.location.origin,
-                cancel_url: window.location.origin
+                cancel_url: window.location.origin,
+                 trial_period_days :trialConsume === "true" ? 0 : 7,
+                 allow_promotion_codes: true,
             })
         docRef.onSnapshot(async (snap) => {
             const { error, sessionId } = snap.data();
@@ -166,7 +171,10 @@ function UserDashboard() {
                 ("checkout_sessions").add({
                     price: priceId,
                     success_url: window.location.origin,
-                    cancel_url: window.location.origin
+                    cancel_url: window.location.origin,
+                    trial_period_days : trialConsume === "true" ? 0 : 30,
+                    allow_promotion_codes: true,
+                    // automatic_tax: true,
                 })
             docRef.onSnapshot(async (snap) => {
                 const { error, sessionId } = snap.data();
@@ -182,13 +190,12 @@ function UserDashboard() {
     }
 
     const goToEdit = (object) => {
-
-        navigate("/" + currentLanguage + '/folio-form', { state: { object, subscriptionType: subscriptionType } });
+        navigate("/" + currentLanguage + '/folio-form', { state: { object, subscriptionType: subscriptionType , trialConsume: trialConsume} });
     }
 
     const goToNewForm = () => {
         if (canCreate === "true" && docCount !== null) {
-            navigate("/" + currentLanguage + '/folio-form', { state: { subscriptionType: subscriptionType } });
+            navigate("/" + currentLanguage + '/folio-form', { state: { subscriptionType: subscriptionType , trialConsume: trialConsume} });
         } else if (canCreate === "false" && docCount !== null) {
             setShowUpgradeModal(true);
         }

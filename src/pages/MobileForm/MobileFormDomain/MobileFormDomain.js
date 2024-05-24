@@ -11,21 +11,58 @@ import { loadStripe } from '@stripe/stripe-js';
 import axios from "axios";
 import CustomDomainFunction from '../../../components/CustomDomainInstruction/CustomDomainInstruction';
 import Footer from '../../../components/Footer/Footer';
+import MobileNavBar from '../MobileNavBar/MobileNavbar';
 export const MobileFormDomain = (props) => {
   const currentLanguage = i18n.language;
+  const navigate = useNavigate();
   const dbFirestore = firebase.firestore();
   const user = auth.currentUser;
   const location = useLocation();
   const [randomurl, setRandomUrl] = useState('');
-  const [docId, setDocId] = useState(location && location.state && location.state.object ? location.state.object.id : "");
-  const [generatedUrl, setGeneratedUrl] = useState(location && location.state && location.state.object && location.state.object.generatedUrl ? location.state.object.generatedUrl : "");
-  const [subscriptionType, setSubscriptionType] = useState(location && location.state && location.state.object && location.state.object.subscriptionType ? location.state.object.subscriptionType : "");
+  const [docId, setDocId] = useState(
+    location && location.state && location.state.object
+      ? location.state.object.id
+      : ""
+  );
+
+  const [title, setTitle] = useState(
+    location && location.state && location.state.object && location.state.object.title
+      ? location.state.object.title
+      : ""
+  );
+  const [generatedUrl, setGeneratedUrl] = useState(
+    location && location.state && location.state.object && location.state.object.generatedUrl
+      ? location.state.object.generatedUrl
+      : ""
+  );
+  const [faviconImage, setFaviconImage] = useState(
+    location && location.state && location.state.object && location.state.object.faviconUrl
+      ? location.state.object.faviconUrl
+      : ""
+  );
+
+  const [figmaDesktopUrl, setFigmaDesktopUrl] = useState(
+    location.state && location.state.object && location.state.object.urls && location.state.object.urls.figmaDesktopUrl
+      ? location.state.object.urls.figmaDesktopUrl
+      : ""
+  );
+  const [figmaMobileUrl, setFigmaMobileUrl] = useState(
+    location.state && location.state.object && location.state.object.urls && location.state.object.urls.figmaMobileUrl
+      ? location.state.object.urls.figmaMobileUrl
+      : ""
+  );
+  const [subscriptionType, setSubscriptionType] = useState(location && location.state && location.state.subscriptionType ? location.state.subscriptionType : "");
+  const [trialConsume, setTrialConsume] = useState(location && location.state  && location.state.trialConsume ? location.state.trialConsume : "");
   const [oldDomain, setOldDomain] = useState(
     location && location.state && location.state.object && location.state.object.customDomain
       ? location.state.object.customDomain
       : ""
   );
-  const [domain, setDomain] = useState(props.setDomain || "");
+  const [domain, setDomain] = useState(
+    location && location.state && location.state.object && location.state.object.customDomain
+      ? location.state.object.customDomain
+      : ""
+  );
   const [showModal, setShowModal] = useState(false);
   const headers = {
     'Content-Type': 'application/json',
@@ -92,8 +129,7 @@ export const MobileFormDomain = (props) => {
     if (docId) {
       if (oldDomain !== domain) {
         console.log("wentHere1")
-      }
-      try {
+   try {
         await deleteDomainFromVercel();
         await addDomainToVercel();
         await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
@@ -105,6 +141,8 @@ export const MobileFormDomain = (props) => {
         alert(error.response.data.error.code);
         return;
       }
+      }
+   
     } else {
       console.log(domain)
       if (domain) {
@@ -131,12 +169,16 @@ export const MobileFormDomain = (props) => {
   }
 
 
+
+  
   const MonthlyPayment = async (priceId) => {
     const docRef = await dbFirestore.collection('user').doc(user.uid).collection
       ("checkout_sessions").add({
         price: priceId,
         success_url: window.location.origin,
-        cancel_url: window.location.origin
+        cancel_url: window.location.origin,
+        trial_period_days : trialConsume === "true" ? 0 : 7,
+        allow_promotion_codes: true,
       })
     docRef.onSnapshot(async (snap) => {
       const { error, sessionId } = snap.data();
@@ -155,7 +197,9 @@ export const MobileFormDomain = (props) => {
       ("checkout_sessions").add({
         price: priceId,
         success_url: window.location.origin,
-        cancel_url: window.location.origin
+        cancel_url: window.location.origin,
+        trial_period_days : trialConsume === "true" ? 0 : 30,
+        allow_promotion_codes: true,
       })
     docRef.onSnapshot(async (snap) => {
       const { error, sessionId } = snap.data();
@@ -169,68 +213,94 @@ export const MobileFormDomain = (props) => {
     })
   }
 
+  const backToMobileFolioForm = () => {
+
+    navigate("/" + currentLanguage + "/folio-form",
+      {
+        state: {
+          object: {
+            id: docId,
+            title: title,
+            generatedUrl: generatedUrl,
+            faviconUrl: faviconImage,
+            customDomain: domain,
+            urls: {
+              figmaDesktopUrl: figmaDesktopUrl,
+              figmaMobileUrl: figmaMobileUrl
+            }
+          }, subscriptionType: subscriptionType,
+          trialConsume: trialConsume
+        }
+      }
+    );
+  }
   return (
     <>
-    <div className='app-wrapper-mobile'>
-            <div className='mobile-form-content-container'>
-      <h1 className='sub-title'>Free domain</h1>
-      {props.generatedUrl ?
-        <p className='free-domain'>  www.figmafolio.com/{props.generatedUrl} </p>
-        :
-        null
-      }
+      <div className='app-wrapper-mobile'>
+        <MobileNavBar title={title} backToMobileFolioForm={backToMobileFolioForm} />
+        <div className='mobile-form-content-container'>
 
-      {subscriptionType === "regular" ?
+          {generatedUrl ?
+            <>
+              <h1 className='mobile-form-title-free-domain m-0'>Free domain</h1>
+              <p className='mobile-free-domain m-0'>  www.figmafolio.com/{generatedUrl} </p>
+            </>
 
-        <>
-          <div>
-            <h1 className='sub-title'>Domain</h1>
-            <h2 className='form-sub-header-disable'>Domain name</h2>
-            <input
-              className='form-input-disabled'
-              type="text"
-              placeholder={t('enter-your-domain')}
-              value={domain}
-              disabled
-              onChange={handleDomain}
-            />
-            <div className='regular-user-message-container'>
-              <div className='row'>
-                <div className='col-md-8'>
-                  <h1 className='regular-user-header'> Your website deserves a custom domain</h1>
-                  <p className='regular-user-message'> Take your website to the next level with a custom domain.</p>
-                </div>
-                <div className='upgrade-now-btn-container col-md-4'>
-                  <ButtonColored className="upgrade-now" label="Upgrade now" onClick={handleShowModal} />
+            :
+            null
+          }
+
+          {subscriptionType === "regular" ?
+
+            <>
+              <div>
+                <h1 className='mobile-form-title-domain m-0'>Domain</h1>
+                <h2 className='mobile-form-sub-header'>Domain name</h2>
+                <input
+                  className='mobile-form-input-disabled'
+                  type="text"
+                  placeholder={t('enter-your-domain')}
+                  value={domain}
+                  disabled
+                  onChange={handleDomain}
+                />
+                <div className='regular-user-message-container'>
+                  <div className='row'>
+                    <div className='col-md-8'>
+                      <h1 className='regular-user-header'> Your website deserves a custom domain</h1>
+                      <p className='regular-user-message'> Take your website to the next level with a custom domain.</p>
+                    </div>
+                    <div className='upgrade-now-btn-container col-md-4'>
+                      <ButtonColored className="mobile-form-upgrade-now" label="Upgrade now" onClick={handleShowModal} />
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </>
+            </>
 
-        :
-        <>
-          <h1 className='sub-title'>Domain</h1>
-          <h2 className='form-sub-header'>Domain name</h2>
-          <div>
-            <input
-              className='form-input'
-              type="text"
-              placeholder={t('enter-your-domain')}
-              value={domain}
-              onChange={handleDomain}
-            />
-            <CustomDomainFunction />
-            <ButtonColored className="folio-form-save-btn" label={"Save"} onClick={saveDomain} />
-          </div>
-        </>}
+            :
+            <>
+              <h1 className='sub-title'>Domain</h1>
+              <h2 className='mobile-mobile-form-sub-header'>Domain name</h2>
+              <div>
+                <input
+                  className='mobile-form-input'
+                  type="text"
+                  placeholder={t('enter-your-domain')}
+                  value={domain}
+                  onChange={handleDomain}
+                />
+                <CustomDomainFunction />
+                <ButtonColored className="mobile-folio-form-save-btn" label={"Save"} onClick={saveDomain} />
+              </div>
+            </>}
 
-      <PaymentSelection show={showModal} handleClose={handleCloseModal}
-        handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_MONTHLY)}
-        handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_YEARLY)} />
+          <PaymentSelection show={showModal} handleClose={handleCloseModal}
+            handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_MONTHLY)}
+            handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_YEARLY)} />
         </div>
-        <Footer/>
-        </div>
+        <Footer />
+      </div>
     </>
   )
 }

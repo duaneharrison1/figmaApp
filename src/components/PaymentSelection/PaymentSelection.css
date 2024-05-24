@@ -1,6 +1,5 @@
 .payment-feature {
     display: flex;
-
 }
 
 .payment-modal-selection-title {
@@ -12,38 +11,74 @@
     margin: 0;
 }
 
-.amount {
-    display: inline-block;
-    height: .75rem;
+.payment-modal-selection-title-yearly {
+    color: white;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    padding-bottom: 32px;
+    margin: 0;
 }
+
 
 .payment-feature-text {
     margin-top: 4px;
     color: #2D2B29;
     font-size: 14px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 300;
+}
+
+.payment-feature-text-yearly {
+    margin-top: 4px;
+    color: white;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
 }
 
 .bill-desc {
-    color: #A0A0A0;
+    color: #666666;
     font-size: 12px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 300;
     line-height: normal;
     margin: 0;
-    padding-bottom: 20px;
+    height: 2em;
+       padding-top: 10px;
+}
+
+.bill-desc-yearly {
+    height: 2em;
+    color: White;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    margin: 0;
+    padding-top: 10px;
+}
+.payment-header-container{
+    text-align: center;
 }
 
 .payment-modal-header {
-    color: var(--grey-10, #272E3B);
+    color:#272E3B;
     font-size: 24px;
     font-style: normal;
     font-weight: 600;
-    padding-bottom: 16px;
+    padding-bottom: 12px;
     margin: 0;
 }
 
+.payment-modal-sub-header {
+    color: #000000;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    padding-bottom: 32px;
+    margin: 0;
+}
 .payment-modal-subheader {
     color: #4E5969;
     font-size: 16px;
@@ -54,7 +89,7 @@
 }
 
 .regular-card {
-    min-height: 430px;
+    min-height: 578px;
     overflow: hidden;
     padding: 20px;
     position: relative;
@@ -64,15 +99,20 @@
 }
 
 .payment-selection-modal {
-    padding-top: 80px;
-    min-width: 878px !important;
+    border-radius: 12px;
+    padding-top: 35px;
+    max-width: 1041px !important;
     min-height: 538px;
     overflow: hidden;
+    padding-left: 24px;
+    padding-right: 24px;
 }
 
 .payment-modal-body {
-    max-width: 900px;
-    padding: 24px;
+    margin: 60px;
+    max-height: calc(100vh - 210px);
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 .amount {
@@ -82,8 +122,20 @@
     font-weight: 600;
     margin: 0;
     padding: 0;
+    display: inline-block;
+    height: .75rem;
 }
 
+.amount-yearly {
+    color: white;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    height: .75rem;
+}
 .month {
     color: #2D2B29;
     font-size: 16px;
@@ -93,20 +145,36 @@
     padding: 0;
 }
 
+.month-yearly{
+    color: white;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+}
+.modal-body {
+    padding: 0;
+}
+
 .check-icon {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     margin-right: 12px;
+}
+.plan-icon {
+    height: 42px;
+    margin-top: 10px;
+    margin-bottom: 19px;
 }
 
 .green-card {
-    min-height: 430px;
+    min-height: 578px;
     overflow: hidden;
     padding: 20px;
     position: relative;
     border-radius: 16px;
-    border: 2px solid #036D21;
-    background: #E6F0E9;
+    background: #4D9F70;
 }
 
 .heading-container {
@@ -125,28 +193,37 @@
 }
 
 .button-upgrade-container {
-    position: absolute;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
     align-items: center;
     bottom: 0;
-    padding-bottom: 20px;
 }
 
-.button-upgrade-container-2 {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
+.plancard-divider{
+    margin-top: 32px;
+    margin-bottom: 32px;
+    border-top: 1px solid #BCBCBC;
+}
+
+.plancard-divider-yearly{
+    margin-top: 32px;
+    margin-bottom: 32px;
+    border-top: 1px solid white;
+}
+.btn-upgrade-plan-yearly{
+   width: 100%;
+    padding: 12px 20px;
+    border-radius: 40px;
+    font-weight: 400;
+    color: #4D9F70;
+    font-size: 16px;
+    border: none;
     bottom: 0;
-    padding-bottom: 20px;
+    background-color: white;
+    font-weight: 600;
 }
-
-
 .btn-upgrade-plan {
-    min-width: 206px;
+    width: 100%;
     padding: 12px 24px;
     border-radius: 40px;
     font-weight: 400;
@@ -159,6 +236,7 @@
 }
 
 .btn-current-plan {
+    width: 100%;
     padding: 12px 24px;
     border-radius: 40px;
     font-weight: 400;
@@ -170,16 +248,28 @@
     font-weight: 600;
 }
 
+.close-container {
+    position: absolute;
+    top: 30px; /* Adjust this value to position vertically */
+    right: 30px; /* Adjust this value to position horizontally */
+    z-index: 1000; /* Ensure it's above other elements */
+}
+
+.close-container img {
+    cursor: pointer;
+}
 
 @media (max-width: 767px) {
-
+    .payment-modal-body {
+        margin: 64px 18px 18px 18px;
+    }
     .payment-feature-container {
         min-height: 0px;
         padding-bottom: 50px;
     }
 
     .payment-modal-header {
-        font-size: 12px;
+        font-size: 18px;
     }
 
     .payment-modal-selection-title {
@@ -192,6 +282,7 @@
     }
 
     .payment-selection-modal {
+        padding-top: 30px;
         min-width: 200px !important;
     }
 
@@ -203,14 +294,13 @@
         font-size: 13px;
     }
 
+    .payment-feature-text-yearly {
+        font-size: 13px;
+    }
+
     .regular-card {
         min-height: 300px;
         margin-bottom: 24px;
-    }
-
-    .button-upgrade-container-2 {
-        position: relative;
-        padding-bottom: 0px;
     }
 
     .button-upgrade-container {
@@ -223,20 +313,22 @@
         margin-bottom: 24px;
     }
 
+    .payment-modal-sub-header{
+        font-size: 16px;
+    }
+
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 768px) and (max-width: 1200px) {
+    .payment-modal-sub-header{
+        font-size: 16px;
+    }
     .payment-feature-container {
         min-height: 0px;
         padding-bottom: 50px;
     }
 
     .button-upgrade-container {
-        position: relative;
-        padding-bottom: 0px;
-    }
-
-    .button-upgrade-container-2 {
         position: relative;
         padding-bottom: 0px;
     }
@@ -254,10 +346,10 @@
     .payment-feature-text {
         font-size: 13px;
     }
-
-    .payment-modal-header {
-        font-size: 12px;
+    .payment-feature-text-yearly {
+        font-size: 13px;
     }
+
 
     .payment-modal-selection-title {
         font-size: 14px;
@@ -265,6 +357,7 @@
     }
 
     .payment-selection-modal {
+        padding-top: 30px;
         min-width: 500px !important;
     }
 

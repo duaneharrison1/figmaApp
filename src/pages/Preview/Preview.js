@@ -30,6 +30,7 @@ export default function Preview() {
     const dbFirestore = firebase.firestore();
     const isOpenInMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     const [subscriptionType, setSubscriptionType] = useState(location.state.subscriptionType);
+    const [trialConsume, setTrialConsume] = useState(location.state.trialConsume);
     const [docId, setDocId] = useState(
         location && location.state && location.state.object
             ? location.state.object.id
@@ -137,7 +138,6 @@ export default function Preview() {
         return resultString;
     }
 
-
     function editUrl(url) {
         const originalString = url;
         const wordToRemove = "https://";
@@ -231,20 +231,19 @@ export default function Preview() {
                     }
                    
                 },
-                subscriptionType: subscriptionType
+                subscriptionType: subscriptionType,
+                trialConsume: trialConsume
             }
         });
     }
 
     useEffect(() => {
         const handleResize = () => {
-            console.log("ity is mobile" + userIsDesktop +"yyyy ")
             setUserIsDesktop(window.innerWidth > 768);
             // if (isOpenInMobile) {
             //     setUserIsDesktop(false);
             //   }
         };
-        console.log("xxx" + userIsDesktop)
         window.addEventListener('resize', handleResize);
         return () => {
             window.removeEventListener('resize', handleResize);

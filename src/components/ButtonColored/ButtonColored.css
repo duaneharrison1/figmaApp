@@ -73,6 +73,21 @@
     background-color: #4D9F70;
 }
 
+
+.mobile-form-upgrade-now {
+    margin-top: 12px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 16px;
+    color: white;
+    border: none;
+    background-color: #4D9F70;
+    width: 100%;
+}
 .upgrade-now {
     padding-top: 12px;
     padding-bottom: 12px;

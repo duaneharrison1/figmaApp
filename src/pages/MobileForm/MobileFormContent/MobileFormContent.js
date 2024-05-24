@@ -9,6 +9,7 @@ import { auth } from '../../../firebase';
 import ButtonClear from '../../../components/ButtonClear/ButtonClear';
 import AlertErrorModal from '../../../components/AlertErrorModal/AlertErrorModal';
 import Footer from '../../../components/Footer/Footer';
+import MobileNavBar from '../MobileNavBar/MobileNavbar';
 export const MobileFormContent = (props) => {
     const currentLanguage = i18n.language;
     const navigate = useNavigate();
@@ -20,6 +21,24 @@ export const MobileFormContent = (props) => {
     const [generatedUrl, setGeneratedUrl] = useState(location && location.state && location.state.object && location.state.object.generatedUrl ? location.state.object.generatedUrl : "");
     const [figmaDesktopUrl, setFigmaDesktopUrl] = useState(location.state && location.state.object && location.state.object.urls && location.state.object.urls.figmaDesktopUrl ? location.state.object.urls.figmaDesktopUrl : "");
     const [figmaMobileUrl, setFigmaMobileUrl] = useState(location.state && location.state.object && location.state.object.urls && location.state.object.urls.figmaMobileUrl ? location.state.object.urls.figmaMobileUrl : "");
+    const [title, setTitle] = useState(
+      location && location.state && location.state.object && location.state.object.title
+          ? location.state.object.title
+          : ""
+  );
+  const [faviconImage, setFaviconImage] = useState(
+    location && location.state && location.state.object && location.state.object.faviconUrl
+      ? location.state.object.faviconUrl
+      : ""
+  );
+
+  const [subscriptionType, setSubscriptionType] = useState(location && location.state  && location.state.subscriptionType ? location.state.subscriptionType : "");
+  const [trialConsume, setTrialConsume] = useState(location && location.state  && location.state.trialConsume ? location.state.trialConsume : "");
+  const [domain, setDomain] = useState(
+    location && location.state && location.state.object && location.state.object.customDomain
+      ? location.state.object.customDomain
+      : ""
+  );
     const [showErrorModal, setShowErrorModal] = useState(false);
     const handleCloseErrorModal = () => {
         setShowErrorModal(false);
@@ -140,42 +159,67 @@ export const MobileFormContent = (props) => {
         }
       }
 
-    //   const goToPreview = async () => {
-    //     if ((!figmaDesktopUrl.includes('figma.com/file') && !figmaMobileUrl.includes('figma.com/file')) &&
-    //       (figmaMobileUrl.includes('figma.com/proto') || figmaMobileUrl.includes('figma.com/embed') ||
-    //         figmaDesktopUrl.includes('figma.com/proto') || figmaDesktopUrl.includes('figma.com/embed'))) {
-    //       navigate("/" + currentLanguage + '/preview', {
-    //         state: {
-    //           object: {
-    //             id: docId,
-    //             title: title,
-    //             generatedUrl: generatedUrl,
-    //             faviconUrl: faviconImage,
-    //             customDomain: domain,
-    //             urls: {
-    //               figmaDesktopUrl: figmaDesktopUrl,
-    //               figmaMobileUrl: figmaMobileUrl
-    //             }
-    //           }
-    //         }
-    //       });
-    //     } else {
-    //       setShowErrorModal(true);
-    //     }
-    //   }
+      const goToPreview = async () => {
+        if ((!figmaDesktopUrl.includes('figma.com/file') && !figmaMobileUrl.includes('figma.com/file')) &&
+          (figmaMobileUrl.includes('figma.com/proto') || figmaMobileUrl.includes('figma.com/embed') ||
+            figmaDesktopUrl.includes('figma.com/proto') || figmaDesktopUrl.includes('figma.com/embed'))) {
+          navigate("/" + currentLanguage + '/preview', {
+            state: {
+              object: {
+                id: docId,
+                title: title,
+                generatedUrl: generatedUrl,
+                faviconUrl: faviconImage,
+                customDomain: domain,
+                urls: {
+                  figmaDesktopUrl: figmaDesktopUrl,
+                  figmaMobileUrl: figmaMobileUrl
+                }
+              }, subscriptionType: subscriptionType,
+              trialConsume: trialConsume
+            }
+          });
+        } else {
+          setShowErrorModal(true);
+        }
+      }
+
+    
+    const backToMobileFolioForm = () => {
+  
+      navigate("/" + currentLanguage + "/folio-form",
+      {
+          state: {
+            object: {
+              id: docId,
+              title: title,
+              generatedUrl: generatedUrl,
+              faviconUrl: faviconImage,
+              customDomain: domain,
+              urls: {
+                figmaDesktopUrl: figmaDesktopUrl,
+                figmaMobileUrl: figmaMobileUrl
+              }
+            }, subscriptionType : subscriptionType,
+            trialConsume: trialConsume
+          }
+        }
+      );
+    }
 
     return (
         <>
            <div className='app-wrapper-mobile'>
+           <MobileNavBar title={title} backToMobileFolioForm={backToMobileFolioForm} />
             <div className='mobile-form-content-container'>
-                <h1 className='sub-title'>Figma Links</h1>
-                <p className='form-content-upper-notes'>Paste in the links of your desktop and mobile prototypes from Figma below to have them create your Figmafolio site. By adding separate desktop and mobile links, all viewers can easily preview your work on any device. We'll detect the device and show the appropriate prototype.</p>
-                <h2 className='form-sub-header'>
+                <h1 className='mobile-form-title'>Figma Links</h1>
+                <p className='mobile-form-content-upper-notes'>Paste in the links of your desktop and mobile prototypes from Figma below to have them create your Figmafolio site. By adding separate desktop and mobile links, all viewers can easily preview your work on any device. We'll detect the device and show the appropriate prototype.</p>
+                <h2 className='mobile-form-sub-header'>
                     {t('desktop-prototype-link')}
                 </h2>
                 <div>
                     <input
-                        className='form-input'
+                        className='mobile-form-input'
                         type="text"
                         placeholder={t('custom-desktop-url')}
                         value={figmaDesktopUrl}
@@ -183,12 +227,12 @@ export const MobileFormContent = (props) => {
 
                     />
                 </div>
-                <h2 className='form-sub-header'>
+                <h2 className='mobile-form-sub-header'>
                     {t('mobile-prototype-link')}
                 </h2>
                 <div>
                     <input
-                        className='form-input'
+                        className='mobile-form-input'
                         type="text"
                         placeholder={t('custom-mobile-url')}
                         value={figmaMobileUrl}
@@ -202,8 +246,8 @@ export const MobileFormContent = (props) => {
                     <li>If you only provide one prototype link, we will show that on both desktop and mobile.</li>
                     <li>For best results, match prototype’s background colour to your sites background colour in Figma in prototype settings.</li>
                 </ul>
-                <ButtonClear className='go-to-preview' label="Preview" />
-                <ButtonColored className="folio-form-save-btn" label={"Save"} onClick={saveFigmaUrl} />
+                <ButtonClear className='mobile-form-go-to-preview' label="Preview" onClick={goToPreview} />
+                <ButtonColored className="mobile-folio-form-save-btn" label={"Save"} onClick={saveFigmaUrl} />
             </div>
             < AlertErrorModal show={showErrorModal} handleClose={handleCloseErrorModal} alertMessage={t('you-have-entered-a-link')} />
             <Footer/>
