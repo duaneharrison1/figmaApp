@@ -8,7 +8,6 @@
 
 .footer-item {
     display: flex;
-
     align-items: center;
     justify-content: space-between;
 
@@ -46,34 +45,20 @@
 
 @media only screen and (max-width: 768px) {
     .footer-center {
-        font-size: 12px;    
+        font-size: 12px;
     }
-    .email-support-link{
-        font-size: 12px;    
+
+    .email-support-link {
+        font-size: 12px;
+    }
+
+    .footer {
+        padding: 16px 20px;
     }
 }
 
 @media only screen and (max-width: 1000px) {
-    .footer {
-        padding: 40px 0px;
-    }
-
     .footer-left-item {
         flex-direction: column;
     }
-
-    /* .email-support-container {
-        text-align: center;
-    }
-
-    .footer-figmafolio {
-        text-align: center;
-    } */
-
-    /* .footer-item {
-        padding-top: 8px;
-        display: flex;
-        flex-direction: column;
-    } */
-
 }
