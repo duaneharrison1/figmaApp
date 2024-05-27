@@ -131,11 +131,13 @@
 
 
 .favicon-prev {
+    border: 1px solid #ccc;
     height: 64px;
     width: 64px;
     margin: 0;
     padding: 0;
     object-fit: contain;
+    border-radius: 10px;
 }
 
 /* Mobile View */
