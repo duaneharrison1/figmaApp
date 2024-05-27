@@ -46,7 +46,7 @@ export default function MainAuth(props) {
             {user ? (<Navigate to="/dashboard" />) : (
                 <div className='container-fluid main-auth-container'>
                     <div className='row'>
-                        <div className='col-md-7  tab-view'>
+                        <div className='col-md-7 tab-view p-0'>
                             <div className='main-panel'>
                                 <div className=' container main-title-container'>
                                     <h1 onClick={navigateToHome} className='main-title'>Figmafolio</h1>

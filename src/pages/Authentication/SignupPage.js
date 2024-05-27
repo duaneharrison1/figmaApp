@@ -55,7 +55,7 @@ export default function SignupPage() {
         e.preventDefault()
 
         if (password !== confirmPassword) {
-            setConfirmPassword("Password not match");
+            setErrorConfirmPassword("Password not match");
         } else {
             await createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
