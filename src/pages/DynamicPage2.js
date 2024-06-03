@@ -51,7 +51,7 @@ function DynamicPage2() {
                     } else {
                       console.log("wentHere2")
                       snapshot.forEach(subscription => {
-                        if (subscription.data().status === "active") {
+                        if (subscription.data().status === "active"|| subscription.data().status == "trialing") {
                           if (value.isDraft == "false") {
                             document.title = value.title;
                             setFaviconUrl(value.faviconUrl)
