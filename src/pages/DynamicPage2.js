@@ -75,7 +75,7 @@ function DynamicPage2() {
                   } else {
                     console.log("wentHere5")
                     snapshot.forEach(subscription => {
-                      if (subscription.data().status === "active") {
+                      if (subscription.data().status === "active" || subscription.data().status == "trialing") {
                         console.log("wentHere6")
                         if (value.isDraft == "false") {
                           document.title = value.title;

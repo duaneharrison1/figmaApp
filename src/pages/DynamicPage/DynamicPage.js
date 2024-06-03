@@ -47,7 +47,7 @@ function DynamicPage({ url }) {
         setActiveSubscriber("false")
       } else {
         snapshot.forEach(subscription => {
-          if (subscription.data().status === "active") {
+          if (subscription.data().status === "active" || subscription.data().status == "trialing") {
             setActiveSubscriber("true")
           } else {
             setActiveSubscriber("false")
