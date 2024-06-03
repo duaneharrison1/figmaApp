@@ -52,7 +52,7 @@ export const MobileFormDomain = (props) => {
       : ""
   );
   const [subscriptionType, setSubscriptionType] = useState(location && location.state && location.state.subscriptionType ? location.state.subscriptionType : "");
-  const [trialConsume, setTrialConsume] = useState(location && location.state  && location.state.trialConsume ? location.state.trialConsume : "");
+  const [trialConsume, setTrialConsume] = useState(location && location.state && location.state.trialConsume ? location.state.trialConsume : "");
   const [oldDomain, setOldDomain] = useState(
     location && location.state && location.state.object && location.state.object.customDomain
       ? location.state.object.customDomain
@@ -129,20 +129,20 @@ export const MobileFormDomain = (props) => {
     if (docId) {
       if (oldDomain !== domain) {
         console.log("wentHere1")
-   try {
-        await deleteDomainFromVercel();
-        await addDomainToVercel();
-        await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
-          customDomain: domain,
-          updatedAt: new Date()
-        })
-        alert("Success");
-      } catch (error) {
-        alert(error.response.data.error.code);
-        return;
+        try {
+          await deleteDomainFromVercel();
+          await addDomainToVercel();
+          await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
+            customDomain: domain,
+            updatedAt: new Date()
+          })
+          alert("Success");
+        } catch (error) {
+          alert(error.response.data.error.code);
+          return;
+        }
       }
-      }
-   
+
     } else {
       console.log(domain)
       if (domain) {
@@ -170,14 +170,14 @@ export const MobileFormDomain = (props) => {
 
 
 
-  
+
   const MonthlyPayment = async (priceId) => {
     const docRef = await dbFirestore.collection('user').doc(user.uid).collection
       ("checkout_sessions").add({
         price: priceId,
         success_url: window.location.origin,
         cancel_url: window.location.origin,
-        trial_period_days : trialConsume === "true" ? 0 : 7,
+        trial_period_days: trialConsume === "true" ? 0 : 7,
         allow_promotion_codes: true,
       })
     docRef.onSnapshot(async (snap) => {
@@ -198,7 +198,7 @@ export const MobileFormDomain = (props) => {
         price: priceId,
         success_url: window.location.origin,
         cancel_url: window.location.origin,
-        trial_period_days : trialConsume === "true" ? 0 : 30,
+        trial_period_days: trialConsume === "true" ? 0 : 30,
         allow_promotion_codes: true,
       })
     docRef.onSnapshot(async (snap) => {
