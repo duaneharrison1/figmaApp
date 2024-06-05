@@ -1,3 +1,11 @@
+.enable-pass-protect{
+    font-size: 16px;
+    font-weight: 500;
+    color: #CFCFCF;
+}
+.enable-pass-protect-container{
+    display: grid;
+}
 .vertical-tabs {
     display: flex;
     flex-direction: column;

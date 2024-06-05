@@ -257,6 +257,8 @@ function UserDashboard() {
                                                                             isDraft={item.isDraft}
                                                                             createdAt={item.createdAt}
                                                                             updatedAt={item.updatedAt}
+                                                                            password = {item.password}
+                                                                            passwordActive = {item.passwordActive}
                                                                             onClickDelete={() => handleShowModal(index)}
                                                                             onClickUpdate={() => goToEdit(item)} />
 
