@@ -1,11 +1,13 @@
-.enable-pass-protect{
+.enable-pass-protect {
     font-size: 16px;
     font-weight: 500;
     color: #CFCFCF;
 }
-.enable-pass-protect-container{
+
+.enable-pass-protect-container {
     display: grid;
 }
+
 .vertical-tabs {
     display: flex;
     flex-direction: column;
@@ -40,33 +42,33 @@
     border-radius: 8px;
     padding: 12px 24px;
     background-color: #f5f5f5;
-    max-width:fit-content;
-  }
-  
-  .copy-text {
+    max-width: fit-content;
+}
+
+.copy-text {
     margin-right: 10px;
     font-size: 16px;
     font-weight: 600;
-  }
-  
-  .copy-button {
+}
+
+.copy-button {
     border: none;
     background: none;
     padding: 0;
     cursor: pointer;
-  }
-  
-  .copy-button img {
+}
+
+.copy-button img {
     width: 24px;
     height: 24px;
-  }
-  
-  .copy-feedback {
+}
+
+.copy-feedback {
     margin-left: 10px;
     color: green;
     font-size: 14px;
     font-family: Arial, sans-serif;
-  }
+}
 
 .form-favicon-note-disabled {
     padding-top: 8px;
@@ -132,6 +134,16 @@
 
 .tab-container {
     padding-top: 44px;
+}
+
+.form-password-save-container {
+    display: flex;
+    align-items: center;
+}
+
+.password-toggle-container {
+    display: flex;
+    align-items: center;
 }
 
 .form-title-notes {

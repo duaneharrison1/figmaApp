@@ -9,6 +9,7 @@ import firebase from '../../firebase';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import copyIcon from './../../assets/images/copytoclipboard.png';
 import { loadStripe } from '@stripe/stripe-js';
+import ButtonClear from '../ButtonClear/ButtonClear';
 export default function FormPassword(props) {
     const currentLanguage = i18n.language;
     const user = auth.currentUser;
@@ -91,26 +92,24 @@ export default function FormPassword(props) {
                     <div>
                         <h1 className='sub-title'>Password</h1>
                         <p className='form-favicon-note-disabled'>This is a small icon which will represent your website at the top of a web browser and in browser's bookmark bar, history and in search results.</p>
-                        <div className='enable-pass-protect-container'>
-                            <h1 className='enable-pass-protect'>Enable Password Protection</h1>
 
-                            <Form.Check
-                                disabled
-                                type="switch"
-                                id="custom-switch"
-                                checked={passwordActive}
-                                className="enable-pass-switch"
-                            />
+                        <div className='password-toggle-container'>
+                            <div className='col-sm-11'>
+                                <h1 className='enable-pass-protect'>Enable Password Protection</h1>
+                            </div>
+                            <div className='col-sm-1'>
+                                <Form.Check
+                                    type="switch"
+                                    id="custom-switch"
+                                    checked={passwordActive}
+                                    onChange={handleSwitchChange}
+                                    className="enable-pass-switch"
+                                />
+                            </div>
                         </div>
 
-                        <input
-                            className='form-input-disabled'
-                            type="text"
-                            placeholder={t('enter-your-domain')}
-                            value={domain}
-                            disabled
-                            onChange={handleDomain}
-                        />
+
+
                         <div className='regular-user-message-container'>
                             <div className='row'>
                                 <div className='col-md-8'>
@@ -130,7 +129,26 @@ export default function FormPassword(props) {
                     <h1 className='sub-title'>Password</h1>
                     <p className='form-favicon-note-disabled'>This is a small icon which will represent your website at the top of a web browser and in browser's bookmark bar, history and in search results.</p>
                     <div className='enable-pass-protect-container'>
-                        <h1 className='enable-pass-protect'>Enable Password Protection</h1>
+
+                        <div className='password-toggle-container'>
+                            <div className='col-sm-9'>
+                                <h1 className='enable-pass-protect'>Enable Password Protection</h1>
+                            </div>
+                            <div className='col-sm-3'>
+                                <Form.Check
+                                    type="switch"
+                                    id="custom-switch"
+                                    checked={passwordActive}
+                                    onChange={handleSwitchChange}
+                                    className="enable-pass-switch"
+                                />
+                            </div>
+                        </div>
+
+
+
+
+
                         <div className="copytoclipboard">
                             <div className="copy-container">
                                 <span className="copy-text">{props.password}</span>
@@ -141,23 +159,25 @@ export default function FormPassword(props) {
                                 </CopyToClipboard>
                             </div>
                         </div>
-                        <Form.Check
-                            type="switch"
-                            id="custom-switch"
-                            checked={passwordActive}
-                            onChange={handleSwitchChange}
-                            className="enable-pass-switch"
-                        />
+
+                        <ButtonClear className='go-to-preview' onClick={handleDomain} label="Change password" />
                     </div>
-                    <div>
-                        <input
-                            className='form-input'
-                            type="text"
-                            placeholder={t('enter-your-domain')}
-                            value={domain}
-                            onChange={handleDomain}
-                        />
-                        <ButtonColored className="folio-form-save-btn" label={"Save"} onClick={props.saveDomain} />
+                    <div className='row form-password-save-container p-0 m-0'>
+
+
+                        <div className='col-sm-9  p-0 m-0'>
+                            <input
+                                className='form-input'
+                                type="text"
+                                placeholder="Enter new password"
+                                value={domain}
+                                onChange={handleDomain}
+                            />
+                        </div>
+                        <div className='col-sm-3 p-0 m-0'>
+                            <ButtonColored className="folio-form-password-save-btn" label={"Save"} onClick={props.saveDomain} />
+                        </div>
+
                     </div>
                 </>}
 
