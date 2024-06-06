@@ -107,9 +107,16 @@ export default function FolioForm() {
     setShowErrorModal(false);
   };
   const [randomurl, setRandomUrl] = useState('');
+
   const [password, setPassword]  = useState(
     location && location.state && location.state.object && location.state.object.password
       ? location.state.object.password
+      : ""
+  );
+
+  const [encryptedPassword, setEncryptedPassword]  = useState(
+    location && location.state && location.state.object && location.state.object.password
+      ? location.state.object.encryptedPassword
       : ""
   );
 
@@ -167,8 +174,6 @@ export default function FolioForm() {
     setRandomUrl(generateRandomString(10))
     if (password == ""){
       setPassword(generateRandomString(6))
-      console.log("fff" + password)
-      console.log("fffxxx" + randomurl)
     }
   
     const fetchData = async () => {
@@ -406,14 +411,16 @@ export default function FolioForm() {
     try {
       if (docId) {
         const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
-          password: hashPassword,
+          password: password,
+          encryptedPassword: hashPassword,
           passwordActive: true,
           updatedAt: new Date()
         })
       } else {
         const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
           userId: user.uid,
-          password: hashPassword,
+          password: password,
+          encryptedPassword: hashPassword,
           passwordActive: true,
           generatedUrl: randomurl,
           createdAt: new Date(),
@@ -628,7 +635,7 @@ export default function FolioForm() {
                         <FormFavicon onChildFavicon={handleFaviconImage} setFaviconImage={faviconImage} subscriptionType={subscriptionType} trialConsume = {trialConsume} />
                       </div>
                       <div className={`tab-pane fade ${activeTab === 'tab5' ? 'show active' : ''}`} id="tab5">
-                        <FormPassword onChildPasswordStatus= {handlePasswordStatus} onChildPassword={handlePassword} setFaviconImage={faviconImage} subscriptionType={subscriptionType} trialConsume = {trialConsume} setPasswordActive={passwordActive} />
+                        <FormPassword onChildPasswordStatus= {handlePasswordStatus} onChildPasswordHandle={handlePassword} password={password}  subscriptionType={subscriptionType} trialConsume = {trialConsume} setPasswordActive={passwordActive} />
                       </div>
                       <div className={`tab-pane fade ${activeTab === 'tab6' ? 'show active' : ''}`} id="tab6">
                         <FormInstruction />

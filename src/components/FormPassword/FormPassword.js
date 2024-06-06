@@ -6,6 +6,8 @@ import Form from 'react-bootstrap/Form';
 import ButtonColored from '../ButtonColored/ButtonColored';
 import PaymentSelection from '../PaymentSelection/PaymentSelection';
 import firebase from '../../firebase';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import copyIcon from './../../assets/images/copytoclipboard.png';
 import { loadStripe } from '@stripe/stripe-js';
 export default function FormPassword(props) {
     const currentLanguage = i18n.language;
@@ -15,12 +17,16 @@ export default function FormPassword(props) {
     const trialConsume = props.trialConsume
     const [domain, setDomain] = useState(props.setDomain || "");
     const [showModal, setShowModal] = useState(false);
-    const [passwordActive, setPasswordActive] = useState(props.setDomain);
+    const [passwordActive, setPasswordActive] = useState(props.passwordActive || false);
+    const [password, setPassword] = useState(props.password || "");
+    const [value, setValue] = useState('Some text to copy');
+    const [copied, setCopied] = useState(false);
 
     const handleSwitchChange = () => {
         setPasswordActive(!passwordActive);
-         props.onChildPassword();
+        props.onChildPasswordHandle();
         //  props.onChildPasswordStatus();
+        console.log("ff" + props.password)
     };
 
     const handleShowModal = () => {
@@ -123,18 +129,26 @@ export default function FormPassword(props) {
                 <>
                     <h1 className='sub-title'>Password</h1>
                     <p className='form-favicon-note-disabled'>This is a small icon which will represent your website at the top of a web browser and in browser's bookmark bar, history and in search results.</p>
-
                     <div className='enable-pass-protect-container'>
-                            <h1 className='enable-pass-protect'>Enable Password Protection</h1>
-
-                            <Form.Check
-                                type="switch"
-                                id="custom-switch"
-                                checked={passwordActive}
-                                onChange={handleSwitchChange}
-                                className="enable-pass-switch"
-                            />
+                        <h1 className='enable-pass-protect'>Enable Password Protection</h1>
+                        <div className="copytoclipboard">
+                            <div className="copy-container">
+                                <span className="copy-text">{props.password}</span>
+                                <CopyToClipboard text={props.password}>
+                                    <button className="copy-button">
+                                        <img src={copyIcon} alt="Copy to clipboard" />
+                                    </button>
+                                </CopyToClipboard>
+                            </div>
                         </div>
+                        <Form.Check
+                            type="switch"
+                            id="custom-switch"
+                            checked={passwordActive}
+                            onChange={handleSwitchChange}
+                            className="enable-pass-switch"
+                        />
+                    </div>
                     <div>
                         <input
                             className='form-input'
