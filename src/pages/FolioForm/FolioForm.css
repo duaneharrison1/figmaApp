@@ -1,9 +1,21 @@
-.enable-pass-protect {
+
+.enable-pass-protect-disabled {
     font-size: 16px;
     font-weight: 500;
     color: #CFCFCF;
 }
-
+.enable-pass-protect {
+    font-size: 16px;
+    font-weight: 500;
+}
+.password-active-switch .form-check-input {
+background-color: #D1D1D1 !important;
+border-color: #D1D1D1 !important;
+}
+.password-active-switch .form-check-input:checked{
+    background-color: #4D9F70 !important;
+border-color: #4D9F70 !important;
+}
 .enable-pass-protect-container {
     display: grid;
 }
