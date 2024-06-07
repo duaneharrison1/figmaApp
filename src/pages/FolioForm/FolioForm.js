@@ -31,6 +31,9 @@ export default function FolioForm() {
   const [subscriptionType, setSubscriptionType] = useState(location.state.subscriptionType);
   const [trialConsume, setTrialConsume] = useState(location.state.trialConsume);
   const user = auth.currentUser;
+  const handleDataFromChild = (data) => {
+    setPassword(data);
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -635,7 +638,7 @@ export default function FolioForm() {
                         <FormFavicon onChildFavicon={handleFaviconImage} setFaviconImage={faviconImage} subscriptionType={subscriptionType} trialConsume = {trialConsume} />
                       </div>
                       <div className={`tab-pane fade ${activeTab === 'tab5' ? 'show active' : ''}`} id="tab5">
-                        <FormPassword onChildPasswordStatus= {handlePasswordStatus} onChildPasswordHandle={handlePassword} password={password}  subscriptionType={subscriptionType} trialConsume = {trialConsume} setPasswordActive={passwordActive} />
+                        <FormPassword onChildPasswordStatus= {handlePasswordStatus} onChildPasswordHandle={handlePassword} password={password} sendNewPassword = {handleDataFromChild} subscriptionType={subscriptionType} trialConsume = {trialConsume} setPasswordActive={passwordActive} />
                       </div>
                       <div className={`tab-pane fade ${activeTab === 'tab6' ? 'show active' : ''}`} id="tab6">
                         <FormInstruction />
