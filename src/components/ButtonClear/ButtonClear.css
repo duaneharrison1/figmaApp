@@ -50,7 +50,10 @@
 .form-change-password{
     margin-right: 8px;
     margin-top: 16px;
-    padding: 12px 24px;
+    width: fit-content;
+    height: 48px;
+    padding-left: 24px;
+    padding-right: 24px;
     border-radius: 40px;
     font-weight: 600;
     font-size: 16px;
