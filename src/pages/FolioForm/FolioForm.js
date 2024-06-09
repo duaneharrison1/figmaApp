@@ -416,33 +416,37 @@ export default function FolioForm() {
 
   const handlePassword = async () => {
 
-    const salt = bcrypt.genSaltSync(10);
-    const hashPassword = bcrypt.hashSync(password, salt);
-    try {
-      if (docId) {
-        const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
-          password: password,
-          encryptedPassword: hashPassword,
-          isPasswordActive: isPasswordActive,
-          updatedAt: new Date()
-        })
-      } else {
-        const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
-          userId: user.uid,
-          password: password,
-          encryptedPassword: hashPassword,
-          isPasswordActive: isPasswordActive,
-          generatedUrl: randomurl,
-          createdAt: new Date(),
-        })
-        setGeneratedUrl(randomurl);
-        setDocId(docRef.id);
+    if (password.length >= 6) {
+      alert('Your password must be at least 6 characters long.');
+    } else {
+      const salt = bcrypt.genSaltSync(10);
+      const hashPassword = bcrypt.hashSync(password, salt);
+      try {
+        if (docId) {
+          const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
+            password: password,
+            encryptedPassword: hashPassword,
+            isPasswordActive: isPasswordActive,
+            updatedAt: new Date()
+          })
+        } else {
+          const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
+            userId: user.uid,
+            password: password,
+            encryptedPassword: hashPassword,
+            isPasswordActive: isPasswordActive,
+            generatedUrl: randomurl,
+            createdAt: new Date(),
+          })
+          setGeneratedUrl(randomurl);
+          setDocId(docRef.id);
+        }
+      } catch (err) {
+        alert(err.message)
+      } finally {
+        alert("Success")
       }
-    } catch (err) {
-      alert(err.message)
-    } finally {
-      alert("Success")
-    }
+    }    
   }
 
   const handlePasswordStatus = async () => {

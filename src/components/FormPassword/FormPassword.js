@@ -24,15 +24,15 @@ export default function FormPassword(props) {
     const [copied, setCopied] = useState(false);
     const [showChangePasswordContainer, setshowChangePasswordContainer] = useState(false);
 
-    
+
     const handleNewPassword = (event) => {
         setNewPassword(event.target.value);
         props.sendNewPassword(newPassword)
     };
     const handleSwitchChange = () => {
-             setIsPasswordActive(!isPasswordActive)
-             props.sendNewPasswordStatus(isPasswordActive)
-             props.onChildPasswordHandle();
+        setIsPasswordActive(!isPasswordActive)
+        props.sendNewPasswordStatus(isPasswordActive)
+        props.onChildPasswordHandle();
     };
 
     const handleShowModal = () => {
@@ -91,7 +91,7 @@ export default function FormPassword(props) {
     return (
         <>
 
-      
+
             {subscriptionType === "regular" ?
                 <>
                     <div>
@@ -106,7 +106,7 @@ export default function FormPassword(props) {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    checked ="false"
+                                    checked="false"
                                     onChange={handleSwitchChange}
                                     className="enable-pass-switch"
                                 />
@@ -131,7 +131,7 @@ export default function FormPassword(props) {
 
                 :
                 <>
-                
+
                     <h1 className='sub-title'>Password</h1>
                     <p className='form-favicon-note'>This is a small icon which will represent your website at the top of a web browser and in browser's bookmark bar, history and in search results.</p>
                     <div className='enable-pass-protect-container'>
@@ -141,7 +141,7 @@ export default function FormPassword(props) {
                             </div>
                             <div className='col-sm-1'>
                                 <Form.Check
-                                  className='password-active-switch'
+                                    className='password-active-switch'
                                     type="switch"
                                     id="custom-switch"
                                     checked={isPasswordActive}
@@ -149,39 +149,43 @@ export default function FormPassword(props) {
                                 />
                             </div>
                         </div>
-                       
+
                     </div>
-                    
-                    {showChangePasswordContainer ? (
-                        <div className='form-password-save-container p-0 m-0'>
-                       
-                                <input
-                                    className='form-input-password'
-                                    type="text"
-                                    placeholder="Enter new password"
-                                    value={newPassword}
-                                    onChange={handleNewPassword}
-                                />
-                        
-                         
-                                <ButtonColored className="folio-form-password-save-btn" label={"Save"} onClick={props.onChildPasswordHandle} />
-                
-                        </div>
-                    ) : (
+                    {isPasswordActive &&
                         <>
-                         <div className="copytoclipboard">
-                            <div className="copy-container">
-                                <span className="copy-text">{props.password}</span>
-                                <CopyToClipboard text={props.password}>
-                                    <button className="copy-button">
-                                        <img src={copyIcon} alt="Copy to clipboard" />
-                                    </button>
-                                </CopyToClipboard>
-                            </div>
-                        </div>
-                        <ButtonClear className='form-change-password' onClick={showChangePassword} label="Change password" />
-                        </>
-                    )}
+                            {showChangePasswordContainer ? (
+                                <div className='form-password-save-container p-0 m-0'>
+
+                                    <input
+                                        className='form-input-password'
+                                        type="text"
+                                        placeholder="Enter new password"
+                                        value={newPassword}
+                                        onChange={handleNewPassword}
+                                    />
+
+
+                                    <ButtonColored className="folio-form-password-save-btn" label={"Save"} onClick={props.onChildPasswordHandle} />
+
+                                </div>
+                            ) : (
+                                <>
+                                    <div className="copytoclipboard">
+                                        <div className="copy-container">
+                                            <span className="copy-text">{props.password}</span>
+                                            <CopyToClipboard text={props.password}>
+                                                <button className="copy-button">
+                                                    <img src={copyIcon} alt="Copy to clipboard" />
+                                                </button>
+                                            </CopyToClipboard>
+                                        </div>
+                                    </div>
+                                    <ButtonClear className='form-change-password' onClick={showChangePassword} label="Change password" />
+                                </>
+                            )}</>
+
+                    }
+
                 </>}
 
             <PaymentSelection show={showModal} handleClose={handleCloseModal}

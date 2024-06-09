@@ -100,29 +100,51 @@ function DynamicPage({ url }) {
 
   const checkPassword = () => {
     setIsPasswordCorrect(bcrypt.compareSync(password, url.encryptedPassword));
+
+    if(!isPasswordCorrect){
+      alert("You have entered a wrong password")
+    }
   };
 
   return (
     <>
-      {!isPasswordCorrect ? (
-        <Modal.Dialog className='folio-password-modal'>
-          <div className='password-modal-content'>
-            <Modal.Title className='password-modal-title'>Login to {url.title}</Modal.Title>
+      {url.isPasswordActive == true ?
+        <>
+          {!isPasswordCorrect ? (
+            <Modal.Dialog className='folio-password-modal'>
+              <div className='password-modal-content'>
+                <Modal.Title className='password-modal-title'>Login to {url.title}</Modal.Title>
+                <PasswordTextField
+                  formLabel="Password"
+                  errorMsg="Wrong password"
+                  className='password-input'
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="Enter your password"
+                  onChange={handlePassword} />
+                <ButtonColored className="login-folio-btn" label={"Login"} onClick={checkPassword} />
+              </div>
+            </Modal.Dialog>
+          ) : (
+            <>
+              {activeSubscriber === "true" ? (<div></div>) : (
+                <div className="text-overlay" onClick={navigateToHome}>
+                  <p className='made-with'>Made with <span className="made-with-figmaolio">Figmafolio</span></p>
+                </div>
+              )}
+              <iframe
+                src={isMobile ? mobile : desktop}
+                allowFullScreen
+                referrerPolicy="no-referrer"
+                style={{ width: '100%', height: '100vh' }}
+                className='dynamicpage_view_figma_view'>
+              </iframe>
+            </>
+          )}
 
+        </> :
 
-            <PasswordTextField
-              formLabel="Password"
-              errorMsg="Wrong password"
-              className='password-input'
-              id="password"
-              name="password"
-              type="password"
-              placeholder="Enter your password"
-              onChange={handlePassword} />
-            <ButtonColored className="login-folio-btn" label={"Login"} onClick={checkPassword} />
-          </div>
-        </Modal.Dialog>
-      ) : (
         <>
           {activeSubscriber === "true" ? (<div></div>) : (
             <div className="text-overlay" onClick={navigateToHome}>
@@ -137,7 +159,8 @@ function DynamicPage({ url }) {
             className='dynamicpage_view_figma_view'>
           </iframe>
         </>
-      )}
+      }
+
     </>
   );
 }

@@ -197,7 +197,9 @@ export const MobileFormPassword = (props) => {
     }
 
     const handlePassword = async () => {
-
+        if (password.length >= 6) {
+            alert('Your password must be at least 6 characters long.');
+          } else {
         const salt = bcrypt.genSaltSync(10);
         const hashPassword = bcrypt.hashSync(password, salt);
         try {
@@ -225,6 +227,7 @@ export const MobileFormPassword = (props) => {
         } finally {
             alert("Success")
         }
+    }
     }
 
 
