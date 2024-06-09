@@ -41,7 +41,6 @@ export default function FolioForm() {
 
   useEffect(() => {
     const handleResize = () => {
-      console.log("ity is mobile")
       setIsMobile(window.innerWidth <= 768);
     };
     handleResize();
@@ -120,6 +119,12 @@ export default function FolioForm() {
       ? location.state.object.password
       : ""
   );
+  const [isPasswordActive, setIsPasswordActive]  = useState(
+    location && location.state && location.state.object && location.state.object.isPasswordActive
+      ? location.state.object.isPasswordActive
+      : false
+  );
+  
 
   const [encryptedPassword, setEncryptedPassword]  = useState(
     location && location.state && location.state.object && location.state.object.password
@@ -127,11 +132,6 @@ export default function FolioForm() {
       : ""
   );
 
-  const [isPasswordActive, setIsPasswordActive]  = useState(
-    location && location.state && location.state.object && location.state.object.passwordActive
-      ? location.state.object.passwordActive
-      : false
-  );
   
   var newCustomDomainData = {
     "name": domain
@@ -152,6 +152,8 @@ export default function FolioForm() {
             generatedUrl: generatedUrl,
             faviconUrl: faviconImage,
             customDomain: domain,
+            password: password,
+            isPasswordActive: isPasswordActive,
             urls: {
               figmaDesktopUrl: figmaDesktopUrl,
               figmaMobileUrl: figmaMobileUrl
@@ -421,7 +423,7 @@ export default function FolioForm() {
         const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
           password: password,
           encryptedPassword: hashPassword,
-          passwordActive: isPasswordActive,
+          isPasswordActive: isPasswordActive,
           updatedAt: new Date()
         })
       } else {
@@ -429,7 +431,7 @@ export default function FolioForm() {
           userId: user.uid,
           password: password,
           encryptedPassword: hashPassword,
-          passwordActive: isPasswordActive,
+          isPasswordActive: isPasswordActive,
           generatedUrl: randomurl,
           createdAt: new Date(),
         })
@@ -466,6 +468,8 @@ export default function FolioForm() {
         generatedUrl: generatedUrl,
         faviconUrl: faviconImage,
         customDomain: domain,
+        password: password,
+        isPasswordActive: isPasswordActive,
         urls: {
           figmaDesktopUrl: figmaDesktopUrl,
           figmaMobileUrl: figmaMobileUrl
@@ -480,7 +484,8 @@ export default function FolioForm() {
       tab2: `${basePath}/mobile-form-content`,
       tab3: `${basePath}/mobile-form-domain`,
       tab4: `${basePath}/mobile-form-favicon`,
-      tab5: `${basePath}/mobile-instruction`
+      tab5: `${basePath}/mobile-form-password`,
+      tab6: `${basePath}/mobile-instruction`
     };
   
     const navigatePath = tabPaths[tabId];
@@ -534,14 +539,21 @@ export default function FolioForm() {
                   <li className="nav-item-mobile">
                     <a className={`folio-form ${activeTab === 'tab4' ? 'active' : ''}`}
                       onClick={(e) => handleTabClickMobile('tab4', e)}
-                      href="#tab3">
+                      href="#tab4">
                       Favicon
                     </a>
                   </li>
-                  <li className="nav-item-mobile-last">
+                  <li className="nav-item-mobile">
                     <a className={`folio-form ${activeTab === 'tab5' ? 'active' : ''}`}
                       onClick={(e) => handleTabClickMobile('tab5', e)}
-                      href="#tab3">
+                      href="#tab5">
+                      Password
+                    </a>
+                  </li>
+                  <li className="nav-item-mobile-last">
+                    <a className={`folio-form ${activeTab === 'tab6' ? 'active' : ''}`}
+                      onClick={(e) => handleTabClickMobile('tab6', e)}
+                      href="#tab6">
                       Need help?
                     </a>
                   </li>

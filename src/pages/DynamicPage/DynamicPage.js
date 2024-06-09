@@ -4,7 +4,7 @@ import './DynamicPage.css';
 import firebase from '../../firebase';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import PasswordTextField from '../../components/PasswordTextfield/PasswordTextfield';
+import PasswordTextField from '../../components/PasswordTextfield/PasswordTextfield.js';
 import bcrypt from 'bcryptjs';
 import ButtonColored from '../../components/ButtonColored/ButtonColored';
 
@@ -105,34 +105,23 @@ function DynamicPage({ url }) {
   return (
     <>
       {!isPasswordCorrect ? (
-        <div
-          className="modal show"
-          style={{ display: 'block', position: 'initial' }}
-        >
-          <Modal.Dialog>
-            <Modal.Header>
-              <Modal.Title>Login to {url.title}</Modal.Title>
-            </Modal.Header>
+        <Modal.Dialog className='folio-password-modal'>
+          <div className='password-modal-content'>
+            <Modal.Title className='password-modal-title'>Login to {url.title}</Modal.Title>
 
-            <Modal.Body>
-              <PasswordTextField
-                formLabel="Password"
-                className='password-input'
-                type="password"
-                id="password"
-                name="password"
-                label="Enter your password"
-                value={password}
-                onChange={handlePassword}
-                placeholder="Enter your password"
-              />
-            </Modal.Body>
 
-            <Modal.Footer>
-              <ButtonColored className="folio-form-password-save-btn" label={"Save"} onClick={checkPassword} />
-            </Modal.Footer>
-          </Modal.Dialog>
-        </div>
+            <PasswordTextField
+              formLabel="Password"
+              errorMsg="Wrong password"
+              className='password-input'
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Enter your password"
+              onChange={handlePassword} />
+            <ButtonColored className="login-folio-btn" label={"Login"} onClick={checkPassword} />
+          </div>
+        </Modal.Dialog>
       ) : (
         <>
           {activeSubscriber === "true" ? (<div></div>) : (

@@ -55,6 +55,16 @@ export const MobileFormTitle = (props) => {
       ? location.state.object.customDomain
       : ""
   );
+  const [password, setPassword]  = useState(
+    location && location.state && location.state.object && location.state.object.password
+      ? location.state.object.password
+      : ""
+  );
+  const [isPasswordActive, setIsPasswordActive]  = useState(
+    location && location.state && location.state.object && location.state.object.isPasswordActive
+      ? location.state.object.isPasswordActive
+      : false
+  );
 
   const [subscriptionType, setSubscriptionType] = useState(location && location.state  && location.state.subscriptionType ? location.state.subscriptionType : "");
   const [trialConsume, setTrialConsume] = useState(location && location.state  && location.state.trialConsume ? location.state.trialConsume : "");
@@ -140,6 +150,8 @@ export const MobileFormTitle = (props) => {
           generatedUrl: generatedUrl,
           faviconUrl: faviconImage,
           customDomain: domain,
+          password: password,
+          isPasswordActive: isPasswordActive,
           urls: {
             figmaDesktopUrl: figmaDesktopUrl,
             figmaMobileUrl: figmaMobileUrl

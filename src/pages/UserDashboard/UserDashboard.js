@@ -258,7 +258,7 @@ function UserDashboard() {
                                                                             createdAt={item.createdAt}
                                                                             updatedAt={item.updatedAt}
                                                                             password = {item.password}
-                                                                            passwordActive = {item.passwordActive}
+                                                                            isPasswordActive = {item.isPasswordActive}
                                                                             onClickDelete={() => handleShowModal(index)}
                                                                             onClickUpdate={() => goToEdit(item)} />
 
