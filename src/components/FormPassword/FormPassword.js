@@ -170,6 +170,7 @@ export default function FormPassword(props) {
                                 </div>
                             ) : (
                                 <>
+                                 <p className='password-to-access'> Password to access {props.title}:</p>
                                     <div className="copytoclipboard">
                                         <div className="copy-container">
                                             <span className="copy-text">{props.password}</span>

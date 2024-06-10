@@ -3,11 +3,27 @@
     font-size: 16px;
     font-weight: 500;
     color: #CFCFCF;
+    margin: 0;
 }
 .enable-pass-protect {
     font-size: 16px;
     font-weight: 500;
+    margin: 0;
 }
+
+
+.mobile-enable-pass-protect-disabled {
+    font-size: 14px;
+    font-weight: 500;
+    color: #CFCFCF;
+    margin: 0;
+}
+.mobile-enable-pass-protect {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+}
+
 .password-active-switch .form-check-input {
 background-color: #D1D1D1 !important;
 border-color: #D1D1D1 !important;
@@ -57,8 +73,33 @@ border-color: #4D9F70 !important;
     max-width: fit-content;
 }
 
+.mobile-copy-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    border-radius: 8px;
+    padding: 12px 24px;
+    background-color: #f5f5f5;
+    width: 100%;
+}
+.mobile-password-to-access{
+    padding-top: 32px;
+    padding-bottom: 8px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
+.password-to-access{
+    padding-top: 32px;
+    padding-bottom: 8px;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+}
 .copy-text {
-    margin-right: 10px;
+    margin-right: 41px;
     font-size: 16px;
     font-weight: 600;
 }
@@ -70,10 +111,6 @@ border-color: #4D9F70 !important;
     cursor: pointer;
 }
 
-.copy-button img {
-    width: 24px;
-    height: 24px;
-}
 
 .copy-feedback {
     margin-left: 10px;
@@ -156,6 +193,7 @@ border-color: #4D9F70 !important;
 .password-toggle-container {
     display: flex;
     align-items: center;
+    justify-content: space-between; 
 }
 
 .form-title-notes {
@@ -191,8 +229,10 @@ border-color: #4D9F70 !important;
 
 .form-favicon-note {
     padding-bottom: 24px;
-    font-size: 16px;
+    font-size: 14px;
     margin: 0;
+        padding-top: 8px;
+        font-weight: 500;
 }
 
 

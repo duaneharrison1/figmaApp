@@ -197,37 +197,39 @@ export const MobileFormPassword = (props) => {
     }
 
     const handlePassword = async () => {
-        if (password.length >= 6) {
-            alert('Your password must be at least 6 characters long.');
-          } else {
-        const salt = bcrypt.genSaltSync(10);
-        const hashPassword = bcrypt.hashSync(password, salt);
-        try {
-            if (docId) {
-                const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
-                    password: password,
-                    encryptedPassword: hashPassword,
-                    isPasswordActive: isPasswordActive,
-                    updatedAt: new Date()
-                })
-            } else {
-                const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
-                    userId: user.uid,
-                    password: password,
-                    encryptedPassword: hashPassword,
-                    isPasswordActive: isPasswordActive,
-                    generatedUrl: randomurl,
-                    createdAt: new Date(),
-                })
-                setGeneratedUrl(randomurl);
-                setDocId(docRef.id);
+        if (password.length < 6) {
+            if (isPasswordActive == false) {
+                alert('Your password must be at least 6 characters long.');
             }
-        } catch (err) {
-            alert(err.message)
-        } finally {
-            alert("Success")
+        } else {
+            const salt = bcrypt.genSaltSync(10);
+            const hashPassword = bcrypt.hashSync(password, salt);
+            try {
+                if (docId) {
+                    const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
+                        password: password,
+                        encryptedPassword: hashPassword,
+                        isPasswordActive: isPasswordActive,
+                        updatedAt: new Date()
+                    })
+                } else {
+                    const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
+                        userId: user.uid,
+                        password: password,
+                        encryptedPassword: hashPassword,
+                        isPasswordActive: isPasswordActive,
+                        generatedUrl: randomurl,
+                        createdAt: new Date(),
+                    })
+                    setGeneratedUrl(randomurl);
+                    setDocId(docRef.id);
+                }
+            } catch (err) {
+                alert(err.message)
+            } finally {
+                alert("Success")
+            }
         }
-    }
     }
 
 
@@ -244,18 +246,14 @@ export const MobileFormPassword = (props) => {
                     {subscriptionType === "regular" ?
                         <>
                             <div className='password-toggle-container'>
-                                <div className='col-md-11'>
-                                    <h1 className='enable-pass-protect-disabled'>Enable Password Protection</h1>
-                                </div>
-                                <div className='col-md-1   d-flex justify-content-end'>
-                                    <Form.Check
-                                        type="switch"
-                                        id="custom-switch"
-                                        checked="false"
-                                        onChange={handleSwitchChange}
-                                        className="enable-pass-switch"
-                                    />
-                                </div>
+                                <h1 className='mobile-enable-pass-protect'>Enable Password Protection</h1>
+                                <Form.Check
+                                    className='password-active-switch'
+                                    type="switch"
+                                    id="custom-switch"
+                                    checked={isPasswordActive}
+                                    onChange={handleSwitchChange}
+                                />
                             </div>
 
                             <div className='regular-user-message-container'>
@@ -274,20 +272,15 @@ export const MobileFormPassword = (props) => {
                         <>
                             <div className='enable-pass-protect-container'>
                                 <div className='password-toggle-container'>
-                                    <div className='col-sm-12'>
-                                        <h1 className='enable-pass-protect'>Enable Password Protection</h1>
-                                    </div>
-                                    <div className='col-sm-1  d-flex justify-content-end' >
-                                        <Form.Check
-                                            className='password-active-switch'
-                                            type="switch"
-                                            id="custom-switch"
-                                            checked={isPasswordActive}
-                                            onChange={handleSwitchChange}
-                                        />
-                                    </div>
+                                    <h1 className='mobile-enable-pass-protect'>Enable Password Protection</h1>
+                                    <Form.Check
+                                        className='password-active-switch'
+                                        type="switch"
+                                        id="custom-switch"
+                                        checked={isPasswordActive}
+                                        onChange={handleSwitchChange}
+                                    />
                                 </div>
-
                             </div>
 
                             {isPasswordActive && (
@@ -309,8 +302,10 @@ export const MobileFormPassword = (props) => {
                                         </div>
                                     ) : (
                                         <>
+
+                                            <p className='mobile-password-to-access'> Password to access {title}:</p>
                                             <div className="copytoclipboard">
-                                                <div className="copy-container">
+                                                <div className="mobile-copy-container">
                                                     <span className="copy-text">{password}</span>
                                                     <CopyToClipboard text={password}>
                                                         <button className="copy-button">
@@ -319,7 +314,7 @@ export const MobileFormPassword = (props) => {
                                                     </CopyToClipboard>
                                                 </div>
                                             </div>
-                                            <ButtonClear className='form-change-password' onClick={showChangePassword} label="Change password" />
+                                            <ButtonClear className='mobile-form-change-password' onClick={showChangePassword} label="Change password" />
                                         </>
                                     )}
                                 </>

@@ -293,7 +293,7 @@ export const MobileFormDomain = (props) => {
 
             :
             <>
-              <h1 className='sub-title'>Domain</h1>
+              <h1 className='mobile-domain-sub-title'>Domain</h1>
               <h2 className='mobile-mobile-form-sub-header'>Domain name</h2>
               <div>
                 <input

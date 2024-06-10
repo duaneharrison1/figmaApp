@@ -416,8 +416,10 @@ export default function FolioForm() {
 
   const handlePassword = async () => {
 
-    if (password.length >= 6) {
-      alert('Your password must be at least 6 characters long.');
+    if (password.length < 6) {
+      if(isPasswordActive == false ) {
+          alert('Your password must be at least 6 characters long.');     
+      }  
     } else {
       const salt = bcrypt.genSaltSync(10);
       const hashPassword = bcrypt.hashSync(password, salt);
@@ -639,7 +641,7 @@ export default function FolioForm() {
                         <FormFavicon onChildFavicon={handleFaviconImage} setFaviconImage={faviconImage} subscriptionType={subscriptionType} trialConsume = {trialConsume} />
                       </div>
                       <div className={`tab-pane fade ${activeTab === 'tab5' ? 'show active' : ''}`} id="tab5">
-                        <FormPassword  onChildPasswordHandle={handlePassword} onChildPasswordStatusHandle={handlePasswordStatus} password={password} isPasswordActive= {isPasswordActive} sendNewPassword = {handleDataFromChild} sendNewPasswordStatus = { handlePasswordStatusFromChild}subscriptionType={subscriptionType} trialConsume = {trialConsume} />
+                        <FormPassword  onChildPasswordHandle={handlePassword} onChildPasswordStatusHandle={handlePasswordStatus} password={password} title={title} isPasswordActive= {isPasswordActive} sendNewPassword = {handleDataFromChild} sendNewPasswordStatus = { handlePasswordStatusFromChild}subscriptionType={subscriptionType} trialConsume = {trialConsume} />
                       </div>
                       <div className={`tab-pane fade ${activeTab === 'tab6' ? 'show active' : ''}`} id="tab6">
                         <FormInstruction />
