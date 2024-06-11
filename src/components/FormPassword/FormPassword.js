@@ -24,15 +24,15 @@ export default function FormPassword(props) {
     const [copied, setCopied] = useState(false);
     const [showChangePasswordContainer, setshowChangePasswordContainer] = useState(false);
 
-
     const handleNewPassword = (event) => {
-        setNewPassword(event.target.value);
-        props.sendNewPassword(newPassword)
+    const stringPassword = event.target.value
+        setNewPassword(stringPassword);
+        props.sendNewPassword(stringPassword)
     };
     const handleSwitchChange = () => {
         setIsPasswordActive(!isPasswordActive)
         props.sendNewPasswordStatus(isPasswordActive)
-        props.onChildPasswordHandle();
+        props.onChildhandleToggle()
     };
 
     const handleShowModal = () => {
@@ -104,11 +104,11 @@ export default function FormPassword(props) {
                             </div>
                             <div className='col-sm-1'>
                                 <Form.Check
+                                    disabled
                                     type="switch"
                                     id="custom-switch"
-                                    checked="false"
-                                    onChange={handleSwitchChange}
-                                    className="enable-pass-switch"
+                                    checked={false}
+                                    className='password-active-switch'
                                 />
                             </div>
                         </div>
@@ -154,23 +154,22 @@ export default function FormPassword(props) {
                     {isPasswordActive &&
                         <>
                             {showChangePasswordContainer ? (
-                                <div className='form-password-save-container p-0 m-0'>
-
-                                    <input
-                                        className='form-input-password'
-                                        type="text"
-                                        placeholder="Enter new password"
-                                        value={newPassword}
-                                        onChange={handleNewPassword}
-                                    />
-
-
-                                    <ButtonColored className="folio-form-password-save-btn" label={"Save"} onClick={props.onChildPasswordHandle} />
-
-                                </div>
+                                <>
+                                    <div className='form-password-save-container p-0 m-0'>
+                                        <input
+                                            className='form-input-password'
+                                            type="text"
+                                            placeholder="Enter new password"
+                                            value={newPassword}
+                                            onChange={handleNewPassword}
+                                        />
+                                        <ButtonColored className="folio-form-password-save-btn" label={"Save"} onClick={props.onChildPasswordHandle} />
+                                    </div>
+                                    {props.isError =="true" && < p className='error-message'>Your password must be at least 6 characters long.</p>}
+                                </>
                             ) : (
                                 <>
-                                 <p className='password-to-access'> Password to access {props.title}:</p>
+                                    <p className='password-to-access'> Password to access {props.title}:</p>
                                     <div className="copytoclipboard">
                                         <div className="copy-container">
                                             <span className="copy-text">{props.password}</span>

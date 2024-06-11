@@ -251,21 +251,21 @@ export const MobileFormPassword = (props) => {
                                     className='password-active-switch'
                                     type="switch"
                                     id="custom-switch"
-                                    checked={isPasswordActive}
-                                    onChange={handleSwitchChange}
+                                    checked={false}
+                                    disabled
                                 />
                             </div>
 
                             <div className='regular-user-message-container'>
-                                <div className='row'>
-                                    <div className='col-md-8'>
+                             
+                                   
                                         <h1 className='regular-user-header'>Need to keep things confidential?</h1>
                                         <p className='regular-user-message'>Upgrade your plan to share your work securely and ensure only the intended people see it.</p>
-                                    </div>
-                                    <div className='upgrade-now-btn-container col-md-4'>
-                                        <ButtonColored className="upgrade-now" label="Upgrade now" onClick={handleShowModal} />
-                                    </div>
-                                </div>
+                                  
+                           
+                                        <ButtonColored  className="folio-mobile-form-upgrade-btn" label="Upgrade now" onClick={handleShowModal} />
+                                  
+                             
                             </div>
                         </>
                         :

@@ -64,6 +64,7 @@ export default function FolioForm() {
 
   const [faviconFromLocal, setFaviconFromLocal] = useState(null);
 
+  const [isError, setIsError] = useState("false");
 
   const [oldDomain, setOldDomain] = useState(
     location && location.state && location.state.object && location.state.object.customDomain
@@ -113,7 +114,6 @@ export default function FolioForm() {
     setShowErrorModal(false);
   };
   const [randomurl, setRandomUrl] = useState('');
-
   const [password, setPassword]  = useState(
     location && location.state && location.state.object && location.state.object.password
       ? location.state.object.password
@@ -414,13 +414,42 @@ export default function FolioForm() {
     }
   }
 
+   const handleToggle = async () => {
+    const salt = bcrypt.genSaltSync(10);
+    const hashPassword = bcrypt.hashSync(password, salt);
+    try {
+      if (docId) {
+        const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
+          password: password,
+          encryptedPassword: hashPassword,
+          isPasswordActive: isPasswordActive,
+          updatedAt: new Date()
+        })
+      } else {
+        const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
+          userId: user.uid,
+          password: password,
+          encryptedPassword: hashPassword,
+          isPasswordActive: isPasswordActive,
+          generatedUrl: randomurl,
+          createdAt: new Date(),
+        })
+        setGeneratedUrl(randomurl);
+        setDocId(docRef.id);
+      }
+    } catch (err) {
+      alert(err.message)
+    } finally {
+      alert("Success")
+    }
+   }
   const handlePassword = async () => {
 
     if (password.length < 6) {
-      if(isPasswordActive == false ) {
-          alert('Your password must be at least 6 characters long.');     
-      }  
+      console.log(password.length)
+        setIsError("true");
     } else {
+      setIsError("false");
       const salt = bcrypt.genSaltSync(10);
       const hashPassword = bcrypt.hashSync(password, salt);
       try {
@@ -450,11 +479,6 @@ export default function FolioForm() {
       }
     }    
   }
-
-  const handlePasswordStatus = async () => {
-
-  }
-
 
   // Function to handle tab click
   const handleTabClick = (tabId, event) => {
@@ -641,7 +665,7 @@ export default function FolioForm() {
                         <FormFavicon onChildFavicon={handleFaviconImage} setFaviconImage={faviconImage} subscriptionType={subscriptionType} trialConsume = {trialConsume} />
                       </div>
                       <div className={`tab-pane fade ${activeTab === 'tab5' ? 'show active' : ''}`} id="tab5">
-                        <FormPassword  onChildPasswordHandle={handlePassword} onChildPasswordStatusHandle={handlePasswordStatus} password={password} title={title} isPasswordActive= {isPasswordActive} sendNewPassword = {handleDataFromChild} sendNewPasswordStatus = { handlePasswordStatusFromChild}subscriptionType={subscriptionType} trialConsume = {trialConsume} />
+                        <FormPassword isError={isError} onChildPasswordHandle={handlePassword}  onChildhandleToggle={handleToggle} password={password} title={title} isPasswordActive={isPasswordActive} sendNewPassword = {handleDataFromChild} sendNewPasswordStatus = { handlePasswordStatusFromChild}subscriptionType={subscriptionType} trialConsume = {trialConsume} />
                       </div>
                       <div className={`tab-pane fade ${activeTab === 'tab6' ? 'show active' : ''}`} id="tab6">
                         <FormInstruction />
