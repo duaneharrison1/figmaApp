@@ -20,7 +20,7 @@ function DynamicPage({ url }) {
   const [isPasswordCorrect, setIsPasswordCorrect] = useState(false);
   const isOpenInMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const [password, setPassword] = useState('');
-
+  const [isError, setIsError] = useState(null);
   const navigateToHome = () => {
     navigate("/");
   };
@@ -100,10 +100,9 @@ function DynamicPage({ url }) {
 
   const checkPassword = () => {
     setIsPasswordCorrect(bcrypt.compareSync(password, url.encryptedPassword));
-
     if(!isPasswordCorrect){
-      alert("You have entered a wrong password")
-    }
+      setIsError(true)
+      }
   };
 
   return (
@@ -124,6 +123,7 @@ function DynamicPage({ url }) {
                   placeholder="Enter your password"
                   onChange={handlePassword} />
                 <ButtonColored className="login-folio-btn" label={"Login"} onClick={checkPassword} />
+                {isError == true && < p className='error-message'>You have entered a wrong password</p>}
               </div>
             </Modal.Dialog>
           ) : (
