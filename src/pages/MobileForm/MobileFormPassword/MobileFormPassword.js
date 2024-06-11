@@ -90,6 +90,7 @@ export const MobileFormPassword = (props) => {
 
     useEffect(() => {
         setRandomUrl(generateRandomString(10))
+        console.log("ff" + isPasswordActive)
         if (password == "") {
             setPassword(generateRandomString(6))
         }
@@ -139,8 +140,9 @@ export const MobileFormPassword = (props) => {
         setPassword(event.target.value);
     };
     const handleSwitchChange = () => {
-        setIsPasswordActive(!isPasswordActive)
-        handlePassword();
+        const newPasswordActiveState = !isPasswordActive;
+        setIsPasswordActive(newPasswordActiveState);
+        handlePassword(newPasswordActiveState); 
     };
 
     const handleShowModal = () => {
@@ -196,7 +198,7 @@ export const MobileFormPassword = (props) => {
         })
     }
 
-    const handlePassword = async () => {
+    const handlePassword = async (newPasswordActiveState) => {
         if (password.length < 6) {
             console.log(password.length)
               setIsError(true);
@@ -209,7 +211,7 @@ export const MobileFormPassword = (props) => {
                     const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
                         password: password,
                         encryptedPassword: hashPassword,
-                        isPasswordActive: isPasswordActive,
+                        isPasswordActive: newPasswordActiveState,
                         updatedAt: new Date()
                     })
                 } else {
@@ -217,7 +219,7 @@ export const MobileFormPassword = (props) => {
                         userId: user.uid,
                         password: password,
                         encryptedPassword: hashPassword,
-                        isPasswordActive: isPasswordActive,
+                        isPasswordActive: newPasswordActiveState,
                         generatedUrl: randomurl,
                         createdAt: new Date(),
                     })
@@ -236,8 +238,10 @@ export const MobileFormPassword = (props) => {
     return (
         <>
             <div className='app-wrapper-mobile'>
+        
                 <MobileNavBar title={title} backToMobileFolioForm={backToMobileFolioForm} />
                 <div className='mobile-form-title-container'>
+                  
                     <h1 className='mobile-form-title'>Password</h1>
                     <p className='form-favicon-note-disabled'>This is a small icon which will represent your website at the top of a web browser and in browser's bookmark bar, history and in search results.</p>
                     {subscriptionType === "regular" ?
@@ -287,7 +291,7 @@ export const MobileFormPassword = (props) => {
                                             />
                                             <ButtonColored className="folio-form-password-save-btn" label={"Save"} onClick={handlePassword} />
                                         </div>
-                                         {isError == true && < p className='error-message'>You have entered a wrong password</p>}
+                                         {isError == true && < p className='error-message'>Your password must be at least 6 characters long.</p>}
                                          </>
                                     ) : (
                                         <>

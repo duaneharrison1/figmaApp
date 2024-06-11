@@ -90,8 +90,6 @@ export default function FormPassword(props) {
 
     return (
         <>
-
-
             {subscriptionType === "regular" ?
                 <>
                     <div>
@@ -112,9 +110,6 @@ export default function FormPassword(props) {
                                 />
                             </div>
                         </div>
-
-
-
                         <div className='regular-user-message-container'>
                             <div className='row'>
                                 <div className='col-md-8'>
