@@ -23,7 +23,7 @@ export const MobileFormPassword = (props) => {
     const [randomurl, setRandomUrl] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [newPassword, setNewPassword] = useState(props.password || "");
-
+    const [isError, setIsError] = useState(null);
     const [showChangePasswordContainer, setshowChangePasswordContainer] = useState(false);
     const [docId, setDocId] = useState(
         location && location.state && location.state.object
@@ -198,10 +198,10 @@ export const MobileFormPassword = (props) => {
 
     const handlePassword = async () => {
         if (password.length < 6) {
-            if (isPasswordActive == false) {
-                alert('Your password must be at least 6 characters long.');
-            }
-        } else {
+            console.log(password.length)
+              setIsError(true);
+          } else {
+            setIsError(false);
             const salt = bcrypt.genSaltSync(10);
             const hashPassword = bcrypt.hashSync(password, salt);
             try {
@@ -235,14 +235,11 @@ export const MobileFormPassword = (props) => {
 
     return (
         <>
-
             <div className='app-wrapper-mobile'>
                 <MobileNavBar title={title} backToMobileFolioForm={backToMobileFolioForm} />
                 <div className='mobile-form-title-container'>
                     <h1 className='mobile-form-title'>Password</h1>
-
                     <p className='form-favicon-note-disabled'>This is a small icon which will represent your website at the top of a web browser and in browser's bookmark bar, history and in search results.</p>
-
                     {subscriptionType === "regular" ?
                         <>
                             <div className='password-toggle-container'>
@@ -255,17 +252,10 @@ export const MobileFormPassword = (props) => {
                                     disabled
                                 />
                             </div>
-
                             <div className='regular-user-message-container'>
-                             
-                                   
                                         <h1 className='regular-user-header'>Need to keep things confidential?</h1>
                                         <p className='regular-user-message'>Upgrade your plan to share your work securely and ensure only the intended people see it.</p>
-                                  
-                           
                                         <ButtonColored  className="folio-mobile-form-upgrade-btn" label="Upgrade now" onClick={handleShowModal} />
-                                  
-                             
                             </div>
                         </>
                         :
@@ -286,8 +276,8 @@ export const MobileFormPassword = (props) => {
                             {isPasswordActive && (
                                 <>
                                     {showChangePasswordContainer ? (
+                                        <>
                                         <div className='form-password-save-container p-0 m-0'>
-
                                             <input
                                                 className='form-input-password'
                                                 type="text"
@@ -295,14 +285,12 @@ export const MobileFormPassword = (props) => {
                                                 value={password}
                                                 onChange={handleNewPassword}
                                             />
-
-
                                             <ButtonColored className="folio-form-password-save-btn" label={"Save"} onClick={handlePassword} />
-
                                         </div>
+                                         {isError == true && < p className='error-message'>You have entered a wrong password</p>}
+                                         </>
                                     ) : (
                                         <>
-
                                             <p className='mobile-password-to-access'> Password to access {title}:</p>
                                             <div className="copytoclipboard">
                                                 <div className="mobile-copy-container">
@@ -322,8 +310,6 @@ export const MobileFormPassword = (props) => {
                         </>
 
                     }
-
-
                 </div>
 
                 <PaymentSelection show={showModal} handleClose={handleCloseModal}

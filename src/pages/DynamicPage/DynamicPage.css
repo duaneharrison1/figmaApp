@@ -59,17 +59,16 @@
 }
 
 .password-modal-content{
-    width: 447px;
-    padding: 0;
-    padding: 20px;
+    width: 535px;
+    padding: 44px;
     border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .password-modal-title{
     text-align: center;
     width: 100%;
     font-size: 24px;
-    padding-bottom: 32px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -78,7 +77,14 @@
     }
 
     .password-modal-content{
-        width: 326px;
-        padding: 0;
+        width: 100%;
+      padding: 18px;
+
+      
+    }
+
+    .folio-password-modal .modal-content{
+        padding-left: 24px;
+        padding-right: 24px;
     }
 }
