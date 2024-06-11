@@ -112,7 +112,7 @@ function DynamicPage({ url }) {
           {!isPasswordCorrect ? (
             <Modal.Dialog className='folio-password-modal'>
               <div className='password-modal-content'>
-                <Modal.Title className='password-modal-title'>Login to {url.title}</Modal.Title>
+                <Modal.Title className='password-modal-title'>Login to view {url.title}</Modal.Title>
                 <PasswordTextField
                   formLabel="Password"
                   errorMsg="Wrong password"
