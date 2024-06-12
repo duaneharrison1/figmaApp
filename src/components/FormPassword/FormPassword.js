@@ -33,6 +33,7 @@ export default function FormPassword(props) {
         setIsPasswordActive(!isPasswordActive)
         props.sendNewPasswordStatus(isPasswordActive)
         props.onChildhandleToggle()
+        setshowChangePasswordContainer(false);
     };
 
     const handleShowModal = () => {
@@ -150,7 +151,7 @@ export default function FormPassword(props) {
                         <>
                             {showChangePasswordContainer ? (
                                 <>
-                                    <div className='form-password-save-container p-0 m-0'>
+                                    <div className='form-password-save-container m-0'>
                                         <input
                                             className='form-input-password'
                                             type="text"

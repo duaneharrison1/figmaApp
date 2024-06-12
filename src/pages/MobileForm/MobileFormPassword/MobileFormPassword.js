@@ -142,6 +142,7 @@ export const MobileFormPassword = (props) => {
     const handleSwitchChange = () => {
         const newPasswordActiveState = !isPasswordActive;
         setIsPasswordActive(newPasswordActiveState);
+        setshowChangePasswordContainer(false);
         handlePassword(newPasswordActiveState); 
     };
 
@@ -211,7 +212,7 @@ export const MobileFormPassword = (props) => {
                     const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
                         password: password,
                         encryptedPassword: hashPassword,
-                        isPasswordActive: newPasswordActiveState,
+                        isPasswordActive: !!newPasswordActiveState,
                         updatedAt: new Date()
                     })
                 } else {
@@ -219,7 +220,7 @@ export const MobileFormPassword = (props) => {
                         userId: user.uid,
                         password: password,
                         encryptedPassword: hashPassword,
-                        isPasswordActive: newPasswordActiveState,
+                        isPasswordActive: !!newPasswordActiveState,
                         generatedUrl: randomurl,
                         createdAt: new Date(),
                     })
@@ -243,9 +244,10 @@ export const MobileFormPassword = (props) => {
                 <div className='mobile-form-title-container'>
                   
                     <h1 className='mobile-form-title'>Password</h1>
-                    <p className='form-favicon-note-disabled'>This is a small icon which will represent your website at the top of a web browser and in browser's bookmark bar, history and in search results.</p>
+                 
                     {subscriptionType === "regular" ?
                         <>
+                           <p className='form-favicon-note-disabled'>This is a small icon which will represent your website at the top of a web browser and in browser's bookmark bar, history and in search results.</p>
                             <div className='password-toggle-container'>
                                 <h1 className='mobile-enable-pass-protect'>Enable Password Protection</h1>
                                 <Form.Check
@@ -264,6 +266,7 @@ export const MobileFormPassword = (props) => {
                         </>
                         :
                         <>
+                           <p className='form-favicon-note'>This is a small icon which will represent your website at the top of a web browser and in browser's bookmark bar, history and in search results.</p>
                             <div className='enable-pass-protect-container'>
                                 <div className='password-toggle-container'>
                                     <h1 className='mobile-enable-pass-protect'>Enable Password Protection</h1>
@@ -281,7 +284,7 @@ export const MobileFormPassword = (props) => {
                                 <>
                                     {showChangePasswordContainer ? (
                                         <>
-                                        <div className='form-password-save-container p-0 m-0'>
+                                        <div className='form-password-save-container m-0'>
                                             <input
                                                 className='form-input-password'
                                                 type="text"
