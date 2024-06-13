@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './DynamicPage.css';
 import firebase from '../../firebase';
-import { Helmet } from 'react-helmet';
 function DynamicPage({ url }) {
   const dbFirestore = firebase.firestore();
   const navigate = useNavigate();
@@ -19,7 +18,6 @@ function DynamicPage({ url }) {
   };
 
   useEffect(() => {
-    document.title =  window.location.pathname;
     let link = document.querySelector("link[rel~='icon']");
     if (!link) {
       link = document.createElement('link');
@@ -94,11 +92,6 @@ function DynamicPage({ url }) {
 
   return (
     <>
-     <Helmet>
-        <title>My Social Preview Title</title>
-        <meta property="og:title" content={url.title} />
-        <meta property="twitter:title" content={url.title} />
-            </Helmet>
       {activeSubscriber == "true" ? (<div></div>) :
         (<div className="text-overlay" onClick={navigateToHome}>
           <p className='made-with'>Made with <span className="made-with-figmaolio">Figmafolio</span></p>
