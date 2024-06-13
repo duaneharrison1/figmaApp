@@ -29,6 +29,7 @@ import { MobileFormContent } from './pages/MobileForm/MobileFormContent/MobileFo
 import { MobileFormDomain } from './pages/MobileForm/MobileFormDomain/MobileFormDomain.js';
 import { MobileFormFavicon } from './pages/MobileForm/MobileFormFavicon/MobileFormFavicon.js';
 import { MobileFormPassword } from './pages/MobileForm/MobileFormPassword/MobileFormPassword.js';
+import TestPage from './pages/TestPage.js';
 function App() {
   const dbFirestore = firebase.firestore();
   const [data, setData] = useState([]);
@@ -60,7 +61,7 @@ function App() {
           currentPath == '/' + currentLanguage + '/admin' || currentPath == '/' + currentLanguage + '/billing' ||
           currentPath == '/' + currentLanguage + '/dashboard' || currentPath == '/' + currentLanguage + '/preview' ||
           currentPath == '/' + currentLanguage + '/auth' || currentPath == '/' + currentLanguage + '/forgotpassword' ||
-          currentPath == '/' + currentLanguage + '/profile') {
+          currentPath == '/' + currentLanguage + '/profile'  ||    currentPath == '/' + currentLanguage + '/testpage'  )  {
           setIsDynamicPage("false")
         } else {
           setIsDynamicPage("true")
@@ -112,6 +113,7 @@ function App() {
             <Route path="/:lang?/mobile-form-domain" element={<MobileFormDomain />} />
             <Route path="/:lang?/mobile-form-password" element={<MobileFormPassword />} />
             <Route path="/:lang?/mobile-form-favicon" element={<MobileFormFavicon />} />
+            <Route path="/:lang?/testpage" element={<TestPage />} />
           </Routes>
       }
     </div>
