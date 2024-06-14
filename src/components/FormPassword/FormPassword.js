@@ -30,11 +30,13 @@ export default function FormPassword(props) {
         props.sendNewPassword(stringPassword)
     };
     const handleSwitchChange = () => {
-        setIsPasswordActive(!isPasswordActive)
-        props.sendNewPasswordStatus(isPasswordActive)
-        props.onChildhandleToggle()
+        const newPasswordActiveState = !isPasswordActive;
+        setIsPasswordActive(newPasswordActiveState)
+        props.sendNewPasswordStatus(newPasswordActiveState)
         setshowChangePasswordContainer(false);
+        console.log("newPasswordActiveState" + newPasswordActiveState )
     };
+
 
     const handleShowModal = () => {
         setShowModal(true);

@@ -35,9 +35,6 @@ export default function FolioForm() {
     setPassword(data);
   };
 
-  const handlePasswordStatusFromChild = (data) => {
-    setIsPasswordActive(data);
-  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -132,6 +129,39 @@ export default function FolioForm() {
       : ""
   );
 
+
+  
+  const handlePasswordStatusFromChild = async (passwordStatus) => {
+
+    setIsPasswordActive(passwordStatus);
+       const salt = bcrypt.genSaltSync(10);
+    const hashPassword = bcrypt.hashSync(password, salt);
+    try {
+      if (docId) {
+        const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
+          password: password,
+          encryptedPassword: hashPassword,
+          isPasswordActive: passwordStatus,
+          updatedAt: new Date()
+        })
+      } else {
+        const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
+          userId: user.uid,
+          password: password,
+          encryptedPassword: hashPassword,
+          isPasswordActive: passwordStatus,
+          generatedUrl: randomurl,
+          createdAt: new Date(),
+        })
+        setGeneratedUrl(randomurl);
+        setDocId(docRef.id);
+      }
+    } catch (err) {
+      alert(err.message)
+    } finally {
+      alert("Success")
+    }
+  };
   
   var newCustomDomainData = {
     "name": domain
@@ -414,35 +444,7 @@ export default function FolioForm() {
     }
   }
 
-   const handleToggle = async () => {
-    const salt = bcrypt.genSaltSync(10);
-    const hashPassword = bcrypt.hashSync(password, salt);
-    try {
-      if (docId) {
-        const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
-          password: password,
-          encryptedPassword: hashPassword,
-          isPasswordActive: isPasswordActive,
-          updatedAt: new Date()
-        })
-      } else {
-        const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
-          userId: user.uid,
-          password: password,
-          encryptedPassword: hashPassword,
-          isPasswordActive: isPasswordActive,
-          generatedUrl: randomurl,
-          createdAt: new Date(),
-        })
-        setGeneratedUrl(randomurl);
-        setDocId(docRef.id);
-      }
-    } catch (err) {
-      alert(err.message)
-    } finally {
-      alert("Success")
-    }
-   }
+
   const handlePassword = async () => {
 
     if (password.length < 6) {
@@ -665,7 +667,7 @@ export default function FolioForm() {
                         <FormFavicon onChildFavicon={handleFaviconImage} setFaviconImage={faviconImage} subscriptionType={subscriptionType} trialConsume = {trialConsume} />
                       </div>
                       <div className={`tab-pane fade ${activeTab === 'tab5' ? 'show active' : ''}`} id="tab5">
-                        <FormPassword isError={isError} onChildPasswordHandle={handlePassword}  onChildhandleToggle={handleToggle} password={password} title={title} isPasswordActive={isPasswordActive} sendNewPassword = {handleDataFromChild} sendNewPasswordStatus = { handlePasswordStatusFromChild}subscriptionType={subscriptionType} trialConsume = {trialConsume} />
+                        <FormPassword isError={isError} onChildPasswordHandle={handlePassword} password={password} title={title} isPasswordActive={isPasswordActive} sendNewPassword = {handleDataFromChild} sendNewPasswordStatus = { handlePasswordStatusFromChild}subscriptionType={subscriptionType} trialConsume = {trialConsume} />
                       </div>
                       <div className={`tab-pane fade ${activeTab === 'tab6' ? 'show active' : ''}`} id="tab6">
                         <FormInstruction />
