@@ -22,7 +22,7 @@ export default function FormPassword(props) {
     const [password, setPassword] = useState(props.password || "");
     const [newPassword, setNewPassword] = useState(props.password || "");
     const [copied, setCopied] = useState(false);
-    const [showChangePasswordContainer, setshowChangePasswordContainer] = useState(false);
+    const [showChangePasswordContainer, setshowChangePasswordContainer] =  useState(props.showChangePasswordContainer || false);
 
     const handleNewPassword = (event) => {
     const stringPassword = event.target.value
@@ -37,6 +37,15 @@ export default function FormPassword(props) {
         console.log("newPasswordActiveState" + newPasswordActiveState )
     };
 
+    const handleSave = () => {
+        props.onChildPasswordHandle()
+        console.log("props.isErro" + props.isError)
+        if(props.isError =="true") {
+            console.log("wenthere")
+            setshowChangePasswordContainer(false); 
+        }
+    
+    }
 
     const handleShowModal = () => {
         setShowModal(true);
@@ -161,7 +170,7 @@ export default function FormPassword(props) {
                                             value={newPassword}
                                             onChange={handleNewPassword}
                                         />
-                                        <ButtonColored className="folio-form-password-save-btn" label={"Save"} onClick={props.onChildPasswordHandle} />
+                                        <ButtonColored className="folio-form-password-save-btn" label={"Save"} onClick={handleSave} />
                                     </div>
                                     {props.isError =="true" && < p className='error-message'>Your password must be at least 6 characters long.</p>}
                                 </>
