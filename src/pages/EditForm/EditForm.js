@@ -258,8 +258,8 @@ export default function EditForm() {
                     </div>
 
                     <PaymentSelectionModal show={showModal} handleClose={handleCloseModal}
-                        handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_MONTHLY)}
-                        handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_YEARLY)} />
+                        handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_BASIC)}
+                        handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_PRO)} />
                     < AlertErrorModal show={showErrorModal} handleClose={handleCloseErrorModal} alertMessage={t('you-have-entered-a-link')} />
                 </div>
             </div>

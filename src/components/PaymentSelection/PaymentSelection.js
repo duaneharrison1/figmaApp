@@ -64,9 +64,9 @@ const PaymentSelection = (props) => {
         {
             planIcon: BasicImage,
             title: 'Basic',
-            amount: '$5',
+            amount: '$6',
             month: '/month',
-            billDesc: 'Billed as 5 USD monthly after the trial period',
+            billDesc: 'Billed as 6 USD monthly after the trial period',
             features: [t('monthly-feat-one'), t('monthly-yearly-feat-two'), t('removes-made-with'),'Password protection', 'Customize Favicon'],
             buttonLabel: monthlySubscription === "monthlyPlan" ? t('current-plan') : "Start free 7 day trial",
             buttonClass: monthlySubscription === "monthlyPlan" ? 'btn-current-plan' : 'btn-upgrade-plan',
@@ -75,11 +75,11 @@ const PaymentSelection = (props) => {
         {
             planIcon: ProImage,
             title: 'Pro',
-            amount: '$48',
+            amount: '$58',
             month: '/year',
-            billDesc: 'Billed as a yearly payment of $48 USD after the trial period.',
+            billDesc: 'Billed as a yearly payment of $58 USD after the trial period.',
             features: [t('yearly-feat-one'), t('monthly-yearly-feat-two'), t('removes-made-with'),'Password protection','Customize Favicon', t('monthly-yearly-feat-three')],
-            buttonLabel: 'Start free 30 day trial',
+            buttonLabel: 'Start free 15 day trial',
             buttonClass: 'btn-upgrade-plan-yearly',
             onClick: handleYearlyPayment
         }
@@ -103,7 +103,7 @@ const PaymentSelection = (props) => {
             <div className='payment-modal-body'>
                 <div className='payment-header-container'>
                     <h1 className='payment-modal-header'>Upgrade your Figmafolio account</h1>
-                    <h1 className='payment-modal-sub-header'>Try it for free (7 or 30 days) and cancel anytime during the trial period.</h1>
+                    <h1 className='payment-modal-sub-header'>Try it for free (7 or 15 days) and cancel anytime during the trial period.</h1>
                 </div>
 
                 {monthlySubscription === "monthlyPlan" && renderPlanCards(plan => plan.title !== 'Free')}

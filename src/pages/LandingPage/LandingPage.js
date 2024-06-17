@@ -233,7 +233,7 @@ export default function LandingPage() {
                 <h1 className='landing-page-payment-selection-title'> {t('monthly')}</h1>
 
                 <div className='amount-per-month'>
-                  <span className='landing-page-amount'>$5 </span>
+                  <span className='landing-page-amount'>$6 </span>
                   <span className='landing-page-month'>/month</span>
                 </div>
                 <h4 className='landing-page-bill-desc'> {t('billed-monthly-at')} </h4>
@@ -280,8 +280,8 @@ export default function LandingPage() {
 
                 <div className='amount-per-month'>
 
-                  <span className='landing-page-amount'>$4 </span>
-                  <span className='landing-page-month'>/month</span>
+                  <span className='landing-page-amount'>$58 </span>
+                  <span className='landing-page-month'>/year</span>
                 </div>
                 <h4 className='landing-page-bill-desc'>{t('billed-yearly-at')}</h4>
 
