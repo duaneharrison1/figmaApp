@@ -87,6 +87,33 @@
     background-color: #4D9F70;
 }
 
+.folio-form-password-save-btn {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 24px;
+    padding-right: 24px;
+    border-radius: 40px;
+    font-weight: 600;
+    color: white;
+    border: none;
+    background-color: #4D9F70;
+}
+
+.folio-mobile-form-upgrade-btn{
+    margin-top: 12px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 24px;
+    padding-right: 24px;
+    border-radius: 40px;
+    font-weight: 600;
+    color: white;
+    width: 100%;
+    border: none;
+    background-color: #4D9F70;
+}
+
+
 
 .mobile-form-upgrade-now {
     margin-top: 12px;

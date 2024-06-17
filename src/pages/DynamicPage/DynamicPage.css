@@ -30,8 +30,61 @@
     font-size: 13px;
 }
 
+.login-folio-btn{
+    margin-top: 24px;
+    width: 100%;
+    height: 48px;
+    background-color: #4F4F4F;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    border:0px;
+}
+
+
+
+.folio-password-modal .modal-content{
+
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+
+}
+
+.password-modal-content{
+    width: 535px;
+    padding: 44px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.password-modal-title{
+    text-align: center;
+    width: 100%;
+    font-size: 24px;
+}
+
 @media only screen and (max-width: 768px) {
     .text-overlay {
         left: 22px;
+    }
+
+    .password-modal-content{
+        width: 100%;
+      padding: 18px;
+
+      
+    }
+
+    .folio-password-modal .modal-content{
+        padding-left: 24px;
+        padding-right: 24px;
     }
 }

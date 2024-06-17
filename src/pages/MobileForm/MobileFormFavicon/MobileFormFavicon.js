@@ -29,6 +29,16 @@ export const MobileFormFavicon = (props) => {
       ? location.state.object.title
       : ""
   );
+  const [password, setPassword]  = useState(
+    location && location.state && location.state.object && location.state.object.password
+      ? location.state.object.password
+      : ""
+  );
+  const [isPasswordActive, setIsPasswordActive]  = useState(
+    location && location.state && location.state.object && location.state.object.isPasswordActive
+      ? location.state.object.isPasswordActive
+      : false
+  );
   const [generatedUrl, setGeneratedUrl] = useState(
     location && location.state && location.state.object && location.state.object.generatedUrl
       ? location.state.object.generatedUrl
@@ -205,6 +215,8 @@ export const MobileFormFavicon = (props) => {
             generatedUrl: generatedUrl,
             faviconUrl: faviconImage,
             customDomain: domain,
+            password: password,
+            isPasswordActive: isPasswordActive,
             urls: {
               figmaDesktopUrl: figmaDesktopUrl,
               figmaMobileUrl: figmaMobileUrl

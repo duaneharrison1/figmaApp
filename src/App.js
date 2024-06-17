@@ -28,6 +28,7 @@ import { MobileFormTitle } from './pages/MobileForm/MobileFormTitle/MobileFormTi
 import { MobileFormContent } from './pages/MobileForm/MobileFormContent/MobileFormContent.js';
 import { MobileFormDomain } from './pages/MobileForm/MobileFormDomain/MobileFormDomain.js';
 import { MobileFormFavicon } from './pages/MobileForm/MobileFormFavicon/MobileFormFavicon.js';
+import { MobileFormPassword } from './pages/MobileForm/MobileFormPassword/MobileFormPassword.js';
 function App() {
   const dbFirestore = firebase.firestore();
   const [data, setData] = useState([]);
@@ -109,6 +110,7 @@ function App() {
             <Route path="/:lang?/mobile-form-title" element={<MobileFormTitle />} />
             <Route path="/:lang?/mobile-form-content" element={<MobileFormContent />} />
             <Route path="/:lang?/mobile-form-domain" element={<MobileFormDomain />} />
+            <Route path="/:lang?/mobile-form-password" element={<MobileFormPassword />} />
             <Route path="/:lang?/mobile-form-favicon" element={<MobileFormFavicon />} />
           </Routes>
       }

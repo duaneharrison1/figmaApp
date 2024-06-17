@@ -30,6 +30,16 @@ export const MobileFormDomain = (props) => {
       ? location.state.object.title
       : ""
   );
+  const [password, setPassword]  = useState(
+    location && location.state && location.state.object && location.state.object.password
+      ? location.state.object.password
+      : ""
+  );
+  const [isPasswordActive, setIsPasswordActive]  = useState(
+    location && location.state && location.state.object && location.state.object.isPasswordActive
+      ? location.state.object.isPasswordActive
+      : false
+  );
   const [generatedUrl, setGeneratedUrl] = useState(
     location && location.state && location.state.object && location.state.object.generatedUrl
       ? location.state.object.generatedUrl
@@ -51,6 +61,7 @@ export const MobileFormDomain = (props) => {
       ? location.state.object.urls.figmaMobileUrl
       : ""
   );
+
   const [subscriptionType, setSubscriptionType] = useState(location && location.state && location.state.subscriptionType ? location.state.subscriptionType : "");
   const [trialConsume, setTrialConsume] = useState(location && location.state && location.state.trialConsume ? location.state.trialConsume : "");
   const [oldDomain, setOldDomain] = useState(
@@ -224,6 +235,8 @@ export const MobileFormDomain = (props) => {
             generatedUrl: generatedUrl,
             faviconUrl: faviconImage,
             customDomain: domain,
+            password: password,
+            isPasswordActive: isPasswordActive,
             urls: {
               figmaDesktopUrl: figmaDesktopUrl,
               figmaMobileUrl: figmaMobileUrl
@@ -280,7 +293,7 @@ export const MobileFormDomain = (props) => {
 
             :
             <>
-              <h1 className='sub-title'>Domain</h1>
+              <h1 className='mobile-domain-sub-title'>Domain</h1>
               <h2 className='mobile-mobile-form-sub-header'>Domain name</h2>
               <div>
                 <input

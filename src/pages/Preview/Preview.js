@@ -272,7 +272,7 @@ export default function Preview() {
                                                 <p className='desktop-mobile-label'>{t('desktop')}</p>
                                                 <div className='container'>
                                                     <Form.Check
-                                                        className='form-switch'
+                                                        className='preview-switch'
                                                         type="switch"
                                                         id="custom-switch"
                                                         checked={isMobile}

@@ -51,7 +51,7 @@
     margin-top:0px;
 }
 
-.form-check-input, .form-check-input:checked {
+.preview-switch .form-check-input, .preview-switch .form-check-input:checked {
 background-color: #4D9F70 !important;
 border-color: #4D9F70 !important;
 }

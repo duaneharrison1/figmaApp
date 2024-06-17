@@ -35,9 +35,9 @@ export default function PasswordTextField(props) {
                     placeholder={placeholder}
                     onChange={handleChange}
                 />
-                <Button className="show-password-btn" onClick={togglePasswordVisibility}>
+                <button className="show-password-btn" onClick={togglePasswordVisibility}>
                     {showPassword ? <EyeSlash size={24} /> : <Eye size={24} />}
-                </Button>
+                </button>
             </InputGroup >
         </div>
     )

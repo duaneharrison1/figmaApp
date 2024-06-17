@@ -39,6 +39,16 @@ export const MobileFormContent = (props) => {
       ? location.state.object.customDomain
       : ""
   );
+  const [password, setPassword]  = useState(
+    location && location.state && location.state.object && location.state.object.password
+      ? location.state.object.password
+      : ""
+  );
+  const [isPasswordActive, setIsPasswordActive]  = useState(
+    location && location.state && location.state.object && location.state.object.isPasswordActive
+      ? location.state.object.isPasswordActive
+      : false
+  );
   const [showErrorModal, setShowErrorModal] = useState(false);
   const handleCloseErrorModal = () => {
     setShowErrorModal(false);
@@ -171,6 +181,8 @@ export const MobileFormContent = (props) => {
             generatedUrl: generatedUrl,
             faviconUrl: faviconImage,
             customDomain: domain,
+            password: password,
+            isPasswordActive: isPasswordActive,
             urls: {
               figmaDesktopUrl: figmaDesktopUrl,
               figmaMobileUrl: figmaMobileUrl

@@ -17,6 +17,8 @@ import axios from "axios";
 import AlertErrorModal from '../../components/AlertErrorModal/AlertErrorModal';
 import MobileNavBar from '../MobileForm/MobileNavBar/MobileNavbar';
 import ButtonClear from '../../components/ButtonClear/ButtonClear';
+import FormPassword from '../../components/FormPassword/FormPassword';
+import bcrypt from 'bcryptjs';
 const isOpenInMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 export default function FolioForm() {
   const [isMobile, setIsMobile] = useState(false);
@@ -29,10 +31,13 @@ export default function FolioForm() {
   const [subscriptionType, setSubscriptionType] = useState(location.state.subscriptionType);
   const [trialConsume, setTrialConsume] = useState(location.state.trialConsume);
   const user = auth.currentUser;
+  const handleDataFromChild = (data) => {
+    setPassword(data);
+  };
+
 
   useEffect(() => {
     const handleResize = () => {
-      console.log("ity is mobile")
       setIsMobile(window.innerWidth <= 768);
     };
     handleResize();
@@ -56,6 +61,7 @@ export default function FolioForm() {
 
   const [faviconFromLocal, setFaviconFromLocal] = useState(null);
 
+  const [isError, setIsError] = useState("false");
 
   const [oldDomain, setOldDomain] = useState(
     location && location.state && location.state.object && location.state.object.customDomain
@@ -105,7 +111,58 @@ export default function FolioForm() {
     setShowErrorModal(false);
   };
   const [randomurl, setRandomUrl] = useState('');
+  const [password, setPassword]  = useState(
+    location && location.state && location.state.object && location.state.object.password
+      ? location.state.object.password
+      : ""
+  );
+  const [isPasswordActive, setIsPasswordActive]  = useState(
+    location && location.state && location.state.object && location.state.object.isPasswordActive
+      ? location.state.object.isPasswordActive
+      : false
+  );
+  
 
+  const [encryptedPassword, setEncryptedPassword]  = useState(
+    location && location.state && location.state.object && location.state.object.password
+      ? location.state.object.encryptedPassword
+      : ""
+  );
+
+
+  
+  const handlePasswordStatusFromChild = async (passwordStatus) => {
+
+    setIsPasswordActive(passwordStatus);
+       const salt = bcrypt.genSaltSync(10);
+    const hashPassword = bcrypt.hashSync(password, salt);
+    try {
+      if (docId) {
+        const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
+          password: password,
+          encryptedPassword: hashPassword,
+          isPasswordActive: passwordStatus,
+          updatedAt: new Date()
+        })
+      } else {
+        const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
+          userId: user.uid,
+          password: password,
+          encryptedPassword: hashPassword,
+          isPasswordActive: passwordStatus,
+          generatedUrl: randomurl,
+          createdAt: new Date(),
+        })
+        setGeneratedUrl(randomurl);
+        setDocId(docRef.id);
+      }
+    } catch (err) {
+      alert(err.message)
+    } finally {
+      alert("Success")
+    }
+  };
+  
   var newCustomDomainData = {
     "name": domain
   };
@@ -125,6 +182,8 @@ export default function FolioForm() {
             generatedUrl: generatedUrl,
             faviconUrl: faviconImage,
             customDomain: domain,
+            password: password,
+            isPasswordActive: isPasswordActive,
             urls: {
               figmaDesktopUrl: figmaDesktopUrl,
               figmaMobileUrl: figmaMobileUrl
@@ -152,6 +211,10 @@ export default function FolioForm() {
 
   useEffect(() => {
     setRandomUrl(generateRandomString(10))
+    if (password == ""){
+      setPassword(generateRandomString(6))
+    }
+  
     const fetchData = async () => {
       try {
         dbFirestore.collectionGroup('url').where('generatedUrl', '==', randomurl).get().then(snapshot => {
@@ -382,6 +445,43 @@ export default function FolioForm() {
   }
 
 
+  const handlePassword = async () => {
+
+    if (password.length < 6) {
+      console.log(password.length)
+        setIsError("true");
+    } else {
+      setIsError("false");
+      const salt = bcrypt.genSaltSync(10);
+      const hashPassword = bcrypt.hashSync(password, salt);
+      try {
+        if (docId) {
+          const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
+            password: password,
+            encryptedPassword: hashPassword,
+            isPasswordActive: isPasswordActive,
+            updatedAt: new Date()
+          })
+        } else {
+          const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
+            userId: user.uid,
+            password: password,
+            encryptedPassword: hashPassword,
+            isPasswordActive: isPasswordActive,
+            generatedUrl: randomurl,
+            createdAt: new Date(),
+          })
+          setGeneratedUrl(randomurl);
+          setDocId(docRef.id);
+        }
+      } catch (err) {
+        alert(err.message)
+      } finally {
+        alert("Success")
+      }
+    }    
+  }
+
   // Function to handle tab click
   const handleTabClick = (tabId, event) => {
     event.preventDefault();
@@ -400,6 +500,8 @@ export default function FolioForm() {
         generatedUrl: generatedUrl,
         faviconUrl: faviconImage,
         customDomain: domain,
+        password: password,
+        isPasswordActive: isPasswordActive,
         urls: {
           figmaDesktopUrl: figmaDesktopUrl,
           figmaMobileUrl: figmaMobileUrl
@@ -414,7 +516,8 @@ export default function FolioForm() {
       tab2: `${basePath}/mobile-form-content`,
       tab3: `${basePath}/mobile-form-domain`,
       tab4: `${basePath}/mobile-form-favicon`,
-      tab5: `${basePath}/mobile-instruction`
+      tab5: `${basePath}/mobile-form-password`,
+      tab6: `${basePath}/mobile-instruction`
     };
   
     const navigatePath = tabPaths[tabId];
@@ -468,14 +571,21 @@ export default function FolioForm() {
                   <li className="nav-item-mobile">
                     <a className={`folio-form ${activeTab === 'tab4' ? 'active' : ''}`}
                       onClick={(e) => handleTabClickMobile('tab4', e)}
-                      href="#tab3">
+                      href="#tab4">
                       Favicon
                     </a>
                   </li>
-                  <li className="nav-item-mobile-last">
+                  <li className="nav-item-mobile">
                     <a className={`folio-form ${activeTab === 'tab5' ? 'active' : ''}`}
                       onClick={(e) => handleTabClickMobile('tab5', e)}
-                      href="#tab3">
+                      href="#tab5">
+                      Password
+                    </a>
+                  </li>
+                  <li className="nav-item-mobile-last">
+                    <a className={`folio-form ${activeTab === 'tab6' ? 'active' : ''}`}
+                      onClick={(e) => handleTabClickMobile('tab6', e)}
+                      href="#tab6">
                       Need help?
                     </a>
                   </li>
@@ -522,14 +632,21 @@ export default function FolioForm() {
                       <li className="folio-form-nav-item">
                         <a className={`folio-form ${activeTab === 'tab4' ? 'active' : ''}`}
                           onClick={(e) => handleTabClick('tab4', e)}
-                          href="#tab3">
+                          href="#tab4">
                           Favicon
                         </a>
                       </li>
                       <li className="folio-form-nav-item">
                         <a className={`folio-form ${activeTab === 'tab5' ? 'active' : ''}`}
                           onClick={(e) => handleTabClick('tab5', e)}
-                          href="#tab3">
+                          href="#tab5">
+                          Password
+                        </a>
+                      </li>
+                      <li className="folio-form-nav-item">
+                        <a className={`folio-form ${activeTab === 'tab6' ? 'active' : ''}`}
+                          onClick={(e) => handleTabClick('tab6', e)}
+                          href="#tab6">
                           Need help?
                         </a>
                       </li>
@@ -550,6 +667,9 @@ export default function FolioForm() {
                         <FormFavicon onChildFavicon={handleFaviconImage} setFaviconImage={faviconImage} subscriptionType={subscriptionType} trialConsume = {trialConsume} />
                       </div>
                       <div className={`tab-pane fade ${activeTab === 'tab5' ? 'show active' : ''}`} id="tab5">
+                        <FormPassword isError={isError} onChildPasswordHandle={handlePassword} password={password} title={title} isPasswordActive={isPasswordActive} sendNewPassword = {handleDataFromChild} sendNewPasswordStatus = { handlePasswordStatusFromChild}subscriptionType={subscriptionType} trialConsume = {trialConsume} />
+                      </div>
+                      <div className={`tab-pane fade ${activeTab === 'tab6' ? 'show active' : ''}`} id="tab6">
                         <FormInstruction />
                       </div>
                     </div>
