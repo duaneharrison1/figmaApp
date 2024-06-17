@@ -21,7 +21,7 @@ export default function FormPassword(props) {
     const [isPasswordActive, setIsPasswordActive] = useState(props.isPasswordActive || false);
     const [password, setPassword] = useState(props.password || "");
     const [newPassword, setNewPassword] = useState(props.password || "");
-    const [copied, setCopied] = useState(false);
+    const [isError, setIsError] = useState(false);
     const [showChangePasswordContainer, setshowChangePasswordContainer] =  useState(props.showChangePasswordContainer || false);
 
     const handleNewPassword = (event) => {
@@ -38,11 +38,16 @@ export default function FormPassword(props) {
     };
 
     const handleSave = () => {
-        props.onChildPasswordHandle()
-        console.log("props.isErro" + props.isError)
-        if(props.isError =="true") {
-            console.log("wenthere")
+     
+
+        if(newPassword.length < 6) {
+            setIsError(true)
+            setshowChangePasswordContainer(true); 
+            console.log("wentHere1")
+        } else {
+            props.onChildPasswordHandle()
             setshowChangePasswordContainer(false); 
+            setIsError(false)
         }
     
     }
@@ -172,7 +177,7 @@ export default function FormPassword(props) {
                                         />
                                         <ButtonColored className="folio-form-password-save-btn" label={"Save"} onClick={handleSave} />
                                     </div>
-                                    {props.isError =="true" && < p className='error-message'>Your password must be at least 6 characters long.</p>}
+                                    {isError == true && < p className='error-message'>Your password must be at least 6 characters long.</p>}
                                 </>
                             ) : (
                                 <>
