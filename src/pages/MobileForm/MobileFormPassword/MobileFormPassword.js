@@ -205,6 +205,7 @@ export const MobileFormPassword = (props) => {
               setIsError(true);
           } else {
             setIsError(false);
+            setshowChangePasswordContainer(false)
             const salt = bcrypt.genSaltSync(10);
             const hashPassword = bcrypt.hashSync(password, salt);
             try {
