@@ -321,8 +321,8 @@ export const MobileFormPassword = (props) => {
                 </div>
 
                 <PaymentSelection show={showModal} handleClose={handleCloseModal}
-                    handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_MONTHLY)}
-                    handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_YEARLY)} />
+                    handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_BASIC)}
+                    handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_PRO)} />
                 <Footer />
             </div>
         </>

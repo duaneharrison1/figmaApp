@@ -103,7 +103,7 @@
 //                                 <div className='regular-card'>
 //                                     <h1 className='payment-modal-selection-title'> {t('monthly')}</h1>
 //                                     <div className='amount-per-month'>
-//                                         <span className='amount'>$5 </span>
+//                                         <span className='amount'>$6 </span>
 //                                         <span className='month'>/month</span>
 //                                     </div>
 //                                     <h4 className='bill-desc'> {t('billed-monthly-at')} </h4>

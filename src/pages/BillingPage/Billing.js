@@ -47,9 +47,9 @@ export default function Billing() {
                             } else {
                                 snapshot.forEach(subscription => {
                                     if (subscription.data().status == "active") {
-                                        if (subscription.data().items[0].plan.id == process.env.REACT_APP_YEARLY) {
+                                        if (subscription.data().items[0].plan.id == process.env.REACT_APP_PRO) {
                                             setSubscriptionType("annualPlan")
-                                        } else if (subscription.data().items[0].plan.id == process.env.REACT_APP_MONTHLY) {
+                                        } else if (subscription.data().items[0].plan.id == process.env.REACT_APP_BASIC) {
                                             setSubscriptionType("monthlyPlan")
                                         } else {
                                             setSubscriptionType("regular")
@@ -195,8 +195,8 @@ export default function Billing() {
                 monthlySubscription={subscriptionType}
                 show={showUpgradeModal}
                 handleClose={handleCloseUpgradeModal}
-                handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_MONTHLY)}
-                handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_YEARLY)} />
+                handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_BASIC)}
+                handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_PRO)} />
         </>
 
     )

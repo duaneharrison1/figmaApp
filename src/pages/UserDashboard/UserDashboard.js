@@ -75,10 +75,10 @@ function UserDashboard() {
                             } else {
                                 snapshot.forEach(subscription => {
                                     if (subscription.data().status == "active" || subscription.data().status == "trialing") {
-                                        if (subscription.data().items[0].plan.id == process.env.REACT_APP_YEARLY) {
+                                        if (subscription.data().items[0].plan.id == process.env.REACT_APP_PRO) {
                                             setCanCreate("true")
                                             setSubscriptionType("annualPlan")
-                                        } else if (subscription.data().items[0].plan.id == process.env.REACT_APP_MONTHLY && docCount <= 4) {
+                                        } else if (subscription.data().items[0].plan.id == process.env.REACT_APP_BASIC && docCount <= 4) {
                                             setCanCreate("true")
                                             setChangeSubPlan("true")
                                             setSubscriptionType("monthlyPlan")
@@ -172,7 +172,7 @@ function UserDashboard() {
                     price: priceId,
                     success_url: window.location.origin,
                     cancel_url: window.location.origin,
-                    trial_period_days : trialConsume === "true" ? 0 : 30,
+                    trial_period_days : trialConsume === "true" ? 0 : 15,
                     allow_promotion_codes: true,
                     // automatic_tax: true,
                 })
@@ -358,8 +358,8 @@ function UserDashboard() {
                 monthlySubscription={subscriptionType}
                 show={showUpgradeModal}
                 handleClose={handleCloseUpgradeModal}
-                handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_MONTHLY)}
-                handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_YEARLY)} />
+                handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_BASIC)}
+                handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_PRO)} />
 
         </>
     );
