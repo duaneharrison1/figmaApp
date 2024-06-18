@@ -66,7 +66,7 @@ const PaymentSelection = (props) => {
             title: 'Basic',
             amount: '$5',
             month: '/month',
-            billDesc: 'Billed as 5 USD monthly after the trial period',
+            billDesc: 'Billed as 6 USD monthly after the trial period',
             features: [t('monthly-feat-one'), t('monthly-yearly-feat-two'), t('removes-made-with'),'Password protection', 'Customize Favicon'],
             buttonLabel: monthlySubscription === "monthlyPlan" ? t('current-plan') : "Start free 7 day trial",
             buttonClass: monthlySubscription === "monthlyPlan" ? 'btn-current-plan' : 'btn-upgrade-plan',
@@ -79,7 +79,7 @@ const PaymentSelection = (props) => {
             month: '/year',
             billDesc: 'Billed as a yearly payment of $48 USD after the trial period.',
             features: [t('yearly-feat-one'), t('monthly-yearly-feat-two'), t('removes-made-with'),'Password protection','Customize Favicon', t('monthly-yearly-feat-three')],
-            buttonLabel: 'Start free 30 day trial',
+            buttonLabel: 'Start free 15 day trial',
             buttonClass: 'btn-upgrade-plan-yearly',
             onClick: handleYearlyPayment
         }
