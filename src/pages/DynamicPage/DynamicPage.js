@@ -44,11 +44,24 @@ function DynamicPage({ url }) {
     }
   }, [activeSubscriber, faviconUrl]);
 
+
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
 
+    if (isOpenInMobile) {
+      setIsMobile(true);
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [isOpenInMobile]);
+
+  useEffect(() => {
     dbFirestore.collection('user').doc(url.userId).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
       if (snapshot.size === 0) {
         setActiveSubscriber("false");
@@ -82,17 +95,7 @@ function DynamicPage({ url }) {
     } else {
       setDesktop(url.urls.figmaDesktopUrl);
     }
-
-    if (isOpenInMobile) {
-      setIsMobile(true);
-    }
-
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-
-  }, [dbFirestore, url, isOpenInMobile, activeSubscriber]);
+  }, [dbFirestore, url, activeSubscriber]);
 
   const handlePassword = (password) => {
     setPassword(password);
@@ -100,9 +103,9 @@ function DynamicPage({ url }) {
 
   const checkPassword = () => {
     setIsPasswordCorrect(bcrypt.compareSync(password, url.encryptedPassword));
-    if(!isPasswordCorrect){
+    if (!isPasswordCorrect) {
       setIsError(true)
-      }
+    }
   };
 
   return (
@@ -142,7 +145,6 @@ function DynamicPage({ url }) {
               </iframe>
             </>
           )}
-
         </> :
 
         <>
@@ -151,16 +153,24 @@ function DynamicPage({ url }) {
               <p className='made-with'>Made with <span className="made-with-figmaolio">Figmafolio</span></p>
             </div>
           )}
+
           <iframe
-            src={isMobile ? mobile : desktop}
+            src={desktop}
             allowFullScreen
             referrerPolicy="no-referrer"
-            style={{ width: '100%', height: '100vh' }}
+            style={{ width: '100%', height: '100vh', display: isMobile ? 'none' : 'block' }}
+            className='dynamicpage_view_figma_view'>
+          </iframe>
+
+          <iframe
+            src={mobile}
+            allowFullScreen
+            referrerPolicy="no-referrer"
+            style={{ width: '100%', height: '100vh', display: isMobile ? 'block' : 'none' }}
             className='dynamicpage_view_figma_view'>
           </iframe>
         </>
       }
-
     </>
   );
 }

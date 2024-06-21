@@ -15,7 +15,7 @@ function DynamicPage2() {
   const [error, setError] = useState(null);
   const [faviconUrl, setFaviconUrl] = useState('');
   const dbFirestore = firebase.firestore();
-
+  const isOpenInMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   useEffect(() => {
     let link = document.querySelector("link[rel~='icon']");
     if (!link) {
@@ -51,7 +51,7 @@ function DynamicPage2() {
                     } else {
                       console.log("wentHere2")
                       snapshot.forEach(subscription => {
-                        if (subscription.data().status === "active"|| subscription.data().status == "trialing") {
+                        if (subscription.data().status === "active" || subscription.data().status == "trialing") {
                           if (value.isDraft == "false") {
                             document.title = value.title;
                             setFaviconUrl(value.faviconUrl)
@@ -106,20 +106,37 @@ function DynamicPage2() {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-    handleResize();
+
+    if (isOpenInMobile) {
+      setIsMobile(true);
+    }
+
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [isOpenInMobile]);
+
 
   return (
-    <iframe
-      src={isMobile ? mobile : desktop}
-      allowFullScreen
-      referrerpolicy="no-referrer"
-      style={{ width: '100%', height: '100vh' }}
-      className='dynamicpage_view_figma_view'></iframe>
+    <>
+      <iframe
+        src={desktop}
+        allowFullScreen
+        referrerPolicy="no-referrer"
+        style={{ width: '100%', height: '100vh', display: isMobile ? 'none' : 'block' }}
+        className='dynamicpage_view_figma_view'>
+      </iframe>
+
+      <iframe
+        src={mobile}
+        allowFullScreen
+        referrerPolicy="no-referrer"
+        style={{ width: '100%', height: '100vh', display: isMobile ? 'block' : 'none' }}
+        className='dynamicpage_view_figma_view'>
+      </iframe>
+    </>
+
   );
 }
 
