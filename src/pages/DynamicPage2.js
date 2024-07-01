@@ -1,18 +1,24 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { collection, doc, getDocs } from "firebase/firestore";
-import { db, auth } from '../firebase';
-import axios from 'axios';
-import { Helmet } from 'react-helmet';
 import firebase from '../firebase';
+import Modal from 'react-bootstrap/Modal';
+import bcrypt from 'bcryptjs';
+import PasswordTextField from '../components/PasswordTextfield/PasswordTextfield';
+import ButtonColored from '../components/ButtonColored/ButtonColored';
 function DynamicPage2() {
   const [isMobile, setIsMobile] = useState(false);
   const [mobile, setMobile] = useState("");
   const [desktop, setDesktop] = useState("");
+  const [isPasswordActive, setIsPasswordActive] = useState("");
   const [urlData, setUrlData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isPasswordCorrect, setIsPasswordCorrect] = useState(false);
+  const [isError, setIsError] = useState(null);
+  const [encryptedPassword, setEncryptedPassword] = useState(null);
+  const [title, setTitle] = useState(null);
+  const [password, setPassword] = useState('');
   const [faviconUrl, setFaviconUrl] = useState('');
   const dbFirestore = firebase.firestore();
   const isOpenInMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -55,6 +61,8 @@ function DynamicPage2() {
                           if (value.isDraft == "false") {
                             document.title = value.title;
                             setFaviconUrl(value.faviconUrl)
+                            setEncryptedPassword(value.encryptedPassword)
+                            setIsPasswordActive(value.isPasswordActive)
                             setDesktop(value.urls.figmaDesktopUrl)
                             setMobile(value.urls.figmaMobileUrl)
                           }
@@ -117,24 +125,75 @@ function DynamicPage2() {
     };
   }, [isOpenInMobile]);
 
+  const checkPassword = () => {
+    setIsPasswordCorrect(bcrypt.compareSync(password, encryptedPassword));
+    if (!isPasswordCorrect) {
+      setIsError(true)
+    }
+  };
+
+  const handlePassword = (password) => {
+    setPassword(password);
+  };
 
   return (
     <>
-      <iframe
-        src={desktop}
-        allowFullScreen
-        referrerPolicy="no-referrer"
-        style={{ width: '100%', height: '100vh', display: isMobile ? 'none' : 'block' }}
-        className='dynamicpage_view_figma_view'>
-      </iframe>
+      {isPasswordActive == true ?
+        <>
+          {!isPasswordCorrect ? (
+            <Modal.Dialog className='folio-password-modal'>
+              <div className='password-modal-content'>
+                <Modal.Title className='password-modal-title'>Login to view {title}</Modal.Title>
+                <PasswordTextField
+                  formLabel="Password"
+                  errorMsg="Wrong password"
+                  className='password-input'
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="Enter your password"
+                  onChange={handlePassword} />
+                <ButtonColored className="login-folio-btn" label={"Login"} onClick={checkPassword} />
+                {isError == true && < p className='error-message'>You have entered a wrong password</p>}
+              </div>
+            </Modal.Dialog>
+          ) : (
+            <>
+              <iframe
+                src={desktop}
+                allowFullScreen
+                referrerPolicy="no-referrer"
+                style={{ width: '100%', height: '100vh', display: isMobile ? 'none' : 'block' }}
+                className='dynamicpage_view_figma_view'>
+              </iframe>
 
-      <iframe
-        src={mobile}
-        allowFullScreen
-        referrerPolicy="no-referrer"
-        style={{ width: '100%', height: '100vh', display: isMobile ? 'block' : 'none' }}
-        className='dynamicpage_view_figma_view'>
-      </iframe>
+              <iframe
+                src={mobile}
+                allowFullScreen
+                referrerPolicy="no-referrer"
+                style={{ width: '100%', height: '100vh', display: isMobile ? 'block' : 'none' }}
+                className='dynamicpage_view_figma_view'>
+              </iframe>
+
+            </>)}
+        </> : <>
+          <iframe
+            src={desktop}
+            allowFullScreen
+            referrerPolicy="no-referrer"
+            style={{ width: '100%', height: '100vh', display: isMobile ? 'none' : 'block' }}
+            className='dynamicpage_view_figma_view'>
+          </iframe>
+
+          <iframe
+            src={mobile}
+            allowFullScreen
+            referrerPolicy="no-referrer"
+            style={{ width: '100%', height: '100vh', display: isMobile ? 'block' : 'none' }}
+            className='dynamicpage_view_figma_view'>
+          </iframe>
+        </>
+      }
     </>
 
   );
