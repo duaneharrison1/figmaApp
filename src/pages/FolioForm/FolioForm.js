@@ -244,7 +244,8 @@ export default function FolioForm() {
     const embedHost = "www.figma.com/embed?embed_host=share&url=https%3A%2F%2F"
     var newUrl = ""
     var modifiedUrl = ""
-    const modifiedString = removeWordFromString(originalString, wordToRemove);
+    var modifiedString = removeWordFromString(originalString, wordToRemove);
+    modifiedString = encodeURIComponent(modifiedString)
     if (url !== '') {
       if (!modifiedString.includes(embedHost)) {
         newUrl = "https://" + embedHost + modifiedString
@@ -258,8 +259,10 @@ export default function FolioForm() {
         newUrl += hotspot
       }
       if (newUrl.includes("scaling=contain")) {
-        modifiedUrl = newUrl.replace(new RegExp("scaling=contain", 'g'), "scaling=scale-down-width");
-        newUrl = modifiedUrl
+        if(!newUrl.includes("content-scaling=responsive")){
+          modifiedUrl = newUrl.replace(new RegExp("scaling=contain", 'g'), "scaling=scale-down-width");
+          newUrl = modifiedUrl
+        }
       } else if (newUrl.includes("scaling=min-zoom")) {
         modifiedUrl = newUrl.replace(new RegExp("scaling=min-zoom", 'g'), "scaling=scale-down-width");
         newUrl = modifiedUrl
@@ -269,11 +272,34 @@ export default function FolioForm() {
           newUrl = modifiedUrl
         }
       }
+     
     } else {
       newUrl = ""
     }
-    return newUrl
+ return newUrl
+  
   }
+
+  const encodeUrl = (url) => {
+    // Split the URL into the base and query parts
+    const [baseUrl, queryString] = url.split('?');
+    if (!queryString) return encodeURIComponent(url);
+  
+    // Split the query string into individual parameters
+    const params = new URLSearchParams(queryString);
+  
+    // Encode each parameter value and handle the nested URL separately
+    for (const [key, value] of params.entries()) {
+      if (key === 'url') {
+        params.set(key, encodeURIComponent(value));
+      } else {
+        params.set(key, encodeURIComponent(value));
+      }
+    }
+  
+    // Reconstruct the URL
+    return `${baseUrl}?${params.toString()}`;
+  };
 
   const handleTitle = (data) => {
     setTitle(data);
@@ -383,6 +409,7 @@ export default function FolioForm() {
   }
 
   const saveFigmaUrl = async () => {
+      console.log(editUrl(figmaDesktopUrl))
     if ((!figmaDesktopUrl.includes('figma.com/file') && !figmaMobileUrl.includes('figma.com/file')) &&
       (figmaMobileUrl.includes('figma.com/proto') || figmaMobileUrl.includes('figma.com/embed') ||
         figmaDesktopUrl.includes('figma.com/proto') || figmaDesktopUrl.includes('figma.com/embed'))) {
@@ -390,7 +417,7 @@ export default function FolioForm() {
         if (docId) {
           const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
             urls: {
-              figmaDesktopUrl: editUrl(figmaDesktopUrl),
+              figmaDesktopUrl:editUrl(figmaDesktopUrl),
               figmaMobileUrl: editUrl(figmaMobileUrl)
             },
             updatedAt: new Date()
