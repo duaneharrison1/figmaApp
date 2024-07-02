@@ -94,7 +94,11 @@ export const MobileFormContent = (props) => {
     const embedHost = "www.figma.com/embed?embed_host=share&url=https%3A%2F%2F"
     var newUrl = ""
     var modifiedUrl = ""
-    const modifiedString = removeWordFromString(originalString, wordToRemove);
+    var modifiedString = removeWordFromString(originalString, wordToRemove);
+
+    if(url.includes("content-scaling=responsive")){
+      modifiedString = encodeURIComponent(modifiedString)
+    }
     if (url !== '') {
       if (!modifiedString.includes(embedHost)) {
         newUrl = "https://" + embedHost + modifiedString
@@ -108,8 +112,12 @@ export const MobileFormContent = (props) => {
         newUrl += hotspot
       }
       if (newUrl.includes("scaling=contain")) {
-        modifiedUrl = newUrl.replace(new RegExp("scaling=contain", 'g'), "scaling=scale-down-width");
-        newUrl = modifiedUrl
+        if(!newUrl.includes("content-scaling=responsive")){
+          modifiedUrl = newUrl.replace(new RegExp("scaling=contain", 'g'), "scaling=scale-down-width");
+          newUrl = modifiedUrl
+        } else {
+          newUrl = modifiedUrl
+        }
       } else if (newUrl.includes("scaling=min-zoom")) {
         modifiedUrl = newUrl.replace(new RegExp("scaling=min-zoom", 'g'), "scaling=scale-down-width");
         newUrl = modifiedUrl

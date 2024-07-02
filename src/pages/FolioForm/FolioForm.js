@@ -245,7 +245,10 @@ export default function FolioForm() {
     var newUrl = ""
     var modifiedUrl = ""
     var modifiedString = removeWordFromString(originalString, wordToRemove);
-    modifiedString = encodeURIComponent(modifiedString)
+    if(url.includes("content-scaling=responsive")){
+      modifiedString = encodeURIComponent(modifiedString)
+    }
+
     if (url !== '') {
       if (!modifiedString.includes(embedHost)) {
         newUrl = "https://" + embedHost + modifiedString
@@ -261,6 +264,8 @@ export default function FolioForm() {
       if (newUrl.includes("scaling=contain")) {
         if(!newUrl.includes("content-scaling=responsive")){
           modifiedUrl = newUrl.replace(new RegExp("scaling=contain", 'g'), "scaling=scale-down-width");
+          newUrl = modifiedUrl
+        } else {
           newUrl = modifiedUrl
         }
       } else if (newUrl.includes("scaling=min-zoom")) {
