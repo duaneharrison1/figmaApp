@@ -87,6 +87,8 @@ function DynamicPage2() {
                         console.log("wentHere6")
                         if (value.isDraft == "false") {
                           document.title = value.title;
+                          setEncryptedPassword(value.encryptedPassword)
+                          setIsPasswordActive(value.isPasswordActive)
                           setFaviconUrl(value.faviconUrl)
                           setDesktop(value.urls.figmaDesktopUrl)
                           setMobile(value.urls.figmaMobileUrl)
