@@ -65,6 +65,14 @@ function DynamicPage2() {
                             setIsPasswordActive(value.isPasswordActive)
                             setDesktop(value.urls.figmaDesktopUrl)
                             setMobile(value.urls.figmaMobileUrl)
+
+                            if (value.urls.figmaDesktopUrl == "") {
+                              setDesktop(value.urls.figmaMobileUrl)
+                            }
+
+                            if (value.urls.figmaMobileUrl == "") {
+                              setMobile(value.urls.figmaDesktopUrl)
+                            }
                           }
                         }
                       }
@@ -92,6 +100,13 @@ function DynamicPage2() {
                           setFaviconUrl(value.faviconUrl)
                           setDesktop(value.urls.figmaDesktopUrl)
                           setMobile(value.urls.figmaMobileUrl)
+                          if (value.urls.figmaDesktopUrl === "") {
+                            setDesktop(value.urls.figmaMobileUrl)
+                          }
+
+                          if (value.urls.figmaMobileUrl === "") {
+                            setMobile(value.urls.figmaDesktopUrl)
+                          }
                         }
                       }
                     }
