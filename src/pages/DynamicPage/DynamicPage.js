@@ -62,6 +62,7 @@ function DynamicPage({ url }) {
   }, [isOpenInMobile]);
 
   useEffect(() => {
+    console.log("Start fetch data")
     dbFirestore.collection('user').doc(url.userId).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
       if (snapshot.size === 0) {
         setActiveSubscriber("false");
@@ -95,6 +96,7 @@ function DynamicPage({ url }) {
     } else {
       setDesktop(url.urls.figmaDesktopUrl);
     }
+    console.log("finish fetch data")
   }, [dbFirestore, url, activeSubscriber]);
 
   const handlePassword = (password) => {
