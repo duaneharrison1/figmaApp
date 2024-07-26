@@ -41,6 +41,7 @@ function DynamicPage2() {
     if (domain == 'www.figmafolio.com' || domain == 'figma-app-tau.vercel.app' || domain == 'localhost:3000') {
     } else {
       const fetchData = async () => {
+        console.log("start fetch");
         try {
           var domain = window.location.host
           const modifiedDomain = domain.replace(/^(https?:\/\/)?(www\.)?/, '');
@@ -119,6 +120,7 @@ function DynamicPage2() {
         } finally {
           setLoading(false);
         }
+        console.log("finish");
       };
       fetchData();
     }
