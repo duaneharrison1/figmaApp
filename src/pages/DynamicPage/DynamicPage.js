@@ -57,6 +57,8 @@ function DynamicPage({ url }) {
       }
     })
 
+    console.log("test old");
+
     if (activeSubscriber == "true") {
       if (url.faviconUrl) {
         setFaviconUrl(url.faviconUrl)
