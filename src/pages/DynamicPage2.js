@@ -99,6 +99,7 @@ function DynamicPage2() {
                           setFaviconUrl(value.faviconUrl)
                           setDesktop(value.urls.figmaDesktopUrl)
                           setMobile(value.urls.figmaMobileUrl)
+
                           if (value.urls.figmaDesktopUrl === "") {
                             setDesktop(value.urls.figmaMobileUrl)
                           }
@@ -176,21 +177,21 @@ function DynamicPage2() {
             </Modal.Dialog>
           ) : (
             <>
-               <iframe
-            src={isMobile ? mobile : desktop}
-            allowFullScreen
-            referrerPolicy="no-referrer"
-            style={{ width: '100%', height: '100vh', display: isMobile ? 'none' : 'block' }}
-            className='dynamicpage_view_figma_view'>
-          </iframe>
+              <iframe
+                src={isMobile ? mobile : desktop}
+                allowFullScreen
+                referrerPolicy="no-referrer"
+                style={{ width: '100%', height: '100vh' }}
+                className='dynamicpage_view_figma_view'>
+              </iframe>
 
             </>)}
         </> : <>
-        <iframe
+          <iframe
             src={isMobile ? mobile : desktop}
             allowFullScreen
             referrerPolicy="no-referrer"
-            style={{ width: '100%', height: '100vh', display: isMobile ? 'none' : 'block' }}
+            style={{ width: '100%', height: '100vh' }}
             className='dynamicpage_view_figma_view'>
           </iframe>
         </>

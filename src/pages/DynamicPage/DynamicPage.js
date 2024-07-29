@@ -160,7 +160,7 @@ function DynamicPage({ url }) {
             src={isMobile ? mobile : desktop}
             allowFullScreen
             referrerPolicy="no-referrer"
-            style={{ width: '100%', height: '100vh', display: isMobile ? 'none' : 'block' }}
+            style={{ width: '100%', height: '100vh' }}
             className='dynamicpage_view_figma_view'>
           </iframe>
 
