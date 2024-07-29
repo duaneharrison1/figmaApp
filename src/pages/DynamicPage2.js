@@ -67,13 +67,14 @@ function DynamicPage2() {
   }, []);
 
   const checkPassword = () => {
-    const passwordCorrect = bcrypt.compareSync(password, urlData.encryptedPassword);
-    setIsPasswordCorrect(passwordCorrect);
-    if (!passwordCorrect) setIsError(true);
+    setIsPasswordCorrect(bcrypt.compareSync(password, urlData.encryptedPassword));
+    if (!isPasswordCorrect) {
+      setIsError(true)
+    }
   };
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+  const handlePasswordChange = (password) => {
+    setPassword(password);
   };
 
   return (
