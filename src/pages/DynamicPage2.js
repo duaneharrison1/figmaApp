@@ -176,37 +176,21 @@ function DynamicPage2() {
             </Modal.Dialog>
           ) : (
             <>
-              <iframe
-                src={desktop}
-                allowFullScreen
-                referrerPolicy="no-referrer"
-                style={{ width: '100%', height: '100vh', display: isMobile ? 'none' : 'block' }}
-                className='dynamicpage_view_figma_view'>
-              </iframe>
-
-              <iframe
-                src={mobile}
-                allowFullScreen
-                referrerPolicy="no-referrer"
-                style={{ width: '100%', height: '100vh', display: isMobile ? 'block' : 'none' }}
-                className='dynamicpage_view_figma_view'>
-              </iframe>
-
-            </>)}
-        </> : <>
-          <iframe
-            src={desktop}
+               <iframe
+            src={isMobile ? mobile : desktop}
             allowFullScreen
             referrerPolicy="no-referrer"
             style={{ width: '100%', height: '100vh', display: isMobile ? 'none' : 'block' }}
             className='dynamicpage_view_figma_view'>
           </iframe>
 
-          <iframe
-            src={mobile}
+            </>)}
+        </> : <>
+        <iframe
+            src={isMobile ? mobile : desktop}
             allowFullScreen
             referrerPolicy="no-referrer"
-            style={{ width: '100%', height: '100vh', display: isMobile ? 'block' : 'none' }}
+            style={{ width: '100%', height: '100vh', display: isMobile ? 'none' : 'block' }}
             className='dynamicpage_view_figma_view'>
           </iframe>
         </>
