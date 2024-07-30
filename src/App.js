@@ -43,9 +43,11 @@ function App() {
       page_path: window.location.pathname,
     });
   }, [location]);
-
+  const startTime = new Date(); // Start time
   useEffect(() => {
     const fetchData = async () => {
+      console.log("Start fetch generated url data");
+   
       var domain = window.location.host
       var currentPath = window.location.pathname;
       var currentLanguage = i18n.language;
@@ -65,6 +67,7 @@ function App() {
         } else {
           setIsDynamicPage("true")
           try {
+          
             var generatedUrl = currentPath.slice(1);
             dbFirestore.collectionGroup('url').where('generatedUrl', '==', generatedUrl).get().then(snapshot => {
               const fetchedData = snapshot.docs.map(doc => doc.data());
@@ -79,6 +82,9 @@ function App() {
       }
     };
     fetchData();
+    const endTime = new Date(); // End time
+    const timeTaken = endTime - startTime; // Calculate time difference in milliseconds
+    console.log(`Time taken to fetch generated url data: ${timeTaken} ms`);
   }, []);
 
   return (

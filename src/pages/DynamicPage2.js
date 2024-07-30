@@ -15,7 +15,7 @@ function DynamicPage2() {
   const [password, setPassword] = useState('');
   const [isError, setIsError] = useState(false);
   const dbFirestore = firebase.firestore();
-
+  const [isDesktopIframeLoaded, setIsDesktopIframeLoaded] = useState(false);
   useEffect(() => {
     const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
     link.rel = 'icon';
@@ -99,22 +99,49 @@ function DynamicPage2() {
             </div>
           </Modal.Dialog>
         ) : (
-          <iframe
-            src={isMobile ? urlData.mobile : urlData.desktop}
-            allowFullScreen
-            referrerPolicy="no-referrer"
-            style={{ width: '100%', height: '100vh' }}
-            className='dynamicpage_view_figma_view'
-          ></iframe>
+          <>
+            <iframe
+              src={urlData.desktop}
+              allowFullScreen
+              referrerPolicy="no-referrer"
+              style={{ width: '100%', height: '100vh', display: isMobile ? 'none' : 'block' }}
+              className='dynamicpage_view_figma_view'
+              onLoad={() => setIsDesktopIframeLoaded(true)}
+            ></iframe>
+
+            {isDesktopIframeLoaded && (
+              <iframe
+                src={urlData.mobile}
+                allowFullScreen
+                referrerPolicy="no-referrer"
+                style={{ width: '100%', height: '100vh', display: isMobile ? 'block' : 'none' }}
+                className='dynamicpage_view_figma_view'
+              ></iframe>
+            )}
+          </>
         )
       ) : (
-        <iframe
-          src={isMobile ? urlData.mobile : urlData.desktop}
-          allowFullScreen
-          referrerPolicy="no-referrer"
-          style={{ width: '100%', height: '100vh' }}
-          className='dynamicpage_view_figma_view'
-        ></iframe>
+        <>
+          <iframe
+            src={urlData.desktop}
+            allowFullScreen
+            referrerPolicy="no-referrer"
+            style={{ width: '100%', height: '100vh', display: isMobile ? 'none' : 'block' }}
+            className='dynamicpage_view_figma_view'
+            onLoad={() => setIsDesktopIframeLoaded(true)}
+          ></iframe>
+
+          {isDesktopIframeLoaded && (
+            <iframe
+              src={urlData.mobile}
+              allowFullScreen
+              referrerPolicy="no-referrer"
+              style={{ width: '100%', height: '100vh', display: isMobile ? 'block' : 'none' }}
+              className='dynamicpage_view_figma_view'
+            ></iframe>
+          )}
+        </>
+
       )}
     </>
   );
