@@ -7,7 +7,6 @@ import { auth } from '../../firebase.js';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import SignUpPage from './SignupPage.js'
 import LoginPage from './LoginPage.js'
-import auth_side_frame from '../../assets/images/sideframe.png'
 import main_header_image from './../../assets/images/main-header-image-v2.png';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';

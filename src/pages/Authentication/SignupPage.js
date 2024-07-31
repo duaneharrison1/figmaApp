@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { collection, addDoc } from 'firebase/firestore'
+import { collection, addDoc } from 'firebase/firestore';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { db, auth } from '../../firebase';
 import './Auths.css';
 import TextField from '../../components/TextField/TextField.js';
 import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import AlertModal from '../../components/AlertModal/AlertModal';
-import firebase from '../../firebase';
 import PasswordTextField from '../../components/PasswordTextfield/PasswordTextfield.js';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
+
 export default function SignupPage() {
     const navigate = useNavigate();
-    const dbFirestore = firebase.firestore();
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
@@ -33,6 +32,7 @@ export default function SignupPage() {
         setShowModal(false);
     };
 
+
     const handleEmailChange = (email) => {
         setEmail(email);
     };
@@ -45,59 +45,46 @@ export default function SignupPage() {
         setPassword(password);
     };
 
-
     const handleConfirmPasswordChange = (confirmPassword) => {
         setConfirmPassword(confirmPassword);
     };
 
 
     const onSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         if (password !== confirmPassword) {
-            setErrorConfirmPassword("Password not match");
+            setErrorConfirmPassword("Password does not match");
         } else {
-            await createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-                    dbFirestore
-                        .collection('user')
-                        .doc(user.uid)
-                        .set({
-                            name: name,
-                            email: user.email,
-                        })
-                        .then(() => {
-                            console.log('Document successfully written!');
-                        })
-                        .catch((error) => {
-                            console.error('Error writing document: ', error);
-                        });
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    console.log(errorMessage);
-                    // setShowModal(true);
-                    // setModalMessage(errorMessage)
-
-                    if (error.message == "Firebase: Password should be at least 6 characters (auth/weak-password).") {
-                        setErrorConfirmPassword("Password should be at least 6 characters");
-                    }
-
-                    if (error.message == "Firebase: Error (auth/email-already-in-use).") {
-                        setErrorConfirmPassword("Email Already registered");
-                    }
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                await db.collection('user').doc(user.uid).set({
+                    name: name,
+                    email: user.email,
                 });
+                console.log('Document successfully written!');
+                navigate(`/${currentLanguage}/dashboard`);
+            } catch (error) {
+                const errorMessage = error.message;
+                console.log(errorMessage);
+                if (error.message === "Firebase: Password should be at least 6 characters (auth/weak-password).") {
+                    setErrorConfirmPassword("Password should be at least 6 characters");
+                }
+
+                if (error.message === "Firebase: Error (auth/email-already-in-use).") {
+                    setErrorConfirmPassword("Email already registered");
+                }
+            }
         }
-    }
+    };
 
     return (
         <>
             <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
 
             <div className='container signup-page'>
-                <form className='sign-up'>
+                <form className='sign-up' onSubmit={onSubmit}>
                     <div>
                         <TextField
                             formLabel={t('email')}
@@ -107,18 +94,20 @@ export default function SignupPage() {
                             type="email"
                             required
                             placeholder={t('enter-your-email')}
-                            onChange={handleEmailChange} />
+                            onChange={handleEmailChange}
+                        />
                     </div>
 
                     <div className='textfield-holder'>
                         <TextField
                             formLabel={t('name')}
                             className='auth-input'
-                            id="email-address"
-                            name="email"
+                            id="name"
+                            name="name"
                             required
                             placeholder={t('enter-your-name')}
-                            onChange={handleNameChange} />
+                            onChange={handleNameChange}
+                        />
                     </div>
 
                     <div>
@@ -129,7 +118,8 @@ export default function SignupPage() {
                             name="password"
                             type="password"
                             placeholder={t('enter-your-password')}
-                            onChange={handlePasswordChange} />
+                            onChange={handlePasswordChange}
+                        />
                     </div>
 
                     <div>
@@ -137,20 +127,20 @@ export default function SignupPage() {
                             formLabel={t('verify-password')}
                             className='password-input'
                             type="password"
-                            id="password"
-                            name="password"
-                            label={t('confirm-password')}
+                            id="confirm-password"
+                            name="confirmPassword"
                             value={confirmPassword}
                             onChange={handleConfirmPasswordChange}
-                            placeholder={t('confirm-password')} />
-                        {errorConfirmPassword && < p className='error-message'>{errorConfirmPassword}</p>}
+                            placeholder={t('confirm-password')}
+                        />
+                        {errorConfirmPassword && <p className='error-message'>{errorConfirmPassword}</p>}
                     </div>
 
                     <div className='auth-button-container'>
                         {isButtonActive ?
                             <ButtonColored
                                 label={t('continue')}
-                                onClick={onSubmit}
+                                type="submit"
                                 className="sign-in-btn-block"
                             />
                             :
@@ -160,17 +150,8 @@ export default function SignupPage() {
                                 disabled
                             />}
                     </div>
-
                 </form>
-            </div >
+            </div>
         </>
     );
-
 }
-
-
-
-
-
-
-
