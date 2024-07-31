@@ -178,13 +178,13 @@ function DynamicPage({ url }) {
 
 
 <iframe
-  src={mobile}
+  src={ setIsOpenInMobileBrowser ? mobile : desktop}
   allowFullScreen
   referrerPolicy="no-referrer"
   style={{ width: '100%', height: '100vh', display: isMobile ? 'block' : 'none'  }}
   className='dynamicpage_view_figma_view'
   onLoad={() => {
-    document.getElementById('secondary').src =  desktop;
+    document.getElementById('secondary').src =  setIsOpenInMobileBrowser ? desktop : mobile;
   }}></iframe>
   
 <iframe id="secondary" src="" style={{ width: '100%', height: '100vh',display: isMobile ? 'none' : 'block'  }} />
