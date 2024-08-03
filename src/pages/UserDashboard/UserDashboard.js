@@ -62,6 +62,7 @@ function UserDashboard() {
         const fetchData = () => {
             if (user) {
                 try {
+                    console.log("deployed")
                     dbFirestore.collection("user").doc(user.uid).collection("url").orderBy('createdAt', 'desc').get().then(querySnapshot => {
                         const newData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
                         setData(newData);
