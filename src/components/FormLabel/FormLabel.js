@@ -29,6 +29,7 @@ export default function FormLabel(props) {
         const stringPassword = event.target.value
         setNewPassword(stringPassword);
         props.sendNewPassword(stringPassword)
+        //Test
     };
     const handleSwitchChange = () => {
         const newPasswordActiveState = !isPasswordActive;
