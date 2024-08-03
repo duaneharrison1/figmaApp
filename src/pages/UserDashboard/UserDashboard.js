@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 import EmptyCardView from '../../components/EmptyCardView/EmptyCardView';
 import NewSiteButton from '../../components/NewSiteButton/NewSiteButton';
+import PaymentSelectionLite from '../../components/PaymentSelection/PaymentSelectionLite';
 
 function UserDashboard() {
     const currentLanguage = i18n.language;
@@ -136,9 +137,30 @@ function UserDashboard() {
     const handleCloseModal = () => {
         setShowModal(null);
     };
+    const litePayment = async (priceId) => {
+        const docRef = await dbFirestore.collection('user').doc(user.uid).collection
+            ("checkout_sessions").add({
+                price: priceId,
+                mode: 'payment',
+                quantity: 1,
+                success_url: window.location.origin,
+                cancel_url: window.location.origin,
+                allow_promotion_codes: true,
+            })
+        docRef.onSnapshot(async (snap) => {
+            const { error, sessionId } = snap.data();
+            if (error) {
+                alert(error.message)
+            }
+            if (sessionId) {
+                const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
+                stripe.redirectToCheckout({ sessionId })
+            }
+        })
+    }
 
     const MonthlyPayment = async (priceId) => {
-        console.log("xxxx" +process.env.REACT_APP_STRIPE_KEY)
+        console.log("xxxx" + process.env.REACT_APP_STRIPE_KEY)
         setUpgradeClick(true)
         setShowUpgradeModal(false);
         const docRef = await dbFirestore.collection('user').doc(user.uid).collection
@@ -146,8 +168,8 @@ function UserDashboard() {
                 price: priceId,
                 success_url: window.location.origin,
                 cancel_url: window.location.origin,
-                 trial_period_days :trialConsume === "true" ? 0 : 7,
-                 allow_promotion_codes: true,
+                trial_period_days: trialConsume === "true" ? 0 : 7,
+                allow_promotion_codes: true,
             })
         docRef.onSnapshot(async (snap) => {
             const { error, sessionId } = snap.data();
@@ -172,7 +194,7 @@ function UserDashboard() {
                     price: priceId,
                     success_url: window.location.origin,
                     cancel_url: window.location.origin,
-                    trial_period_days : trialConsume === "true" ? 0 : 15,
+                    trial_period_days: trialConsume === "true" ? 0 : 15,
                     allow_promotion_codes: true,
                     // automatic_tax: true,
                 })
@@ -190,12 +212,12 @@ function UserDashboard() {
     }
 
     const goToEdit = (object) => {
-        navigate("/" + currentLanguage + '/folio-form', { state: { object, subscriptionType: subscriptionType , trialConsume: trialConsume} });
+        navigate("/" + currentLanguage + '/folio-form', { state: { object, subscriptionType: subscriptionType, trialConsume: trialConsume } });
     }
 
     const goToNewForm = () => {
         if (canCreate === "true" && docCount !== null) {
-            navigate("/" + currentLanguage + '/folio-form', { state: { subscriptionType: subscriptionType , trialConsume: trialConsume} });
+            navigate("/" + currentLanguage + '/folio-form', { state: { subscriptionType: subscriptionType, trialConsume: trialConsume } });
         } else if (canCreate === "false" && docCount !== null) {
             setShowUpgradeModal(true);
         }
@@ -236,7 +258,7 @@ function UserDashboard() {
                                                     }
                                                 </div>
                                                 <div className='col-md-4 new-site-container'>
-                                                        <NewSiteButton className={"new-site"} onClick={goToNewForm}> </NewSiteButton>
+                                                    <NewSiteButton className={"new-site"} onClick={goToNewForm}> </NewSiteButton>
                                                     {/* <ButtonColored label={  t('new-site')} className="new-site" onClick={goToNewForm}>
                                                     </ButtonColored> */}
                                                 </div>
@@ -257,8 +279,8 @@ function UserDashboard() {
                                                                             isDraft={item.isDraft}
                                                                             createdAt={item.createdAt}
                                                                             updatedAt={item.updatedAt}
-                                                                            password = {item.password}
-                                                                            isPasswordActive = {item.isPasswordActive}
+                                                                            password={item.password}
+                                                                            isPasswordActive={item.isPasswordActive}
                                                                             onClickDelete={() => handleShowModal(index)}
                                                                             onClickUpdate={() => goToEdit(item)} />
 
@@ -354,10 +376,15 @@ function UserDashboard() {
                 </div>
             )}
 
-            <PaymentSelectionModal
+            {/* <PaymentSelectionModal
                 monthlySubscription={subscriptionType}
                 show={showUpgradeModal}
                 handleClose={handleCloseUpgradeModal}
+                handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_BASIC)}
+                handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_PRO)} /> */}
+
+            <PaymentSelectionLite show={showUpgradeModal} handleClose={handleCloseUpgradeModal}
+                handleLitePayment={() => litePayment(process.env.REACT_APP_LITE)}
                 handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_BASIC)}
                 handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_PRO)} />
 

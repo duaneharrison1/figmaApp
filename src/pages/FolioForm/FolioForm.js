@@ -19,7 +19,7 @@ import MobileNavBar from '../MobileForm/MobileNavBar/MobileNavbar';
 import ButtonClear from '../../components/ButtonClear/ButtonClear';
 import FormPassword from '../../components/FormPassword/FormPassword';
 import bcrypt from 'bcryptjs';
-const isOpenInMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+import FormLabel from '../../components/FormLabel/FormLabel';
 export default function FolioForm() {
   const [isMobile, setIsMobile] = useState(false);
   const location = useLocation();
@@ -111,30 +111,30 @@ export default function FolioForm() {
     setShowErrorModal(false);
   };
   const [randomurl, setRandomUrl] = useState('');
-  const [password, setPassword]  = useState(
+  const [password, setPassword] = useState(
     location && location.state && location.state.object && location.state.object.password
       ? location.state.object.password
       : ""
   );
-  const [isPasswordActive, setIsPasswordActive]  = useState(
+  const [isPasswordActive, setIsPasswordActive] = useState(
     location && location.state && location.state.object && location.state.object.isPasswordActive
       ? location.state.object.isPasswordActive
       : false
   );
-  
 
-  const [encryptedPassword, setEncryptedPassword]  = useState(
+
+  const [encryptedPassword, setEncryptedPassword] = useState(
     location && location.state && location.state.object && location.state.object.password
       ? location.state.object.encryptedPassword
       : ""
   );
 
 
-  
+
   const handlePasswordStatusFromChild = async (passwordStatus) => {
 
     setIsPasswordActive(passwordStatus);
-       const salt = bcrypt.genSaltSync(10);
+    const salt = bcrypt.genSaltSync(10);
     const hashPassword = bcrypt.hashSync(password, salt);
     try {
       if (docId) {
@@ -162,7 +162,7 @@ export default function FolioForm() {
       alert("Success")
     }
   };
-  
+
   var newCustomDomainData = {
     "name": domain
   };
@@ -211,10 +211,10 @@ export default function FolioForm() {
 
   useEffect(() => {
     setRandomUrl(generateRandomString(10))
-    if (password == ""){
+    if (password == "") {
       setPassword(generateRandomString(6))
     }
-  
+
     const fetchData = async () => {
       try {
         dbFirestore.collectionGroup('url').where('generatedUrl', '==', randomurl).get().then(snapshot => {
@@ -245,7 +245,7 @@ export default function FolioForm() {
     var newUrl = ""
     var modifiedUrl = ""
     var modifiedString = removeWordFromString(originalString, wordToRemove);
-    if(url.includes("content-scaling=responsive")){
+    if (url.includes("content-scaling=responsive")) {
       modifiedString = encodeURIComponent(modifiedString)
     }
 
@@ -262,7 +262,7 @@ export default function FolioForm() {
         newUrl += hotspot
       }
       if (newUrl.includes("scaling=contain")) {
-        if(!newUrl.includes("content-scaling=responsive")){
+        if (!newUrl.includes("content-scaling=responsive")) {
           modifiedUrl = newUrl.replace(new RegExp("scaling=contain", 'g'), "scaling=scale-down-width");
           newUrl = modifiedUrl
         } else {
@@ -277,22 +277,22 @@ export default function FolioForm() {
           newUrl = modifiedUrl
         }
       }
-     
+
     } else {
       newUrl = ""
     }
- return newUrl
-  
+    return newUrl
+
   }
 
   const encodeUrl = (url) => {
     // Split the URL into the base and query parts
     const [baseUrl, queryString] = url.split('?');
     if (!queryString) return encodeURIComponent(url);
-  
+
     // Split the query string into individual parameters
     const params = new URLSearchParams(queryString);
-  
+
     // Encode each parameter value and handle the nested URL separately
     for (const [key, value] of params.entries()) {
       if (key === 'url') {
@@ -301,7 +301,7 @@ export default function FolioForm() {
         params.set(key, encodeURIComponent(value));
       }
     }
-  
+
     // Reconstruct the URL
     return `${baseUrl}?${params.toString()}`;
   };
@@ -414,7 +414,7 @@ export default function FolioForm() {
   }
 
   const saveFigmaUrl = async () => {
-      console.log(editUrl(figmaDesktopUrl))
+    console.log(editUrl(figmaDesktopUrl))
     if ((!figmaDesktopUrl.includes('figma.com/file') && !figmaMobileUrl.includes('figma.com/file')) &&
       (figmaMobileUrl.includes('figma.com/proto') || figmaMobileUrl.includes('figma.com/embed') ||
         figmaDesktopUrl.includes('figma.com/proto') || figmaDesktopUrl.includes('figma.com/embed'))) {
@@ -422,7 +422,7 @@ export default function FolioForm() {
         if (docId) {
           const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
             urls: {
-              figmaDesktopUrl:editUrl(figmaDesktopUrl),
+              figmaDesktopUrl: editUrl(figmaDesktopUrl),
               figmaMobileUrl: editUrl(figmaMobileUrl)
             },
             updatedAt: new Date()
@@ -481,7 +481,7 @@ export default function FolioForm() {
 
     if (password.length < 6) {
       console.log(password.length)
-        setIsError("true");
+      setIsError("true");
     } else {
       setIsError("false");
       const salt = bcrypt.genSaltSync(10);
@@ -511,7 +511,7 @@ export default function FolioForm() {
       } finally {
         alert("Success")
       }
-    }    
+    }
   }
 
   // Function to handle tab click
@@ -523,7 +523,7 @@ export default function FolioForm() {
   const handleTabClickMobile = (tabId, event) => {
     event.preventDefault();
     console.log(tabId);
-  
+
     const basePath = `/${currentLanguage}`;
     const commonState = {
       object: {
@@ -542,16 +542,17 @@ export default function FolioForm() {
       subscriptionType: subscriptionType,
       trialConsume: trialConsume
     };
-  
+
     const tabPaths = {
       tab1: `${basePath}/mobile-form-title`,
       tab2: `${basePath}/mobile-form-content`,
       tab3: `${basePath}/mobile-form-domain`,
       tab4: `${basePath}/mobile-form-favicon`,
       tab5: `${basePath}/mobile-form-password`,
-      tab6: `${basePath}/mobile-instruction`
+      tab6: `${basePath}/mobile-form-label`,
+      tab7: `${basePath}/mobile-instruction`
     };
-  
+
     const navigatePath = tabPaths[tabId];
     if (navigatePath) {
       navigate(navigatePath, { state: commonState });
@@ -566,7 +567,7 @@ export default function FolioForm() {
   }
   const viewSite = () => {
     window.open(`https://figmafolio.com/${generatedUrl}`, "_blank");
-}
+  }
 
   return (
 
@@ -614,19 +615,26 @@ export default function FolioForm() {
                       Password
                     </a>
                   </li>
-                  <li className="nav-item-mobile-last">
+                  <li className="nav-item-mobile">
                     <a className={`folio-form ${activeTab === 'tab6' ? 'active' : ''}`}
                       onClick={(e) => handleTabClickMobile('tab6', e)}
                       href="#tab6">
+                      Figmafolio label
+                    </a>
+                  </li>
+                  <li className="nav-item-mobile-last">
+                    <a className={`folio-form ${activeTab === 'tab7' ? 'active' : ''}`}
+                      onClick={(e) => handleTabClickMobile('tab7', e)}
+                      href="#tab7">
                       Need help?
                     </a>
                   </li>
                 </ul>
                 {generatedUrl.trim() !== "" ? (
-                <ButtonClear className='mobile-form-view-site' onClick={viewSite} label="View site" />
-              ) : (
-                null
-              )}
+                  <ButtonClear className='mobile-form-view-site' onClick={viewSite} label="View site" />
+                ) : (
+                  null
+                )}
               </div>
               <Footer />
             </div>
@@ -679,6 +687,13 @@ export default function FolioForm() {
                         <a className={`folio-form ${activeTab === 'tab6' ? 'active' : ''}`}
                           onClick={(e) => handleTabClick('tab6', e)}
                           href="#tab6">
+                          Figmafolio label
+                        </a>
+                      </li>
+                      <li className="folio-form-nav-item">
+                        <a className={`folio-form ${activeTab === 'tab7' ? 'active' : ''}`}
+                          onClick={(e) => handleTabClick('tab7', e)}
+                          href="#tab6">
                           Need help?
                         </a>
                       </li>
@@ -696,12 +711,17 @@ export default function FolioForm() {
                         <FormCustomDomain onChildDomain={handleDomain} setDomain={domain} saveDomain={saveDomain} subscriptionType={subscriptionType} trialConsume={trialConsume} generatedUrl={generatedUrl} />
                       </div>
                       <div className={`tab-pane fade ${activeTab === 'tab4' ? 'show active' : ''}`} id="tab4">
-                        <FormFavicon onChildFavicon={handleFaviconImage} setFaviconImage={faviconImage} subscriptionType={subscriptionType} trialConsume = {trialConsume} />
+                        <FormFavicon onChildFavicon={handleFaviconImage} setFaviconImage={faviconImage} subscriptionType={subscriptionType} trialConsume={trialConsume} />
                       </div>
                       <div className={`tab-pane fade ${activeTab === 'tab5' ? 'show active' : ''}`} id="tab5">
-                        <FormPassword isError={isError} onChildPasswordHandle={handlePassword} password={password} title={title} isPasswordActive={isPasswordActive} sendNewPassword = {handleDataFromChild} sendNewPasswordStatus = { handlePasswordStatusFromChild}subscriptionType={subscriptionType} trialConsume = {trialConsume} />
+                        <FormPassword isError={isError} onChildPasswordHandle={handlePassword} password={password} title={title} isPasswordActive={isPasswordActive} sendNewPassword={handleDataFromChild} sendNewPasswordStatus={handlePasswordStatusFromChild} subscriptionType={subscriptionType} trialConsume={trialConsume} />
                       </div>
-                      <div className={`tab-pane fade ${activeTab === 'tab6' ? 'show active' : ''}`} id="tab6">
+                      {subscriptionType === "regular" &&
+                        <div className={`tab-pane fade ${activeTab === 'tab6' ? 'show active' : ''}`} id="tab6">
+                          <FormLabel subscriptionType={subscriptionType} trialConsume={trialConsume} />
+                        </div>
+                      }
+                      <div className={`tab-pane fade ${activeTab === 'tab7' ? 'show active' : ''}`} id="tab7">
                         <FormInstruction />
                       </div>
                     </div>

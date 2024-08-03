@@ -45,7 +45,7 @@
     line-height: normal;
     margin: 0;
     height: 2em;
-       padding-top: 10px;
+    padding-top: 10px;
 }
 
 .bill-desc-yearly {
@@ -58,12 +58,13 @@
     margin: 0;
     padding-top: 10px;
 }
-.payment-header-container{
+
+.payment-header-container {
     text-align: center;
 }
 
 .payment-modal-header {
-    color:#272E3B;
+    color: #272E3B;
     font-size: 24px;
     font-style: normal;
     font-weight: 600;
@@ -79,6 +80,7 @@
     padding-bottom: 32px;
     margin: 0;
 }
+
 .payment-modal-subheader {
     color: #4E5969;
     font-size: 16px;
@@ -111,8 +113,10 @@
 .payment-modal-body {
     margin: 60px;
     max-height: calc(100vh - 210px);
-    overflow-y: auto; /* Enable vertical scrolling */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    overflow-x: hidden;
+    /* Prevent horizontal scrolling */
 }
 
 .amount {
@@ -136,16 +140,17 @@
     display: inline-block;
     height: .75rem;
 }
+
 .month {
     color: #2D2B29;
-    font-size: 16px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 600;
     margin: 0;
     padding: 0;
 }
 
-.month-yearly{
+.month-yearly {
     color: white;
     font-size: 16px;
     font-style: normal;
@@ -153,6 +158,7 @@
     margin: 0;
     padding: 0;
 }
+
 .modal-body {
     padding: 0;
 }
@@ -162,6 +168,7 @@
     height: 20px;
     margin-right: 12px;
 }
+
 .plan-icon {
     height: 42px;
     margin-top: 10px;
@@ -199,19 +206,20 @@
     bottom: 0;
 }
 
-.plancard-divider{
+.plancard-divider {
     margin-top: 32px;
     margin-bottom: 32px;
     border-top: 1px solid #BCBCBC;
 }
 
-.plancard-divider-yearly{
+.plancard-divider-yearly {
     margin-top: 32px;
     margin-bottom: 32px;
     border-top: 1px solid white;
 }
-.btn-upgrade-plan-yearly{
-   width: 100%;
+
+.btn-upgrade-plan-yearly {
+    width: 100%;
     padding: 12px 20px;
     border-radius: 40px;
     font-weight: 400;
@@ -222,6 +230,7 @@
     background-color: white;
     font-weight: 600;
 }
+
 .btn-upgrade-plan {
     width: 100%;
     padding: 12px 24px;
@@ -250,9 +259,12 @@
 
 .close-container {
     position: absolute;
-    top: 30px; /* Adjust this value to position vertically */
-    right: 30px; /* Adjust this value to position horizontally */
-    z-index: 1000; /* Ensure it's above other elements */
+    top: 30px;
+    /* Adjust this value to position vertically */
+    right: 30px;
+    /* Adjust this value to position horizontally */
+    z-index: 1000;
+    /* Ensure it's above other elements */
 }
 
 .close-container img {
@@ -263,6 +275,7 @@
     .payment-modal-body {
         margin: 64px 18px 18px 18px;
     }
+
     .payment-feature-container {
         min-height: 0px;
         padding-bottom: 50px;
@@ -313,16 +326,17 @@
         margin-bottom: 24px;
     }
 
-    .payment-modal-sub-header{
+    .payment-modal-sub-header {
         font-size: 16px;
     }
 
 }
 
 @media (min-width: 768px) and (max-width: 1200px) {
-    .payment-modal-sub-header{
+    .payment-modal-sub-header {
         font-size: 16px;
     }
+
     .payment-feature-container {
         min-height: 0px;
         padding-bottom: 50px;
@@ -346,6 +360,7 @@
     .payment-feature-text {
         font-size: 13px;
     }
+
     .payment-feature-text-yearly {
         font-size: 13px;
     }

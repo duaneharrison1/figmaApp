@@ -17,6 +17,7 @@ function DynamicPage({ url }) {
   const [desktop, setDesktop] = useState("");
   const [faviconUrl, setFaviconUrl] = useState('');
   const [activeSubscriber, setActiveSubscriber] = useState("true");
+  const [liteUser, setLiteUser] = useState(false);
   const [isPasswordCorrect, setIsPasswordCorrect] = useState(false);
   const isOpenInMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const [password, setPassword] = useState('');
@@ -77,6 +78,15 @@ function DynamicPage({ url }) {
       }
     });
 
+
+    dbFirestore.collection('user').doc(url.userId).collection("payments").orderBy('created', 'desc').limit(1).get().then(snapshot => {
+      if (snapshot.size === 0) {
+        setLiteUser(false);
+      } else {
+        setLiteUser(true);
+      }
+    });
+
     if (activeSubscriber === "true") {
       if (url.faviconUrl) {
         setFaviconUrl(url.faviconUrl);
@@ -133,12 +143,13 @@ function DynamicPage({ url }) {
             </Modal.Dialog>
           ) : (
             <>
-              {activeSubscriber === "true" ? (<div></div>) : (
+              {activeSubscriber === "true" || liteUser === true ? (<div></div>) : (
                 <div className="text-overlay" onClick={navigateToHome}>
                   <p className='made-with'>Made with <span className="made-with-figmaolio">Figmafolio</span></p>
                 </div>
               )}
               <iframe
+
                 src={isMobile ? mobile : desktop}
                 allowFullScreen
                 referrerPolicy="no-referrer"
