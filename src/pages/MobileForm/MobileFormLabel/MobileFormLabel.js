@@ -289,12 +289,14 @@ export const MobileFormLabel = (props) => {
 
 
                 {subscriptionType === "liteUser" ?
-                    <PaymentSelectionLite show={showModal} handleClose={handleCloseModal}
-                        handleLitePayment={() => litePayment(process.env.REACT_APP_LITE)}
+
+                    <PaymentSelection show={showModal} handleClose={handleCloseModal}
                         handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_BASIC)}
                         handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_PRO)} />
+
                     :
-                    <PaymentSelection show={showModal} handleClose={handleCloseModal}
+                    <PaymentSelectionLite show={showModal} handleClose={handleCloseModal}
+                        handleLitePayment={() => litePayment(process.env.REACT_APP_LITE)}
                         handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_BASIC)}
                         handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_PRO)} />
                 }
