@@ -22,10 +22,10 @@ export default function FormPassword(props) {
     const [password, setPassword] = useState(props.password || "");
     const [newPassword, setNewPassword] = useState(props.password || "");
     const [isError, setIsError] = useState(false);
-    const [showChangePasswordContainer, setshowChangePasswordContainer] =  useState(props.showChangePasswordContainer || false);
+    const [showChangePasswordContainer, setshowChangePasswordContainer] = useState(props.showChangePasswordContainer || false);
 
     const handleNewPassword = (event) => {
-    const stringPassword = event.target.value
+        const stringPassword = event.target.value
         setNewPassword(stringPassword);
         props.sendNewPassword(stringPassword)
     };
@@ -34,22 +34,22 @@ export default function FormPassword(props) {
         setIsPasswordActive(newPasswordActiveState)
         props.sendNewPasswordStatus(newPasswordActiveState)
         setshowChangePasswordContainer(false);
-        console.log("newPasswordActiveState" + newPasswordActiveState )
+        console.log("newPasswordActiveState" + newPasswordActiveState)
     };
 
     const handleSave = () => {
-     
 
-        if(newPassword.length < 6) {
+
+        if (newPassword.length < 6) {
             setIsError(true)
-            setshowChangePasswordContainer(true); 
+            setshowChangePasswordContainer(true);
             console.log("wentHere1")
         } else {
             props.onChildPasswordHandle()
-            setshowChangePasswordContainer(false); 
+            setshowChangePasswordContainer(false);
             setIsError(false)
         }
-    
+
     }
 
     const handleShowModal = () => {
@@ -111,7 +111,7 @@ export default function FormPassword(props) {
                 <>
                     <div>
                         <h1 className='sub-title'>Password</h1>
-                        <p className='form-favicon-note-disabled'>This is a small icon which will represent your website at the top of a web browser and in browser's bookmark bar, history and in search results.</p>
+                        <p className='form-favicon-note-disabled'>Add an extra layer of security to your site or portfolio by requiring viewers to enter a password before they can access your work. This is helpful if you're sharing sensitive information or want to control who sees your work.</p>
 
                         <div className='password-toggle-container'>
                             <div className='col-sm-11'>
@@ -145,7 +145,7 @@ export default function FormPassword(props) {
                 <>
 
                     <h1 className='sub-title'>Password</h1>
-                    <p className='form-favicon-note'>This is a small icon which will represent your website at the top of a web browser and in browser's bookmark bar, history and in search results.</p>
+                    <p className='form-favicon-note'>Add an extra layer of security to your site or portfolio by requiring viewers to enter a password before they can access your work. This is helpful if you're sharing sensitive information or want to control who sees your work.</p>
                     <div className='enable-pass-protect-container'>
                         <div className='password-toggle-container'>
                             <div className='col-sm-11'>

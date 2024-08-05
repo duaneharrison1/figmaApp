@@ -112,6 +112,13 @@ function UserDashboard() {
                                 setLoading(false);
                             }, 2000);
                         })
+
+
+                        dbFirestore.collection('user').doc(user.uid).collection("payments").orderBy('created', 'desc').limit(1).get().then(snapshot => {
+                            if (docCount !== 0 && snapshot.size !== 0) {
+                                setSubscriptionType("liteUser")
+                            }
+                        })
                     })
 
 
@@ -377,18 +384,21 @@ function UserDashboard() {
                 </div>
             )}
 
-            {/* <PaymentSelectionModal
-                monthlySubscription={subscriptionType}
-                show={showUpgradeModal}
-                handleClose={handleCloseUpgradeModal}
-                handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_BASIC)}
-                handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_PRO)} /> */}
 
-            <PaymentSelectionLite show={showUpgradeModal} handleClose={handleCloseUpgradeModal}
-                handleLitePayment={() => litePayment(process.env.REACT_APP_LITE)}
-                handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_BASIC)}
-                handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_PRO)} />
+            {subscriptionType === "liteUser" ?
 
+                <PaymentSelectionLite show={showUpgradeModal} handleClose={handleCloseUpgradeModal}
+                    handleLitePayment={() => litePayment(process.env.REACT_APP_LITE)}
+                    handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_BASIC)}
+                    handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_PRO)} />
+                :
+                <PaymentSelectionModal
+                    monthlySubscription={subscriptionType}
+                    show={showUpgradeModal}
+                    handleClose={handleCloseUpgradeModal}
+                    handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_BASIC)}
+                    handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_PRO)} />
+            }
         </>
     );
 }

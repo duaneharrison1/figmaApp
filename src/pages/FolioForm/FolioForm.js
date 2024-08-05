@@ -210,6 +210,7 @@ export default function FolioForm() {
   }
 
   useEffect(() => {
+    console.log("wentHere" + subscriptionType);
     setRandomUrl(generateRandomString(10))
     if (password == "") {
       setPassword(generateRandomString(6))
@@ -683,13 +684,15 @@ export default function FolioForm() {
                           Password
                         </a>
                       </li>
-                      <li className="folio-form-nav-item">
-                        <a className={`folio-form ${activeTab === 'tab6' ? 'active' : ''}`}
-                          onClick={(e) => handleTabClick('tab6', e)}
-                          href="#tab6">
-                          Figmafolio label
-                        </a>
-                      </li>
+                      {subscriptionType === "regular" &&
+                        <li className="folio-form-nav-item">
+                          <a className={`folio-form ${activeTab === 'tab6' ? 'active' : ''}`}
+                            onClick={(e) => handleTabClick('tab6', e)}
+                            href="#tab6">
+                            Figmafolio label
+                          </a>
+                        </li>
+                      }
                       <li className="folio-form-nav-item">
                         <a className={`folio-form ${activeTab === 'tab7' ? 'active' : ''}`}
                           onClick={(e) => handleTabClick('tab7', e)}
@@ -716,11 +719,11 @@ export default function FolioForm() {
                       <div className={`tab-pane fade ${activeTab === 'tab5' ? 'show active' : ''}`} id="tab5">
                         <FormPassword isError={isError} onChildPasswordHandle={handlePassword} password={password} title={title} isPasswordActive={isPasswordActive} sendNewPassword={handleDataFromChild} sendNewPasswordStatus={handlePasswordStatusFromChild} subscriptionType={subscriptionType} trialConsume={trialConsume} />
                       </div>
-                      {subscriptionType === "regular" &&
-                        <div className={`tab-pane fade ${activeTab === 'tab6' ? 'show active' : ''}`} id="tab6">
-                          <FormLabel subscriptionType={subscriptionType} trialConsume={trialConsume} />
-                        </div>
-                      }
+
+                      <div className={`tab-pane fade ${activeTab === 'tab6' ? 'show active' : ''}`} id="tab6">
+                        <FormLabel subscriptionType={subscriptionType} trialConsume={trialConsume} />
+                      </div>
+
                       <div className={`tab-pane fade ${activeTab === 'tab7' ? 'show active' : ''}`} id="tab7">
                         <FormInstruction />
                       </div>

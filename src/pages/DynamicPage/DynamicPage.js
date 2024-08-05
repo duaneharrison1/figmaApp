@@ -81,8 +81,10 @@ function DynamicPage({ url }) {
 
     dbFirestore.collection('user').doc(url.userId).collection("payments").orderBy('created', 'desc').limit(1).get().then(snapshot => {
       if (snapshot.size === 0) {
+        console.log("wenthere1")
         setLiteUser(false);
       } else {
+        console.log("wenthere2")
         setLiteUser(true);
       }
     });
@@ -161,7 +163,7 @@ function DynamicPage({ url }) {
         </> :
 
         <>
-          {activeSubscriber === "true" ? (<div></div>) : (
+          {activeSubscriber === "true" || liteUser === true ? (<div></div>) : (
             <div className="text-overlay" onClick={navigateToHome}>
               <p className='made-with'>Made with <span className="made-with-figmaolio">Figmafolio</span></p>
             </div>

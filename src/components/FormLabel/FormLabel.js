@@ -66,10 +66,12 @@ export default function FormLabel(props) {
     };
 
 
+
     const litePayment = async (priceId) => {
         const docRef = await dbFirestore.collection('user').doc(user.uid).collection
             ("checkout_sessions").add({
                 price: priceId,
+                mode: 'payment',
                 quantity: 1,
                 success_url: window.location.origin,
                 cancel_url: window.location.origin,
@@ -135,13 +137,13 @@ export default function FormLabel(props) {
                 <>
                     <div>
                         <h1 className='sub-title'>Figmafolio label</h1>
-                        <p className='form-favicon-note-disabled'>A promotional "Made with Figmafolio" label shows on your site or portfolio. To gain full control over your portfolio's appearance, hide the label by upgrading your account.</p>
+                        <p className='form-favicon-note-formlabel'>A promotional "Made with Figmafolio" label shows on your site or portfolio. To gain full control over your portfolio's appearance, hide the label by upgrading your account.</p>
 
                         <div className='regular-user-message-container'>
                             <div className='row'>
                                 <div className='col-md-8'>
                                     <h1 className='regular-user-header'>Own your brand</h1>
-                                    <p className='regular-user-message'>Remove the "Made with Figmafolio" label with aone-time upgrade or explore our plans for more customization and features.</p>
+                                    <p className='regular-user-message'>Remove the "Made with Figmafolio" label with a one-time upgrade or explore our plans for more customization and features.</p>
                                 </div>
                                 <div className='upgrade-now-btn-container col-md-4'>
                                     <ButtonColored className="upgrade-now" label="Upgrade now" onClick={handleShowModal} />
@@ -157,10 +159,19 @@ export default function FormLabel(props) {
 
 
                 </>}
-            <PaymentSelectionLite show={showModal} handleClose={handleCloseModal}
-                handleLitePayment={() => litePayment(process.env.REACT_APP_LITE)}
-                handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_BASIC)}
-                handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_PRO)} />
+
+            {subscriptionType === "liteUser" ?
+                <PaymentSelectionLite show={showModal} handleClose={handleCloseModal}
+                    handleLitePayment={() => litePayment(process.env.REACT_APP_LITE)}
+                    handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_BASIC)}
+                    handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_PRO)} />
+                :
+                <PaymentSelection show={showModal} handleClose={handleCloseModal}
+                    handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_BASIC)}
+                    handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_PRO)} />
+            }
+
+
 
 
         </>

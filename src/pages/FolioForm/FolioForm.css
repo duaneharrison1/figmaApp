@@ -1,10 +1,10 @@
-
 .enable-pass-protect-disabled {
     font-size: 16px;
     font-weight: 500;
     color: #CFCFCF;
     margin: 0;
 }
+
 .enable-pass-protect {
     font-size: 16px;
     font-weight: 500;
@@ -18,6 +18,7 @@
     color: #CFCFCF;
     margin: 0;
 }
+
 .mobile-enable-pass-protect {
     font-size: 14px;
     font-weight: 500;
@@ -25,13 +26,15 @@
 }
 
 .password-active-switch .form-check-input {
-background-color: #D1D1D1 !important;
-border-color: #D1D1D1 !important;
+    background-color: #D1D1D1 !important;
+    border-color: #D1D1D1 !important;
 }
-.password-active-switch .form-check-input:checked{
+
+.password-active-switch .form-check-input:checked {
     background-color: #4D9F70 !important;
-border-color: #4D9F70 !important;
+    border-color: #4D9F70 !important;
 }
+
 .enable-pass-protect-container {
     display: grid;
 }
@@ -76,13 +79,14 @@ border-color: #4D9F70 !important;
 .mobile-copy-container {
     display: flex;
     align-items: center;
-    justify-content: space-between; 
+    justify-content: space-between;
     border-radius: 8px;
     padding: 12px 24px;
     background-color: #f5f5f5;
     width: 100%;
 }
-.mobile-password-to-access{
+
+.mobile-password-to-access {
     padding-top: 32px;
     padding-bottom: 8px;
     margin: 0;
@@ -91,13 +95,14 @@ border-color: #4D9F70 !important;
 }
 
 
-.password-to-access{
+.password-to-access {
     padding-top: 32px;
     padding-bottom: 8px;
     margin: 0;
     font-size: 16px;
     font-weight: 500;
 }
+
 .copy-text {
     margin-right: 41px;
     font-size: 16px;
@@ -117,6 +122,13 @@ border-color: #4D9F70 !important;
     color: green;
     font-size: 14px;
     font-family: Arial, sans-serif;
+}
+
+
+.form-favicon-note-formlabel {
+    padding-top: 8px;
+    font-size: 14px;
+    color: #424242;
 }
 
 .form-favicon-note-disabled {
@@ -194,7 +206,7 @@ border-color: #4D9F70 !important;
 .password-toggle-container {
     display: flex;
     align-items: center;
-    justify-content: space-between; 
+    justify-content: space-between;
 }
 
 .form-title-notes {
@@ -232,8 +244,8 @@ border-color: #4D9F70 !important;
     padding-bottom: 24px;
     font-size: 14px;
     margin: 0;
-        padding-top: 8px;
-        font-weight: 500;
+    padding-top: 8px;
+    font-weight: 500;
 }
 
 

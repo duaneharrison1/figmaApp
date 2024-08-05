@@ -143,7 +143,7 @@ export const MobileFormPassword = (props) => {
         const newPasswordActiveState = !isPasswordActive;
         setIsPasswordActive(newPasswordActiveState);
         setshowChangePasswordContainer(false);
-        handlePassword(newPasswordActiveState); 
+        handlePassword(newPasswordActiveState);
     };
 
     const handleShowModal = () => {
@@ -202,8 +202,8 @@ export const MobileFormPassword = (props) => {
     const handlePassword = async (newPasswordActiveState) => {
         if (password.length < 6) {
             console.log(password.length)
-              setIsError(true);
-          } else {
+            setIsError(true);
+        } else {
             setIsError(false);
             setshowChangePasswordContainer(false)
             const salt = bcrypt.genSaltSync(10);
@@ -240,15 +240,15 @@ export const MobileFormPassword = (props) => {
     return (
         <>
             <div className='app-wrapper-mobile'>
-        
+
                 <MobileNavBar title={title} backToMobileFolioForm={backToMobileFolioForm} />
                 <div className='mobile-form-title-container'>
-                  
+
                     <h1 className='mobile-form-title'>Password</h1>
-                 
+
                     {subscriptionType === "regular" ?
                         <>
-                           <p className='form-favicon-note-disabled'>This is a small icon which will represent your website at the top of a web browser and in browser's bookmark bar, history and in search results.</p>
+                            <p className='form-favicon-note-disabled'>Add an extra layer of security to your site or portfolio by requiring viewers to enter a password before they can access your work. This is helpful if you're sharing sensitive information or want to control who sees your work.</p>
                             <div className='password-toggle-container'>
                                 <h1 className='mobile-enable-pass-protect'>Enable Password Protection</h1>
                                 <Form.Check
@@ -260,14 +260,14 @@ export const MobileFormPassword = (props) => {
                                 />
                             </div>
                             <div className='regular-user-message-container'>
-                                        <h1 className='regular-user-header'>Need to keep things confidential?</h1>
-                                        <p className='regular-user-message'>Upgrade your plan to share your work securely and ensure only the intended people see it.</p>
-                                        <ButtonColored  className="folio-mobile-form-upgrade-btn" label="Upgrade now" onClick={handleShowModal} />
+                                <h1 className='regular-user-header'>Need to keep things confidential?</h1>
+                                <p className='regular-user-message'>Upgrade your plan to share your work securely and ensure only the intended people see it.</p>
+                                <ButtonColored className="folio-mobile-form-upgrade-btn" label="Upgrade now" onClick={handleShowModal} />
                             </div>
                         </>
                         :
                         <>
-                           <p className='form-favicon-note'>This is a small icon which will represent your website at the top of a web browser and in browser's bookmark bar, history and in search results.</p>
+                            <p className='form-favicon-note'>Add an extra layer of security to your site or portfolio by requiring viewers to enter a password before they can access your work. This is helpful if you're sharing sensitive information or want to control who sees your work.</p>
                             <div className='enable-pass-protect-container'>
                                 <div className='password-toggle-container'>
                                     <h1 className='mobile-enable-pass-protect'>Enable Password Protection</h1>
@@ -285,18 +285,18 @@ export const MobileFormPassword = (props) => {
                                 <>
                                     {showChangePasswordContainer ? (
                                         <>
-                                        <div className='form-password-save-container m-0'>
-                                            <input
-                                                className='form-input-password'
-                                                type="text"
-                                                placeholder="Enter new password"
-                                                value={password}
-                                                onChange={handleNewPassword}
-                                            />
-                                            <ButtonColored className="folio-form-password-save-btn" label={"Save"} onClick={handlePassword} />
-                                        </div>
-                                         {isError == true && < p className='error-message'>Your password must be at least 6 characters long.</p>}
-                                         </>
+                                            <div className='form-password-save-container m-0'>
+                                                <input
+                                                    className='form-input-password'
+                                                    type="text"
+                                                    placeholder="Enter new password"
+                                                    value={password}
+                                                    onChange={handleNewPassword}
+                                                />
+                                                <ButtonColored className="folio-form-password-save-btn" label={"Save"} onClick={handlePassword} />
+                                            </div>
+                                            {isError == true && < p className='error-message'>Your password must be at least 6 characters long.</p>}
+                                        </>
                                     ) : (
                                         <>
                                             <p className='mobile-password-to-access'> Password to access {title}:</p>

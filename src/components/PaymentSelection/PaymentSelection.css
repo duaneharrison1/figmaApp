@@ -11,6 +11,7 @@
     margin: 0;
 }
 
+
 .payment-modal-selection-title-yearly {
     color: white;
     font-size: 20px;
@@ -91,9 +92,9 @@
 }
 
 .regular-card {
-    min-height: 637px;
+    min-height: 618px;
     overflow: hidden;
-    padding: 20px;
+    padding: 20px 20px 0 20px;
     position: relative;
     border-radius: 16px;
     border: 1px solid var(--grey-4, #E5E6EB);
@@ -127,7 +128,7 @@
     margin: 0;
     padding: 0;
     display: inline-block;
-    height: .75rem;
+    line-height: .75em;
 }
 
 .amount-yearly {
@@ -138,7 +139,7 @@
     margin: 0;
     padding: 0;
     display: inline-block;
-    height: .75rem;
+    line-height: .75em;
 }
 
 .month {
@@ -176,9 +177,9 @@
 }
 
 .green-card {
-    min-height: 637px;
+    min-height: 618px;
     overflow: hidden;
-    padding: 20px;
+    padding: 20px 20px 0 20px;
     position: relative;
     border-radius: 16px;
     background: #4D9F70;
@@ -196,7 +197,7 @@
 
 .payment-feature-container {
     min-height: 272px;
-    padding-bottom: 50px;
+    padding-bottom: 32px;
 }
 
 .button-upgrade-container {
@@ -207,14 +208,13 @@
 }
 
 .plancard-divider {
-    margin-top: 32px;
-    margin-bottom: 32px;
+    margin-top: 28px;
+
     border-top: 1px solid #BCBCBC;
 }
 
 .plancard-divider-yearly {
-    margin-top: 32px;
-    margin-bottom: 32px;
+    margin-top: 28px;
     border-top: 1px solid white;
 }
 
@@ -278,7 +278,7 @@
 
     .payment-feature-container {
         min-height: 0px;
-        padding-bottom: 50px;
+        padding-bottom: 32px;
     }
 
     .payment-modal-header {
@@ -339,7 +339,7 @@
 
     .payment-feature-container {
         min-height: 0px;
-        padding-bottom: 50px;
+        padding-bottom: 32px;
     }
 
     .button-upgrade-container {
