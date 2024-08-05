@@ -92,7 +92,7 @@
 }
 
 .regular-card {
-    min-height: 618px;
+    min-height: 578px;
     overflow: hidden;
     padding: 20px 20px 0 20px;
     position: relative;
@@ -177,7 +177,7 @@
 }
 
 .green-card {
-    min-height: 618px;
+    min-height: 578px;
     overflow: hidden;
     padding: 20px 20px 0 20px;
     position: relative;
@@ -196,8 +196,7 @@
 }
 
 .payment-feature-container {
-    min-height: 272px;
-    padding-bottom: 32px;
+    min-height: 242px;
 }
 
 .button-upgrade-container {
