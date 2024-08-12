@@ -43,6 +43,7 @@ function DynamicPage2() {
 
           dbFirestore.collection('user').doc(fetchedData.userId).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
             snapshot.forEach(subscription => {
+              console.log("statusxxx" + subscription.data().status);
               if (subscription.data().status === "active" || subscription.data().status === "trialing") {
                 setUrlData({
                   desktop: fetchedData.urls.figmaDesktopUrl || fetchedData.urls.figmaMobileUrl,
