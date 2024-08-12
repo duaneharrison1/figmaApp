@@ -33,31 +33,32 @@ function DynamicPage2() {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log("test test")
       try {
         const domain = window.location.host.replace(/^(https?:\/\/)?(www\.)?/, '');
         const snapshot = await dbFirestore.collectionGroup('url').where('customDomain', '==', domain).get();
-
+        console.log("domain" + domain)
         if (!snapshot.empty) {
           const fetchedData = snapshot.docs[0].data();
-          const subscriptionSnapshot = await dbFirestore.collection('user').doc(fetchedData.userId).collection("subscriptions").orderBy('created', 'desc').limit(1).get();
 
-          if (!subscriptionSnapshot.empty) {
-            const subscription = subscriptionSnapshot.docs[0].data();
-            if (['active', 'trialing'].includes(subscription.status) && fetchedData.isDraft === "false") {
-              document.title = fetchedData.title;
-              setUrlData({
-                desktop: fetchedData.urls.figmaDesktopUrl || fetchedData.urls.figmaMobileUrl,
-                mobile: fetchedData.urls.figmaMobileUrl || fetchedData.urls.figmaDesktopUrl,
-                isPasswordActive: fetchedData.isPasswordActive,
-                encryptedPassword: fetchedData.encryptedPassword,
-                title: fetchedData.title,
-                faviconUrl: fetchedData.faviconUrl
-              });
-            }
-          }
+          dbFirestore.collection('user').doc(fetchedData.userId).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
+            snapshot.forEach(subscription => {
+              if (subscription.data().status === "active" || subscription.data().status === "trialing") {
+                setUrlData({
+                  desktop: fetchedData.urls.figmaDesktopUrl || fetchedData.urls.figmaMobileUrl,
+                  mobile: fetchedData.urls.figmaMobileUrl || fetchedData.urls.figmaDesktopUrl,
+                  isPasswordActive: fetchedData.isPasswordActive,
+                  encryptedPassword: fetchedData.encryptedPassword,
+                  title: fetchedData.title,
+                  faviconUrl: fetchedData.faviconUrl
+                });
+              }
+            });
+          });
         }
       } catch (error) {
         setError(error);
+        console.log("no domain")
       } finally {
         setLoading(false);
       }
