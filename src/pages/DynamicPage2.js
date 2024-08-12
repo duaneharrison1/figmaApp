@@ -56,10 +56,12 @@ function DynamicPage2() {
               }
             });
           });
+        } else {
+          console.log("no domain")
         }
       } catch (error) {
         setError(error);
-        console.log("no domain")
+
       } finally {
         setLoading(false);
       }
