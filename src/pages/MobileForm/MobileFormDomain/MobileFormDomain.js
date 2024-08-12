@@ -30,12 +30,12 @@ export const MobileFormDomain = (props) => {
       ? location.state.object.title
       : ""
   );
-  const [password, setPassword]  = useState(
+  const [password, setPassword] = useState(
     location && location.state && location.state.object && location.state.object.password
       ? location.state.object.password
       : ""
   );
-  const [isPasswordActive, setIsPasswordActive]  = useState(
+  const [isPasswordActive, setIsPasswordActive] = useState(
     location && location.state && location.state.object && location.state.object.isPasswordActive
       ? location.state.object.isPasswordActive
       : false
@@ -135,7 +135,11 @@ export const MobileFormDomain = (props) => {
       headers: headers,
     });
   }
-
+  useEffect(() => {
+    if (domain.startsWith('www.')) {
+      setDomain(domain.slice(4));
+    }
+  }, [domain]);
   const saveDomain = async () => {
     if (docId) {
       if (oldDomain !== domain) {

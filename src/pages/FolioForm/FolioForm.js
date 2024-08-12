@@ -53,6 +53,8 @@ export default function FolioForm() {
     }
   }, []);
 
+
+
   const [fromPreview, setFromPreview] = useState(
     location && location.state && location.state.object && location.state.object.fromPreview
       ? location.state.object.fromPreview
@@ -326,6 +328,7 @@ export default function FolioForm() {
     console.log("State after setFaviconFromLocal:", faviconFromLocal);
   }, [faviconFromLocal]);
 
+
   const handleFaviconImage = async (data) => {
     if (docId) {
       try {
@@ -371,6 +374,12 @@ export default function FolioForm() {
       headers: headers,
     });
   }
+
+  useEffect(() => {
+    if (domain.startsWith('www.')) {
+      setDomain(domain.slice(4));
+    }
+  }, [domain]);
 
   const saveDomain = async () => {
     if (docId) {
