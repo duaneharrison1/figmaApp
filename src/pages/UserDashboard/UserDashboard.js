@@ -62,7 +62,7 @@ function UserDashboard() {
         const fetchData = () => {
             if (user) {
                 try {
-                    console.log("deployed")
+                    console.log("deployedxxxx")
                     dbFirestore.collection("user").doc(user.uid).collection("url").orderBy('createdAt', 'desc').get().then(querySnapshot => {
                         const newData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
                         setData(newData);
@@ -77,10 +77,11 @@ function UserDashboard() {
                             } else {
                                 snapshot.forEach(subscription => {
                                     if (subscription.data().status == "active" || subscription.data().status == "trialing") {
-                                        if (subscription.data().items[0].plan.id == process.env.REACT_APP_PRO) {
+                                        console.log(subscription.data().items[0].plan.id)
+                                        if (subscription.data().items[0].plan.id == process.env.REACT_APP_PRO || subscription.data().items[0].plan.id == process.env.REACT_APP_YEARLY) {
                                             setCanCreate("true")
                                             setSubscriptionType("annualPlan")
-                                        } else if (subscription.data().items[0].plan.id == process.env.REACT_APP_BASIC && docCount <= 4) {
+                                        } else if (subscription.data().items[0].plan.id == process.env.REACT_APP_BASIC && docCount <= 4 || subscription.data().items[0].plan.id == process.env.REACT_APP_MONTHLY && docCount <= 4) {
                                             setCanCreate("true")
                                             setChangeSubPlan("true")
                                             setSubscriptionType("monthlyPlan")
