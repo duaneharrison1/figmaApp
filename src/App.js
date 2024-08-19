@@ -30,6 +30,7 @@ import { MobileFormDomain } from './pages/MobileForm/MobileFormDomain/MobileForm
 import { MobileFormFavicon } from './pages/MobileForm/MobileFormFavicon/MobileFormFavicon.js';
 import { MobileFormPassword } from './pages/MobileForm/MobileFormPassword/MobileFormPassword.js';
 import { MobileFormLabel } from './pages/MobileForm/MobileFormLabel/MobileFormLabel.js';
+import Testing from './pages/DynamicPage/Testing.js';
 function App() {
   const dbFirestore = firebase.firestore();
   const [data, setData] = useState([]);
@@ -61,7 +62,7 @@ function App() {
           currentPath == '/' + currentLanguage + '/admin' || currentPath == '/' + currentLanguage + '/billing' ||
           currentPath == '/' + currentLanguage + '/dashboard' || currentPath == '/' + currentLanguage + '/preview' ||
           currentPath == '/' + currentLanguage + '/auth' || currentPath == '/' + currentLanguage + '/forgotpassword' ||
-          currentPath == '/' + currentLanguage + '/profile') {
+          currentPath == '/' + currentLanguage + '/profile' || currentPath == '/' + currentLanguage + '/testing') {
           setIsDynamicPage("false")
         } else {
           setIsDynamicPage("true")
@@ -96,7 +97,8 @@ function App() {
           </Routes>
           :
           <Routes>
-            <Route path="/:lang?/" element={<LandingPage />} />
+            <Route path="/:lang?/" element={<Testing />} />
+            {/* <Route path="/:lang?/testing" element={<Testing />} /> */}
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/:lang?/billing" element={<BillingPage />} />
             <Route path="/:lang?/terms-and-conditions" element={<TermsAndConditions />} />
