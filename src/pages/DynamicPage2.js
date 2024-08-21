@@ -104,19 +104,21 @@ function DynamicPage2() {
           </Modal.Dialog>
         ) : (
           <iframe
+            title="figmaIframe"
             src={isMobile ? urlData.mobile : urlData.desktop}
             allowFullScreen
             referrerPolicy="no-referrer"
-            style={{ width: '100%', height: '100vh' }}
+            style={{ width: '100%', height: '100vh', colorScheme: 'auto' }}
             className='dynamicpage_view_figma_view'
           ></iframe>
         )
       ) : (
         <iframe
+          title="figmaIframe"
           src={isMobile ? urlData.mobile : urlData.desktop}
           allowFullScreen
           referrerPolicy="no-referrer"
-          style={{ width: '100%', height: '100vh' }}
+          style={{ width: '100%', height: '100vh', colorScheme: 'auto' }}
           className='dynamicpage_view_figma_view'
         ></iframe>
       )}
