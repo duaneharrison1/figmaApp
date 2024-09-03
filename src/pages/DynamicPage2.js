@@ -40,7 +40,7 @@ function DynamicPage2() {
         const snapshotTwo = await dbFirestore.collection('customDomain').doc(domain).get();
         if (!snapshotTwo.empty) {
           console.log("test test 2")
-          const fetchedDataTwo = snapshot.docs[0].data();
+          const fetchedDataTwo = snapshotTwo.docs[0].data();
           console.log("fetchedDataTwo: " + fetchedDataTwo.title);
           console.log("fetchedDataTwo: " + fetchedDataTwo.status);
           console.log("fetchedDataTwo: " + fetchedDataTwo.urls.figmaDesktopUrl);
