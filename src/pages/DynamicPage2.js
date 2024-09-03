@@ -58,8 +58,7 @@ function DynamicPage2() {
             });
           });
 
-
-          const snapshotTwo = await dbFirestore.collection('customDomain').doc(domain).get();
+          const snapshotTwo = (await dbFirestore.collectionGroup('customDomain').get()).docs.filter(doc => doc.id == domain);
           if (!snapshotTwo.empty) {
             console.log("test test 2")
             const fetchedDataTwo = snapshotTwo.docs[0].data();
