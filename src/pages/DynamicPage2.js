@@ -37,19 +37,7 @@ function DynamicPage2() {
         const domain = window.location.host.replace(/^(https?:\/\/)?(www\.)?/, '');
         const snapshot = await dbFirestore.collectionGroup('url').where('customDomain', '==', domain).get();
 
-        const snapshotTwo = await dbFirestore.collection('customDomain').doc(domain).get();
-        if (!snapshotTwo.empty) {
-          console.log("test test 2")
-          const fetchedDataTwo = snapshotTwo.docs[0].data();
-          console.log("fetchedDataTwo: " + fetchedDataTwo.title);
-          console.log("fetchedDataTwo: " + fetchedDataTwo.status);
-          console.log("fetchedDataTwo: " + fetchedDataTwo.urls.figmaDesktopUrl);
-          console.log("fetchedDataTwo: " + fetchedDataTwo.userId);
 
-          if (fetchedDataTwo.status === "active" || fetchedDataTwo.status === "trialing") {
-            console.log("fetchedDataTwo: user is active");
-          }
-        }
         console.log("domain" + domain)
         if (!snapshot.empty) {
           const fetchedData = snapshot.docs[0].data();
@@ -69,6 +57,23 @@ function DynamicPage2() {
               }
             });
           });
+
+
+          const snapshotTwo = await dbFirestore.collection('customDomain').doc(domain).get();
+          if (!snapshotTwo.empty) {
+            console.log("test test 2")
+            const fetchedDataTwo = snapshotTwo.docs[0].data();
+            console.log("fetchedDataTwo: " + fetchedDataTwo.title);
+            console.log("fetchedDataTwo: " + fetchedDataTwo.status);
+            console.log("fetchedDataTwo: " + fetchedDataTwo.urls.figmaDesktopUrl);
+            console.log("fetchedDataTwo: " + fetchedDataTwo.userId);
+
+            if (fetchedDataTwo.status === "active" || fetchedDataTwo.status === "trialing") {
+              console.log("fetchedDataTwo: user is active");
+            }
+          }
+
+
         } else {
           console.log("no domain")
         }
