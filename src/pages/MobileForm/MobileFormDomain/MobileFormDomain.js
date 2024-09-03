@@ -216,6 +216,27 @@ export const MobileFormDomain = (props) => {
           isDraft: "false",
           customDomain: domain,
           password: password,
+          status: "active",
+          showInDashboard: false,
+          encryptedPassword: hashPassword,
+          isPasswordActive: isPasswordActive,
+          faviconUrl: faviconImage,
+          generatedUrl: randomurl,
+          urls: {
+            figmaDesktopUrl: editUrl(figmaDesktopUrl),
+            figmaMobileUrl: editUrl(figmaMobileUrl)
+          },
+          createdAt: new Date(),
+        });
+
+
+        const docRef2 = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(domain).set({
+          userId: user.uid,
+          title: title,
+          isDraft: "false",
+          customDomain: domain,
+          password: password,
+          status: "active",
           showInDashboard: false,
           encryptedPassword: hashPassword,
           isPasswordActive: isPasswordActive,
@@ -245,6 +266,7 @@ export const MobileFormDomain = (props) => {
             title: title,
             isDraft: "false",
             customDomain: domain,
+            status: "active",
             password: password,
             showInDashboard: false,
             encryptedPassword: hashPassword,
@@ -262,6 +284,7 @@ export const MobileFormDomain = (props) => {
             userId: user.uid,
             title: title,
             isDraft: "false",
+            status: "active",
             customDomain: domain,
             password: password,
             showInDashboard: false,

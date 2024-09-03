@@ -471,6 +471,7 @@ export default function FolioForm() {
             userId: user.uid,
             title: title,
             isDraft: "false",
+            status: "active",
             customDomain: domain,
             password: password,
             showInDashboard: false,
