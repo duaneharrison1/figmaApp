@@ -420,6 +420,7 @@ export default function FolioForm() {
         const docRef = await dbFirestore.collection('user').doc(user.uid).collection("customDomain").doc(domain).set({
           userId: user.uid,
           title: title,
+          status: "active",
           isDraft: "false",
           customDomain: domain,
           password: password,
@@ -452,6 +453,7 @@ export default function FolioForm() {
             title: title,
             isDraft: "false",
             customDomain: domain,
+            status: "active",
             password: password,
             showInDashboard: false,
             encryptedPassword: hashPassword,
