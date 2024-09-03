@@ -33,7 +33,7 @@ function DynamicPage2() {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log("test test")
+      console.log("test test 1")
       try {
         const domain = window.location.host.replace(/^(https?:\/\/)?(www\.)?/, '');
         const snapshot = await dbFirestore.collectionGroup('url').where('customDomain', '==', domain).get();
