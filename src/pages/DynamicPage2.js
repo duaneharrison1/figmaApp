@@ -33,7 +33,6 @@ function DynamicPage2() {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log("test test 1")
       try {
         const domain = window.location.host.replace(/^(https?:\/\/)?(www\.)?/, '');
         const snapshot = await dbFirestore.collectionGroup('url').where('customDomain', '==', domain).get();
@@ -42,10 +41,14 @@ function DynamicPage2() {
         if (!snapshotTwo.empty) {
           console.log("test test 2")
           const fetchedDataTwo = snapshot.docs[0].data();
-          console.log("fetchedDataTwo " + fetchedDataTwo.title);
-          console.log("fetchedDataTwo " + fetchedDataTwo.status);
-          console.log("fetchedDataTwo " + fetchedDataTwo.urls.figmaDesktopUrl);
-          console.log("fetchedDataTwo " + fetchedDataTwo.userId);
+          console.log("fetchedDataTwo: " + fetchedDataTwo.title);
+          console.log("fetchedDataTwo: " + fetchedDataTwo.status);
+          console.log("fetchedDataTwo: " + fetchedDataTwo.urls.figmaDesktopUrl);
+          console.log("fetchedDataTwo: " + fetchedDataTwo.userId);
+
+          if (fetchedDataTwo.status === "active" || fetchedDataTwo.status === "trialing") {
+            console.log("fetchedDataTwo: user is active");
+          }
         }
         console.log("domain" + domain)
         if (!snapshot.empty) {
