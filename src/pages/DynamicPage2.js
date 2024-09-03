@@ -36,7 +36,7 @@ function DynamicPage2() {
       console.log("test test 1")
       try {
         const domain = window.location.host.replace(/^(https?:\/\/)?(www\.)?/, '');
-        const snapshot = await dbFirestore.collectionGroup('url').where('customDomain', '==', domain).get();
+        const snapshot = await dbFirestore.collection('customDomain').doc(domain).get();
 
         const snapshotTwo = await dbFirestore.collection('customDomain').doc(domain).get();
         if (!snapshotTwo.empty) {
