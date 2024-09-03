@@ -33,17 +33,19 @@ function DynamicPage2() {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log("test test 1")
+      console.log("test test 2")
       try {
         const domain = window.location.host.replace(/^(https?:\/\/)?(www\.)?/, '');
-        const snapshot = await dbFirestore.collectionGroup('url').where('customDomain', '==', domain).get();
+        // const snapshot = await dbFirestore.collectionGroup('url').where('customDomain', '==', domain).get();
+        const snapshot = await dbFirestore.collection('customDomain').doc(domain).get();
 
         const snapshotTwo = await dbFirestore.collection('customDomain').doc(domain).get();
         if (!snapshotTwo.empty) {
-          console.log("test test 2")
+          console.log("test test 3")
           const fetchedDataTwo = snapshot.docs[0].data();
-          console.log("fetchedDataTwo" + fetchedDataTwo.title);
-          console.log("fetchedDataTwo" + fetchedDataTwo.urls.figmaDesktopUrl);
+          console.log("fetchedDataTwo " + fetchedDataTwo.title);
+          console.log("fetchedDataTwo " + fetchedDataTwo.status);
+          console.log("fetchedDataTwo " + fetchedDataTwo.urls.figmaDesktopUrl);
         }
         console.log("domain" + domain)
         if (!snapshot.empty) {
