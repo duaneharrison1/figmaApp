@@ -42,8 +42,10 @@ function DynamicPage2() {
         if (!snapshotTwo.empty) {
           console.log("test test 2")
           const fetchedDataTwo = snapshot.docs[0].data();
-          console.log("fetchedDataTwo" + fetchedDataTwo.title);
-          console.log("fetchedDataTwo" + fetchedDataTwo.urls.figmaDesktopUrl);
+          console.log("fetchedDataTwo " + fetchedDataTwo.title);
+          console.log("fetchedDataTwo " + fetchedDataTwo.status);
+          console.log("fetchedDataTwo " + fetchedDataTwo.urls.figmaDesktopUrl);
+          console.log("fetchedDataTwo " + fetchedDataTwo.userId);
         }
         console.log("domain" + domain)
         if (!snapshot.empty) {
