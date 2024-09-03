@@ -29,12 +29,12 @@ export const MobileFormFavicon = (props) => {
       ? location.state.object.title
       : ""
   );
-  const [password, setPassword]  = useState(
+  const [password, setPassword] = useState(
     location && location.state && location.state.object && location.state.object.password
       ? location.state.object.password
       : ""
   );
-  const [isPasswordActive, setIsPasswordActive]  = useState(
+  const [isPasswordActive, setIsPasswordActive] = useState(
     location && location.state && location.state.object && location.state.object.isPasswordActive
       ? location.state.object.isPasswordActive
       : false
@@ -170,15 +170,26 @@ export const MobileFormFavicon = (props) => {
           faviconUrl: faviconUrlFromFirebase,
           updatedAt: new Date()
         })
+
+        if (domain) {
+          await dbFirestore.collection('user').doc(user.uid).collection("customDomain").doc(domain).update({
+            faviconUrl: faviconUrlFromFirebase,
+            updatedAt: new Date()
+          })
+        }
+
         setFaviconImage(faviconUrlFromFirebase)
         alert("Success");
+
+
+
       } catch (error) {
         alert(error);
       }
     } else {
       try {
         var newFaviconImage = await uploadFaviconUrl(data, generatedUrl);
-        const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
+        const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(randomurl).set({
           userId: user.uid,
           faviconUrl: newFaviconImage,
           isDraft: "false",
@@ -186,7 +197,7 @@ export const MobileFormFavicon = (props) => {
           createdAt: new Date(),
         })
         setGeneratedUrl(randomurl);
-        setDocId(docRef.id);
+        setDocId(randomurl);
         setFaviconImage(newFaviconImage)
         alert("Success");
       } catch (error) {

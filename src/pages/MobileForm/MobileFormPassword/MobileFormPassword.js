@@ -216,8 +216,18 @@ export const MobileFormPassword = (props) => {
                         isPasswordActive: !!newPasswordActiveState,
                         updatedAt: new Date()
                     })
+
+                    if (domain) {
+                        await dbFirestore.collection('user').doc(user.uid).collection("customDomain").doc(domain).update({
+                            password: password,
+                            encryptedPassword: hashPassword,
+                            isPasswordActive: !!newPasswordActiveState,
+                            updatedAt: new Date()
+                        })
+                    }
+
                 } else {
-                    const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
+                    const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(randomurl).set({
                         userId: user.uid,
                         password: password,
                         encryptedPassword: hashPassword,
@@ -226,7 +236,7 @@ export const MobileFormPassword = (props) => {
                         createdAt: new Date(),
                     })
                     setGeneratedUrl(randomurl);
-                    setDocId(docRef.id);
+                    setDocId(randomurl);
                 }
             } catch (err) {
                 alert(err.message)

@@ -58,7 +58,6 @@ const DeleteModal = (props) => {
     const dataInDb = async () => {
         try {
             if (faviconUrl !== '') {
-                console.log("yyyyy")
                 const storage = getStorage();
                 const desertRef = ref(storage, faviconUrl)
                 await deleteObject(desertRef).then(() => {
@@ -68,6 +67,7 @@ const DeleteModal = (props) => {
                 })
             }
             await deleteDoc(doc(db, "user", user.uid, "url", id));
+            await deleteDoc(doc(db, "user", user.uid, "customDomain", props.customDomain));
             window.location.reload();
             handleClose()
         } catch (e) {

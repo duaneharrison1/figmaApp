@@ -148,6 +148,7 @@ function UserDashboard() {
         setShowModal(null);
     };
     const litePayment = async (priceId) => {
+        setUpgradeClick(true)
         const docRef = await dbFirestore.collection('user').doc(user.uid).collection
             ("checkout_sessions").add({
                 price: priceId,
@@ -206,7 +207,6 @@ function UserDashboard() {
                     cancel_url: window.location.origin,
                     trial_period_days: trialConsume === "true" ? 0 : 15,
                     allow_promotion_codes: true,
-                    // automatic_tax: true,
                 })
             docRef.onSnapshot(async (snap) => {
                 const { error, sessionId } = snap.data();
@@ -319,7 +319,8 @@ function UserDashboard() {
                                                         <div className='row'>
                                                             {data.map((item, index) => (
                                                                 <div className='col-sm-4 folio-container' key={index} style={{ pointerEvents: index > 4 ? 'none' : '' }} >
-                                                                    <CardView index={index}
+                                                                    <CardView
+                                                                        index={index}
                                                                         subscriptionType={subscriptionType}
                                                                         figmaMobileUrl={item.urls?.figmaMobileUrl}
                                                                         figmaDesktopUrl={item.urls?.figmaDesktopUrl}
@@ -345,7 +346,8 @@ function UserDashboard() {
                                                         <div className='row'>
                                                             {data.map((item, index) => (
                                                                 < div className='col-sm-4 folio-container' key={index} >
-                                                                    <CardView index={index}
+                                                                    <CardView
+                                                                        index={index}
                                                                         subscriptionType={subscriptionType}
                                                                         figmaMobileUrl={item.urls?.figmaMobileUrl}
                                                                         figmaDesktopUrl={item.urls?.figmaDesktopUrl}
@@ -370,8 +372,6 @@ function UserDashboard() {
                                                 </>
                                                 :
                                                 <EmptyCardView goToNewForm={goToNewForm} />
-
-
                                             }
 
                                         </div >

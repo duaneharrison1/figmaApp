@@ -12,6 +12,7 @@ import axios from "axios";
 import CustomDomainFunction from '../../../components/CustomDomainInstruction/CustomDomainInstruction';
 import Footer from '../../../components/Footer/Footer';
 import MobileNavBar from '../MobileNavBar/MobileNavbar';
+import bcrypt from 'bcryptjs';
 export const MobileFormDomain = (props) => {
   const currentLanguage = i18n.language;
   const navigate = useNavigate();
@@ -140,38 +141,142 @@ export const MobileFormDomain = (props) => {
       setDomain(domain.slice(4));
     }
   }, [domain]);
+
+  function editUrl(url) {
+    const originalString = url;
+    const wordToRemove = "https://";
+    const hideUi = "&hide-ui=1"
+    const hotspot = "&hotspot-hints=0"
+    const embedHost = "www.figma.com/embed?embed_host=share&url=https%3A%2F%2F"
+    var newUrl = ""
+    var modifiedUrl = ""
+    var modifiedString = removeWordFromString(originalString, wordToRemove);
+
+    if (url.includes("content-scaling=responsive")) {
+      modifiedString = encodeURIComponent(modifiedString)
+    }
+    if (url !== '') {
+      if (!modifiedString.includes(embedHost)) {
+        newUrl = "https://" + embedHost + modifiedString
+      } else {
+        newUrl = url;
+      }
+      if (!newUrl.includes(hideUi)) {
+        newUrl += hideUi
+      }
+      if (!newUrl.includes(hotspot)) {
+        newUrl += hotspot
+      }
+      if (newUrl.includes("scaling=contain")) {
+        if (!newUrl.includes("content-scaling=responsive")) {
+          modifiedUrl = newUrl.replace(new RegExp("scaling=contain", 'g'), "scaling=scale-down-width");
+          newUrl = modifiedUrl
+        } else {
+          newUrl = modifiedUrl
+        }
+      } else if (newUrl.includes("scaling=min-zoom")) {
+        modifiedUrl = newUrl.replace(new RegExp("scaling=min-zoom", 'g'), "scaling=scale-down-width");
+        newUrl = modifiedUrl
+      } else if (newUrl.includes("scaling=scale-down")) {
+        if (!newUrl.includes("scaling=scale-down-width")) {
+          modifiedUrl = newUrl.replace(new RegExp("scaling=scale-down", 'g'), "scaling=scale-down-width");
+          newUrl = modifiedUrl
+        }
+      }
+    } else {
+      newUrl = ""
+    }
+    return newUrl
+  }
+
+  function removeWordFromString(inputString, wordToRemove) {
+    const regex = new RegExp(`\\b${wordToRemove}\\b`, 'gi');
+    const resultString = inputString.replace(regex, '');
+    return resultString;
+  }
+
   const saveDomain = async () => {
+    const salt = bcrypt.genSaltSync(10);
+    const hashPassword = bcrypt.hashSync(password, salt);
     if (docId) {
       if (oldDomain !== domain) {
         console.log("wentHere1")
-        try {
-          await deleteDomainFromVercel();
-          await addDomainToVercel();
-          await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
-            customDomain: domain,
-            updatedAt: new Date()
-          })
-          alert("Success");
-        } catch (error) {
-          alert(error.response.data.error.code);
-          return;
-        }
       }
+      try {
+        await deleteDomainFromVercel();
+        await addDomainToVercel();
+        await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
+          customDomain: domain,
+          updatedAt: new Date()
+        })
 
+        const docRef = await dbFirestore.collection('user').doc(user.uid).collection("customDomain").doc(domain).set({
+          userId: user.uid,
+          title: title,
+          isDraft: "false",
+          customDomain: domain,
+          password: password,
+          showInDashboard: false,
+          encryptedPassword: hashPassword,
+          isPasswordActive: isPasswordActive,
+          faviconUrl: faviconImage,
+          generatedUrl: randomurl,
+          urls: {
+            figmaDesktopUrl: editUrl(figmaDesktopUrl),
+            figmaMobileUrl: editUrl(figmaMobileUrl)
+          },
+          createdAt: new Date(),
+        });
+
+
+        alert("Success");
+      } catch (error) {
+        alert(error.response.data.error.code);
+        return;
+      }
     } else {
       console.log(domain)
       if (domain) {
         console.log(newCustomDomainData)
         try {
           await addDomainToVercel();
-          const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
+          const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(randomurl).set({
             userId: user.uid,
+            title: title,
             isDraft: "false",
             customDomain: domain,
+            password: password,
+            showInDashboard: false,
+            encryptedPassword: hashPassword,
+            isPasswordActive: isPasswordActive,
+            faviconUrl: faviconImage,
             generatedUrl: randomurl,
+            urls: {
+              figmaDesktopUrl: editUrl(figmaDesktopUrl),
+              figmaMobileUrl: editUrl(figmaMobileUrl)
+            },
             createdAt: new Date(),
           });
-          setDocId(docRef.id);
+
+          await dbFirestore.collection('user').doc(user.uid).collection("customDomain").doc(domain).set({
+            userId: user.uid,
+            title: title,
+            isDraft: "false",
+            customDomain: domain,
+            password: password,
+            showInDashboard: false,
+            encryptedPassword: hashPassword,
+            isPasswordActive: isPasswordActive,
+            faviconUrl: faviconImage,
+            generatedUrl: randomurl,
+            urls: {
+              figmaDesktopUrl: editUrl(figmaDesktopUrl),
+              figmaMobileUrl: editUrl(figmaMobileUrl)
+            },
+            createdAt: new Date(),
+          });
+
+          setDocId(randomurl);
           setGeneratedUrl(randomurl);
           alert("Success");
         } catch (error) {

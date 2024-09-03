@@ -124,7 +124,6 @@ export default function FolioForm() {
       : false
   );
 
-
   const [encryptedPassword, setEncryptedPassword] = useState(
     location && location.state && location.state.object && location.state.object.password
       ? location.state.object.encryptedPassword
@@ -134,20 +133,28 @@ export default function FolioForm() {
 
 
   const handlePasswordStatusFromChild = async (passwordStatus) => {
-
     setIsPasswordActive(passwordStatus);
     const salt = bcrypt.genSaltSync(10);
     const hashPassword = bcrypt.hashSync(password, salt);
     try {
       if (docId) {
-        const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
+        await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
           password: password,
           encryptedPassword: hashPassword,
           isPasswordActive: passwordStatus,
           updatedAt: new Date()
         })
+
+        if (domain) {
+          await dbFirestore.collection('user').doc(user.uid).collection("customDomain").doc(domain).update({
+            password: password,
+            encryptedPassword: hashPassword,
+            isPasswordActive: passwordStatus,
+            updatedAt: new Date()
+          })
+        }
       } else {
-        const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
+        await dbFirestore.collection('user').doc(user.uid).collection("url").doc(randomurl).set({
           userId: user.uid,
           password: password,
           encryptedPassword: hashPassword,
@@ -156,7 +163,7 @@ export default function FolioForm() {
           createdAt: new Date(),
         })
         setGeneratedUrl(randomurl);
-        setDocId(docRef.id);
+        setDocId(randomurl);
       }
     } catch (err) {
       alert(err.message)
@@ -172,6 +179,8 @@ export default function FolioForm() {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer 83YzDqNvO4OoVtKXQXJ4mTyj'
   };
+
+
   const goToPreview = async () => {
     if ((!figmaDesktopUrl.includes('figma.com/file') && !figmaMobileUrl.includes('figma.com/file')) &&
       (figmaMobileUrl.includes('figma.com/proto') || figmaMobileUrl.includes('figma.com/embed') ||
@@ -337,6 +346,14 @@ export default function FolioForm() {
           faviconUrl: faviconUrlFromFirebase,
           updatedAt: new Date()
         })
+
+        if (domain) {
+          await dbFirestore.collection('user').doc(user.uid).collection("customDomain").doc(domain).update({
+            faviconUrl: faviconUrlFromFirebase,
+            updatedAt: new Date()
+          })
+        }
+        setFaviconImage(faviconUrlFromFirebase);
         alert("Success");
       } catch (error) {
         alert(error);
@@ -344,7 +361,8 @@ export default function FolioForm() {
     } else {
       try {
         var newFaviconImage = await uploadFaviconUrl(data, generatedUrl);
-        const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
+        console.log("xxx" + newFaviconImage);
+        const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(randomurl).set({
           userId: user.uid,
           faviconUrl: newFaviconImage,
           isDraft: "false",
@@ -352,14 +370,16 @@ export default function FolioForm() {
           createdAt: new Date(),
         })
         setGeneratedUrl(randomurl);
-        setDocId(docRef.id);
+        setDocId(randomurl);
+        setFaviconImage(newFaviconImage);
         alert("Success");
       } catch (error) {
         alert(error);
       }
     }
-  }
 
+  }
+  // -----------------VERCEL FUNCTION----------------------
   const deleteDomainFromVercel = async () => {
     await axios.delete(`https://api.vercel.com/v9/projects/${process.env.REACT_APP_VERCEL_PROJECT_ID}/domains/${oldDomain}?teamId=${process.env.REACT_APP_VERCEL_TEAM_ID}`,
       {
@@ -374,6 +394,7 @@ export default function FolioForm() {
       headers: headers,
     });
   }
+  // -----------------VERCEL FUNCTION----------------------
 
   useEffect(() => {
     if (domain.startsWith('www.')) {
@@ -382,6 +403,8 @@ export default function FolioForm() {
   }, [domain]);
 
   const saveDomain = async () => {
+    const salt = bcrypt.genSaltSync(10);
+    const hashPassword = bcrypt.hashSync(password, salt);
     if (docId) {
       if (oldDomain !== domain) {
         console.log("wentHere1")
@@ -393,6 +416,26 @@ export default function FolioForm() {
           customDomain: domain,
           updatedAt: new Date()
         })
+
+        const docRef = await dbFirestore.collection('user').doc(user.uid).collection("customDomain").doc(domain).set({
+          userId: user.uid,
+          title: title,
+          isDraft: "false",
+          customDomain: domain,
+          password: password,
+          showInDashboard: false,
+          encryptedPassword: hashPassword,
+          isPasswordActive: isPasswordActive,
+          faviconUrl: faviconImage,
+          generatedUrl: randomurl,
+          urls: {
+            figmaDesktopUrl: editUrl(figmaDesktopUrl),
+            figmaMobileUrl: editUrl(figmaMobileUrl)
+          },
+          createdAt: new Date(),
+        });
+
+
         alert("Success");
       } catch (error) {
         alert(error.response.data.error.code);
@@ -404,14 +447,43 @@ export default function FolioForm() {
         console.log(newCustomDomainData)
         try {
           await addDomainToVercel();
-          const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
+          const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(randomurl).set({
             userId: user.uid,
+            title: title,
             isDraft: "false",
             customDomain: domain,
+            password: password,
+            showInDashboard: false,
+            encryptedPassword: hashPassword,
+            isPasswordActive: isPasswordActive,
+            faviconUrl: faviconImage,
             generatedUrl: randomurl,
+            urls: {
+              figmaDesktopUrl: editUrl(figmaDesktopUrl),
+              figmaMobileUrl: editUrl(figmaMobileUrl)
+            },
             createdAt: new Date(),
           });
-          setDocId(docRef.id);
+
+          await dbFirestore.collection('user').doc(user.uid).collection("customDomain").doc(domain).set({
+            userId: user.uid,
+            title: title,
+            isDraft: "false",
+            customDomain: domain,
+            password: password,
+            showInDashboard: false,
+            encryptedPassword: hashPassword,
+            isPasswordActive: isPasswordActive,
+            faviconUrl: faviconImage,
+            generatedUrl: randomurl,
+            urls: {
+              figmaDesktopUrl: editUrl(figmaDesktopUrl),
+              figmaMobileUrl: editUrl(figmaMobileUrl)
+            },
+            createdAt: new Date(),
+          });
+
+          setDocId(randomurl);
           setGeneratedUrl(randomurl);
           alert("Success");
         } catch (error) {
@@ -424,7 +496,6 @@ export default function FolioForm() {
   }
 
   const saveFigmaUrl = async () => {
-    console.log(editUrl(figmaDesktopUrl))
     if ((!figmaDesktopUrl.includes('figma.com/file') && !figmaMobileUrl.includes('figma.com/file')) &&
       (figmaMobileUrl.includes('figma.com/proto') || figmaMobileUrl.includes('figma.com/embed') ||
         figmaDesktopUrl.includes('figma.com/proto') || figmaDesktopUrl.includes('figma.com/embed'))) {
@@ -437,8 +508,18 @@ export default function FolioForm() {
             },
             updatedAt: new Date()
           })
+
+          if (domain) {
+            await dbFirestore.collection('user').doc(user.uid).collection("customDomain").doc(domain).update({
+              urls: {
+                figmaDesktopUrl: editUrl(figmaDesktopUrl),
+                figmaMobileUrl: editUrl(figmaMobileUrl)
+              },
+              updatedAt: new Date()
+            })
+          }
         } else {
-          const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
+          const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(randomurl).set({
             userId: user.uid,
             generatedUrl: randomurl,
             isDraft: "false",
@@ -448,7 +529,7 @@ export default function FolioForm() {
             },
             createdAt: new Date(),
           })
-          setDocId(docRef.id);
+          setDocId(randomurl);
           setGeneratedUrl(randomurl);
         }
       } catch (err) {
@@ -464,28 +545,34 @@ export default function FolioForm() {
   const saveTitle = async () => {
     try {
       if (docId) {
-        const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
+        await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
           title: title,
           updatedAt: new Date()
-        })
+        });
+
+        if (domain) {
+          await dbFirestore.collection('user').doc(user.uid).collection("customDomain").doc(domain).update({
+            title: title,
+            updatedAt: new Date()
+          })
+        }
       } else {
-        const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
+        await dbFirestore.collection('user').doc(user.uid).collection("url").doc(randomurl).set({
           userId: user.uid,
           title: title,
           isDraft: "false",
           generatedUrl: randomurl,
           createdAt: new Date(),
-        })
+        });
         setGeneratedUrl(randomurl);
-        setDocId(docRef.id);
+        setDocId(randomurl);
       }
     } catch (err) {
-      alert(err.message)
+      alert(err.message);
     } finally {
-      alert("Success")
+      alert("Success");
     }
-  }
-
+  };
 
   const handlePassword = async () => {
 
@@ -504,8 +591,17 @@ export default function FolioForm() {
             isPasswordActive: isPasswordActive,
             updatedAt: new Date()
           })
+
+          if (domain) {
+            await dbFirestore.collection('user').doc(user.uid).collection("customDomain").doc(domain).update({
+              password: password,
+              encryptedPassword: hashPassword,
+              isPasswordActive: isPasswordActive,
+              updatedAt: new Date()
+            })
+          }
         } else {
-          const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
+          const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(randomurl).set({
             userId: user.uid,
             password: password,
             encryptedPassword: hashPassword,
@@ -514,7 +610,7 @@ export default function FolioForm() {
             createdAt: new Date(),
           })
           setGeneratedUrl(randomurl);
-          setDocId(docRef.id);
+          setDocId(randomurl);
         }
       } catch (err) {
         alert(err.message)
@@ -524,7 +620,6 @@ export default function FolioForm() {
     }
   }
 
-  // Function to handle tab click
   const handleTabClick = (tabId, event) => {
     event.preventDefault();
     setActiveTab(tabId);
@@ -575,12 +670,12 @@ export default function FolioForm() {
     }).catch((error) => {
     });
   }
+
   const viewSite = () => {
     window.open(`https://figmafolio.com/${generatedUrl}`, "_blank");
   }
 
   return (
-
     <>
       {
         isMobile ?

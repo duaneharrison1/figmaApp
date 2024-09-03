@@ -39,12 +39,12 @@ export const MobileFormContent = (props) => {
       ? location.state.object.customDomain
       : ""
   );
-  const [password, setPassword]  = useState(
+  const [password, setPassword] = useState(
     location && location.state && location.state.object && location.state.object.password
       ? location.state.object.password
       : ""
   );
-  const [isPasswordActive, setIsPasswordActive]  = useState(
+  const [isPasswordActive, setIsPasswordActive] = useState(
     location && location.state && location.state.object && location.state.object.isPasswordActive
       ? location.state.object.isPasswordActive
       : false
@@ -96,7 +96,7 @@ export const MobileFormContent = (props) => {
     var modifiedUrl = ""
     var modifiedString = removeWordFromString(originalString, wordToRemove);
 
-    if(url.includes("content-scaling=responsive")){
+    if (url.includes("content-scaling=responsive")) {
       modifiedString = encodeURIComponent(modifiedString)
     }
     if (url !== '') {
@@ -112,7 +112,7 @@ export const MobileFormContent = (props) => {
         newUrl += hotspot
       }
       if (newUrl.includes("scaling=contain")) {
-        if(!newUrl.includes("content-scaling=responsive")){
+        if (!newUrl.includes("content-scaling=responsive")) {
           modifiedUrl = newUrl.replace(new RegExp("scaling=contain", 'g'), "scaling=scale-down-width");
           newUrl = modifiedUrl
         } else {
@@ -153,8 +153,19 @@ export const MobileFormContent = (props) => {
             },
             updatedAt: new Date()
           })
+
+          if (domain) {
+            await dbFirestore.collection('user').doc(user.uid).collection("customDomain").doc(domain).update({
+              urls: {
+                figmaDesktopUrl: editUrl(figmaDesktopUrl),
+                figmaMobileUrl: editUrl(figmaMobileUrl)
+              },
+              updatedAt: new Date()
+            })
+          }
+
         } else {
-          const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
+          const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(randomurl).set({
             userId: user.uid,
             generatedUrl: randomurl,
             isDraft: "false",
@@ -164,7 +175,7 @@ export const MobileFormContent = (props) => {
             },
             createdAt: new Date(),
           })
-          setDocId(docRef.id);
+          setDocId(randomurl);
           setGeneratedUrl(randomurl);
         }
       } catch (err) {

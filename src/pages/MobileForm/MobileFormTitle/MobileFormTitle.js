@@ -17,7 +17,7 @@ export const MobileFormTitle = (props) => {
   const [randomurl, setRandomUrl] = useState('');
 
 
- const [docId, setDocId] = useState(
+  const [docId, setDocId] = useState(
     location && location.state && location.state.object
       ? location.state.object.id
       : ""
@@ -55,20 +55,20 @@ export const MobileFormTitle = (props) => {
       ? location.state.object.customDomain
       : ""
   );
-  const [password, setPassword]  = useState(
+  const [password, setPassword] = useState(
     location && location.state && location.state.object && location.state.object.password
       ? location.state.object.password
       : ""
   );
-  const [isPasswordActive, setIsPasswordActive]  = useState(
+  const [isPasswordActive, setIsPasswordActive] = useState(
     location && location.state && location.state.object && location.state.object.isPasswordActive
       ? location.state.object.isPasswordActive
       : false
   );
 
-  const [subscriptionType, setSubscriptionType] = useState(location && location.state  && location.state.subscriptionType ? location.state.subscriptionType : "");
-  const [trialConsume, setTrialConsume] = useState(location && location.state  && location.state.trialConsume ? location.state.trialConsume : "");
-  
+  const [subscriptionType, setSubscriptionType] = useState(location && location.state && location.state.subscriptionType ? location.state.subscriptionType : "");
+  const [trialConsume, setTrialConsume] = useState(location && location.state && location.state.trialConsume ? location.state.trialConsume : "");
+
   const navigate = useNavigate();
   function generateRandomString(length) {
     const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -123,8 +123,16 @@ export const MobileFormTitle = (props) => {
           title: title,
           updatedAt: new Date()
         })
+
+        if (domain) {
+          await dbFirestore.collection('user').doc(user.uid).collection("customDomain").doc(domain).update({
+            title: title,
+            updatedAt: new Date()
+          })
+        }
+
       } else {
-        const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
+        const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(randomurl).set({
           userId: user.uid,
           title: title,
           isDraft: "false",
@@ -132,7 +140,7 @@ export const MobileFormTitle = (props) => {
           createdAt: new Date(),
         })
         setGeneratedUrl(randomurl);
-        setDocId(docRef.id);
+        setDocId(randomurl);
       }
     } catch (err) {
       alert(err.message)
@@ -142,24 +150,24 @@ export const MobileFormTitle = (props) => {
   }
   const backToMobileFolioForm = () => {
     navigate("/" + currentLanguage + "/folio-form",
-    {
-      state: {
-        object: {
-          id: docId,
-          title: title,
-          generatedUrl: generatedUrl,
-          faviconUrl: faviconImage,
-          customDomain: domain,
-          password: password,
-          isPasswordActive: isPasswordActive,
-          urls: {
-            figmaDesktopUrl: figmaDesktopUrl,
-            figmaMobileUrl: figmaMobileUrl
-          }
-        }, subscriptionType : subscriptionType,
-        trialConsume: trialConsume
+      {
+        state: {
+          object: {
+            id: docId,
+            title: title,
+            generatedUrl: generatedUrl,
+            faviconUrl: faviconImage,
+            customDomain: domain,
+            password: password,
+            isPasswordActive: isPasswordActive,
+            urls: {
+              figmaDesktopUrl: figmaDesktopUrl,
+              figmaMobileUrl: figmaMobileUrl
+            }
+          }, subscriptionType: subscriptionType,
+          trialConsume: trialConsume
+        }
       }
-    }
     );
   }
 

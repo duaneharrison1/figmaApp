@@ -267,7 +267,7 @@ export const MobileFormLabel = (props) => {
                 <MobileNavBar title={title} backToMobileFolioForm={backToMobileFolioForm} />
                 <div className='mobile-form-title-container'>
 
-                    <h1 className='mobile-form-title'>Password</h1>
+                    <h1 className='mobile-form-title'>Figmafolio label</h1>
 
                     {subscriptionType === "regular" ?
                         <>
