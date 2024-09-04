@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
 
 import Form from 'react-bootstrap/Form';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { collection, addDoc, doc, getDocs, updateDoc, QuerySnapshot, query, where, collectionGroup } from 'firebase/firestore'
 import { db, auth, uploadFaviconUrl } from '../../firebase';
 import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import ButtonClear from '../../components/ButtonClear/ButtonClear';
 import AlertModal from '../../components/AlertModal/AlertModal';
-import axios from "axios";
+
 import './Preview.css';
 import firebase from '../../firebase';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 import chevronLeft from '../../assets/images/chevron-left.png';
-export default function Preview() {
+
+export default function PreviewFromPlugin() {
     const { t } = useTranslation();
+    const { id } = useParams(); // Extracts 'qwerty' from '/url-qwerty'
     const currentLanguage = i18n.language;
     const lng = navigator.language;
     const navigate = useNavigate();
@@ -29,8 +31,6 @@ export default function Preview() {
     const [desktop, setDesktop] = useState("");
     const dbFirestore = firebase.firestore();
     const isOpenInMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    const [subscriptionType, setSubscriptionType] = useState(location.state.subscriptionType);
-    const [trialConsume, setTrialConsume] = useState(location.state.trialConsume);
     const [docId, setDocId] = useState(
         location && location.state && location.state.object
             ? location.state.object.id
@@ -88,10 +88,7 @@ export default function Preview() {
     }, []);
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((user) => {
-            setUser(user);
-        });
-        return () => unsubscribe();
+        console.log("xxx" + id);
     }, []);
 
     useEffect(() => {
@@ -216,25 +213,7 @@ export default function Preview() {
     }
 
     const backToDashboard = () => {
-        navigate("/" + currentLanguage + '/folio-form', {
-            state: {
-                object: {
-                    fromPreview: "true",
-                    id: docId,
-                    title: title,
-                    generatedUrl: generatedUrl,
-                    faviconUrl: faviconImage,
-                    customDomain: domain,
-                    urls: {
-                        figmaDesktopUrl: figmaDesktopUrl,
-                        figmaMobileUrl: figmaMobileUrl
-                    }
 
-                },
-                subscriptionType: subscriptionType,
-                trialConsume: trialConsume
-            }
-        });
     }
 
     useEffect(() => {
@@ -251,109 +230,105 @@ export default function Preview() {
 
     return (
         <>
-            {!user || !location.state ? (
-                navigate("/")
-            ) : (
-                <div>
-                    {userIsDesktop ? (
-                        <div>
-                            <div className="row nav-container m-0 ">
-                                <div className="col m-0 p-0">
-                                    <div className='d-flex align-items-center your-library-container' onClick={backToDashboard}>
-                                        <img alt="x" src={chevronLeft} className='chevron-left' />
-                                        <p className='back-your-library'> Figma Links</p>
-                                    </div>
-                                </div>
-                                <div className="col m-0 p-0 ">
-                                    <div className='switch-container'>
-                                        <div container="preview-switch-container">
-                                            <h1 className='preview-switch-header'>{t('preview')}</h1>
-                                            <div className='switch-container'>
-                                                <p className='desktop-mobile-label'>{t('desktop')}</p>
-                                                <div className='container'>
-                                                    <Form.Check
-                                                        className='preview-switch'
-                                                        type="switch"
-                                                        id="custom-switch"
-                                                        checked={isMobile}
-                                                        onChange={handleSwitchChange}
-                                                    />
-                                                </div>
-                                                <p className='desktop-mobile-label'> {t('mobile')}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col m-0 p-0">
-                                    < div className='draft-publish-container'>
 
-                                        <ButtonColored
-                                            className="update-btn"
-                                            label={t('update')}
-                                            onClick={saveFigmaUrl} />
-                                    </div >
+            <div>
+                {userIsDesktop ? (
+                    <div>
+                        <div className="row nav-container m-0 ">
+                            <div className="col m-0 p-0">
+                                <div className='d-flex align-items-center your-library-container' onClick={backToDashboard}>
+                                    <img alt="x" src={chevronLeft} className='chevron-left' />
+                                    <p className='back-your-library'> Figma Links</p>
                                 </div>
                             </div>
-
-                            <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
-                            <iframe
-                                title="preview"
-                                src={isMobile ? editUrl(mobile) : editUrl(desktop)}
-                                allowFullScreen
-                                referrerpolicy="no-referrer"
-                                style={{ width: '100%', height: '100vh' }}
-                                className='figma_view'></iframe>
-                        </div >
-                    ) : (
-                        <div>
-                            <div className="mobile-nav-container">
-                                <div className="row">
-                                    <div className="col mobile-preview-figmalinks">
-                                        <div className='d-flex align-items-center your-library-container' onClick={backToDashboard}>
-                                            <img src={chevronLeft} className='chevron-left' />
-                                            <p className='mobile-preview-back-your-library'> Figma Links</p>
-                                        </div>
-                                    </div>
-                                    <div className="col">
+                            <div className="col m-0 p-0 ">
+                                <div className='switch-container'>
+                                    <div container="preview-switch-container">
+                                        <h1 className='preview-switch-header'>{t('preview')}</h1>
                                         <div className='switch-container'>
-                                            <p className='desktop-mobile-label m-0'>{t('desktop')}</p>
-                                            <div className='mobile-form-switch-container'>
+                                            <p className='desktop-mobile-label'>{t('desktop')}</p>
+                                            <div className='container'>
                                                 <Form.Check
-                                                    className='form-switch'
+                                                    className='preview-switch'
                                                     type="switch"
                                                     id="custom-switch"
                                                     checked={isMobile}
                                                     onChange={handleSwitchChange}
                                                 />
                                             </div>
-                                            <p className='desktop-mobile-label m-0'> {t('mobile')}</p>
+                                            <p className='desktop-mobile-label'> {t('mobile')}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div className="col m-0 p-0">
+                                < div className='draft-publish-container'>
 
-                            <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
-                            <iframe
-                                title="preview"
-                                src={isMobile ? editUrl(mobile) : editUrl(desktop)}
-                                allowFullScreen
-                                style={{ width: '100%', height: '100vh' }}
-                                className='figma_view'>
-                            </iframe>
-
-                            <div className='mobile-button-container'>
-
-                                <ButtonColored
-                                    className="update-btn-mobile"
-                                    label={t('update')}
-                                    onClick={saveFigmaUrl} />
+                                    <ButtonColored
+                                        className="update-btn"
+                                        label={t('update')}
+                                        onClick={saveFigmaUrl} />
+                                </div >
                             </div>
-                        </div >
-                    )
-                    }
-                </div>
-            )
-            }
+                        </div>
+
+                        <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
+                        <iframe
+                            title="preview"
+                            src={isMobile ? editUrl(mobile) : editUrl(desktop)}
+                            allowFullScreen
+                            referrerpolicy="no-referrer"
+                            style={{ width: '100%', height: '100vh' }}
+                            className='figma_view'></iframe>
+                    </div >
+                ) : (
+                    <div>
+                        <div className="mobile-nav-container">
+                            <div className="row">
+                                <div className="col mobile-preview-figmalinks">
+                                    <div className='d-flex align-items-center your-library-container' onClick={backToDashboard}>
+                                        <img src={chevronLeft} className='chevron-left' />
+                                        <p className='mobile-preview-back-your-library'> Figma Links</p>
+                                    </div>
+                                </div>
+                                <div className="col">
+                                    <div className='switch-container'>
+                                        <p className='desktop-mobile-label m-0'>{t('desktop')}</p>
+                                        <div className='mobile-form-switch-container'>
+                                            <Form.Check
+                                                className='form-switch'
+                                                type="switch"
+                                                id="custom-switch"
+                                                checked={isMobile}
+                                                onChange={handleSwitchChange}
+                                            />
+                                        </div>
+                                        <p className='desktop-mobile-label m-0'> {t('mobile')}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <AlertModal show={showModal} handleClose={handleCloseModal} alertMessage={modalMessage} />
+                        <iframe
+                            title="preview"
+                            src={isMobile ? editUrl(mobile) : editUrl(desktop)}
+                            allowFullScreen
+                            style={{ width: '100%', height: '100vh' }}
+                            className='figma_view'>
+                        </iframe>
+
+                        <div className='mobile-button-container'>
+
+                            <ButtonColored
+                                className="update-btn-mobile"
+                                label={t('update')}
+                                onClick={saveFigmaUrl} />
+                        </div>
+                    </div >
+                )
+                }
+            </div>
         </>
     );
 };

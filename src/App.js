@@ -1,6 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation, useParams } from "react-router-dom";
 import UrlForm from './pages/UlrForm/UrlForm';
 import EditForm from './pages/EditForm/EditForm';
 import DynamicPage from './pages/DynamicPage/DynamicPage';
@@ -30,7 +30,9 @@ import { MobileFormDomain } from './pages/MobileForm/MobileFormDomain/MobileForm
 import { MobileFormFavicon } from './pages/MobileForm/MobileFormFavicon/MobileFormFavicon.js';
 import { MobileFormPassword } from './pages/MobileForm/MobileFormPassword/MobileFormPassword.js';
 import { MobileFormLabel } from './pages/MobileForm/MobileFormLabel/MobileFormLabel.js';
+import PreviewFromPlugin from './pages/Preview/PreviewFromPlugin.js';
 function App() {
+  const { id } = useParams()
   const dbFirestore = firebase.firestore();
   const [data, setData] = useState([]);
   const [isMainDomain, setIsMainDomain] = useState("false");
@@ -63,7 +65,11 @@ function App() {
           currentPath == '/' + currentLanguage + '/auth' || currentPath == '/' + currentLanguage + '/forgotpassword' ||
           currentPath == '/' + currentLanguage + '/profile') {
           setIsDynamicPage("false")
-        } else {
+        } else if (currentPath.includes("previewtest")) {
+          setIsDynamicPage("false")
+        }
+
+        else {
           setIsDynamicPage("true")
           try {
             var generatedUrl = currentPath.slice(1);
@@ -104,6 +110,7 @@ function App() {
             <Route path="/:lang?/folio-form" element={<FolioForm />} />
             <Route path="/:lang?/dashboard" element={<UserDashboard />} />
             <Route path="/:lang?/preview" element={<Preview />} />
+            <Route path="/:lang?/previewtest/:id" element={<PreviewFromPlugin />} />
             <Route path="/:lang?/auth" element={<Mainauth />} />
             <Route path="/:lang?/forgotpassword" element={<ForgotPassword />} />
             <Route path="/:lang?/profile" element={<ProfilePage />} />
