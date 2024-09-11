@@ -41,11 +41,7 @@ export default function PreviewFromPlugin() {
             ? location.state.object.title
             : ""
     );
-    const [generatedUrl, setGeneratedUrl] = useState(
-        location && location.state && location.state.object && location.state.object.generatedUrl
-            ? location.state.object.generatedUrl
-            : ""
-    );
+
     const [faviconImage, setFaviconImage] = useState(
         location && location.state && location.state.object && location.state.object.faviconUrl
             ? location.state.object.faviconUrl
@@ -73,31 +69,25 @@ export default function PreviewFromPlugin() {
             : ""
     );
 
-    useEffect(() => {
-        if (figmaMobileUrl == "") {
-            setMobile(figmaDesktopUrl)
-        } else {
-            setMobile(figmaMobileUrl)
-        }
 
-        if (figmaDesktopUrl == "") {
-            setDesktop(figmaMobileUrl)
-        } else {
-            setDesktop(figmaDesktopUrl)
-        }
-    }, []);
-
-    useEffect(() => {
-        console.log("xxx" + id);
-    }, []);
 
     useEffect(() => {
         setRandomUrl(generateRandomString(10))
         const fetchData = async () => {
+            const snapshot1 = await dbFirestore.collection('pluginFolio').doc(id).get();
+            if (snapshot1.exists) {
+                const data = snapshot1.data();
+                console.log("Document Dataxxxx:", data);
+                setMobile(data?.mobileUrl);
+                setDesktop(data?.desktopUrl);
+                console.log("Desktop URL:xxxxx", data?.desktopUrl);
+            }
+
             try {
                 dbFirestore.collectionGroup('url').where('generatedUrl', '==', randomurl).get().then(snapshot => {
                     if (snapshot.docs.length !== 0) {
                         setRandomUrl(generateRandomString(10))
+                        console.log("secondRandomUrl " + randomurl)
                     }
                 })
             } catch (error) {
@@ -106,6 +96,8 @@ export default function PreviewFromPlugin() {
         };
         fetchData();
     }, []);
+
+
 
     useEffect(() => {
         window.scrollTo(0, 0); // Scroll to the top of the page
@@ -181,39 +173,7 @@ export default function PreviewFromPlugin() {
     }
 
     const saveFigmaUrl = async () => {
-        try {
-            if (docId) {
-                const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(docId).update({
-                    urls: {
-                        figmaDesktopUrl: editUrl(figmaDesktopUrl),
-                        figmaMobileUrl: editUrl(figmaMobileUrl)
-                    },
-                    updatedAt: new Date()
-                })
-            } else {
-                const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").add({
-                    userId: user.uid,
-                    generatedUrl: randomurl,
-                    isDraft: "false",
-                    urls: {
-                        figmaDesktopUrl: editUrl(figmaDesktopUrl),
-                        figmaMobileUrl: editUrl(figmaMobileUrl)
-                    },
-                    createdAt: new Date(),
-                })
-                setDocId(docRef.id);
-                setGeneratedUrl(generatedUrl);
-            }
-        } catch (err) {
-            alert(err.message)
-        } finally {
-            alert("Success")
-            window.open('https://figmafolio.com/' + generatedUrl, '_blank');
-        }
-    }
-
-    const backToDashboard = () => {
-
+        navigate("/" + currentLanguage + '/plugin-auth', { state: { fromPlugin: "true", desktopUrl: desktop, mobileUrl: mobile, generatedUrl: randomurl } });
     }
 
     useEffect(() => {
@@ -236,10 +196,10 @@ export default function PreviewFromPlugin() {
                     <div>
                         <div className="row nav-container m-0 ">
                             <div className="col m-0 p-0">
-                                <div className='d-flex align-items-center your-library-container' onClick={backToDashboard}>
+                                {/* <div className='d-flex align-items-center your-library-container' onClick={backToDashboard}>
                                     <img alt="x" src={chevronLeft} className='chevron-left' />
-                                    <p className='back-your-library'> Figma Links</p>
-                                </div>
+                                    <p className='back-your-library'>button TO DO</p>
+                                </div> */}
                             </div>
                             <div className="col m-0 p-0 ">
                                 <div className='switch-container'>
@@ -266,7 +226,7 @@ export default function PreviewFromPlugin() {
 
                                     <ButtonColored
                                         className="update-btn"
-                                        label={t('update')}
+                                        label="Publish"
                                         onClick={saveFigmaUrl} />
                                 </div >
                             </div>
@@ -285,12 +245,12 @@ export default function PreviewFromPlugin() {
                     <div>
                         <div className="mobile-nav-container">
                             <div className="row">
-                                <div className="col mobile-preview-figmalinks">
+                                {/* <div className="col mobile-preview-figmalinks">
                                     <div className='d-flex align-items-center your-library-container' onClick={backToDashboard}>
                                         <img src={chevronLeft} className='chevron-left' />
-                                        <p className='mobile-preview-back-your-library'> Figma Links</p>
+                                        <p className='mobile-preview-back-your-library'> button TO DO</p>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="col">
                                     <div className='switch-container'>
                                         <p className='desktop-mobile-label m-0'>{t('desktop')}</p>
@@ -322,7 +282,7 @@ export default function PreviewFromPlugin() {
 
                             <ButtonColored
                                 className="update-btn-mobile"
-                                label={t('update')}
+                                label="Publish"
                                 onClick={saveFigmaUrl} />
                         </div>
                     </div >

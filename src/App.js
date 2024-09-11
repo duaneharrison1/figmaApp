@@ -31,6 +31,7 @@ import { MobileFormFavicon } from './pages/MobileForm/MobileFormFavicon/MobileFo
 import { MobileFormPassword } from './pages/MobileForm/MobileFormPassword/MobileFormPassword.js';
 import { MobileFormLabel } from './pages/MobileForm/MobileFormLabel/MobileFormLabel.js';
 import PreviewFromPlugin from './pages/Preview/PreviewFromPlugin.js';
+import PluginAuth from './pages/Authentication/PluginAuth.js';
 function App() {
   const { id } = useParams()
   const dbFirestore = firebase.firestore();
@@ -62,10 +63,10 @@ function App() {
           currentPath == '/' + currentLanguage || currentPath == '/' + currentLanguage + '/form' ||
           currentPath == '/' + currentLanguage + '/admin' || currentPath == '/' + currentLanguage + '/billing' ||
           currentPath == '/' + currentLanguage + '/dashboard' || currentPath == '/' + currentLanguage + '/preview' ||
-          currentPath == '/' + currentLanguage + '/auth' || currentPath == '/' + currentLanguage + '/forgotpassword' ||
+          currentPath == '/' + currentLanguage + '/auth' || currentPath == '/' + currentLanguage + '/plugin-auth' || currentPath == '/' + currentLanguage + '/forgotpassword' ||
           currentPath == '/' + currentLanguage + '/profile') {
           setIsDynamicPage("false")
-        } else if (currentPath.includes("previewtest")) {
+        } else if (currentPath.includes("folio-preview")) {
           setIsDynamicPage("false")
         }
 
@@ -110,8 +111,9 @@ function App() {
             <Route path="/:lang?/folio-form" element={<FolioForm />} />
             <Route path="/:lang?/dashboard" element={<UserDashboard />} />
             <Route path="/:lang?/preview" element={<Preview />} />
-            <Route path="/:lang?/previewtest/:id" element={<PreviewFromPlugin />} />
+            <Route path="/:lang?/folio-preview/:id" element={<PreviewFromPlugin />} />
             <Route path="/:lang?/auth" element={<Mainauth />} />
+            <Route path="/:lang?/plugin-auth" element={<PluginAuth />} />
             <Route path="/:lang?/forgotpassword" element={<ForgotPassword />} />
             <Route path="/:lang?/profile" element={<ProfilePage />} />
             <Route path="/:lang?/mobile-instruction" element={<MobileFormInstruction />} />

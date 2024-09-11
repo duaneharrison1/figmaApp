@@ -126,6 +126,25 @@
     margin-bottom: 50px;
 }
 
+.auth-sub-header-container-from-plugin {
+    padding-left: 100px;
+    padding-right: 100px;
+    margin-top: 300px;
+}
+
+.auth-header-from-plugin {
+    font-weight: 600;
+    font-size: 30px;
+    padding-bottom: 12px;
+    color: #000;
+}
+
+.auth-sub-header-from-plugin {
+    font-weight: 600;
+    font-size: 20px;
+    color: #000;
+}
+
 .sideframe_img {
     max-width: 80%;
     padding-left: 20px;

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { collection, addDoc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { db, auth } from '../../firebase';
+import { auth } from '../../firebase';
 import './Auths.css';
 import TextField from '../../components/TextField/TextField.js';
 import ButtonColored from '../../components/ButtonColored/ButtonColored';
@@ -10,8 +9,12 @@ import AlertModal from '../../components/AlertModal/AlertModal';
 import PasswordTextField from '../../components/PasswordTextfield/PasswordTextfield.js';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
+import firebase from '../../firebase';
 
-export default function SignupPage() {
+export default function SignupPage(props) {
+    const figmaDesktopUrl = props.figmaDesktopUrl;
+    const figmaMobileUrl = props.figmaMobileUrl
+    const generatedUrl = props.generatedUrl
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
@@ -23,7 +26,7 @@ export default function SignupPage() {
     const isButtonActive = email && password && confirmPassword;
     const { t } = useTranslation();
     const currentLanguage = i18n.language;
-
+    const dbFirestore = firebase.firestore();
     const handleShowModal = () => {
         setShowModal(true);
     };
@@ -51,6 +54,8 @@ export default function SignupPage() {
 
 
     const onSubmit = async (e) => {
+        console.log("ffff" + figmaMobileUrl);
+        console.log("kkkk" + figmaDesktopUrl);
         e.preventDefault();
 
         if (password !== confirmPassword) {
@@ -59,12 +64,36 @@ export default function SignupPage() {
             try {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                 const user = userCredential.user;
-                await db.collection('user').doc(user.uid).set({
-                    name: name,
-                    email: user.email,
-                });
-                console.log('Document successfully written!');
-                navigate(`/${currentLanguage}/dashboard`);
+
+                try {
+                    await dbFirestore.collection('user').doc(user.uid).set({
+                        name: name,
+                        email: user.email,
+                    });
+                    console.log('Document successfully writtenxxxxx!');
+                } catch (error) {
+                    const errorMessage = error.message;
+                    console.log(errorMessage);
+                }
+
+
+                try {
+                    if (figmaDesktopUrl !== "" || figmaMobileUrl !== "") {
+                        await dbFirestore.collection('user').doc(user.uid).collection("url").doc(generatedUrl).set({
+                            userId: user.uid,
+                            urls: {
+                                figmaDesktopUrl: figmaDesktopUrl,
+                                figmaMobileUrl: figmaMobileUrl
+                            },
+                            createdAt: new Date(),
+                        })
+                    }
+                    console.log('Document successfully writtenxxxxx!');
+                    navigate(`/${currentLanguage}/dashboard`);
+                } catch (error) {
+                    const errorMessage = error.message;
+                    console.log(errorMessage);
+                }
             } catch (error) {
                 const errorMessage = error.message;
                 console.log(errorMessage);
