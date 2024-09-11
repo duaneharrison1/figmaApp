@@ -76,23 +76,24 @@ export default function SignupPage(props) {
                     console.log(errorMessage);
                 }
 
-
-                try {
-                    if (figmaDesktopUrl !== "" || figmaMobileUrl !== "") {
+                if (figmaDesktopUrl !== "" || figmaMobileUrl !== "") {
+                    try {
                         await dbFirestore.collection('user').doc(user.uid).collection("url").doc(generatedUrl).set({
                             userId: user.uid,
+                            generatedUrl: generatedUrl,
                             urls: {
                                 figmaDesktopUrl: figmaDesktopUrl,
                                 figmaMobileUrl: figmaMobileUrl
                             },
                             createdAt: new Date(),
                         })
+
+                        console.log('Document successfully writtenxxxxx!');
+                        navigate(`/${currentLanguage}/dashboard`);
+                    } catch (error) {
+                        const errorMessage = error.message;
+                        console.log(errorMessage);
                     }
-                    console.log('Document successfully writtenxxxxx!');
-                    navigate(`/${currentLanguage}/dashboard`);
-                } catch (error) {
-                    const errorMessage = error.message;
-                    console.log(errorMessage);
                 }
             } catch (error) {
                 const errorMessage = error.message;
