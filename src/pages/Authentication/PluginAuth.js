@@ -15,16 +15,23 @@ export default function PluginAuth(props) {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const [userIsDesktop, setUserIsDesktop] = useState(true);
+
+
+
     const [figmaDesktopUrl, setFigmaDesktopUrl] = useState(
+        location.state && location.state && location.state.desktopUrl
+            ? location.state.desktopUrl
+            : ""
+
+    );
+    const [figmaMobileUrl, setFigmaMobileUrl] = useState(
         location.state && location.state && location.state.mobileUrl
             ? location.state.mobileUrl
             : ""
     );
-    const [figmaMobileUrl, setFigmaMobileUrl] = useState(
-        location.state && location.state && location.state.desktopUrl
-            ? location.state.desktopUrl
-            : ""
-    );
+
+
+
     const [generatedUrl, setgeneratedUrl] = useState(
         location.state && location.state && location.state.generatedUrl
             ? location.state.generatedUrl
@@ -33,8 +40,7 @@ export default function PluginAuth(props) {
 
     useEffect(() => {
         console.log("xxxx" + figmaDesktopUrl);
-        console.log("xxxx" + figmaDesktopUrl);
-        console.log("xxxx" + generatedUrl);
+        console.log("yyyyy" + figmaMobileUrl);
         window.innerWidth > 1280 ? setUserIsDesktop(true) : setUserIsDesktop(false);
     }, [userIsDesktop]);
 
