@@ -110,7 +110,7 @@ export default function Billing() {
                 price: priceId,
                 success_url: window.location.origin,
                 cancel_url: window.location.origin,
-                trial_period_days :trialConsume === "true" ? 0 : 7,
+                trial_period_days: trialConsume === "true" ? 0 : 7,
                 allow_promotion_codes: true,
             })
         docRef.onSnapshot(async (snap) => {
@@ -134,7 +134,7 @@ export default function Billing() {
                     price: priceId,
                     success_url: window.location.origin,
                     cancel_url: window.location.origin,
-                    trial_period_days :trialConsume === "true" ? 0 : 30,
+                    trial_period_days: trialConsume === "true" ? 0 : 15,
                     allow_promotion_codes: true,
                 })
             docRef.onSnapshot(async (snap) => {
