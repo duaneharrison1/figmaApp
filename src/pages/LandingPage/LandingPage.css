@@ -1,8 +1,88 @@
 .main-landing-page {
 	margin: 0px;
 	padding: 0px;
-	background-color: #F8F6F0;
+	background-color: #FFFFFF;
 }
+
+.green-text {
+	color: green;
+	/* Or specify your preferred shade of green */
+}
+
+.landing-feature-header {
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.landing-feature-subheader {
+	font-size: 18px;
+	font-weight: 400;
+	font-family: 'Roboto', sans-serif;
+}
+
+.publish-as-responsive-container {
+	text-align: center;
+	background-color: #FAFAFA;
+	border-radius: 32px;
+	padding-left: 40px;
+	padding-right: 40px;
+	padding-top: 40px;
+	height: 600px;
+}
+
+.custom-domain-container {
+	background-color: #FAFAFA;
+	border-radius: 32px;
+	margin-bottom: 50px;
+	padding-top: 60px;
+	padding-bottom: 60px;
+	border-color: #EDEDED;
+	border-width: 1px;
+}
+
+.custom-domain-image-container {
+	text-align: center;
+}
+
+.custom-domain-text-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	text-align: center;
+	border-color: #EDEDED;
+	border-width: 1px;
+
+}
+
+.second-row-feature-container {
+	margin-bottom: 100px;
+}
+
+.make-it-yours-container {
+	text-align: center;
+	padding-bottom: 60px;
+}
+
+.make-it-yours {
+	font-size: 40px;
+	font-weight: bold;
+}
+
+.make-it-yours-subheader {
+	font-size: 18px;
+	font-weight: 400;
+}
+
+.first-row-feature-container {
+	margin-bottom: 50px;
+}
+
+.landing-feature-image {
+	padding-bottom: 80px;
+}
+
 
 
 .navbar-container {
@@ -235,6 +315,10 @@
 
 .guide-container-version-two {
 	margin-bottom: 187px;
+	background-color: #FAFAFA;
+	border-radius: 32px;
+	border-color: #EDEDED;
+	border-width: 1px;
 }
 
 .guide-container {
@@ -331,6 +415,13 @@
 	font-weight: 400;
 }
 
+.tier-subheader {
+	text-align: center;
+	font-size: 18px;
+	font-weight: 400;
+	padding-bottom: 56px;
+}
+
 .tier-header {
 	color: #2D2B29;
 	display: flex;
@@ -338,7 +429,7 @@
 	justify-content: space-between;
 	text-align: center;
 	padding-top: 50px;
-	padding-bottom: 56px;
+
 	font-size: 40px;
 	font-style: normal;
 	font-weight: 600;
@@ -430,7 +521,9 @@
 	}
 
 	.guide-container-version-two {
+
 		margin-bottom: 82px;
+
 	}
 
 	.guide-number {
