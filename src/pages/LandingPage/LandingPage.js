@@ -351,6 +351,7 @@ export default function LandingPage() {
 
 
           {/* 
+          test
           <div className={`plan-card ${buttonClass.includes('yearly') ? 'green-card' : 'regular-card'}`}>
                 <img className='plan-icon' src={planIcon} alt={`${title} Plan`} />
                 <h1 className={`payment-modal-selection-title${buttonClass.includes('yearly') ? '-yearly' : ''}`}>{title}</h1>
