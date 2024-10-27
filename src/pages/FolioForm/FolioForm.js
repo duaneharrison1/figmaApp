@@ -514,6 +514,7 @@ export default function FolioForm() {
 
           if (domain) {
             await dbFirestore.collection('user').doc(user.uid).collection("customDomain").doc(domain).update({
+              isDraft: "false",
               urls: {
                 figmaDesktopUrl: editUrl(figmaDesktopUrl),
                 figmaMobileUrl: editUrl(figmaMobileUrl)

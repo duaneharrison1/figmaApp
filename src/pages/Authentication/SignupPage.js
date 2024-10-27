@@ -81,6 +81,7 @@ export default function SignupPage(props) {
                         await dbFirestore.collection('user').doc(user.uid).collection("url").doc(generatedUrl).set({
                             userId: user.uid,
                             generatedUrl: generatedUrl,
+                            isDraft: "fromPlugin",
                             urls: {
                                 figmaDesktopUrl: figmaDesktopUrl,
                                 figmaMobileUrl: figmaMobileUrl
