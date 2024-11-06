@@ -1,18 +1,91 @@
+/* Base styles */
+.landing-page {
+	font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	background-color: #ffffff;
+	color: #2D2B29;
+	margin: 0;
+	padding: 0;
+}
+
+
 .main-landing-page {
 	margin: 0px;
 	padding: 0px;
 	background-color: #FFFFFF;
 }
 
-.green-text {
-	color: green;
-	/* Or specify your preferred shade of green */
+
+/* Navigation */
+.navbar-container {
+	padding: 36px 120px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
+
+
+.logo {
+	font-size: 29px;
+	font-weight: 700;
+	cursor: pointer;
+	padding-top: 12px;
+}
+
+
+.green-text {
+	color: #4D9F70;
+}
+
+
+/* Header and Content Containers */
+.page-content-container {
+	padding: 0 120px;
+	margin: 0 auto;
+}
+
+
+.main-container {
+	padding: 0 150px;
+	font-family: 'Poppins', sans-serif;
+	background-color: #F8F6F0;
+}
+
+
+.landing-page-container {
+	align-self: center;
+}
+
+
+/* Headers and Text Styles */
+.landing-header {
+	padding: 18px 0;
+	font-weight: 600;
+	font-size: 56px;
+}
+
+
+.landing-subheader {
+	padding: 18px 0;
+	font-weight: 600;
+	color: #9A8742;
+	font-size: 32px;
+}
+
+
+.landing-sec-subheader {
+	padding: 18px 0;
+	font-size: 25px;
+	font-weight: 400;
+	font-family: 'Roboto', sans-serif;
+}
+
 
 .landing-feature-header {
 	font-size: 28px;
 	font-weight: bold;
 }
+
 
 .landing-feature-subheader {
 	font-size: 18px;
@@ -20,29 +93,49 @@
 	font-family: 'Roboto', sans-serif;
 }
 
+
+/* Make It Yours Section */
+.make-it-yours-container {
+	text-align: center;
+	padding-bottom: 60px;
+}
+
+
+.make-it-yours {
+	font-size: 40px;
+	font-weight: bold;
+}
+
+
+.make-it-yours-subheader {
+	font-size: 18px;
+	font-weight: 400;
+}
+
+
+/* Feature Containers */
 .publish-as-responsive-container {
 	text-align: center;
 	background-color: #FAFAFA;
 	border-radius: 32px;
-	padding-left: 40px;
-	padding-right: 40px;
-	padding-top: 40px;
+	padding: 40px;
 	height: 600px;
 }
+
 
 .custom-domain-container {
 	background-color: #FAFAFA;
 	border-radius: 32px;
 	margin-bottom: 50px;
-	padding-top: 60px;
-	padding-bottom: 60px;
-	border-color: #EDEDED;
-	border-width: 1px;
+	padding: 60px;
+	border: 1px solid #EDEDED;
 }
+
 
 .custom-domain-image-container {
 	text-align: center;
 }
+
 
 .custom-domain-text-container {
 	display: flex;
@@ -51,223 +144,45 @@
 	align-items: center;
 	height: 100%;
 	text-align: center;
-	border-color: #EDEDED;
-	border-width: 1px;
-
+	border: 1px solid #EDEDED;
 }
+
+
+/* Feature Rows */
+.first-row-feature-container {
+	margin-bottom: 50px;
+}
+
 
 .second-row-feature-container {
 	margin-bottom: 100px;
 }
 
-.make-it-yours-container {
-	text-align: center;
-	padding-bottom: 60px;
-}
 
-.make-it-yours {
-	font-size: 40px;
-	font-weight: bold;
-}
-
-.make-it-yours-subheader {
-	font-size: 18px;
-	font-weight: 400;
-}
-
-.first-row-feature-container {
-	margin-bottom: 50px;
-}
-
+/* Images */
 .landing-feature-image {
 	padding-bottom: 80px;
 }
 
 
-
-.navbar-container {
-
-	padding: 36px 120px;
-	margin: 0 auto;
-}
-
-.page-content-container {
-
-	padding: 0 120px;
-	margin: 0 auto;
-}
-
-.main-container {
-	padding: 0 150px 0 150px;
-	font-family: 'Poppins', sans-serif;
-	background-color: #F8F6F0;
-}
-
-.nav-bar {
-	padding: 20px;
-}
-
-.figmalio-logged {
-	padding-top: 12px;
-	font-family: 'Poppins', sans-serif;
-	font-weight: 700;
-	font-size: 29px;
-}
-
-.figmalio-logged:hover {
-	cursor: pointer;
-}
-
-.header-container {
-	text-align: center;
-	margin-top: 50px;
-}
-
-.btn-go-to-app {
-	margin-right: 10px;
-	font-family: 'Poppins', sans-serif;
-	border-radius: 70px;
-	border: none;
-	background-color: #E4E4E4;
-	padding: 10px 20px 10px 20px;
-}
-
-.header_one {
-	font-family: 'Poppins', sans-serif;
-	font-weight: 600;
-	font-size: 66px;
-}
-
-.header_two {
-	font-family: 'Poppins', sans-serif;
-	font-weight: 400;
-	font-size: 46px;
-	margin-top: 50px;
-}
-
-.content_one {
-	font-family: 'Poppins', sans-serif;
-	font-weight: 600;
-	font-size: 36px;
-	text-align: center;
-}
-
-.content_two {
-	font-family: 'Poppins', sans-serif;
-	font-weight: 400;
-	font-size: 20px;
-	padding-top: 50px;
-	text-align: center;
-}
-
-.landing-page-container {
-	align-self: center
-}
-
-.btn_column {
-	padding: 56px 0px 0px 0px;
-}
-
-.landing-header {
-	padding: 18px 0 18px 0;
-	font-weight: 600;
-	font-size: 56px;
-}
-
-.landing-subheader {
-	padding: 18px 0 18px 0;
-	font-weight: 600;
-	color: #9A8742;
-	font-size: 32px;
-}
-
-.landing-sec-subheader {
-	padding: 18px 0 18px 0;
-	font-size: 25px;
-	font-weight: 400;
-	font-family: 'Roboto', sans-serif;
-}
-
-.btn-get-started {
-
+.landing-page-img {
 	width: 100%;
-	padding: 12px 24px;
-	border-radius: 40px;
-	color: #4D9F70;
-	font-size: 20px;
-	font-style: normal;
-	font-weight: 600;
-	border: none;
-	bottom: 0;
-	background: #F2F2F2;
-
 }
 
-.landing-page-tier {
-	margin-left: 8px;
-	margin-right: 8px;
-	flex: 1 1 0;
-	max-width: 500px;
-	padding: 20px;
-	border-radius: 16px;
-	border: 1px solid var(--grey-4, #E5E6EB);
-	background: #4D9F70;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+
+/* Guide Section */
+.guide-container-version-two {
+	margin-bottom: 187px;
+	background-color: #FAFAFA;
+	border-radius: 32px;
+	border: 1px solid #EDEDED;
 }
 
-.landing-page-payment-feature-text {
-	margin-top: 4px;
-	color: white;
-	font-size: 14px;
-	font-style: normal;
-	font-weight: 400;
-	flex-grow: 1;
+
+.guide-container {
+	margin: 50px 0;
 }
 
-.landing-page-tier-div {
-	display: flex;
-	justify-content: center;
-	padding-bottom: 120px;
-}
-
-.landing-page-payment-selection-title {
-	color: white;
-	font-size: 30px;
-	font-style: normal;
-	font-weight: 600;
-	padding-bottom: 32px;
-	margin: 0;
-}
-
-.landing-page-bill-desc {
-	color: white;
-	font-size: 12px;
-	font-style: normal;
-	font-weight: 400;
-	line-height: normal;
-	margin: 0;
-	padding-bottom: 20px;
-}
-
-.landing-page-amount {
-	color: white;
-	font-size: 48px;
-	font-style: normal;
-	font-weight: 600;
-	display: inline-block;
-	height: .75rem;
-}
-
-.landing-page-month {
-	color: white;
-	font-size: 16px;
-	font-style: normal;
-	font-weight: 600;
-	margin: 0;
-	padding: 0;
-}
 
 .guide-one-header {
 	text-align: start;
@@ -276,144 +191,30 @@
 	font-size: 40px;
 }
 
+
 .guide-one-subheader {
-	padding: 46px 0 0px 0;
+	padding: 46px 0 0;
 	font-weight: 400;
 	font-size: 26px;
 	font-family: 'Roboto', sans-serif;
 }
 
 
-.guide-two-header {
-	padding: 18px 0 18px 0;
-	font-weight: 600;
-	font-size: 40px;
-}
-
-.guide-two-subheader {
-	padding: 18px 0 18px 0;
-	font-weight: 400;
-	font-size: 16px;
-}
-
-.second-guide {
-	text-align: end;
-
-}
-
-.step-one-img {
-	object-fit: contain;
-	width: 100%;
-}
-
-.landing-page-bill-desc {
-	color: white;
-	font-size: 14px;
-	font-style: normal;
-	;
-}
-
-.guide-container-version-two {
-	margin-bottom: 187px;
-	background-color: #FAFAFA;
-	border-radius: 32px;
-	border-color: #EDEDED;
-	border-width: 1px;
-}
-
-.guide-container {
-	margin: 50px 0 50px 0;
-}
-
-.guide-container-plan {
-	margin: 0;
-}
-
-.main-header {
-	padding-top: 100px;
-}
-
-.img-container {
-	text-align: center;
-}
-
-.circular-background {
-	width: 62px;
-	/* Set the width and height to create a circle */
-	height: 62px;
-	border-radius: 50%;
-	/* Make it a circle */
-	background-color: #4D9F70;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-}
-
-.step-text {
-	color: #ffffff;
-	/* Text color */
-	font-size: 32px;
-	font-weight: 600;
-}
-
-.button-container {
-	display: flex;
-}
-
 .step-one {
 	height: 62px;
 	width: 62px;
-
 }
 
-.login-link {
-	width: 100%;
-	margin-right: 20px;
-	color: #4D9F70;
+
+/* Pricing Section */
+.tier-header {
+	color: #2D2B29;
 	text-align: center;
-	font-family: Poppins;
-	font-size: 20px;
-	font-style: normal;
+	padding-top: 50px;
+	font-size: 40px;
 	font-weight: 600;
-	text-decoration: none;
 }
 
-
-
-.circle-img-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	width: 5%;
-}
-
-.circle-img-container-two {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: end;
-}
-
-.landing-page-img {
-
-	width: 100%;
-}
-
-.main-header {
-	padding: 48px 24px 0px 24px;
-	width: 100%;
-}
-
-.landing-page-guide-container {
-	padding: 161px 120px;
-	margin: 0 auto;
-}
-
-.landing-page-tier-content {
-	color: white;
-	font-weight: 400;
-}
 
 .tier-subheader {
 	text-align: center;
@@ -422,21 +223,113 @@
 	padding-bottom: 56px;
 }
 
-.tier-header {
-	color: #2D2B29;
+
+.landing-page-tier-div {
+	display: flex;
+	justify-content: center;
+	padding-bottom: 120px;
+}
+
+
+.landing-page-tier {
+	margin: 0 8px;
+	flex: 1 1 0;
+	max-width: 500px;
+	padding: 20px;
+	border-radius: 16px;
+	border: 1px solid #E5E6EB;
+	background: #4D9F70;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	text-align: center;
-	padding-top: 50px;
-
-	font-size: 40px;
-	font-style: normal;
-	font-weight: 600;
 }
 
-.landing-page-amount-strikethrough {
-	text-decoration: line-through;
+
+.landing-page-tier-content {
+	color: white;
+	font-weight: 400;
+}
+
+
+.landing-page-payment-selection-title {
+	color: white;
+	font-size: 30px;
+	font-weight: 600;
+	padding-bottom: 32px;
+	margin: 0;
+}
+
+
+.landing-page-amount {
+	color: white;
+	font-size: 48px;
+	font-weight: 600;
+	display: inline-block;
+	height: .75rem;
+}
+
+
+.landing-page-month {
+	color: white;
+	font-size: 16px;
+	font-weight: 600;
+	margin: 0;
+	padding: 0;
+}
+
+
+.landing-page-bill-desc {
+	color: white;
+	font-size: 14px;
+	font-style: normal;
+	margin: 0;
+	padding-bottom: 20px;
+}
+
+
+/* Payment Features */
+.landing-payment-feature-container {
+	margin-top: 20px;
+}
+
+
+.payment-feature {
+	display: flex;
+	align-items: center;
+	margin-bottom: 12px;
+}
+
+
+.check-icon {
+	margin-right: 12px;
+	width: 20px;
+	height: 20px;
+}
+
+
+.landing-page-payment-feature-text {
+	color: white;
+	font-size: 14px;
+	font-weight: 400;
+	margin: 0;
+}
+
+
+/* Buttons */
+.btn_column {
+	padding: 56px 0 0;
+}
+
+
+.btn-get-started {
+	width: 100%;
+	padding: 12px 24px;
+	border-radius: 40px;
+	color: #4D9F70;
+	font-size: 20px;
+	font-weight: 600;
+	border: none;
+	background: #F2F2F2;
 }
 
 
@@ -444,181 +337,148 @@
 	padding-top: 16px;
 }
 
-/* MOBILE VIEW */
 
-.mobile-first-div {
+.button-container {
+	display: flex;
+}
+
+
+/* Navigation Buttons */
+.btn-go-to-app {
+	margin-right: 10px;
+	font-family: 'Poppins', sans-serif;
+	border-radius: 70px;
+	border: none;
+	background-color: #E4E4E4;
+	padding: 10px 20px;
+}
+
+
+.login-link {
+	width: 100%;
+	margin-right: 20px;
+	color: #4D9F70;
 	text-align: center;
-}
-
-@media only screen and (max-width: 782px) {
-	.landing-page-tier {
-		margin-bottom: 12px;
-		min-width: 0px;
-		max-width: 100%;
-	}
-
-
-	.landing-page-tier-div {
-
-		flex-direction: column;
-	}
+	font-family: Poppins;
+	font-size: 20px;
+	font-weight: 600;
+	text-decoration: none;
 }
 
 
-
+/* Responsive Design */
 @media only screen and (max-width: 1280px) {
-
-
-
 	.landing-page-payment-selection-title {
 		font-size: 24px;
 	}
 
-	.gotoapp {
-		font-size: 18px;
-		width: 100%;
-		padding: 4px 12px;
-		border-radius: 40px;
-		font-weight: 600;
-		color: white;
-		border: none;
-		background-color: #4D9F70;
-	}
 
 	.tier-header {
 		font-size: 24px;
 	}
 
+
 	.login-link {
-		width: 100%;
-		line-height: 30px;
-		padding-top: 0px;
-		margin: 0px;
-		color: #4D9F70;
-		text-align: center;
-		font-family: Poppins;
 		font-size: 16px;
-		font-style: normal;
-		font-weight: 600;
-		text-decoration: none;
+		line-height: 30px;
+		padding-top: 0;
+		margin: 0;
 	}
 
+
 	.button-container {
-		display: flex;
-		justify-content: end;
+		justify-content: flex-end;
 	}
 
 
 	.page-content-container {
-
-		max-width: 100% !important;
-		padding: 48px 24px 0px 24px;
-		margin: 0 auto;
+		max-width: 100%;
+		padding: 48px 24px 0;
 	}
+
 
 	.navbar-container {
-		padding: 25px 24px 0px 24px;
+		padding: 25px 24px 0;
 	}
+}
+
+
+@media only screen and (max-width: 782px) {
+	.landing-page-tier {
+		margin-bottom: 12px;
+		min-width: 0;
+		max-width: 100%;
+	}
+
+
+	.landing-page-tier-div {
+		flex-direction: column;
+	}
+
 
 	.guide-container-version-two {
-
 		margin-bottom: 82px;
-
 	}
 
+
 	.guide-number {
-		width: 24px !important;
+		width: 24px;
 		margin-right: 24px;
 	}
 
+
 	.landing-page-guide-container {
-		max-width: 100% !important;
-		padding: 83px 23px 0px 23px;
-		margin: 0 auto;
+		max-width: 100%;
+		padding: 83px 23px 0;
 	}
+
 
 	.guide-details {
 		padding-bottom: 34px;
 	}
 
+
 	.btn_column {
-		padding: 40px 8px 50px 8px;
+		padding: 40px 8px 50px;
 	}
 
-	.figmalio-guest {
-		padding-top: 8px;
-		font-size: 16px;
-	}
-
-	.figmalio-logged {
-		padding-top: 8px;
-		font-size: 16px;
-	}
 
 	.landing-header {
-		padding: 0px;
-		font-weight: 600;
+		padding: 0;
 		font-size: 32px;
 		text-align: center;
 	}
 
+
 	.landing-subheader {
-		padding: 0px 24px 16px 24px;
-		font-weight: 600;
-		color: #9A8742;
+		padding: 0 24px 16px;
 		font-size: 16px;
 	}
 
+
 	.landing-sec-subheader {
-		padding: 0px;
+		padding: 0;
 		font-size: 14px;
-		font-weight: 400;
 		text-align: center;
 	}
 
-	.landing-page-img {
-		padding: 24px 24px 0px 24px;
-		width: 100%;
-	}
-
-	.guide-container {
-		padding: 0px 24px 0px 24px;
-	}
 
 	.guide-one-header {
-		padding: 0px;
-		font-weight: 600;
+		padding: 0;
 		font-size: 24px;
 	}
 
+
 	.guide-one-subheader {
 		padding-top: 8px;
-		padding-bottom: 0px;
-		font-weight: 400;
+		padding-bottom: 0;
 		font-size: 14px;
 	}
+
 
 	.step-one {
 		height: 32px;
 		width: 32px;
-		padding: 0px;
-	}
-
-	.circle-img-container {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.header-guide-container {
-		padding: 0px;
-	}
-
-	.step-one-img {
-
-		object-fit: contain;
-		width: 100%;
-		padding: 0px;
+		padding: 0;
 	}
 }
