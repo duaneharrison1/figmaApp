@@ -95,360 +95,396 @@ const LandingPage = () => {
 
   return (
     <div className="landing-page">
-      {/* Navbar */}
-      <nav className="navbar">
+      <div className="container-fluid main-landing-page p-0">
+        {/* Navbar */}
         <div className="navbar-container">
-          <h1 className="logo" onClick={navigateToHome}>
-            Figma<span className="green-text">folio</span>
-          </h1>
-          <div className="nav-actions">
-            {user ? (
-              <ButtonColored
-                onClick={goToDashboard}
-                className="btn-go-to-app"
-                label={t('go-to-app')}
-              />
-            ) : (
-              <>
-                <Link
-                  to={`/${currentLanguage}/auth`}
-                  className="login-link"
-                  state={{ name: "tab1" }}
-                >
-                  {t('login')}
-                </Link>
-                <ButtonColored
-                  onClick={goToAuthPage}
-                  className="btn-signup"
-                  label={t('signup')}
-                />
-              </>
-            )}
-          </div>
-        </div>
-      </nav>
-
-
-      {/* Hero Section */}
-      <section className="hero-section">
-        <div className="hero-content">
-          <h1 className="landing-header">{t('landing-header')}</h1>
-          <p className="landing-sec-subheader">{t('landing-subheader')}</p>
-          <div className="hero-buttons">
-            <ButtonStartForFree
-              onClick={goToAuthPage}
-              className="start-for-free-btn"
-              label={t('start-for-free')}
-            />
-            <ButtonGuide
-              onClick={scrollToDiv}
-              className="guide-btn"
-              label={t('guide')}
-            />
-          </div>
-        </div>
-        <div className="hero-image">
-          <img src={main_header_image} alt="Hero" className="landing-page-img" />
-        </div>
-      </section>
-
-
-      {/* Features Section */}
-      <section className="features-section">
-        <div className="section-header">
-          <h2 className="make-it-yours">Make it yours</h2>
-          <p className="make-it-yours-subheader">
-            Customize publish your Figmafolio page
-          </p>
-        </div>
-
-
-        <div className="custom-domain-container">
           <div className="row">
+            <div className="col-lg-8 col-4">
+              <h4 className="logo" onClick={navigateToHome}>
+                Figma<span className="green-text">folio</span>
+              </h4>
+            </div>
+            <div className="col-lg-4 d-flex justify-content-end col-8">
+              {user ? (
+                <div className="landing-button-container">
+                  <ButtonColored
+                    onClick={goToDashboard}
+                    className="btn-go-to-app"
+                    label={t('go-to-app')}
+                  />
+                </div>
+              ) : (
+                <div className="landing-button-container">
+                  <Link
+                    to={`/${currentLanguage}/auth`}
+                    className="login-link"
+                    state={{ name: "tab1" }}
+                  >
+                    {t('login')}
+                  </Link>
+                  <ButtonColored
+                    onClick={goToAuthPage}
+                    className="signup-btn"
+                    label={t('signup')}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+
+        {/* Main Content */}
+        <div className="page-content-container">
+          <div className="row">
+            <div className="col-md-6 landing-page-container">
+              <h1 className="landing-header">{t('landing-header')}</h1>
+              <h1 className="landing-sec-subheader">{t('landing-subheader')}</h1>
+              <div className="row btn_column">
+                <div className="col-md-10 m-0 p-0">
+                  <ButtonStartForFree
+                    onClick={goToAuthPage}
+                    className="start-for-free-btn"
+                    label={t('start-for-free')}
+                  />
+                  <ButtonGuide
+                    onClick={scrollToDiv}
+                    className="guide-btn"
+                    label={t('guide')}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 landing-page-container">
+              <img className="landing-page-img" src={main_header_image} alt="Main Header" />
+            </div>
+          </div>
+        </div>
+
+
+        {/* Features Section */}
+        <div className="landing-page-guide-container">
+          <div className="make-it-yours-container">
+            <h1 className="make-it-yours">Make it yours</h1>
+            <h2 className="make-it-yours-subheader">
+              Customize publish your Figmafolio page
+            </h2>
+          </div>
+
+
+          {/* Custom Domain Feature */}
+          <div className="custom-domain-container">
+            <div className="row">
+              <div className="col-md-6">
+                <div className="custom-domain-text-container">
+                  <h3 className="landing-feature-header">Custom Domain</h3>
+                  <p className="landing-feature-subheader">
+                    Connect an existing custom domain to make your site truly yours.
+                    We provide guidance and support
+                  </p>
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="custom-domain-image-container">
+                  <img src={CustomDomainImage} alt="Custom Domain" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          {/* Feature Grid */}
+          <div className="row first-row-feature-container">
             <div className="col-md-6">
-              <div className="custom-domain-text-container">
-                <h3 className="landing-feature-header">Custom Domain</h3>
+              <div className="publish-as-responsive-container">
+                <img
+                  src={PublishAsResponsiveImage}
+                  alt="Responsive Design"
+                  className="landing-feature-image"
+                />
+                <h3 className="landing-feature-header">
+                  Publish as Responsive Design
+                </h3>
                 <p className="landing-feature-subheader">
                   Connect an existing custom domain to make your site truly yours.
-                  We provide guidance and support
+                  We provide guidance and support.
                 </p>
               </div>
             </div>
             <div className="col-md-6">
-              <div className="custom-domain-image-container">
-                <img src={CustomDomainImage} alt="Custom Domain" />
+              <div className="publish-as-responsive-container">
+                <img
+                  src={CustomFaviconImage}
+                  alt="Custom Favicon"
+                  className="landing-feature-image"
+                />
+                <h3 className="landing-feature-header">Custom Favicon</h3>
+                <p className="landing-feature-subheader">
+                  Connect an existing custom domain to make your site truly yours.
+                  We provide guidance and support.
+                </p>
               </div>
             </div>
           </div>
-        </div>
 
 
-        {/* Feature Grid */}
-        <div className="row first-row-feature-container">
-          <div className="col-md-6">
-            <div className="publish-as-responsive-container">
-              <img
-                src={PublishAsResponsiveImage}
-                alt="Responsive Design"
-                className="landing-feature-image"
-              />
-              <h3 className="landing-feature-header">
-                Publish as Responsive Design
-              </h3>
-              <p className="landing-feature-subheader">
-                Your designs automatically adapt to different screen sizes
-              </p>
-            </div>
-          </div>
-          <div className="col-md-6">
-            <div className="publish-as-responsive-container">
-              <img
-                src={CustomFaviconImage}
-                alt="Custom Favicon"
-                className="landing-feature-image"
-              />
-              <h3 className="landing-feature-header">Custom Favicon</h3>
-              <p className="landing-feature-subheader">
-                Brand your site with a custom favicon
-              </p>
-            </div>
-          </div>
-        </div>
-
-
-        {/* Additional Features Row */}
-        <div className="row first-row-feature-container">
-          <div className="col-md-6">
-            <div className="publish-as-responsive-container">
-              <img
-                src={PasswordProtectionImage}
-                alt="Password Protection"
-                className="landing-feature-image"
-              />
-              <h3 className="landing-feature-header">Password Protection</h3>
-              <p className="landing-feature-subheader">
-                Secure your confidential work or NDA projects with password protection.
-              </p>
-            </div>
-          </div>
-          <div className="col-md-6">
-            <div className="publish-as-responsive-container">
-              <img
-                src={MultipleProjectImage}
-                alt="Multiple Projects"
-                className="landing-feature-image"
-              />
-              <h3 className="landing-feature-header">Multiple Project</h3>
-              <p className="landing-feature-subheader">
-                Manage different sites for testing and password-protect each project.
-                Each project gets a unique URL, allowing you to share with clients
-                without changing links.
-              </p>
-            </div>
-          </div>
-        </div>
-
-
-        {/* How It Works Section */}
-        <div className="make-it-yours-container">
-          <h1 className="make-it-yours">How it works</h1>
-          <p className="make-it-yours-subheader">
-            From Figma to live website in 3 simple steps.
-          </p>
-        </div>
-
-
-        <div className="row guide-container-version-two">
-          <div className="col-md-6 landing-page-container col-md-push-6 order-2">
-            <img src={guideOne} alt="Step 1" className="step-one-img" />
-          </div>
-          <div className="col-md-6 landing-page-container col-md-pull-6 order-1 guide-details" ref={divGuide}>
-            <div className="row">
-              <div className="col-2 guide-number">
-                <img src={one} alt="Number 1" className="step-one" />
+          {/* Additional Features */}
+          <div className="row first-row-feature-container">
+            <div className="col-md-6">
+              <div className="publish-as-responsive-container">
+                <img
+                  src={PasswordProtectionImage}
+                  alt="Password Protection"
+                  className="landing-feature-image"
+                />
+                <h3 className="landing-feature-header">Password Protection</h3>
+                <p className="landing-feature-subheader">
+                  Secure your confidential work or NDA projects with password protection.
+                </p>
               </div>
-              <div className="col-10">
+            </div>
+            <div className="col-md-6">
+              <div className="publish-as-responsive-container">
+                <img
+                  src={MultipleProjectImage}
+                  alt="Multiple Projects"
+                  className="landing-feature-image"
+                />
+                <h3 className="landing-feature-header">Multiple Project</h3>
+                <p className="landing-feature-subheader">
+                  Manage different sites for testing and password-protect each project.
+                  Each project gets a unique URL, allowing you to share with clients
+                  without changing links.
+                </p>
+              </div>
+            </div>
+          </div>
+
+
+          {/* How It Works Section */}
+          <div className="make-it-yours-container">
+            <h1 className="make-it-yours">How it works</h1>
+            <h2 className="make-it-yours-subheader">
+              From Figma to live website in 3 simple steps.
+            </h2>
+          </div>
+
+
+          {/* Guide Steps */}
+          <div className="row guide-container-version-two">
+            <div className="col-md-6 landing-page-container col-md-push-6 order-2">
+              <img src={guideOne} alt="Step 1" className="step-one-img" />
+            </div>
+            <div className="col-md-6 landing-page-container col-md-pull-6 order-1">
+              <div className="guide-content" ref={divGuide}>
+                <div className="guide-number">
+                  <img src={one} alt="Number 1" className="step-one" />
+                </div>
                 <h2 className="guide-one-header">{t('design-in-figma')}</h2>
                 <h3 className="guide-one-subheader">{t('instruc-one')}</h3>
               </div>
             </div>
           </div>
-        </div>
 
 
-        <div className="row guide-container-version-two">
-          <div className="col-md-6 landing-page-container col-md-push-6 guide-details">
-            <div className="row">
-              <div className="col-2 guide-number">
-                <img src={two} alt="Number 2" className="step-one" />
-              </div>
-              <div className="col-10">
+          <div className="row guide-container-version-two">
+            <div className="col-md-6 landing-page-container col-md-push-6">
+              <div className="guide-content">
+                <div className="guide-number">
+                  <img src={two} alt="Number 2" className="step-one" />
+                </div>
                 <h2 className="guide-one-header">{t('simple-setup')}</h2>
                 <h3 className="guide-one-subheader">{t('instruc-two')}</h3>
               </div>
             </div>
+            <div className="col-md-6 landing-page-container">
+              <img src={guideTwo} alt="Step 2" className="step-one-img" />
+            </div>
           </div>
-          <div className="col-md-6 landing-page-container col-md-push-6">
-            <img src={guideTwo} alt="Step 2" className="step-one-img" />
-          </div>
-        </div>
 
 
-        <div className="row guide-container-version-two">
-          <div className="col-md-6 landing-page-container col-md-push-6 order-2">
-            <img src={guideThree} alt="Step 3" className="step-one-img" />
-          </div>
-          <div className="col-md-6 landing-page-container col-md-push-6 order-1 guide-details">
-            <div className="row">
-              <div className="col-2 guide-number">
-                <img src={three} alt="Number 3" className="step-one" />
-              </div>
-              <div className="col-10">
+          <div className="row guide-container-version-two">
+            <div className="col-md-6 landing-page-container col-md-push-6 order-2">
+              <img src={guideThree} alt="Step 3" className="step-one-img" />
+            </div>
+            <div className="col-md-6 landing-page-container order-1">
+              <div className="guide-content">
+                <div className="guide-number">
+                  <img src={three} alt="Number 3" className="step-one" />
+                </div>
                 <h2 className="guide-one-header">{t('go-live')}</h2>
                 <h3 className="guide-one-subheader">{t('instruc-three')}</h3>
               </div>
             </div>
           </div>
-        </div>
 
 
-        {/* Pricing Section */}
-        <h1 className="tier-header">{t('pick-a-plan')}</h1>
-        <h2 className="tier-subheader">
-          Our transparent pricing makes it easy to find a plan that works
-          within your financial constraints
-        </h2>
-
-
-        <div className="flex landing-page-tier-div">
-          {/* Free Tier */}
-          <div className="landing-page-tier">
-            <div className="landing-page-tier-content">
-              <img className="plan-icon" src={freeImage} alt="Free Plan" />
-              <h1 className="landing-page-payment-selection-title">{t('free')}</h1>
-              <div className="amount-per-month">
-                <span className="landing-page-amount">$0 </span>
-                <span className="landing-page-month">/month</span>
-              </div>
-              <h4 className="landing-page-bill-desc">{t('no-bills')}</h4>
-              <div className="landing-payment-feature-container">
-                <div className="payment-feature">
-                  <img className="check-icon" src={WhiteCheck} alt="Check" />
-                  <h4 className="landing-page-payment-feature-text">{t('free-feat-one')}</h4>
-                </div>
-                <div className="payment-feature">
-                  <img className="check-icon" src={WhiteCheck} alt="Check" />
-                  <h4 className="landing-page-payment-feature-text">{t('free-feat-two')}</h4>
-                </div>
-                <div className="payment-feature">
-                  <img className="check-icon" src={Cross} alt="Cross" />
-                  <h4 className="landing-page-payment-feature-text">{t('removes-made-with')}</h4>
-                </div>
-                <div className="payment-feature">
-                  <img className="check-icon" src={Cross} alt="Cross" />
-                  <h4 className="landing-page-payment-feature-text">Customize Favicon</h4>
-                </div>
-              </div>
-              <div className="landing-page-button-upgrade-container">
-                <Link to="/auth" state={{ name: "tab2" }}>
-                  <ButtonColored className="btn-get-started" label={t('try-for-free')} />
-                </Link>
-              </div>
-            </div>
+          {/* Pricing Section */}
+          <div className="tier-container">
+            <h1 className="tier-header">{t('pick-a-plan')}</h1>
+            <h2 className="tier-subheader">
+              Our transparent pricing makes it easy to find a plan that works
+              within your financial constraints
+            </h2>
           </div>
 
 
-          {/* Basic Tier */}
-          <div className="landing-page-tier">
-            <div className="landing-page-tier-content">
-              <img className="plan-icon" src={BasicImage} alt="Basic Plan" />
-              <h1 className="landing-page-payment-selection-title">{t('monthly')}</h1>
-              <div className="amount-per-month">
-                <span className="landing-page-amount">$6 </span>
-                <span className="landing-page-month">/month</span>
-              </div>
-              <h4 className="landing-page-bill-desc">{t('billed-monthly-at')}</h4>
-              <div className="landing-payment-feature-container">
-                <div className="payment-feature">
-                  <img className="check-icon" src={WhiteCheck} alt="Check" />
-                  <h4 className="landing-page-payment-feature-text">{t('monthly-feat-one')}</h4>
+          <div className="landing-page-tier-div">
+            {/* Free Tier */}
+            <div className="landing-page-tier">
+              <div className="landing-page-tier-content">
+                <img className="plan-icon" src={freeImage} alt="Free Plan" />
+                <h1 className="landing-page-payment-selection-title">{t('free')}</h1>
+                <div className="amount-per-month">
+                  <span className="landing-page-amount">$0</span>
+                  <span className="landing-page-month">/month</span>
                 </div>
-                <div className="payment-feature">
-                  <img className="check-icon" src={WhiteCheck} alt="Check" />
-                  <h4 className="landing-page-payment-feature-text">{t('monthly-yearly-feat-two')}</h4>
+                <h4 className="landing-page-bill-desc">{t('no-bills')}</h4>
+                <div className="landing-payment-feature-container">
+                  <div className="payment-feature">
+                    <img className="check-icon" src={WhiteCheck} alt="Check" />
+                    <h4 className="landing-page-payment-feature-text">
+                      {t('free-feat-one')}
+                    </h4>
+                  </div>
+                  <div className="payment-feature">
+                    <img className="check-icon" src={WhiteCheck} alt="Check" />
+                    <h4 className="landing-page-payment-feature-text">
+                      {t('free-feat-two')}
+                    </h4>
+                  </div>
+                  <div className="payment-feature">
+                    <img className="check-icon" src={Cross} alt="Cross" />
+                    <h4 className="landing-page-payment-feature-text">
+                      {t('removes-made-with')}
+                    </h4>
+                  </div>
+                  <div className="payment-feature">
+                    <img className="check-icon" src={Cross} alt="Cross" />
+                    <h4 className="landing-page-payment-feature-text">
+                      Customize Favicon
+                    </h4>
+                  </div>
                 </div>
-                <div className="payment-feature">
-                  <img className="check-icon" src={WhiteCheck} alt="Check" />
-                  <h4 className="landing-page-payment-feature-text">{t('removes-made-with')}</h4>
+                <div className="landing-page-button-upgrade-container">
+                  <Link to="/auth" state={{ name: "tab2" }}>
+                    <ButtonColored className="btn-get-started" label={t('try-for-free')} />
+                  </Link>
                 </div>
-                <div className="payment-feature">
-                  <img className="check-icon" src={WhiteCheck} alt="Check" />
-                  <h4 className="landing-page-payment-feature-text">Password protection</h4>
-                </div>
-                <div className="payment-feature">
-                  <img className="check-icon" src={WhiteCheck} alt="Check" />
-                  <h4 className="landing-page-payment-feature-text">Customize Favicon</h4>
-                </div>
-              </div>
-              <div className="landing-page-button-upgrade-container">
-                <Link to="/auth" state={{ name: "tab2" }}>
-                  <ButtonColored className="btn-get-started" label={t('get-started')} />
-                </Link>
               </div>
             </div>
-          </div>
 
 
-          {/* Pro Tier */}
-          <div className="landing-page-tier">
-            <div className="landing-page-tier-content">
-              <img className="plan-icon" src={ProImage} alt="Pro Plan" />
-              <div className="heading-container">
+            {/* Basic Tier */}
+            <div className="landing-page-tier">
+              <div className="landing-page-tier-content">
+                <img className="plan-icon" src={BasicImage} alt="Basic Plan" />
+                <h1 className="landing-page-payment-selection-title">{t('monthly')}</h1>
+                <div className="amount-per-month">
+                  <span className="landing-page-amount">$6</span>
+                  <span className="landing-page-month">/month</span>
+                </div>
+                <h4 className="landing-page-bill-desc">{t('billed-monthly-at')}</h4>
+                <div className="landing-payment-feature-container">
+                  <div className="payment-feature">
+                    <img className="check-icon" src={WhiteCheck} alt="Check" />
+                    <h4 className="landing-page-payment-feature-text">
+                      {t('monthly-feat-one')}
+                    </h4>
+                  </div>
+                  <div className="payment-feature">
+                    <img className="check-icon" src={WhiteCheck} alt="Check" />
+                    <h4 className="landing-page-payment-feature-text">
+                      {t('monthly-yearly-feat-two')}
+                    </h4>
+                  </div>
+                  <div className="payment-feature">
+                    <img className="check-icon" src={WhiteCheck} alt="Check" />
+                    <h4 className="landing-page-payment-feature-text">
+                      {t('removes-made-with')}
+                    </h4>
+                  </div>
+                  <div className="payment-feature">
+                    <img className="check-icon" src={WhiteCheck} alt="Check" />
+                    <h4 className="landing-page-payment-feature-text">
+                      Password protection
+                    </h4>
+                  </div>
+                  <div className="payment-feature">
+                    <img className="check-icon" src={WhiteCheck} alt="Check" />
+                    <h4 className="landing-page-payment-feature-text">
+                      Customize Favicon
+                    </h4>
+                  </div>
+                </div>
+                <div className="landing-page-button-upgrade-container">
+                  <Link to="/auth" state={{ name: "tab2" }}>
+                    <ButtonColored className="btn-get-started" label={t('get-started')} />
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+
+            {/* Pro Tier */}
+            <div className="landing-page-tier">
+              <div className="landing-page-tier-content">
+                <img className="plan-icon" src={ProImage} alt="Pro Plan" />
                 <h1 className="landing-page-payment-selection-title">{t('yearly')}</h1>
-              </div>
-              <div className="amount-per-month">
-                <span className="landing-page-amount">$58 </span>
-                <span className="landing-page-month">/year</span>
-              </div>
-              <h4 className="landing-page-bill-desc">{t('billed-yearly-at')}</h4>
-              <div className="landing-payment-feature-container">
-                <div className="payment-feature">
-                  <img className="check-icon" src={WhiteCheck} alt="Check" />
-                  <h4 className="landing-page-payment-feature-text">{t('yearly-feat-one')}</h4>
+                <div className="amount-per-month">
+                  <span className="landing-page-amount">$58</span>
+                  <span className="landing-page-month">/year</span>
                 </div>
-                <div className="payment-feature">
-                  <img className="check-icon" src={WhiteCheck} alt="Check" />
-                  <h4 className="landing-page-payment-feature-text">{t('monthly-yearly-feat-two')}</h4>
+                <h4 className="landing-page-bill-desc">{t('billed-yearly-at')}</h4>
+                <div className="landing-payment-feature-container">
+                  <div className="payment-feature">
+                    <img className="check-icon" src={WhiteCheck} alt="Check" />
+                    <h4 className="landing-page-payment-feature-text">
+                      {t('yearly-feat-one')}
+                    </h4>
+                  </div>
+                  <div className="payment-feature">
+                    <img className="check-icon" src={WhiteCheck} alt="Check" />
+                    <h4 className="landing-page-payment-feature-text">
+                      {t('monthly-yearly-feat-two')}
+                    </h4>
+                  </div>
+                  <div className="payment-feature">
+                    <img className="check-icon" src={WhiteCheck} alt="Check" />
+                    <h4 className="landing-page-payment-feature-text">
+                      {t('removes-made-with')}
+                    </h4>
+                  </div>
+                  <div className="payment-feature">
+                    <img className="check-icon" src={WhiteCheck} alt="Check" />
+                    <h4 className="landing-page-payment-feature-text">
+                      Password protection
+                    </h4>
+                  </div>
+                  <div className="payment-feature">
+                    <img className="check-icon" src={WhiteCheck} alt="Check" />
+                    <h4 className="landing-page-payment-feature-text">
+                      Customize Favicon
+                    </h4>
+                  </div>
+                  <div className="payment-feature">
+                    <img className="check-icon" src={WhiteCheck} alt="Check" />
+                    <h4 className="landing-page-payment-feature-text">
+                      {t('monthly-yearly-feat-three')}
+                    </h4>
+                  </div>
                 </div>
-                <div className="payment-feature">
-                  <img className="check-icon" src={WhiteCheck} alt="Check" />
-                  <h4 className="landing-page-payment-feature-text">{t('removes-made-with')}</h4>
+                <div className="landing-page-button-upgrade-container">
+                  <Link to="/auth" state={{ name: "tab2" }}>
+                    <ButtonColored className="btn-get-started" label={t('get-started')} />
+                  </Link>
                 </div>
-                <div className="payment-feature">
-                  <img className="check-icon" src={WhiteCheck} alt="Check" />
-                  <h4 className="landing-page-payment-feature-text">Password protection</h4>
-                </div>
-                <div className="payment-feature">
-                  <img className="check-icon" src={WhiteCheck} alt="Check" />
-                  <h4 className="landing-page-payment-feature-text">Customize Favicon</h4>
-                </div>
-                <div className="payment-feature">
-                  <img className="check-icon" src={WhiteCheck} alt="Check" />
-                  <h4 className="landing-page-payment-feature-text">{t('monthly-yearly-feat-three')}</h4>
-                </div>
-              </div>
-              <div className="landing-page-button-upgrade-container">
-                <Link to="/auth" state={{ name: "tab2" }}>
-                  <ButtonColored className="btn-get-started" label={t('get-started')} />
-                </Link>
               </div>
             </div>
           </div>
         </div>
-      </section>
-
-
-      <Footer />
+        <Footer />
+      </div>
     </div>
   );
 };

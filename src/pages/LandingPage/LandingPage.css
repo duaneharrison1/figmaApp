@@ -57,33 +57,50 @@
 }
 
 
-/* Headers and Text Styles */
-.landing-header {
-	padding: 18px 0;
-	font-weight: 600;
-	font-size: 56px;
+/* Section Headers and Subtexts */
+.make-it-yours-container,
+.how-it-works-container {
+	text-align: center;
+	padding-bottom: 60px;
+	margin-top: 120px;
 }
 
 
-.landing-subheader {
-	padding: 18px 0;
-	font-weight: 600;
-	color: #9A8742;
-	font-size: 32px;
+.make-it-yours,
+.tier-header {
+	font-size: 40px;
+	font-weight: bold;
+	margin-bottom: 24px;
 }
 
 
-.landing-sec-subheader {
-	padding: 18px 0;
-	font-size: 25px;
+.make-it-yours-subheader,
+.tier-subheader {
+	font-size: 18px;
 	font-weight: 400;
-	font-family: 'Roboto', sans-serif;
+	color: #666;
+	margin-bottom: 56px;
+}
+
+
+/* Feature Boxes */
+.publish-as-responsive-container,
+.guide-container-version-two {
+	background-color: #FAFAFA;
+	border-radius: 32px;
+	padding: 74px;
+	border: 1px solid #EDEDED;
+	text-align: left;
+	height: auto;
+	min-height: 600px;
 }
 
 
 .landing-feature-header {
 	font-size: 28px;
 	font-weight: bold;
+	margin-bottom: 24px;
+	text-align: left;
 }
 
 
@@ -91,43 +108,16 @@
 	font-size: 18px;
 	font-weight: 400;
 	font-family: 'Roboto', sans-serif;
+	text-align: left;
 }
 
 
-/* Make It Yours Section */
-.make-it-yours-container {
-	text-align: center;
-	padding-bottom: 60px;
-}
-
-
-.make-it-yours {
-	font-size: 40px;
-	font-weight: bold;
-}
-
-
-.make-it-yours-subheader {
-	font-size: 18px;
-	font-weight: 400;
-}
-
-
-/* Feature Containers */
-.publish-as-responsive-container {
-	text-align: center;
-	background-color: #FAFAFA;
-	border-radius: 32px;
-	padding: 40px;
-	height: 600px;
-}
-
-
+/* Custom Domain Container */
 .custom-domain-container {
 	background-color: #FAFAFA;
 	border-radius: 32px;
 	margin-bottom: 50px;
-	padding: 60px;
+	padding: 74px;
 	border: 1px solid #EDEDED;
 }
 
@@ -141,10 +131,8 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
 	height: 100%;
-	text-align: center;
-	border: 1px solid #EDEDED;
+	text-align: left;
 }
 
 
@@ -162,6 +150,8 @@
 /* Images */
 .landing-feature-image {
 	padding-bottom: 80px;
+	max-width: 100%;
+	height: auto;
 }
 
 
@@ -172,10 +162,7 @@
 
 /* Guide Section */
 .guide-container-version-two {
-	margin-bottom: 187px;
-	background-color: #FAFAFA;
-	border-radius: 32px;
-	border: 1px solid #EDEDED;
+	margin-bottom: 80px;
 }
 
 
@@ -184,19 +171,13 @@
 }
 
 
-.guide-one-header {
-	text-align: start;
-	font-family: 'Poppins', sans-serif;
-	font-weight: 600;
-	font-size: 40px;
+.guide-number {
+	margin-bottom: 24px;
 }
 
 
-.guide-one-subheader {
-	padding: 46px 0 0;
-	font-weight: 400;
-	font-size: 26px;
-	font-family: 'Roboto', sans-serif;
+.guide-content {
+	padding: 74px;
 }
 
 
@@ -206,21 +187,26 @@
 }
 
 
-/* Pricing Section */
-.tier-header {
-	color: #2D2B29;
-	text-align: center;
-	padding-top: 50px;
-	font-size: 40px;
-	font-weight: 600;
+.guide-one-header {
+	font-size: 28px;
+	font-weight: bold;
+	margin-bottom: 24px;
+	text-align: left;
 }
 
 
-.tier-subheader {
-	text-align: center;
+.guide-one-subheader {
 	font-size: 18px;
 	font-weight: 400;
-	padding-bottom: 56px;
+	font-family: 'Roboto', sans-serif;
+	text-align: left;
+	margin: 0;
+}
+
+
+/* Pricing Section */
+.tier-container {
+	margin-top: 80px;
 }
 
 
@@ -343,7 +329,6 @@
 }
 
 
-/* Navigation Buttons */
 .btn-go-to-app {
 	margin-right: 10px;
 	font-family: 'Poppins', sans-serif;
@@ -363,6 +348,30 @@
 	font-size: 20px;
 	font-weight: 600;
 	text-decoration: none;
+}
+
+
+/* Hero Section */
+.landing-header {
+	padding: 18px 0;
+	font-weight: 600;
+	font-size: 56px;
+}
+
+
+.landing-subheader {
+	padding: 18px 0;
+	font-weight: 600;
+	color: #9A8742;
+	font-size: 32px;
+}
+
+
+.landing-sec-subheader {
+	padding: 18px 0;
+	font-size: 25px;
+	font-weight: 400;
+	font-family: 'Roboto', sans-serif;
 }
 
 
@@ -433,8 +442,40 @@
 	}
 
 
-	.guide-details {
-		padding-bottom: 34px;
+	.guide-content {
+		padding: 40px;
+	}
+
+
+	.publish-as-responsive-container,
+	.guide-container-version-two,
+	.custom-domain-container {
+		padding: 40px;
+	}
+
+
+	.make-it-yours-container,
+	.how-it-works-container {
+		margin-top: 60px;
+	}
+
+
+	.make-it-yours,
+	.tier-header {
+		font-size: 32px;
+		margin-bottom: 16px;
+	}
+
+
+	.landing-feature-header,
+	.guide-one-header {
+		font-size: 24px;
+		margin-bottom: 16px;
+	}
+
+
+	.guide-number {
+		margin-bottom: 16px;
 	}
 
 
@@ -460,25 +501,5 @@
 		padding: 0;
 		font-size: 14px;
 		text-align: center;
-	}
-
-
-	.guide-one-header {
-		padding: 0;
-		font-size: 24px;
-	}
-
-
-	.guide-one-subheader {
-		padding-top: 8px;
-		padding-bottom: 0;
-		font-size: 14px;
-	}
-
-
-	.step-one {
-		height: 32px;
-		width: 32px;
-		padding: 0;
 	}
 }
