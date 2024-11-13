@@ -16,11 +16,13 @@ function DynamicPage2() {
   const [isError, setIsError] = useState(false);
   const dbFirestore = firebase.firestore();
 
+
   useEffect(() => {
     const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
     link.rel = 'icon';
     document.getElementsByTagName('head')[0].appendChild(link);
     link.href = urlData.faviconUrl || '';
+    document.title = urlData.title;
 
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
