@@ -12,6 +12,7 @@ import three from './../../assets/images/three.png';
 import Cross from '../../assets/images/crosswhite.png';
 import WhiteCross from '../../assets/images/crosswhite.png';
 import Check from '../../assets/images/check.png';
+import i18n from '../../i18n';
 import WhiteCheck from '../../assets/images/white-check.png';
 import CustomFaviconImage from '../../assets/images/custom_favicon_landing.png';
 import CustomDomainImage from '../../assets/images/landing_custom_domain.png';
