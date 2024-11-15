@@ -17,8 +17,10 @@
 
 /* Navigation */
 .navbar-container {
+	max-width: 1200px;
 	padding: 36px 120px;
 	margin: 0 auto;
+	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
@@ -45,6 +47,7 @@
 
 /* Header and Content Containers */
 .page-content-container {
+	max-width: 1200px;
 	padding: 0 120px;
 	margin: 0 auto;
 }
@@ -118,7 +121,7 @@
 
 /* Features Section */
 .landing-page-guide-container {
-
+	max-width: 1200px;
 	margin: 0 auto;
 	padding: 120px 120px 0;
 }
@@ -222,7 +225,7 @@
 	border-radius: 32px;
 	margin-bottom: 40px;
 	border: 1px solid #EDEDED;
-
+	max-width: 1200px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -298,7 +301,7 @@
 	justify-content: center;
 	gap: 24px;
 	padding-bottom: 120px;
-
+	max-width: 1200px;
 	margin: 0 auto;
 }
 
