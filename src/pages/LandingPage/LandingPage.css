@@ -179,7 +179,7 @@
 	padding: 74px;
 	border: 1px solid #EDEDED;
 	text-align: left;
-	height: auto;
+	height: 711px;
 	max-width: 560px;
 	margin: 0 auto;
 }
@@ -213,8 +213,8 @@
 
 .first-row-feature-container {
 	margin-bottom: 50px;
-	display: flex;
-	gap: 24px;
+	/* display: flex;
+	gap: 24px; */
 }
 
 
