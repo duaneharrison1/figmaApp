@@ -46,9 +46,9 @@
 
 /* Header and Content Containers */
 .page-content-container {
-	max-width: 1440px;
-	padding: 0 120px;
-	margin: 0 auto;
+    max-width: 1440px; 
+    margin: 0 auto; 
+    padding: 24px 120px 0;
 }
 
 
@@ -129,6 +129,7 @@
 .make-it-yours-container {
 	text-align: center;
 	margin-bottom: 80px;
+	margin-top: 24px;
 }
 
 
@@ -136,6 +137,7 @@
 	font-size: 40px;
 	font-weight: bold;
 	margin-bottom: 24px;
+
 }
 
 
@@ -157,8 +159,11 @@
 
 
 .custom-domain-text-container {
-	text-align: left;
-	padding-right: 40px;
+	display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;    /* Centers vertically */
+    height: 100%;          /* Full height of the viewport (adjust as needed) */
+    background: #f9f9f9; 
 }
 
 

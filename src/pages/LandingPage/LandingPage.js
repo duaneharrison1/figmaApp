@@ -169,11 +169,15 @@ const LandingPage = () => {
             <div className="row">
               <div className="col-md-6">
                 <div className="custom-domain-text-container">
+                  <div>
                   <h3 className="landing-feature-header">Custom Domain</h3>
                   <p className="landing-feature-subheader">
                     Connect an existing custom domain to make your site truly yours.
                     We provide guidance and support
                   </p>
+
+                  </div>
+                  
                 </div>
               </div>
               <div className="col-md-6">
