@@ -32,6 +32,7 @@ import { MobileFormPassword } from './pages/MobileForm/MobileFormPassword/Mobile
 import { MobileFormLabel } from './pages/MobileForm/MobileFormLabel/MobileFormLabel.js';
 import PreviewFromPlugin from './pages/Preview/PreviewFromPlugin.js';
 import PluginAuth from './pages/Authentication/PluginAuth.js';
+import TestHtml from './pages/TestHtml.js';
 function App() {
   const { id } = useParams()
   const dbFirestore = firebase.firestore();
@@ -64,7 +65,7 @@ function App() {
           currentPath == '/' + currentLanguage + '/admin' || currentPath == '/' + currentLanguage + '/billing' ||
           currentPath == '/' + currentLanguage + '/dashboard' || currentPath == '/' + currentLanguage + '/preview' ||
           currentPath == '/' + currentLanguage + '/auth' || currentPath == '/' + currentLanguage + '/plugin-auth' || currentPath == '/' + currentLanguage + '/forgotpassword' ||
-          currentPath == '/' + currentLanguage + '/profile') {
+          currentPath == '/' + currentLanguage + '/profile' || currentPath == '/' + currentLanguage + '/testpage' ) {
           setIsDynamicPage("false")
         } else if (currentPath.includes("folio-preview")) {
           setIsDynamicPage("false")
@@ -110,6 +111,7 @@ function App() {
             <Route path="/:lang?/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/:lang?/folio-form" element={<FolioForm />} />
             <Route path="/:lang?/dashboard" element={<UserDashboard />} />
+            <Route path="/:lang?/testpage" element={<TestHtml />} />
             <Route path="/:lang?/preview" element={<Preview />} />
             <Route path="/:lang?/folio-preview/:id" element={<PreviewFromPlugin />} />
             <Route path="/:lang?/auth" element={<Mainauth />} />
