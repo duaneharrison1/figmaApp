@@ -24,22 +24,37 @@ function TestHtml() {
   useEffect(() => {
     const fetchHtml = async () => {
       try {
-        // Initialize Firebase Storage
         const storage = getStorage();
-        const fileRef = ref(storage, "https://firebasestorage.googleapis.com/v0/b/figmawebapp.appspot.com/o/testingfile.html?alt=media&token=694b6c0c-e1a9-4e5e-9773-7ac4ea80c759");
 
-        // Get the download URL
+        // Fetch the main HTML file (index.html or about.html)
+        const fileRef = ref(storage, "testingHtml/index.html");
         const fileUrl = await getDownloadURL(fileRef);
 
-        // Fetch the file content
         const response = await fetch(fileUrl);
-        const html = await response.text();
+        let html = await response.text();
 
-        // Set the HTML content
+        // Replace relative paths for styles and images with Firebase Storage URLs
+        html = await replaceRelativePaths(html, storage);
+
         setHtmlContent(html);
       } catch (error) {
         console.error("Error fetching HTML file:", error);
       }
+    };
+
+    const replaceRelativePaths = async (html, storage) => {
+      const replacements = {
+        "styles.css": "testingHtml/styles.css",
+        "imageOne.jpg": "testingHtml/imageOne.jpg",
+      };
+
+      for (const [relativePath, storagePath] of Object.entries(replacements)) {
+        const fileRef = ref(storage, storagePath);
+        const fileUrl = await getDownloadURL(fileRef);
+        html = html.replace(new RegExp(relativePath, "g"), fileUrl);
+      }
+
+      return html;
     };
 
     fetchHtml();
