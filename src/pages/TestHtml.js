@@ -1,48 +1,67 @@
 import React, { useEffect, useState } from "react";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { getStorage, ref, getDownloadURL, listAll } from "firebase/storage";
 
 function TestHtml() {
   const [htmlContent, setHtmlContent] = useState("");
+  const [fileUrls, setFileUrls] = useState({});
 
-  const fetchHtml = async (fileName) => {
+  const fetchHtml = async (filePath) => {
     try {
       const storage = getStorage();
-      const fileRef = ref(storage, `testingHtml/${fileName}`);
+      const fileRef = ref(storage, filePath);
       const fileUrl = await getDownloadURL(fileRef);
 
       const response = await fetch(fileUrl);
       let html = await response.text();
 
-      html = await replaceRelativePaths(html, storage);
+      html = replaceRelativePaths(html);
       setHtmlContent(html);
     } catch (error) {
       console.error("Error fetching HTML file:", error);
     }
   };
 
-  const replaceRelativePaths = async (html, storage) => {
-    const replacements = {
-      "styles.css": "testingHtml/styles.css",
-      "imageOne.jpg": "testingHtml/imageOne.jpg",
-    };
-
-    for (const [relativePath, storagePath] of Object.entries(replacements)) {
-      const fileRef = ref(storage, storagePath);
-      const fileUrl = await getDownloadURL(fileRef);
-      html = html.replace(new RegExp(relativePath, "g"), fileUrl);
-    }
-
+  const replaceRelativePaths = (html) => {
+    // Replace all known file paths in the HTML
+    Object.entries(fileUrls).forEach(([fileName, fileUrl]) => {
+      const regex = new RegExp(fileName, "g");
+      html = html.replace(regex, fileUrl);
+    });
     return html;
   };
 
-  // Expose the navigateTo function globally
-  useEffect(() => {
-    window.navigateTo = (fileName) => {
-      fetchHtml(fileName);
-    };
+  const listFiles = async () => {
+    try {
+      const storage = getStorage();
+      const folderRef = ref(storage, "testingHtml");
+      const folderContents = await listAll(folderRef);
 
-    // Load the default page
-    fetchHtml("index.html");
+      // Map filenames to their URLs
+      const filePromises = folderContents.items.map(async (item) => {
+        const fileUrl = await getDownloadURL(item);
+        return { name: item.name, url: fileUrl };
+      });
+
+      const filesData = await Promise.all(filePromises);
+      const fileUrlsMap = filesData.reduce((acc, file) => {
+        acc[file.name] = file.url;
+        return acc;
+      }, {});
+
+      setFileUrls(fileUrlsMap);
+
+      // Default: Load the first HTML file (or specific file if desired)
+      const htmlFiles = filesData.filter((file) => file.name.endsWith(".html"));
+      if (htmlFiles.length > 0) {
+        fetchHtml(`testingHtml/${htmlFiles[0].name}`); 
+      }
+    } catch (error) {
+      console.error("Error listing files:", error);
+    }
+  };
+
+  useEffect(() => {
+    listFiles();
   }, []);
 
   return (
