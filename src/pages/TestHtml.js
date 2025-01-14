@@ -15,8 +15,11 @@ function TestHtml() {
 
       html = await replaceRelativePaths(html, storage);
       setHtmlContent(html);
+
+      // Attach custom navigation handlers after loading new content
+      setTimeout(() => attachNavigationHandlers(), 0);
     } catch (error) {
-      console.error("Error fetching HTML file:", error);
+      console.error(`Error fetching HTML file "${fileName}":`, error);
     }
   };
 
@@ -40,15 +43,36 @@ function TestHtml() {
     }
   };
 
+  const attachNavigationHandlers = () => {
+    const links = document.querySelectorAll("a");
+    links.forEach((link) => {
+      const href = link.getAttribute("href");
+      if (href && !href.startsWith("http") && href !== "#") {
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          navigateTo(href);
+        });
+      }
+    });
+  };
+
   // Expose the navigateTo function globally
   useEffect(() => {
     window.navigateTo = (fileName) => {
-      fetchHtml(fileName);
+      if (fileName) fetchHtml(fileName);
     };
 
     // Load the default page
     fetchHtml("index.html");
   }, []);
+
+  const navigateTo = async (fileName) => {
+    if (fileName) {
+      await fetchHtml(fileName);
+    } else {
+      console.error("File name is required for navigation.");
+    }
+  };
 
   return (
     <div>
