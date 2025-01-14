@@ -32,8 +32,11 @@ function TestHtml() {
         const fileUrl = await getDownloadURL(item);
         const fileName = item.name;
 
-        // Replace all occurrences of the filename in the HTML
-        html = html.replace(new RegExp(fileName, "g"), fileUrl);
+        // Replace relative paths in `src` and `link` tags but not `href` attributes
+        html = html.replace(
+          new RegExp(`(src|href)="(${fileName})"`, "g"),
+          (_, attr) => `${attr}="${fileUrl}"`
+        );
       }
 
       return html;
@@ -46,16 +49,16 @@ function TestHtml() {
   const attachNavigationHandlers = () => {
     const links = document.querySelectorAll("a");
     links.forEach((link) => {
-      link.addEventListener("click", (event) => {
-        const href = link.getAttribute("href");
-        if (href && !href.startsWith("http") && href !== "#") {
+      const href = link.getAttribute("href");
+      if (href && !href.startsWith("http") && href !== "#") {
+        link.addEventListener("click", (event) => {
           event.preventDefault();
 
-          // Extract only the filename from the link
+          // Extract only the filename from the href
           const fileName = href.split("/").pop();
           navigateTo(fileName);
-        }
-      });
+        });
+      }
     });
   };
 
