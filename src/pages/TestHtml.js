@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { getStorage, ref, getDownloadURL, listAll } from "firebase/storage";
 
 function TestHtml() {
   const [htmlContent, setHtmlContent] = useState("");
@@ -21,18 +21,23 @@ function TestHtml() {
   };
 
   const replaceRelativePaths = async (html, storage) => {
-    const replacements = {
-      "styles.css": "testingHtml/styles.css",
-      "imageOne.jpg": "testingHtml/imageOne.jpg",
-    };
+    try {
+      const folderRef = ref(storage, "testingHtml");
+      const fileList = await listAll(folderRef);
 
-    for (const [relativePath, storagePath] of Object.entries(replacements)) {
-      const fileRef = ref(storage, storagePath);
-      const fileUrl = await getDownloadURL(fileRef);
-      html = html.replace(new RegExp(relativePath, "g"), fileUrl);
+      for (const item of fileList.items) {
+        const fileUrl = await getDownloadURL(item);
+        const fileName = item.name;
+
+        // Replace all occurrences of the filename in the HTML
+        html = html.replace(new RegExp(fileName, "g"), fileUrl);
+      }
+
+      return html;
+    } catch (error) {
+      console.error("Error replacing relative paths:", error);
+      return html;
     }
-
-    return html;
   };
 
   // Expose the navigateTo function globally
