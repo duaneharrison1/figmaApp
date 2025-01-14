@@ -46,13 +46,16 @@ function TestHtml() {
   const attachNavigationHandlers = () => {
     const links = document.querySelectorAll("a");
     links.forEach((link) => {
-      const href = link.getAttribute("href");
-      if (href && !href.startsWith("http") && href !== "#") {
-        link.addEventListener("click", (event) => {
+      link.addEventListener("click", (event) => {
+        const href = link.getAttribute("href");
+        if (href && !href.startsWith("http") && href !== "#") {
           event.preventDefault();
-          navigateTo(href);
-        });
-      }
+
+          // Extract only the filename from the link
+          const fileName = href.split("/").pop();
+          navigateTo(fileName);
+        }
+      });
     });
   };
 
