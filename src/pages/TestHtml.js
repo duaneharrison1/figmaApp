@@ -7,7 +7,7 @@ function TestHtml() {
   const fetchHtml = async (fileName) => {
     try {
       const storage = getStorage();
-      const fileRef = ref(storage, `testingHtml/${fileName}`);
+      const fileRef = ref(storage, `testingTwoHtml/${fileName}`);
       const fileUrl = await getDownloadURL(fileRef);
 
       const response = await fetch(fileUrl);
