@@ -25,7 +25,7 @@ function TestHtml() {
 
   const replaceRelativePaths = async (html, storage) => {
     try {
-      const folderRef = ref(storage, "testingHtml");
+      const folderRef = ref(storage, "testingTwoHtml");
       const fileList = await listAll(folderRef);
 
       for (const item of fileList.items) {
