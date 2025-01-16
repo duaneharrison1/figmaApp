@@ -66,7 +66,7 @@ function TestHtml() {
   const evaluateScripts = () => {
     const container = document.createElement("div");
     container.innerHTML = htmlContent;
-
+  
     // Find and evaluate all <script> tags in the loaded HTML
     const scripts = container.querySelectorAll("script");
     scripts.forEach((script) => {
@@ -79,12 +79,29 @@ function TestHtml() {
           document.body.appendChild(newScript);
         } else {
           // If the script contains inline JavaScript, evaluate it
-          eval(script.innerHTML); // Note: Be cautious with `eval`
+          const functionCode = `(function() { ${script.innerHTML} })();`;
+          const globalFunction = new Function(functionCode);
+          globalFunction(); // Execute inline JavaScript
+  
+          // Optionally expose functions to the global scope if defined
+          const functionNames = extractFunctionNames(script.innerHTML);
+          functionNames.forEach((fnName) => {
+            if (window[fnName] === undefined) {
+              window[fnName] = new Function(script.innerHTML);
+            }
+          });
         }
       } catch (error) {
         console.error("Error evaluating script:", error);
       }
     });
+  };
+  
+  // Utility function to extract function names from inline JavaScript
+  const extractFunctionNames = (scriptContent) => {
+    const functionRegex = /function\s+([a-zA-Z0-9_]+)/g;
+    const matches = [...scriptContent.matchAll(functionRegex)];
+    return matches.map((match) => match[1]);
   };
 
   useEffect(() => {
