@@ -5,57 +5,19 @@ function TestHtml() {
   const [htmlContent, setHtmlContent] = useState("");
   const [executionTime, setExecutionTime] = useState(0);
 
-  const [fileCache, setFileCache] = useState({});  // Cache for storing file URLs
-  const [htmlCache, setHtmlCache] = useState({});  // Cache for storing HTML content
-
-  // Preload file URLs into cache
-  const preloadFiles = async () => {
-    const storage = getStorage();
-    const folderRef = ref(storage, "testingTwoHtml");
-    const fileList = await listAll(folderRef);
-
-    const cache = {};
-    const filePromises = fileList.items.map(async (item) => {
-      const fileUrl = await getDownloadURL(item);
-      cache[item.name] = fileUrl;
-    });
-
-    await Promise.all(filePromises);
-    setFileCache(cache);
-  };
-
-  // Preload paths on initial load
-  useEffect(() => {
-    preloadFiles();
-    fetchHtml("index.html"); // Load the default page
-  }, []);
-
-  // Fetch HTML file
   const fetchHtml = async (fileName) => {
-    if (htmlCache[fileName]) {
-      // Use cached HTML content if available
-      setHtmlContent(htmlCache[fileName]);
-      return;
-    }
-
     const startTime = performance.now(); // Start timer
     try {
       const storage = getStorage();
       const fileRef = ref(storage, `testingTwoHtml/${fileName}`);
-      const fileUrl = fileCache[fileName] || await getDownloadURL(fileRef); // Use cache or fetch URL
+      const fileUrl = await getDownloadURL(fileRef);
 
       const response = await fetch(fileUrl);
       let html = await response.text();
 
       // Replace relative paths and set content
-      html = await replaceRelativePaths(html);
+      html = await replaceRelativePaths(html, storage);
       setHtmlContent(html);
-
-      // Cache the HTML content for future use
-      setHtmlCache((prevCache) => ({
-        ...prevCache,
-        [fileName]: html,
-      }));
 
       // Attach navigation handlers and evaluate scripts after rendering
       setTimeout(() => {
@@ -70,16 +32,28 @@ function TestHtml() {
     }
   };
 
-  // Replace relative paths in HTML
-  const replaceRelativePaths = (html) => {
-    Object.keys(fileCache).forEach((fileName) => {
-      const fileUrl = fileCache[fileName];
-      html = html.replace(new RegExp(`(src|href)="(${fileName})"`, "g"), (_, attr) => `${attr}="${fileUrl}"`);
-    });
-    return html;
+  const replaceRelativePaths = async (html, storage) => {
+    try {
+      const folderRef = ref(storage, "testingTwoHtml");
+      const fileList = await listAll(folderRef);
+
+      for (const item of fileList.items) {
+        const fileUrl = await getDownloadURL(item);
+        const fileName = item.name;
+
+        html = html.replace(
+          new RegExp(`(src|href)="(${fileName})"`, "g"),
+          (_, attr) => `${attr}="${fileUrl}"`
+        );
+      }
+
+      return html;
+    } catch (error) {
+      console.error("Error replacing relative paths:", error);
+      return html;
+    }
   };
 
-  // Attach navigation handlers for links
   const attachNavigationHandlers = () => {
     const links = document.querySelectorAll("a");
     links.forEach((link) => {
@@ -95,7 +69,6 @@ function TestHtml() {
     });
   };
 
-  // Evaluate the scripts in the HTML
   const evaluateScripts = (html) => {
     const container = document.createElement("div");
     container.innerHTML = html;
@@ -121,7 +94,6 @@ function TestHtml() {
     });
   };
 
-  // Expose functions from inline scripts to the global scope
   const exposeFunctionsToGlobalScope = (scriptContent) => {
     const functionRegex = /function\s+([a-zA-Z0-9_]+)/g;
     const matches = [...scriptContent.matchAll(functionRegex)];
@@ -133,7 +105,15 @@ function TestHtml() {
     });
   };
 
-  // Navigate to a different HTML file
+  useEffect(() => {
+    window.navigateTo = (fileName) => {
+      if (fileName) fetchHtml(fileName);
+    };
+
+    // Load the default page
+    fetchHtml("index.html");
+  }, []);
+
   const navigateTo = async (fileName) => {
     if (fileName) {
       await fetchHtml(fileName);
