@@ -16,8 +16,11 @@ function TestHtml() {
       html = await replaceRelativePaths(html, storage);
       setHtmlContent(html);
 
-      // Attach custom navigation handlers after loading new content
-      setTimeout(() => attachNavigationHandlers(), 0);
+      // Attach custom navigation handlers and evaluate scripts
+      setTimeout(() => {
+        attachNavigationHandlers();
+        evaluateScripts();
+      }, 0);
     } catch (error) {
       console.error(`Error fetching HTML file "${fileName}":`, error);
     }
@@ -32,7 +35,6 @@ function TestHtml() {
         const fileUrl = await getDownloadURL(item);
         const fileName = item.name;
 
-        // Replace relative paths in `src` and `link` tags but not `href` attributes
         html = html.replace(
           new RegExp(`(src|href)="(${fileName})"`, "g"),
           (_, attr) => `${attr}="${fileUrl}"`
@@ -54,7 +56,6 @@ function TestHtml() {
         link.addEventListener("click", (event) => {
           event.preventDefault();
 
-          // Extract only the filename from the href
           const fileName = href.split("/").pop();
           navigateTo(fileName);
         });
@@ -62,7 +63,30 @@ function TestHtml() {
     });
   };
 
-  // Expose the navigateTo function globally
+  const evaluateScripts = () => {
+    const container = document.createElement("div");
+    container.innerHTML = htmlContent;
+
+    // Find and evaluate all <script> tags in the loaded HTML
+    const scripts = container.querySelectorAll("script");
+    scripts.forEach((script) => {
+      try {
+        if (script.src) {
+          // If the script has a src attribute, dynamically load it
+          const newScript = document.createElement("script");
+          newScript.src = script.src;
+          newScript.async = true;
+          document.body.appendChild(newScript);
+        } else {
+          // If the script contains inline JavaScript, evaluate it
+          eval(script.innerHTML); // Note: Be cautious with `eval`
+        }
+      } catch (error) {
+        console.error("Error evaluating script:", error);
+      }
+    });
+  };
+
   useEffect(() => {
     window.navigateTo = (fileName) => {
       if (fileName) fetchHtml(fileName);
