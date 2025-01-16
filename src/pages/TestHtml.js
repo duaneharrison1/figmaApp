@@ -3,8 +3,10 @@ import { getStorage, ref, getDownloadURL, listAll } from "firebase/storage";
 
 function TestHtml() {
   const [htmlContent, setHtmlContent] = useState("");
+  const [executionTime, setExecutionTime] = useState(0);
 
   const fetchHtml = async (fileName) => {
+    const startTime = performance.now(); // Start timer
     try {
       const storage = getStorage();
       const fileRef = ref(storage, `testingTwoHtml/${fileName}`);
@@ -24,6 +26,9 @@ function TestHtml() {
       }, 0);
     } catch (error) {
       console.error(`Error fetching HTML file "${fileName}":`, error);
+    } finally {
+      const endTime = performance.now(); // End timer
+      setExecutionTime(endTime - startTime); // Calculate execution time
     }
   };
 
@@ -119,6 +124,9 @@ function TestHtml() {
 
   return (
     <div>
+      <div>
+        <h3>Execution Time: {executionTime.toFixed(2)} millisecond</h3>
+      </div>
       {/* Render the HTML content dynamically */}
       <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
     </div>
