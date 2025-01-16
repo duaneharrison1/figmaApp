@@ -13,13 +13,14 @@ function TestHtml() {
       const response = await fetch(fileUrl);
       let html = await response.text();
 
+      // Replace relative paths and set content
       html = await replaceRelativePaths(html, storage);
       setHtmlContent(html);
 
-      // Attach custom navigation handlers and evaluate scripts
+      // Attach navigation handlers and evaluate scripts after rendering
       setTimeout(() => {
         attachNavigationHandlers();
-        evaluateScripts();
+        evaluateScripts(html);
       }, 0);
     } catch (error) {
       console.error(`Error fetching HTML file "${fileName}":`, error);
@@ -63,45 +64,40 @@ function TestHtml() {
     });
   };
 
-  const evaluateScripts = () => {
+  const evaluateScripts = (html) => {
     const container = document.createElement("div");
-    container.innerHTML = htmlContent;
-  
-    // Find and evaluate all <script> tags in the loaded HTML
+    container.innerHTML = html;
+
     const scripts = container.querySelectorAll("script");
     scripts.forEach((script) => {
       try {
         if (script.src) {
-          // If the script has a src attribute, dynamically load it
           const newScript = document.createElement("script");
           newScript.src = script.src;
           newScript.async = true;
           document.body.appendChild(newScript);
         } else {
-          // If the script contains inline JavaScript, evaluate it
-          const functionCode = `(function() { ${script.innerHTML} })();`;
-          const globalFunction = new Function(functionCode);
-          globalFunction(); // Execute inline JavaScript
-  
-          // Optionally expose functions to the global scope if defined
-          const functionNames = extractFunctionNames(script.innerHTML);
-          functionNames.forEach((fnName) => {
-            if (window[fnName] === undefined) {
-              window[fnName] = new Function(script.innerHTML);
-            }
-          });
+          const inlineCode = script.innerHTML;
+          const globalFunction = new Function(inlineCode);
+          globalFunction();
+
+          exposeFunctionsToGlobalScope(inlineCode);
         }
       } catch (error) {
         console.error("Error evaluating script:", error);
       }
     });
   };
-  
-  // Utility function to extract function names from inline JavaScript
-  const extractFunctionNames = (scriptContent) => {
+
+  const exposeFunctionsToGlobalScope = (scriptContent) => {
     const functionRegex = /function\s+([a-zA-Z0-9_]+)/g;
     const matches = [...scriptContent.matchAll(functionRegex)];
-    return matches.map((match) => match[1]);
+    matches.forEach((match) => {
+      const functionName = match[1];
+      if (!window[functionName]) {
+        window[functionName] = new Function(scriptContent);
+      }
+    });
   };
 
   useEffect(() => {
