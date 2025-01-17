@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getStorage, ref, getDownloadURL, listAll } from "firebase/storage";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 function TestHtml() {
   const [htmlContent, setHtmlContent] = useState("");
@@ -15,15 +15,9 @@ function TestHtml() {
       const response = await fetch(fileUrl);
       let html = await response.text();
 
-      // Replace relative paths and set content
+      // Replace relative paths in the HTML with their Firebase Storage URLs
       html = await replaceRelativePaths(html, storage);
       setHtmlContent(html);
-
-      // Attach navigation handlers and evaluate scripts after rendering
-      setTimeout(() => {
-        attachNavigationHandlers();
-        evaluateScripts(html);
-      }, 0);
     } catch (error) {
       console.error(`Error fetching HTML file "${fileName}":`, error);
     } finally {
@@ -34,17 +28,28 @@ function TestHtml() {
 
   const replaceRelativePaths = async (html, storage) => {
     try {
-      const folderRef = ref(storage, "testingTwoHtml");
-      const fileList = await listAll(folderRef);
+      // Extract all `src` and `href` attributes from the HTML
+      const resourceRegex = /(src|href)="([^"]+)"/g;
+      const matches = [...html.matchAll(resourceRegex)];
 
-      for (const item of fileList.items) {
-        const fileUrl = await getDownloadURL(item);
-        const fileName = item.name;
+      for (const match of matches) {
+        const [fullMatch, attr, relativePath] = match;
 
-        html = html.replace(
-          new RegExp(`(src|href)="(${fileName})"`, "g"),
-          (_, attr) => `${attr}="${fileUrl}"`
-        );
+        // Skip external URLs or already resolved paths
+        if (relativePath.startsWith("http") || relativePath.startsWith("//")) {
+          continue;
+        }
+
+        try {
+          // Get the Firebase Storage URL for the referenced file
+          const fileRef = ref(storage, `testingTwoHtml/${relativePath}`);
+          const fileUrl = await getDownloadURL(fileRef);
+
+          // Replace the relative path in the HTML with the resolved Firebase URL
+          html = html.replace(fullMatch, `${attr}="${fileUrl}"`);
+        } catch (error) {
+          console.warn(`Resource "${relativePath}" not found in storage.`);
+        }
       }
 
       return html;
@@ -54,58 +59,8 @@ function TestHtml() {
     }
   };
 
-  const attachNavigationHandlers = () => {
-    const links = document.querySelectorAll("a");
-    links.forEach((link) => {
-      const href = link.getAttribute("href");
-      if (href && !href.startsWith("http") && href !== "#") {
-        link.addEventListener("click", (event) => {
-          event.preventDefault();
-
-          const fileName = href.split("/").pop();
-          navigateTo(fileName);
-        });
-      }
-    });
-  };
-
-  const evaluateScripts = (html) => {
-    const container = document.createElement("div");
-    container.innerHTML = html;
-
-    const scripts = container.querySelectorAll("script");
-    scripts.forEach((script) => {
-      try {
-        if (script.src) {
-          const newScript = document.createElement("script");
-          newScript.src = script.src;
-          newScript.async = true;
-          document.body.appendChild(newScript);
-        } else {
-          const inlineCode = script.innerHTML;
-          const globalFunction = new Function(inlineCode);
-          globalFunction();
-
-          exposeFunctionsToGlobalScope(inlineCode);
-        }
-      } catch (error) {
-        console.error("Error evaluating script:", error);
-      }
-    });
-  };
-
-  const exposeFunctionsToGlobalScope = (scriptContent) => {
-    const functionRegex = /function\s+([a-zA-Z0-9_]+)/g;
-    const matches = [...scriptContent.matchAll(functionRegex)];
-    matches.forEach((match) => {
-      const functionName = match[1];
-      if (!window[functionName]) {
-        window[functionName] = new Function(scriptContent);
-      }
-    });
-  };
-
   useEffect(() => {
+    // Expose navigation function globally for links in the HTML
     window.navigateTo = (fileName) => {
       if (fileName) fetchHtml(fileName);
     };
