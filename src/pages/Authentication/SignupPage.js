@@ -154,7 +154,7 @@ export default function SignupPage(props) {
 
                     <div>
                         <PasswordTextField
-                            formLabel={t('verify-password')}
+                            formLabel={t('verifyy-password')}
                             className='password-input'
                             type="password"
                             id="confirm-password"
