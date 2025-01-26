@@ -62,7 +62,6 @@ function UserDashboard() {
         const fetchData = () => {
             if (user) {
                 try {
-                    console.log("deployedxxxx")
                     dbFirestore.collection("user").doc(user.uid).collection("url").orderBy('createdAt', 'desc').get().then(querySnapshot => {
                         const newData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
                         setData(newData);
@@ -77,7 +76,6 @@ function UserDashboard() {
                             } else {
                                 snapshot.forEach(subscription => {
                                     if (subscription.data().status == "active" || subscription.data().status == "trialing") {
-                                        console.log(subscription.data().items[0].plan.id)
                                         if (subscription.data().items[0].plan.id == process.env.REACT_APP_PRO || subscription.data().items[0].plan.id == process.env.REACT_APP_YEARLY) {
                                             setCanCreate("true")
                                             setSubscriptionType("annualPlan")
@@ -118,7 +116,6 @@ function UserDashboard() {
                         dbFirestore.collection('user').doc(user.uid).collection("payments").orderBy('created', 'desc').limit(1).get().then(snapshot => {
                             if (docCount !== 0 && snapshot.size !== 0) {
                                 setSubscriptionType("liteUser")
-                                console.log("wentHere lite user")
                             }
                         })
                     })
@@ -171,7 +168,6 @@ function UserDashboard() {
     }
 
     const MonthlyPayment = async (priceId) => {
-        console.log("xxxx" + process.env.REACT_APP_STRIPE_KEY)
         setUpgradeClick(true)
         setShowUpgradeModal(false);
         const docRef = await dbFirestore.collection('user').doc(user.uid).collection

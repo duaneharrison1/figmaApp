@@ -54,8 +54,6 @@ export default function SignupPage(props) {
 
 
     const onSubmit = async (e) => {
-        console.log("ffff" + figmaMobileUrl);
-        console.log("kkkk" + figmaDesktopUrl);
         e.preventDefault();
 
         if (password !== confirmPassword) {

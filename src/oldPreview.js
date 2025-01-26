@@ -84,7 +84,6 @@ export default function Preview() {
                 dbFirestore.collectionGroup('url').where('generatedUrl', '==', randomurl).get().then(snapshot => {
                     if (snapshot.docs.length !== 0) {
                         setRandomUrl(generateRandomString(10))
-                        console.log("secondRandomUrl " + randomurl)
                     }
                 })
             } catch (error) {
@@ -497,8 +496,6 @@ export default function Preview() {
         try {
             if (locationStateImgUrl != '') {
                 var faviconUrlFromFirebase = await uploadFaviconUrl(locationStateImgUrl, randomurl);
-                console.log("xxx" + faviconUrlFromFirebase)
-
             }
             const docRef = await dbFirestore.collection('user').doc(user.uid).collection
                 ("url").add({
@@ -527,11 +524,9 @@ export default function Preview() {
 
 
     const saveNewForm = async () => {
-        console.log(locationStateImgUrl != '')
         try {
             if (locationStateImgUrl != '') {
                 var faviconUrlFromFirebase = await uploadFaviconUrl(locationStateImgUrl, randomurl);
-                console.log("xxx" + faviconUrlFromFirebase)
             } else {
                 faviconUrlFromFirebase = ""
             }

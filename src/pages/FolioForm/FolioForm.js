@@ -221,7 +221,6 @@ export default function FolioForm() {
   }
 
   useEffect(() => {
-    console.log("wentHere" + subscriptionType);
     setRandomUrl(generateRandomString(10))
     if (password == "") {
       setPassword(generateRandomString(6))
@@ -232,7 +231,6 @@ export default function FolioForm() {
         dbFirestore.collectionGroup('url').where('generatedUrl', '==', randomurl).get().then(snapshot => {
           if (snapshot.docs.length !== 0) {
             setRandomUrl(generateRandomString(10))
-            console.log("secondRandomUrl " + randomurl)
           }
         })
       } catch (error) {
@@ -361,7 +359,6 @@ export default function FolioForm() {
     } else {
       try {
         var newFaviconImage = await uploadFaviconUrl(data, generatedUrl);
-        console.log("xxx" + newFaviconImage);
         const docRef = await dbFirestore.collection('user').doc(user.uid).collection("url").doc(randomurl).set({
           userId: user.uid,
           faviconUrl: newFaviconImage,
@@ -406,9 +403,6 @@ export default function FolioForm() {
     const salt = bcrypt.genSaltSync(10);
     const hashPassword = bcrypt.hashSync(password, salt);
     if (docId) {
-      if (oldDomain !== domain) {
-        console.log("wentHere1")
-      }
       try {
         await deleteDomainFromVercel();
         await addDomainToVercel();

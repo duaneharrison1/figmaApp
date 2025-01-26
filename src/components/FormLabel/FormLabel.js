@@ -36,7 +36,6 @@ export default function FormLabel(props) {
         setIsPasswordActive(newPasswordActiveState)
         props.sendNewPasswordStatus(newPasswordActiveState)
         setshowChangePasswordContainer(false);
-        console.log("newPasswordActiveState" + newPasswordActiveState)
     };
 
     const handleSave = () => {
@@ -45,7 +44,6 @@ export default function FormLabel(props) {
         if (newPassword.length < 6) {
             setIsError(true)
             setshowChangePasswordContainer(true);
-            console.log("wentHere1")
         } else {
             props.onChildPasswordHandle()
             setshowChangePasswordContainer(false);

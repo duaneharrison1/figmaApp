@@ -47,7 +47,6 @@ export default function ProfilePage() {
             if (user) {
                 try {
                     dbFirestore.collection('user').doc(user.uid).get().then(snapshot => {
-                        console.log("lll" + snapshot.data().name)
                         setName(snapshot.data().name)
                     })
                 } catch (error) {

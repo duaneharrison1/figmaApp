@@ -199,9 +199,6 @@ export const MobileFormDomain = (props) => {
     const salt = bcrypt.genSaltSync(10);
     const hashPassword = bcrypt.hashSync(password, salt);
     if (docId) {
-      if (oldDomain !== domain) {
-        console.log("wentHere1")
-      }
       try {
         await deleteDomainFromVercel();
         await addDomainToVercel();

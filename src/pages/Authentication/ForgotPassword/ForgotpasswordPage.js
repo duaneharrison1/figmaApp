@@ -33,18 +33,15 @@ export default function ForgotpasswordPage() {
     };
 
     const handleResetPassword = async (e) => {
-        console.log("fgff" + email)
         e.preventDefault();
         try {
             await sendPasswordResetEmail(auth, email);
             setResetEmailSent(true);
             setError(null);
-            console.log("xxx" + email)
         } catch (error) {
             if (error.message == "Firebase: Error (auth/user-not-found).") {
                 setError("Email address not found");
             }
-            console.log("yyy" + email)
             setResetEmailSent(false);
         }
     };

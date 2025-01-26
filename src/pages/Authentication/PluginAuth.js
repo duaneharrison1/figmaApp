@@ -39,8 +39,6 @@ export default function PluginAuth(props) {
     );
 
     useEffect(() => {
-        console.log("xxxx" + figmaDesktopUrl);
-        console.log("yyyyy" + figmaMobileUrl);
         window.innerWidth > 1280 ? setUserIsDesktop(true) : setUserIsDesktop(false);
     }, [userIsDesktop]);
 

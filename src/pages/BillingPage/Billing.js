@@ -85,7 +85,6 @@ export default function Billing() {
             else {
 
             }
-
         };
         fetchData();
     }, [user, subscriptionType]);

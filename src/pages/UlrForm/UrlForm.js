@@ -63,9 +63,6 @@ export default function UrlForm() {
     };
 
     const goToPreview = () => {
-
-        console.log(!figmaDesktopUrl.includes('figma.com/file'));
-
         if ((!figmaDesktopUrl.includes('figma.com/file') && !figmaMobileUrl.includes('figma.com/file')) &&
             (figmaMobileUrl.includes('figma.com/proto') || figmaMobileUrl.includes('figma.com/embed') ||
                 figmaDesktopUrl.includes('figma.com/proto') || figmaDesktopUrl.includes('figma.com/embed'))) {

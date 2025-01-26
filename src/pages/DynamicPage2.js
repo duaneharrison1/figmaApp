@@ -38,15 +38,11 @@ function DynamicPage2() {
       try {
         const domain = window.location.host.replace(/^(https?:\/\/)?(www\.)?/, '');
         const snapshot = await dbFirestore.collectionGroup('url').where('customDomain', '==', domain).get();
-
-
-        console.log("domain" + domain)
         if (!snapshot.empty) {
           const fetchedData = snapshot.docs[0].data();
 
           dbFirestore.collection('user').doc(fetchedData.userId).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
             snapshot.forEach(subscription => {
-              console.log("statusxxx" + subscription.data().status);
               if (subscription.data().status === "active" || subscription.data().status === "trialing") {
                 setUrlData({
                   desktop: fetchedData.urls.figmaDesktopUrl || fetchedData.urls.figmaMobileUrl,
@@ -62,19 +58,11 @@ function DynamicPage2() {
 
           const snapshotTwo = (await dbFirestore.collectionGroup('customDomain').get()).docs.filter(doc => doc.id == domain);
           if (!snapshotTwo.empty) {
-            console.log("test test 2")
             const fetchedDataTwo = snapshotTwo.docs[0].data();
-            console.log("fetchedDataTwo: " + fetchedDataTwo.title);
-            console.log("fetchedDataTwo: " + fetchedDataTwo.status);
-            console.log("fetchedDataTwo: " + fetchedDataTwo.urls.figmaDesktopUrl);
-            console.log("fetchedDataTwo: " + fetchedDataTwo.userId);
-
             if (fetchedDataTwo.status === "active" || fetchedDataTwo.status === "trialing") {
               console.log("fetchedDataTwo: user is active");
             }
           }
-
-
         } else {
           console.log("no domain")
         }

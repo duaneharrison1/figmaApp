@@ -90,7 +90,6 @@ export const MobileFormPassword = (props) => {
 
     useEffect(() => {
         setRandomUrl(generateRandomString(10))
-        console.log("ff" + isPasswordActive)
         if (password == "") {
             setPassword(generateRandomString(6))
         }
