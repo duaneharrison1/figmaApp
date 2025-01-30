@@ -28,13 +28,21 @@ function UserDashboard() {
     const [user, setUser] = useState(null);
     const [showModal, setShowModal] = useState(null);
     const [showUpgradeModal, setShowUpgradeModal] = useState(false);
-    const [canCreate, setCanCreate] = useState(null);
+    const [canCreate, setCanCreate] = useState({
+        figma: false,
+        html: false,
+
+    });
     const [docCount, setDocCount] = useState(null)
     const [trialConsume, setTrialConsume] = useState(null)
     const [subscriptionType, setSubscriptionType] = useState("")
     const [changeSubPlan, setChangeSubPlan] = useState(null)
     const dbFirestore = firebase.firestore();
     const [loading, setLoading] = useState(true);
+    const [siteCounts, setSiteCounts] = useState({
+        figma: 0,
+        html: 0,
+    });
 
     useEffect(() => {
         let link = document.querySelector("link[rel~='icon']");
@@ -59,55 +67,65 @@ function UserDashboard() {
     }, [user]);
 
     useEffect(() => {
-        const fetchData = () => {
+        const fetchData = async () => {
             if (user) {
                 try {
                     console.log("deployedxxxx")
                     dbFirestore.collection("user").doc(user.uid).collection("url").orderBy('createdAt', 'desc').get().then(querySnapshot => {
-                        const newData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+                        const newData = querySnapshot.docs.map((doc) => ({
+                             ...doc.data(), 
+                             id: doc.id,
+                             siteType: doc.data().siteType || "figma" }));
+
+                             const figmaCount = newData.filter((site) => site.siteType === "figma").length;
+                             const htmlCount = newData.filter((site) => site.siteType === "html").length;
+
                         setData(newData);
                         setDocCount(querySnapshot.size)
+                        setSiteCounts({figma: figmaCount,
+                                       html: htmlCount
+                        })
+
+                        //Fetch Subscription Data
                         dbFirestore.collection('user').doc(user.uid).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
                             if (docCount === 0 && snapshot.size === 0) {
-                                setCanCreate("true")
+                                setCanCreate({figma: true, html: true})
                                 setSubscriptionType("regular")
                             } else if (docCount != 0 && snapshot.size === 0) {
-                                setCanCreate("false")
+                                setCanCreate({figma: false, html: false})
                                 setSubscriptionType("regular")
                             } else {
                                 snapshot.forEach(subscription => {
                                     if (subscription.data().status == "active" || subscription.data().status == "trialing") {
                                         console.log(subscription.data().items[0].plan.id)
                                         if (subscription.data().items[0].plan.id == process.env.REACT_APP_PRO || subscription.data().items[0].plan.id == process.env.REACT_APP_YEARLY) {
-                                            setCanCreate("true")
+                                            setCanCreate({figma: true, html: true})
                                             setSubscriptionType("annualPlan")
                                         } else if (subscription.data().items[0].plan.id == process.env.REACT_APP_BASIC && docCount <= 4 || subscription.data().items[0].plan.id == process.env.REACT_APP_MONTHLY && docCount <= 4) {
-                                            setCanCreate("true")
+                                            setCanCreate({figma: true, html: true})
                                             setChangeSubPlan("true")
                                             setSubscriptionType("monthlyPlan")
                                         } else {
-                                            setCanCreate("false")
+                                            setCanCreate({figma: false, html: false})
                                         }
                                     } else if (subscription.data().status == "canceled" || subscription.data().status == "past_due") {
                                         setTrialConsume("true")
                                         if (docCount === 0) {
-                                            setCanCreate("true")
+                                            setCanCreate({figma: figmaCount<1, html: htmlCount<1})
                                             setSubscriptionType("regular")
                                         } else {
-                                            setCanCreate("false")
                                             setSubscriptionType("regular")
                                         }
                                     } else {
                                         if (docCount >= 1) {
-                                            setCanCreate("false")
                                             setSubscriptionType("regular")
                                         } else {
-                                            setCanCreate("true")
+                                            setCanCreate({figma: figmaCount<1, html: htmlCount<1})
                                             setSubscriptionType("regular")
                                         }
                                     }
                                 }
-                                )
+                                )   
                             }
                             setTimeout(() => {
                                 setLoading(false);
@@ -225,13 +243,19 @@ function UserDashboard() {
         navigate("/" + currentLanguage + '/folio-form', { state: { object, subscriptionType: subscriptionType, trialConsume: trialConsume } });
     }
 
-    const goToNewForm = () => {
-        if (canCreate === "true" && docCount !== null) {
-            navigate("/" + currentLanguage + '/folio-form', { state: { subscriptionType: subscriptionType, trialConsume: trialConsume } });
-        } else if (canCreate === "false" && docCount !== null) {
-            setShowUpgradeModal(true);
-        }
-    }
+    // const goToNewForm = () => {
+    //     if (canCreate === "true" && docCount !== null) {
+    //         navigate("/" + currentLanguage + '/folio-form', { state: { subscriptionType: subscriptionType, trialConsume: trialConsume } });
+    //     } else if (canCreate === "false" && docCount !== null) {
+    //         setShowUpgradeModal(true);
+    //     }
+    // }
+
+    const handleNewSiteClick = (siteType) => {
+        console.log(`Creating a new ${siteType} site`);
+        // Navigate to the appropriate form or perform other actions
+        navigate("/folio-form", { state: { siteType } });
+    };
 
     return (
         <>
@@ -268,7 +292,7 @@ function UserDashboard() {
                                                     }
                                                 </div>
                                                 <div className='col-md-4 new-site-container'>
-                                                    <NewSiteButton className={"new-site"} onClick={goToNewForm}> </NewSiteButton>
+                                                    <NewSiteButton className={"new-site"} onClick={handleNewSiteClick}> </NewSiteButton>
                                                     {/* <ButtonColored label={  t('new-site')} className="new-site" onClick={goToNewForm}>
                                                     </ButtonColored> */}
                                                 </div>
