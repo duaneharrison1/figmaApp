@@ -68,7 +68,7 @@ export default function Billing() {
                                     if (status === "active") {
                                         // Check for Monthly Plans
                                         if (
-                                            planID === process.env.REACT_APP_BASIC||
+                                            planId === process.env.REACT_APP_BASIC||
                                             planId === process.env.REACT_APP_MONTHLY_FIVE ||
                                             planId === process.env.REACT_APP_MONTHLY_FOUR ||
                                             planId === process.env.REACT_APP_MONTHLY_THREE ||
@@ -79,7 +79,7 @@ export default function Billing() {
                                         }
                                         // Check for Yearly Plans
                                         else if (
-                                            planID === process.env.REACT_APP_PRO||
+                                            planId === process.env.REACT_APP_PRO||
                                             planId === process.env.REACT_APP_YEARLY_FIVE ||
                                             planId === process.env.REACT_APP_YEARLY_FOUR ||
                                             planId === process.env.REACT_APP_YEARLY_THREE ||
