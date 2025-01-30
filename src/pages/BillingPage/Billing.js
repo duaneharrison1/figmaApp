@@ -54,39 +54,68 @@ export default function Billing() {
                     }).then(
                         dbFirestore.collection('user').doc(user.uid).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
                             if (snapshot.empty) {
-                                setSubscriptionType("regular")
-                                setSubscriptionTypeDesc(t('billed-monthly-at-o'))
+                                setSubscriptionType("regular");
+                                setSubscriptionTypeDesc(t('billed-monthly-at-o'));
                             } else {
+                                let currentSubscriptionType = "regular";
+                                let subscriptionDesc = t('billed-monthly-at-o');
+                                
                                 snapshot.forEach(subscription => {
-                                    if (subscription.data().status == "active") {
-                                        if (subscription.data().items[0].plan.id == process.env.REACT_APP_PRO) {
-                                            setSubscriptionType("annualPlan")
-                                        } else if (subscription.data().items[0].plan.id == process.env.REACT_APP_BASIC) {
-                                            setSubscriptionType("monthlyPlan")
-                                        } else {
-                                            setSubscriptionType("regular")
+                                    const subscriptionData = subscription.data();
+                                    const status = subscriptionData.status;
+                                    const planId = subscriptionData.items[0].plan.id;
+                            
+                                    if (status === "active") {
+                                        // Check for Monthly Plans
+                                        if (
+                                            planId === process.env.REACT_APP_MONTHLY_FIVE ||
+                                            planId === process.env.REACT_APP_MONTHLY_FOUR ||
+                                            planId === process.env.REACT_APP_MONTHLY_THREE ||
+                                            planId === process.env.REACT_APP_MONTHLY_TWO
+                                        ) {
+                                            currentSubscriptionType = "monthlyPlan";
+                                            subscriptionDesc = t('billed-monthly-at-five'); // Adjust description based on plan
                                         }
-                                    } else if (subscription.data().status == "canceled") {
-                                        setSubscriptionType("regular")
-                                        setSubscriptionTypeDesc(t('billed-monthly-at-o'))
-                                        setTrialConsume("true")
-
-                                    } else {
-                                        setSubscriptionType("regular")
-                                        setSubscriptionTypeDesc(t('billed-monthly-at-o'))
+                                        // Check for Yearly Plans
+                                        else if (
+                                            planId === process.env.REACT_APP_YEARLY_FIVE ||
+                                            planId === process.env.REACT_APP_YEARLY_FOUR ||
+                                            planId === process.env.REACT_APP_YEARLY_THREE ||
+                                            planId === process.env.REACT_APP_YEARLY_TWO
+                                        ) {
+                                            currentSubscriptionType = "annualPlan";
+                                            subscriptionDesc = t('billed-as-one-payment'); // Adjust description for yearly
+                                        }
+                                        else {
+                                            currentSubscriptionType = "regular";
+                                        }
+                                    } else if (status === "canceled") {
+                                        currentSubscriptionType = "regular";
+                                        subscriptionDesc = t('billed-monthly-at-o');
+                                        setTrialConsume("true");
                                     }
-
-                                    if (subscriptionType == "regular") {
-                                        setSubscriptionTypeDesc(t('billed-monthly-at-o'))
-                                    } else if (subscriptionType == "monthlyPlan") {
-                                        setSubscriptionTypeText("Monthly Plan")
-                                        setSubscriptionTypeDesc(t('billed-monthly-at-five'))
-                                    } else if (subscriptionType == "annualPlan") {
-                                        setSubscriptionTypeDesc(t('billed-as-one-payment'))
-                                        setSubscriptionTypeText("Yearly Plan")
-                                    }
-                                })
+                                });
+                            
+                                setSubscriptionType(currentSubscriptionType);
+                            
+                                // Set text and description based on the final subscription type
+                                switch (currentSubscriptionType) {
+                                    case "regular":
+                                        setSubscriptionTypeDesc(subscriptionDesc);
+                                        break;
+                                    case "monthlyPlan":
+                                        setSubscriptionTypeText("Monthly Plan");
+                                        setSubscriptionTypeDesc(subscriptionDesc);
+                                        break;
+                                    case "annualPlan":
+                                        setSubscriptionTypeText("Yearly Plan");
+                                        setSubscriptionTypeDesc(subscriptionDesc);
+                                        break;
+                                    default:
+                                        setSubscriptionTypeDesc(subscriptionDesc);
+                                }
                             }
+                            
 
                         })
                     )
