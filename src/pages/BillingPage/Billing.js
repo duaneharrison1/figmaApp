@@ -9,6 +9,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import PaymentSelectionModal from '../../components/PaymentSelection/PaymentSelection';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
+//test
 
 export default function Billing() {
     const { t } = useTranslation();
