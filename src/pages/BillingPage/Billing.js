@@ -22,6 +22,17 @@ export default function Billing() {
     const [name, setName] = useState([]);
     const lng = navigator.language;
     const [trialConsume, setTrialConsume] = useState(null)
+    const [dynamicPriceId, setDynamicPriceId] = useState(
+        {
+            basicId: process.env.REACT_APP_BASIC,
+            proId: process.env.REACT_APP_PRO
+        }
+    )
+
+
+
+
+
     // useEffect(() => {
 
     //     i18n.changeLanguage(lng);
@@ -88,6 +99,84 @@ export default function Billing() {
         };
         fetchData();
     }, [user, subscriptionType]);
+
+
+
+     // Function to fetch user country and adjust pricing accordingly
+     const getUserLocationAndSetPrice = async () => {
+        try {
+            const res = await fetch('https://ipinfo.io?token=b259d22dc84b2e');  // Replace with your API token
+            const data = await res.json();
+            const userCountry = data.country;
+
+            /**
+             * REACT_APP_MONTHLY_FIVE=price_1ONTZXJyvkMmBNuRWbYtaMwL
+                REACT_APP_MONTHLY_FOUR=price_1QmvdcJyvkMmBNuRZOGrSpsA
+                REACT_APP_MONTHLY_THREE=price_1QmvfaJyvkMmBNuRElK3XZi5
+                REACT_APP_MONTHLY_TWO=price_1QmvhMJyvkMmBNuRYc1fOenx
+
+                REACT_APP_YEARLY_FIVE=price_1ONTZvJyvkMmBNuRn0a8XUNq
+                REACT_APP_YEARLY_FOUR=price_1QmvecJyvkMmBNuRKYHIvIGc
+                REACT_APP_YEARLY_THREE=price_1QmvgMJyvkMmBNuR1BQgIkJO
+                REACT_APP_YEARLY_TWO=price_1QmviAJyvkMmBNuRVyuTidKP
+             */
+
+
+            const countryGroups = {
+                "highestPricedCountries":["US"],
+                "highPricedCountries":["IE", "GB", "FR", "JP", "KR", "IL", "IT"],
+                "mediumPricedCountries": ["TW", "ES", "PT", "PL"],
+                "lowPricedCountries":["MY", "CN", "AR", "BR"],
+                "lowestPricedCountries":["TH", "VN", "ID", "PH", "IN", "NG"]  
+            }
+
+            // Set dynamic price IDs based on country
+            if (countryGroups.highestPricedCountries.includes(userCountry)) {
+                setDynamicPriceId({
+                    monthlyPriceId: process.env.REACT_APP_BASIC,
+                    yearlyPriceId: process.env.REACT_APP_PRO,
+                });
+            } else if (countryGroups.highPricedCountries.includes(userCountry)) {
+                setDynamicPriceIds({
+                    monthlyPriceId: process.env.REACT_APP_MONTHLY_FIVE,  // Assume you have a separate price ID for GB
+                    yearlyPriceId: process.env.REACT_APP_YEARLY_FIVE,
+                });
+            } else if (countryGroups.mediumPricedCountries.includes(userCountry)) {
+                setDynamicPriceIds({
+                    monthlyPriceId: process.env.REACT_APP_MONTHLY_FOUR,  // Assume you have a separate price ID for IN
+                    yearlyPriceId: process.env.REACT_APP_YEARLY_FOUR,
+                });
+            } else if (countryGroups.lowPricedCountries.includes(userCountry)) {
+                setDynamicPriceIds({
+                    monthlyPriceId: process.env.REACT_APP_MONTHLY_THREE,  // Assume you have a separate price ID for IN
+                    yearlyPriceId: process.env.REACT_APP_YEARLY_THREE,
+                });
+            } else if (countryGroups.lowPricedCountries.includes(userCountry)) {
+                setDynamicPriceIds({
+                    monthlyPriceId: process.env.REACT_APP_MONTHLY_TWO,  // Assume you have a separate price ID for IN
+                    yearlyPriceId: process.env.REACT_APP_YEARLY_TWO,
+                });
+            } else {
+                // Default to US prices if country is unknown
+                setDynamicPriceIds({
+                    monthlyPriceId: process.env.REACT_APP_BASIC,
+                    yearlyPriceId: process.env.REACT_APP_PRO,
+                });
+            }
+        } catch (error) {
+            console.error('Error fetching location:', error);
+        }
+    };
+
+    useEffect(() => {
+        getUserLocationAndSetPrice(); // Fetch location and set price IDs on component mount
+    }, []);
+
+
+
+
+
+
 
     const ManagePlan = () => {
         window.open('https://billing.stripe.com/p/login/cN24habbC4JMga44gg', '_blank');
@@ -194,8 +283,8 @@ export default function Billing() {
                 monthlySubscription={subscriptionType}
                 show={showUpgradeModal}
                 handleClose={handleCloseUpgradeModal}
-                handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_BASIC)}
-                handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_PRO)} />
+                handleMonthlyPayment={() => MonthlyPayment(dynamicPriceIds.monthlyPriceId)}
+                handleYearlyPayment={() => yearlyPayment(dynamicPriceIds.yearlyPriceId)} />
         </>
 
     )
