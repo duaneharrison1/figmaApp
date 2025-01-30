@@ -24,8 +24,8 @@ export default function Billing() {
     const [trialConsume, setTrialConsume] = useState(null)
     const [dynamicPriceId, setDynamicPriceId] = useState(
         {
-            basicId: process.env.REACT_APP_BASIC,
-            proId: process.env.REACT_APP_PRO
+            monthlyPriceId: process.env.REACT_APP_BASIC,
+            yearlyPriceId: process.env.REACT_APP_PRO
         }
     )
 
@@ -120,6 +120,8 @@ export default function Billing() {
                 REACT_APP_YEARLY_THREE=price_1QmvgMJyvkMmBNuR1BQgIkJO
                 REACT_APP_YEARLY_TWO=price_1QmviAJyvkMmBNuRVyuTidKP
              */
+                
+                console.log(userCountry);
 
 
             const countryGroups = {
@@ -151,7 +153,7 @@ export default function Billing() {
                     monthlyPriceId: process.env.REACT_APP_MONTHLY_THREE,  // Assume you have a separate price ID for IN
                     yearlyPriceId: process.env.REACT_APP_YEARLY_THREE,
                 });
-            } else if (countryGroups.lowPricedCountries.includes(userCountry)) {
+            } else if (countryGroups.lowestPricedCountries.includes(userCountry)) {
                 setDynamicPriceIds({
                     monthlyPriceId: process.env.REACT_APP_MONTHLY_TWO,  // Assume you have a separate price ID for IN
                     yearlyPriceId: process.env.REACT_APP_YEARLY_TWO,
