@@ -121,7 +121,8 @@ export default function Billing() {
                 REACT_APP_YEARLY_TWO=price_1QmviAJyvkMmBNuRVyuTidKP
              */
                 
-                console.log(userCountry);
+                console.log('Country:', userCountry);
+                console.log('Dynamic Price IDs:', dynamicPriceId);
 
 
             const countryGroups = {
@@ -139,28 +140,28 @@ export default function Billing() {
                     yearlyPriceId: process.env.REACT_APP_PRO,
                 });
             } else if (countryGroups.highPricedCountries.includes(userCountry)) {
-                setDynamicPriceIds({
+                setDynamicPriceId({
                     monthlyPriceId: process.env.REACT_APP_MONTHLY_FIVE,  // Assume you have a separate price ID for GB
                     yearlyPriceId: process.env.REACT_APP_YEARLY_FIVE,
                 });
             } else if (countryGroups.mediumPricedCountries.includes(userCountry)) {
-                setDynamicPriceIds({
+                setDynamicPriceId({
                     monthlyPriceId: process.env.REACT_APP_MONTHLY_FOUR,  // Assume you have a separate price ID for IN
                     yearlyPriceId: process.env.REACT_APP_YEARLY_FOUR,
                 });
             } else if (countryGroups.lowPricedCountries.includes(userCountry)) {
-                setDynamicPriceIds({
+                setDynamicPriceId({
                     monthlyPriceId: process.env.REACT_APP_MONTHLY_THREE,  // Assume you have a separate price ID for IN
                     yearlyPriceId: process.env.REACT_APP_YEARLY_THREE,
                 });
             } else if (countryGroups.lowestPricedCountries.includes(userCountry)) {
-                setDynamicPriceIds({
+                setDynamicPriceId({
                     monthlyPriceId: process.env.REACT_APP_MONTHLY_TWO,  // Assume you have a separate price ID for IN
                     yearlyPriceId: process.env.REACT_APP_YEARLY_TWO,
                 });
             } else {
                 // Default to US prices if country is unknown
-                setDynamicPriceIds({
+                setDynamicPriceId({
                     monthlyPriceId: process.env.REACT_APP_BASIC,
                     yearlyPriceId: process.env.REACT_APP_PRO,
                 });
@@ -285,8 +286,8 @@ export default function Billing() {
                 monthlySubscription={subscriptionType}
                 show={showUpgradeModal}
                 handleClose={handleCloseUpgradeModal}
-                handleMonthlyPayment={() => MonthlyPayment(dynamicPriceIds.monthlyPriceId)}
-                handleYearlyPayment={() => yearlyPayment(dynamicPriceIds.yearlyPriceId)} />
+                handleMonthlyPayment={() => MonthlyPayment(dynamicPriceId.monthlyPriceId)}
+                handleYearlyPayment={() => yearlyPayment(dynamicPriceId.yearlyPriceId)} />
         </>
 
     )
