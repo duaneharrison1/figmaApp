@@ -45,6 +45,20 @@ function UserDashboard() {
     });
 
     useEffect(() => {
+        if (subscriptionType === "regular") {
+            setCanCreate({
+                figma: siteCounts.figma < 1,
+                html: siteCounts.html < 1,
+            });
+        } else if (subscriptionType === "monthlyPlan" || subscriptionType === "annualPlan") {
+            setCanCreate({
+                figma: true,
+                html: true,
+            });
+        }
+    }, [subscriptionType, siteCounts]);
+
+    useEffect(() => {
         let link = document.querySelector("link[rel~='icon']");
         if (!link) {
             link = document.createElement('link');
@@ -88,45 +102,50 @@ function UserDashboard() {
 
                         //Fetch Subscription Data
                         dbFirestore.collection('user').doc(user.uid).collection("subscriptions").orderBy('created', 'desc').limit(1).get().then(snapshot => {
-                            if (docCount === 0 && snapshot.size === 0) {
-                                setCanCreate({figma: true, html: true})
-                                setSubscriptionType("regular")
-                            } else if (docCount != 0 && snapshot.size === 0) {
-                                setCanCreate({figma: false, html: false})
-                                setSubscriptionType("regular")
+                            let canCreateFigma = false;
+                            let canCreateHtml = false;
+                            let subscriptionType = "regular";
+                        
+                            if (snapshot.size === 0) {
+                                // Free user (no subscription)
+                                canCreateFigma = figmaCount < 1;
+                                canCreateHtml = htmlCount < 1;
                             } else {
-                                snapshot.forEach(subscription => {
-                                    if (subscription.data().status == "active" || subscription.data().status == "trialing") {
-                                        console.log(subscription.data().items[0].plan.id)
-                                        if (subscription.data().items[0].plan.id == process.env.REACT_APP_PRO || subscription.data().items[0].plan.id == process.env.REACT_APP_YEARLY) {
-                                            setCanCreate({figma: true, html: true})
-                                            setSubscriptionType("annualPlan")
-                                        } else if (subscription.data().items[0].plan.id == process.env.REACT_APP_BASIC && docCount <= 4 || subscription.data().items[0].plan.id == process.env.REACT_APP_MONTHLY && docCount <= 4) {
-                                            setCanCreate({figma: true, html: true})
-                                            setChangeSubPlan("true")
-                                            setSubscriptionType("monthlyPlan")
-                                        } else {
-                                            setCanCreate({figma: false, html: false})
-                                        }
-                                    } else if (subscription.data().status == "canceled" || subscription.data().status == "past_due") {
-                                        setTrialConsume("true")
-                                        if (docCount === 0) {
-                                            setCanCreate({figma: figmaCount<1, html: htmlCount<1})
-                                            setSubscriptionType("regular")
-                                        } else {
-                                            setSubscriptionType("regular")
-                                        }
-                                    } else {
-                                        if (docCount >= 1) {
-                                            setSubscriptionType("regular")
-                                        } else {
-                                            setCanCreate({figma: figmaCount<1, html: htmlCount<1})
-                                            setSubscriptionType("regular")
-                                        }
+                                const subscription = snapshot.docs[0].data();
+                                const planId = subscription.items[0].plan.id;
+                                const isActive = subscription.status === "active" || subscription.status === "trialing";
+                                const isCanceled = subscription.status === "canceled" || subscription.status === "past_due";
+                        
+                                if (isActive) {
+                                    if (planId === process.env.REACT_APP_PRO || planId === process.env.REACT_APP_YEARLY) {
+                                        // Pro or annual plan: Allow unlimited sites
+                                        canCreateFigma = true;
+                                        canCreateHtml = true;
+                                        subscriptionType = "annualPlan";
+                                    } else if (planId === process.env.REACT_APP_BASIC || planId === process.env.REACT_APP_MONTHLY) {
+                                        // Basic or monthly plan: Allow one Figma site and one HTML site
+                                        canCreateFigma = figmaCount < 1;
+                                        canCreateHtml = htmlCount < 1;
+                                        subscriptionType = "monthlyPlan";
                                     }
+                                } else if (isCanceled) {
+                                    // Subscription canceled or past due: Treat as free user
+                                    setTrialConsume("true");
+                                    canCreateFigma = figmaCount < 1;
+                                    canCreateHtml = htmlCount < 1;
                                 }
-                                )   
                             }
+                        
+                            // Default case for free users
+                            if (subscriptionType === "regular") {
+                                canCreateFigma = figmaCount < 1;
+                                canCreateHtml = htmlCount < 1;
+                            }
+                        
+                            // Update state
+                            setCanCreate({ figma: canCreateFigma, html: canCreateHtml });
+                            setSubscriptionType(subscriptionType);
+                        
                             setTimeout(() => {
                                 setLoading(false);
                             }, 2000);
@@ -252,11 +271,18 @@ function UserDashboard() {
     }
 
     const handleNewSiteClick = (siteType) => {
-        console.log(`Creating a new ${siteType} site`);
-        // Navigate to the appropriate form or perform other actions
-        navigate("/folio-form", { state: { siteType } });
-    };
+        if (canCreate[siteType]) {
 
+            dbFirestore.collection("user").doc(user.uid).collection("url").add({
+                siteType: siteType, 
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),})
+            console.log(`Creating a new ${siteType} site`);
+            navigate("/" + currentLanguage + "/folio-form", { state: { siteType, subscriptionType, trialConsume } });
+        } else {
+            alert(`You have reached the limit for ${siteType} sites.`);
+            showUpgradeModal(true);
+        }
+    };
     return (
         <>
             {upgradeClick ? (
@@ -292,7 +318,7 @@ function UserDashboard() {
                                                     }
                                                 </div>
                                                 <div className='col-md-4 new-site-container'>
-                                                    <NewSiteButton className={"new-site"} onClick={handleNewSiteClick}> </NewSiteButton>
+                                                    <NewSiteButton className={"new-site"} onClick={handleNewSiteClick} canCreate={canCreate}> </NewSiteButton>
                                                     {/* <ButtonColored label={  t('new-site')} className="new-site" onClick={goToNewForm}>
                                                     </ButtonColored> */}
                                                 </div>
