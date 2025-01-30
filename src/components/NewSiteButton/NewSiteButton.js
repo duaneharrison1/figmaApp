@@ -1,3 +1,6 @@
+import React, { useState } from 'react';
+import plusImage from '../../assets/images/plus.png';
+
 function NewSiteButton(props) {
   const { onClick, className, canCreate } = props;
   const [showModal, setShowModal] = useState(false);
