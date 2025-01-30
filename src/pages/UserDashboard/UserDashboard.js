@@ -243,13 +243,13 @@ function UserDashboard() {
         navigate("/" + currentLanguage + '/folio-form', { state: { object, subscriptionType: subscriptionType, trialConsume: trialConsume } });
     }
 
-    // const goToNewForm = () => {
-    //     if (canCreate === "true" && docCount !== null) {
-    //         navigate("/" + currentLanguage + '/folio-form', { state: { subscriptionType: subscriptionType, trialConsume: trialConsume } });
-    //     } else if (canCreate === "false" && docCount !== null) {
-    //         setShowUpgradeModal(true);
-    //     }
-    // }
+    const goToNewForm = () => {
+        if (canCreate === "true" && docCount !== null) {
+            navigate("/" + currentLanguage + '/folio-form', { state: { subscriptionType: subscriptionType, trialConsume: trialConsume } });
+        } else if (canCreate === "false" && docCount !== null) {
+            setShowUpgradeModal(true);
+        }
+    }
 
     const handleNewSiteClick = (siteType) => {
         console.log(`Creating a new ${siteType} site`);
