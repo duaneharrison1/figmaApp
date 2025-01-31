@@ -64,7 +64,7 @@ export default function Billing() {
                                     const status = subscriptionData.status.plan;
                                     const planId = subscriptionData.items[0].plan.id;
 
-                                    if (status === "active" || status === "trialing") {
+                                    if (status === "active") {
                                         // Check for Monthly Plans and assign the corresponding descriptions
                                         if (
                                             planId === process.env.REACT_APP_BASIC
