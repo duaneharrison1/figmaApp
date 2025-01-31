@@ -8,16 +8,76 @@ import freeImage from '../../assets/images/free-img@2x.png';
 import BasicImage from '../../assets/images/basic-img@2x.png';
 import ProImage from '../../assets/images/pro-img@2x.png';
 import CloseIcon from '../../assets/images/close-icon.png';
-
 import { useTranslation } from 'react-i18next';
 
 const PaymentSelection = (props) => {
-    const { show, handleClose, handleMonthlyPayment, handleYearlyPayment, monthlySubscription } = props;
+    const { show, handleClose, handleMonthlyPayment, handleYearlyPayment, monthlySubscription,dynamicPriceId} = props;
     const { t } = useTranslation();
 
     const ManagePlan = () => {
         window.open('https://billing.stripe.com/p/login/cN24habbC4JMga44gg', '_blank');
     }
+
+    const priceDetails = {
+
+        [process.env.REACT_APP_BASIC]: {
+            amount: '$6',
+            period: '/month',
+            billDesc: t('billed-monthly-at-six'),
+        },
+        [process.env.REACT_APP_MONTHLY_FIVE]: {
+            amount: '$5',
+            period: '/month',
+            billDesc: t('billed-monthly-at-five'),
+        },
+        [process.env.REACT_APP_MONTHLY_FOUR]: {
+            amount: '$4',
+            period: '/month',
+            billDesc: t('billed-monthly-at-four'),
+        },
+        [process.env.REACT_APP_MONTHLY_THREE]: {
+            amount: '$3',
+            period: '/month',
+            billDesc: t('billed-monthly-at-three'),
+        },
+        [process.env.REACT_APP_MONTHLY_TWO]: {
+            amount: '$2',
+            period: '/month',
+            billDesc: t('billed-monthly-at-two'),
+        },
+        [process.env.REACT_APP_PRO]: {
+            amount: '$58',
+            period: '/year',
+            billDesc: t('billed-monthly-at-two'),
+        },
+        [process.env.REACT_APP_YEARLY_FIVE]: {
+            amount: '$48',
+            period: '/year',
+            billDesc: t('billed-as-one-payment'),
+        },
+        [process.env.REACT_APP_YEARLY_FOUR]: {
+            amount: '$39',
+            period: '/year',
+            billDesc: t('billed-as-one-payment'),
+        },
+        [process.env.REACT_APP_YEARLY_THREE]: {
+            amount: '$29',
+            period: '/year',
+            billDesc: t('billed-as-one-payment'),
+        },
+        [process.env.REACT_APP_YEARLY_TWO]: {
+            amount: '$19',
+            period: '/year',
+            billDesc: t('billed-as-one-payment'),
+        },
+    };
+
+    const monthlyPriceDetails = priceDetails[dynamicPriceId.monthlyPriceId];
+    const yearlyPriceDetails = priceDetails[dynamicPriceId.yearlyPriceId];
+
+
+
+
 
     const PlanCard = ({ planIcon, title, amount, month, billDesc, features, buttonLabel, buttonClass, onClick }) => (
         <div className='col-xl-4'>
@@ -64,9 +124,7 @@ const PaymentSelection = (props) => {
         {
             planIcon: BasicImage,
             title: 'Basic',
-            amount: '$6',
-            month: '/month',
-            billDesc: 'Billed as 6 USD monthly after the trial period',
+            ...monthlyPriceDetails,
             features: [t('monthly-feat-one'), t('monthly-yearly-feat-two'), t('removes-made-with'),'Password protection', 'Customize Favicon'],
             buttonLabel: monthlySubscription === "monthlyPlan" ? t('current-plan') : "Start free 7 day trial",
             buttonClass: monthlySubscription === "monthlyPlan" ? 'btn-current-plan' : 'btn-upgrade-plan',
@@ -75,9 +133,7 @@ const PaymentSelection = (props) => {
         {
             planIcon: ProImage,
             title: 'Pro',
-            amount: '$58',
-            month: '/year',
-            billDesc: 'Billed as a yearly payment of $58 USD after the trial period.',
+            ...yearlyPriceDetails,
             features: [t('yearly-feat-one'), t('monthly-yearly-feat-two'), t('removes-made-with'),'Password protection','Customize Favicon', t('monthly-yearly-feat-three')],
             buttonLabel: 'Start free 15 day trial',
             buttonClass: 'btn-upgrade-plan-yearly',
