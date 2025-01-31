@@ -40,6 +40,15 @@ export default function EditForm() {
     const [isNewFavicon, setIsNewFavicon] = useState("false");
     const lng = navigator.language;
     const currentLanguage = i18n.language;
+    const [dynamicPriceId, setDynamicPriceId] = useState(
+                {
+                    monthlyPriceId: process.env.REACT_APP_BASIC,
+                    yearlyPriceId: process.env.REACT_APP_PRO
+                }
+            );
+
+    
+
     const handleShowErrorModal = () => {
         setShowErrorModal(true);
     };
@@ -90,6 +99,78 @@ export default function EditForm() {
             // An error happened.
         });
     }
+
+    const getUserLocationAndSetPrice = async () => {
+                try {
+                    const res = await fetch('https://ipinfo.io?token=b259d22dc84b2e');  // Replace with your API token
+                    const data = await res.json();
+                    const userCountry = data.country;
+        
+                    /**
+                     * REACT_APP_MONTHLY_FIVE=price_1ONTZXJyvkMmBNuRWbYtaMwL
+                        REACT_APP_MONTHLY_FOUR=price_1QmvdcJyvkMmBNuRZOGrSpsA
+                        REACT_APP_MONTHLY_THREE=price_1QmvfaJyvkMmBNuRElK3XZi5
+                        REACT_APP_MONTHLY_TWO=price_1QmvhMJyvkMmBNuRYc1fOenx
+        
+                        REACT_APP_YEARLY_FIVE=price_1ONTZvJyvkMmBNuRn0a8XUNq
+                        REACT_APP_YEARLY_FOUR=price_1QmvecJyvkMmBNuRKYHIvIGc
+                        REACT_APP_YEARLY_THREE=price_1QmvgMJyvkMmBNuR1BQgIkJO
+                        REACT_APP_YEARLY_TWO=price_1QmviAJyvkMmBNuRVyuTidKP
+                     */
+                        
+                        console.log('Country:', userCountry);
+        
+        
+                    const countryGroups = {
+                        "highestPricedCountries":["US"],
+                        "highPricedCountries":["IE", "GB", "FR", "JP", "KR", "IL", "IT"],
+                        "mediumPricedCountries": ["TW", "ES", "PT", "PL"],
+                        "lowPricedCountries":["MY", "CN", "AR", "BR"],
+                        "lowestPricedCountries":["TH", "VN", "ID", "PH", "IN", "NG"]  
+                    }
+        
+                    // Set dynamic price IDs based on country
+                    if (countryGroups.highestPricedCountries.includes(userCountry)) {
+                        setDynamicPriceId({
+                            monthlyPriceId: process.env.REACT_APP_BASIC,
+                            yearlyPriceId: process.env.REACT_APP_PRO,
+                        });
+                    } else if (countryGroups.highPricedCountries.includes(userCountry)) {
+                        setDynamicPriceId({
+                            monthlyPriceId: process.env.REACT_APP_MONTHLY_FIVE,  // Assume you have a separate price ID for GB
+                            yearlyPriceId: process.env.REACT_APP_YEARLY_FIVE,
+                        });
+                    } else if (countryGroups.mediumPricedCountries.includes(userCountry)) {
+                        setDynamicPriceId({
+                            monthlyPriceId: process.env.REACT_APP_MONTHLY_FOUR,  // Assume you have a separate price ID for IN
+                            yearlyPriceId: process.env.REACT_APP_YEARLY_FOUR,
+                        });
+                    } else if (countryGroups.lowPricedCountries.includes(userCountry)) {
+                        setDynamicPriceId({
+                            monthlyPriceId: process.env.REACT_APP_MONTHLY_THREE,  // Assume you have a separate price ID for IN
+                            yearlyPriceId: process.env.REACT_APP_YEARLY_THREE,
+                        });
+                    } else if (countryGroups.lowestPricedCountries.includes(userCountry)) {
+                        setDynamicPriceId({
+                            monthlyPriceId: process.env.REACT_APP_MONTHLY_TWO,  // Assume you have a separate price ID for IN
+                            yearlyPriceId: process.env.REACT_APP_YEARLY_TWO,
+                        });
+                    } else {
+                        // Default to US prices if country is unknown
+                        setDynamicPriceId({
+                            monthlyPriceId: process.env.REACT_APP_BASIC,
+                            yearlyPriceId: process.env.REACT_APP_PRO,
+                        });
+                    }
+                } catch (error) {
+                    console.error('Error fetching location:', error);
+                }
+            };
+            useEffect(() => {
+                    getUserLocationAndSetPrice(); // Fetch location and set price IDs on component mount
+                }, []);
+    
+    
 
     const MonthlyPayment = async (priceId) => {
         const docRef = await dbFirestore.collection('user').doc(user.uid).collection
@@ -144,6 +225,8 @@ export default function EditForm() {
     const onButtonClick = (e) => {
         inputFile.current && inputFile.current.click();
     };
+
+    console.log("editform.js");
 
     return (
         <>
@@ -257,9 +340,12 @@ export default function EditForm() {
                         <FormInstruction />
                     </div>
 
-                    <PaymentSelectionModal show={showModal} handleClose={handleCloseModal}
-                        handleMonthlyPayment={() => MonthlyPayment(process.env.REACT_APP_BASIC)}
-                        handleYearlyPayment={() => yearlyPayment(process.env.REACT_APP_PRO)} />
+                    <PaymentSelectionModal
+                        dynamicPriceId={dynamicPriceId}
+                        show={showModal} 
+                        handleClose={handleCloseModal}
+                        handleMonthlyPayment={() => MonthlyPayment(dynamicPriceId.monthlyPriceId)}
+                        handleYearlyPayment={() => yearlyPayment(dynamicPriceId.yearlyPriceId)} />
                     < AlertErrorModal show={showErrorModal} handleClose={handleCloseErrorModal} alertMessage={t('you-have-entered-a-link')} />
                 </div>
             </div>

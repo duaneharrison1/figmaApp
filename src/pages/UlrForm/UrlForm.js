@@ -67,6 +67,8 @@ export default function UrlForm() {
         setDomain(event.target.value);
     };
 
+    console.log("URLFORM");
+
 
 
     const getUserLocationAndSetPrice = async () => {
