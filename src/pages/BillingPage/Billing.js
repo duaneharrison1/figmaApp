@@ -9,7 +9,6 @@ import { loadStripe } from '@stripe/stripe-js';
 import PaymentSelectionModal from '../../components/PaymentSelection/PaymentSelection';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
-//test
 
 export default function Billing() {
     const { t } = useTranslation();
@@ -62,20 +61,36 @@ export default function Billing() {
                                 
                                 snapshot.forEach(subscription => {
                                     const subscriptionData = subscription.data();
-                                    const status = subscriptionData.status;
+                                    const status = subscriptionData.status.plan;
                                     const planId = subscriptionData.items[0].plan.id;
-                            
-                                    if (status === "active") {
-                                        // Check for Monthly Plans
+
+                                    if (status === "active" || status === "trialing") {
+                                        // Check for Monthly Plans and assign the corresponding descriptions
                                         if (
-                                            planId === process.env.REACT_APP_BASIC||
-                                            planId === process.env.REACT_APP_MONTHLY_FIVE ||
-                                            planId === process.env.REACT_APP_MONTHLY_FOUR ||
-                                            planId === process.env.REACT_APP_MONTHLY_THREE ||
+                                            planId === process.env.REACT_APP_BASIC
+                                        ) {
+                                            currentSubscriptionType = "monthlyPlan";
+                                            subscriptionDesc = t('billed-monthly-at-five');  // "REACT_APP_BASIC" gets billed as "monthly-at-five"
+                                        } else if (
+                                            planId === process.env.REACT_APP_MONTHLY_FIVE
+                                        ) {
+                                            currentSubscriptionType = "monthlyPlan";
+                                            subscriptionDesc = t('billed-monthly-at-four');  // "REACT_APP_MONTHLY_FIVE" gets billed as "monthly-at-four"
+                                        } else if (
+                                            planId === process.env.REACT_APP_MONTHLY_FOUR
+                                        ) {
+                                            currentSubscriptionType = "monthlyPlan";
+                                            subscriptionDesc = t('billed-monthly-at-three');  // "REACT_APP_MONTHLY_FOUR" gets billed as "monthly-at-three"
+                                        } else if (
+                                            planId === process.env.REACT_APP_MONTHLY_THREE
+                                        ) {
+                                            currentSubscriptionType = "monthlyPlan";
+                                            subscriptionDesc = t('billed-monthly-at-two');  // "REACT_APP_MONTHLY_THREE" gets billed as "monthly-at-two"
+                                        } else if (
                                             planId === process.env.REACT_APP_MONTHLY_TWO
                                         ) {
                                             currentSubscriptionType = "monthlyPlan";
-                                            subscriptionDesc = t('billed-monthly-at-five'); // Adjust description based on plan
+                                            subscriptionDesc = t('billed-monthly-at-one');  // "REACT_APP_MONTHLY_TWO" gets billed as "monthly-at-one"
                                         }
                                         // Check for Yearly Plans
                                         else if (
