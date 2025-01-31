@@ -329,7 +329,7 @@ export default function Billing() {
                 </div>
             </div>
             <PaymentSelectionModal
-
+                dynamicPriceId={dynamicPriceId}
                 monthlySubscription={subscriptionType}
                 show={showUpgradeModal}
                 handleClose={handleCloseUpgradeModal}
