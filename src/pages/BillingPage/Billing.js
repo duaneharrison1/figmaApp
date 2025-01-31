@@ -70,27 +70,27 @@ export default function Billing() {
                                             planId === process.env.REACT_APP_BASIC
                                         ) {
                                             currentSubscriptionType = "monthlyPlan";
-                                            subscriptionDesc = t('billed-monthly-at-five');  // "REACT_APP_BASIC" gets billed as "monthly-at-five"
+                                            subscriptionDesc = t('billed-monthly-at-six');  // "REACT_APP_BASIC" gets billed as "monthly-at-five"
                                         } else if (
                                             planId === process.env.REACT_APP_MONTHLY_FIVE
                                         ) {
                                             currentSubscriptionType = "monthlyPlan";
-                                            subscriptionDesc = t('billed-monthly-at-four');  // "REACT_APP_MONTHLY_FIVE" gets billed as "monthly-at-four"
+                                            subscriptionDesc = t('billed-monthly-at-five');  // "REACT_APP_MONTHLY_FIVE" gets billed as "monthly-at-four"
                                         } else if (
                                             planId === process.env.REACT_APP_MONTHLY_FOUR
                                         ) {
                                             currentSubscriptionType = "monthlyPlan";
-                                            subscriptionDesc = t('billed-monthly-at-three');  // "REACT_APP_MONTHLY_FOUR" gets billed as "monthly-at-three"
+                                            subscriptionDesc = t('billed-monthly-at-four');  // "REACT_APP_MONTHLY_FOUR" gets billed as "monthly-at-three"
                                         } else if (
                                             planId === process.env.REACT_APP_MONTHLY_THREE
                                         ) {
                                             currentSubscriptionType = "monthlyPlan";
-                                            subscriptionDesc = t('billed-monthly-at-two');  // "REACT_APP_MONTHLY_THREE" gets billed as "monthly-at-two"
+                                            subscriptionDesc = t('billed-monthly-at-three');  // "REACT_APP_MONTHLY_THREE" gets billed as "monthly-at-two"
                                         } else if (
                                             planId === process.env.REACT_APP_MONTHLY_TWO
                                         ) {
                                             currentSubscriptionType = "monthlyPlan";
-                                            subscriptionDesc = t('billed-monthly-at-one');  // "REACT_APP_MONTHLY_TWO" gets billed as "monthly-at-one"
+                                            subscriptionDesc = t('billed-monthly-at-two');  // "REACT_APP_MONTHLY_TWO" gets billed as "monthly-at-one"
                                         }
                                         // Check for Yearly Plans
                                         else if (
