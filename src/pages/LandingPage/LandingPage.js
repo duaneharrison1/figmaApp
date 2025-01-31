@@ -38,6 +38,13 @@ const LandingPage = () => {
   const navigate = useNavigate();
   const [userId] = useAuthState(auth);
   const [user, setUser] = useState(null);
+  const [priceTier, setPriceTier] = useState({
+    amount: "$58",
+    amountMonthly: "$6",
+    description: "Billed as one payment of $58 USD",
+
+  });
+
 
 
   useEffect(() => {
@@ -85,6 +92,70 @@ const LandingPage = () => {
     const newPath = `/${currentLanguage}/auth`;
     navigate(newPath);
   };
+
+
+  const getUserLocationAndSetPrice = async () => {
+                      try {
+                          const res = await fetch('https://ipinfo.io?token=b259d22dc84b2e');  // Replace with your API token
+                          const data = await res.json();
+                          const userCountry = data.country;
+              
+                          /**
+                           * REACT_APP_MONTHLY_FIVE=price_1ONTZXJyvkMmBNuRWbYtaMwL
+                              REACT_APP_MONTHLY_FOUR=price_1QmvdcJyvkMmBNuRZOGrSpsA
+                              REACT_APP_MONTHLY_THREE=price_1QmvfaJyvkMmBNuRElK3XZi5
+                              REACT_APP_MONTHLY_TWO=price_1QmvhMJyvkMmBNuRYc1fOenx
+              
+                              REACT_APP_YEARLY_FIVE=price_1ONTZvJyvkMmBNuRn0a8XUNq
+                              REACT_APP_YEARLY_FOUR=price_1QmvecJyvkMmBNuRKYHIvIGc
+                              REACT_APP_YEARLY_THREE=price_1QmvgMJyvkMmBNuR1BQgIkJO
+                              REACT_APP_YEARLY_TWO=price_1QmviAJyvkMmBNuRVyuTidKP
+                           */
+                              
+                              console.log('Country:', userCountry);
+              
+              
+                          const countryGroups = {
+                              "highestPricedCountries":["US"],
+                              "highPricedCountries":["IE", "GB", "FR", "JP", "KR", "IL", "IT"],
+                              "mediumPricedCountries": ["TW", "ES", "PT", "PL"],
+                              "lowPricedCountries":["MY", "CN", "AR", "BR"],
+                              "lowestPricedCountries":["TH", "VN", "ID", "PH", "IN", "NG"]  
+                          }
+  
+                          const pricingTiers = {
+                            highest: { amount: "$58", amountMonthly: "$6", description: "Billed as one payment of $58 USD", descriptionMonthly:"Billed monthly at $6 USD" },
+                            high: { amount: "$49", amountMonthly: "$5", description: "Billed as one payment of $49 USD", descriptionMonthly:"Billed monthly at $5 USD" },
+                            medium: { amount: "$39", amountMonthly: "$4", description: "Billed as one payment of $39 USD", descriptionMonthly:"Billed monthly at $4 USD" },
+                            low: { amount: "$29", amountMonthly: "$3", description: "Billed as one payment of $29 USD", descriptionMonthly:"Billed monthly at $3 USD" },
+                            lowest: { amount: "$19", amountMonthly: "$2", description: "Billed as one payment of $19 USD", descriptionMonthly:"Billed monthly at $2 USD" },
+                          };
+                          
+  
+              
+                          
+                            if (countryGroups.highestPricedCountries.includes(userCountry)) {
+                                setPriceTier(pricingTiers.highest);
+                            } else if (countryGroups.highPricedCountries.includes(userCountry)) {
+                                setPriceTier(pricingTiers.high);
+                            } else if (countryGroups.mediumPricedCountries.includes(userCountry)) {
+                                setPriceTier(pricingTiers.medium);
+                            } else if (countryGroups.lowPricedCountries.includes(userCountry)) {
+                                setPriceTier(pricingTiers.low);
+                            } else if (countryGroups.lowestPricedCountries.includes(userCountry)) {
+                                setPriceTier(pricingTiers.lowest);
+                            } else {
+                                setPriceTier(pricingTiers.highest); // Default to highest if country not found
+                            }
+                  
+                          
+                      } catch (error) {
+                          console.error('Error fetching location:', error);
+                      }
+                  };
+                  useEffect(() => {
+                          getUserLocationAndSetPrice(); // Fetch location and set price IDs on component mount
+                      }, []);
 
 
   return (
@@ -385,10 +456,10 @@ const LandingPage = () => {
                 <img className="plan-icon" src={BasicImage} alt="Basic Plan" />
                 <h1 className="landing-page-payment-selection-title">Basic</h1>
                 <div className="amount-per-month">
-                  <span className="landing-page-amount">$6</span>
+                  <span className="landing-page-amount">{priceTier.amountMonthly}</span>
                   <span className="landing-page-month">/month</span>
                 </div>
-                <p className="landing-page-bill-desc">Billed monthly at $6 USD</p>
+                <p className="landing-page-bill-desc">{priceTier.descriptionMonthly}</p>
                 <div className="landing-payment-feature-container">
                   <div className="payment-feature">
                     <img className="check-icon" src={Check} alt="Check" />
@@ -436,10 +507,10 @@ const LandingPage = () => {
                 <img className="plan-icon" src={ProImage} alt="Pro Plan" />
                 <h1 className="landing-page-payment-selection-title">Pro</h1>
                 <div className="amount-per-month">
-                  <span className="landing-page-amount">$58</span>
+                  <span className="landing-page-amount">{priceTier.amount}</span>
                   <span className="landing-page-month">/year</span>
                 </div>
-                <p className="landing-page-bill-desc">Billed as one payment of $58 USD</p>
+                <p className="landing-page-bill-desc">{priceTier.description}</p>
                 <div className="landing-payment-feature-container">
                   <div className="payment-feature">
                     <img className="check-icon" src={WhiteCheck} alt="Check" />

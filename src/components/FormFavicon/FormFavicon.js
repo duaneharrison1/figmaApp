@@ -28,7 +28,7 @@ export default function FormFavicon(props) {
                         monthlyPriceId: process.env.REACT_APP_BASIC,
                         yearlyPriceId: process.env.REACT_APP_PRO
                     }
-    );
+                );
     
                 const getUserLocationAndSetPrice = async () => {
                     try {
