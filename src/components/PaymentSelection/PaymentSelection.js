@@ -122,6 +122,7 @@ const PaymentSelection = (props) => {
             onClick: null
         },
         {
+            //test
             planIcon: BasicImage,
             title: 'Basic',
             ...monthlyPriceDetails,

@@ -66,6 +66,7 @@ export default function Billing() {
 
                                     if (status === "active" || status === "trialing") {
                                         // Check for Monthly Plans and assign the corresponding descriptions
+                                        //test
                                         if (
                                             planId === process.env.REACT_APP_BASIC
                                         ) {
