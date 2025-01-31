@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc, query, where } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
 import firebase from '../../firebase';
 import { signOut } from "firebase/auth";
@@ -334,8 +333,8 @@ export default function UrlForm() {
                 <PaymentSelectionModal 
                     dynamicPriceId={dynamicPriceId}
                     monthlySubscription={subscriptionType}
-                    show={showUpgradeModal}
-                    handleClose={handleCloseUpgradeModal}
+                    show={showModal}
+                    handleClose={handleCloseModal}
                     handleMonthlyPayment={() => MonthlyPayment(dynamicPriceId.monthlyPriceId)}
                     handleYearlyPayment={() => yearlyPayment(dynamicPriceId.yearlyPriceId)} />
                 < AlertErrorModal show={showErrorModal} handleClose={handleCloseErrorModal} alertMessage={t('you-have-entered-a-link')} />

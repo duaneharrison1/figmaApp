@@ -72,8 +72,8 @@ const PaymentSelection = (props) => {
         },
     };
 
-    const monthlyPriceDetails = priceDetails[dynamicPriceId.monthlyPriceId];
-    const yearlyPriceDetails = priceDetails[dynamicPriceId.yearlyPriceId];
+    const monthlyPriceDetails = priceDetails[dynamicPriceId?.monthlyPriceId || process.env.REACT_APP_BASIC];
+    const yearlyPriceDetails = priceDetails[dynamicPriceId?.yearlyPriceId || process.env.REACT_APP_PRO];
 
 
 
