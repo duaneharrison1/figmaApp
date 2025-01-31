@@ -42,12 +42,16 @@ function App() {
   const analytics = getAnalytics();
   const location = useLocation();
 
+  //test
+
   useEffect(() => {
     logEvent(analytics, 'page_view', {
       page_location: location.pathname,
       page_path: window.location.pathname,
     });
   }, [location]);
+
+  
 
   useEffect(() => {
     const fetchData = async () => {
