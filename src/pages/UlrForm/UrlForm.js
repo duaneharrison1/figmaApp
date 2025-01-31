@@ -331,10 +331,13 @@ export default function UrlForm() {
                         <FormInstruction />
                     </div>
                 </div>
-                <PaymentSelectionModal show={showModal} handleClose={handleCloseModal}
-                     dynamicPriceId={dynamicPriceId}
-                     handleMonthlyPayment={() => MonthlyPayment(dynamicPriceId.monthlyPriceId)}
-                     handleYearlyPayment={() => yearlyPayment(dynamicPriceId.yearlyPriceId)} />
+                <PaymentSelectionModal 
+                    dynamicPriceId={dynamicPriceId}
+                    monthlySubscription={subscriptionType}
+                    show={showUpgradeModal}
+                    handleClose={handleCloseUpgradeModal}
+                    handleMonthlyPayment={() => MonthlyPayment(dynamicPriceId.monthlyPriceId)}
+                    handleYearlyPayment={() => yearlyPayment(dynamicPriceId.yearlyPriceId)} />
                 < AlertErrorModal show={showErrorModal} handleClose={handleCloseErrorModal} alertMessage={t('you-have-entered-a-link')} />
             </div>
         </>
