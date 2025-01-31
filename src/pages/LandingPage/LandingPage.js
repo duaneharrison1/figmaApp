@@ -166,7 +166,7 @@ const LandingPage = () => {
           <div className="row">
             <div className="col-lg-8 col-4">
               <h4 className="logo" onClick={navigateToHome}>
-                Figma<span className="green-text">folio</span>
+                HTML<span className="green-text">folio</span>
               </h4>
             </div>
             <div className="col-lg-4 d-flex justify-content-end col-8">
