@@ -61,10 +61,10 @@ export default function Billing() {
                                 
                                 snapshot.forEach(subscription => {
                                     const subscriptionData = subscription.data();
-                                    const status = subscriptionData.status.plan;
+                                    const status = subscriptionData.status;
                                     const planId = subscriptionData.items[0].plan.id;
 
-                                    if (status === "active") {
+                                    if (status === "active" || status === "trialing") {
                                         // Check for Monthly Plans and assign the corresponding descriptions
                                         if (
                                             planId === process.env.REACT_APP_BASIC
