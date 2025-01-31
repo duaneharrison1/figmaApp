@@ -76,10 +76,23 @@ function UserDashboard() {
                             } else {
                                 snapshot.forEach(subscription => {
                                     if (subscription.data().status == "active" || subscription.data().status == "trialing") {
-                                        if (subscription.data().items[0].plan.id == process.env.REACT_APP_PRO || subscription.data().items[0].plan.id == process.env.REACT_APP_YEARLY) {
+                                        if (
+                                            subscription.data().items[0].plan.id == process.env.REACT_APP_PRO ||
+                                            subscription.data().items[0].plan.id == process.env.REACT_APP_YEARLY ||
+                                            subscription.data().items[0].plan.id == process.env.REACT_APP_YEARLY_FIVE ||
+                                            subscription.data().items[0].plan.id == process.env.REACT_APP_YEARLY_FOUR ||
+                                            subscription.data().items[0].plan.id == process.env.REACT_APP_YEARLY_THREE ||
+                                            subscription.data().items[0].plan.id == process.env.REACT_APP_YEARLY_TWO) {
                                             setCanCreate("true")
                                             setSubscriptionType("annualPlan")
-                                        } else if (subscription.data().items[0].plan.id == process.env.REACT_APP_BASIC && docCount <= 4 || subscription.data().items[0].plan.id == process.env.REACT_APP_MONTHLY && docCount <= 4) {
+                                        } else if (
+                                            (subscription.data().items[0].plan.id == process.env.REACT_APP_BASIC && docCount <= 4) || 
+                                            (subscription.data().items[0].plan.id == process.env.REACT_APP_MONTHLY && docCount <= 4) ||
+                                            (subscription.data().items[0].plan.id == process.env.REACT_APP_MONTHLY_FIVE && docCount <= 4) ||
+                                            (subscription.data().items[0].plan.id == process.env.REACT_APP_MONTHLY_FOUR && docCount <= 4) ||
+                                            (subscription.data().items[0].plan.id == process.env.REACT_APP_MONTHLY_THREE && docCount <= 4) ||
+                                            (subscription.data().items[0].plan.id == process.env.REACT_APP_MONTHLY_TWO && docCount <= 4)
+                                              ) {
                                             setCanCreate("true")
                                             setChangeSubPlan("true")
                                             setSubscriptionType("monthlyPlan")
