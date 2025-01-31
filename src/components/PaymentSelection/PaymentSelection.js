@@ -22,53 +22,53 @@ const PaymentSelection = (props) => {
 
         [process.env.REACT_APP_BASIC]: {
             amount: '$6',
-            period: '/month',
+            month: '/month',
             billDesc: t('billed-monthly-at-six'),
         },
         [process.env.REACT_APP_MONTHLY_FIVE]: {
             amount: '$5',
-            period: '/month',
+            month: '/month',
             billDesc: t('billed-monthly-at-five'),
         },
         [process.env.REACT_APP_MONTHLY_FOUR]: {
             amount: '$4',
-            period: '/month',
+            month: '/month',
             billDesc: t('billed-monthly-at-four'),
         },
         [process.env.REACT_APP_MONTHLY_THREE]: {
             amount: '$3',
-            period: '/month',
+            month: '/month',
             billDesc: t('billed-monthly-at-three'),
         },
         [process.env.REACT_APP_MONTHLY_TWO]: {
             amount: '$2',
-            period: '/month',
+            month: '/month',
             billDesc: t('billed-monthly-at-two'),
         },
         [process.env.REACT_APP_PRO]: {
             amount: '$58',
-            period: '/year',
+            month: '/year',
             billDesc: t('billed-monthly-at-two'),
         },
         [process.env.REACT_APP_YEARLY_FIVE]: {
             amount: '$48',
-            period: '/year',
-            billDesc: t('billed-as-one-payment'),
+            month: '/year',
+            billDesc: t('billed-as-one-payment-forty-eight'),
         },
         [process.env.REACT_APP_YEARLY_FOUR]: {
             amount: '$39',
-            period: '/year',
-            billDesc: t('billed-as-one-payment'),
+            month: '/year',
+            billDesc: t('billed-as-one-payment-thirty-nine'),
         },
         [process.env.REACT_APP_YEARLY_THREE]: {
             amount: '$29',
-            period: '/year',
-            billDesc: t('billed-as-one-payment'),
+            month: '/year',
+            billDesc: t('billed-as-one-payment-twenty-nine'),
         },
         [process.env.REACT_APP_YEARLY_TWO]: {
             amount: '$19',
-            period: '/year',
-            billDesc: t('billed-as-one-payment'),
+            month: '/year',
+            billDesc: t('billed-as-one-payment-nineteen'),
         },
     };
 
