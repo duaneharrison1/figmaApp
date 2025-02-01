@@ -16,6 +16,7 @@ import i18n from '../../i18n';
 import EmptyCardView from '../../components/EmptyCardView/EmptyCardView';
 import NewSiteButton from '../../components/NewSiteButton/NewSiteButton';
 import PaymentSelectionLite from '../../components/PaymentSelection/PaymentSelectionLite';
+import {Helmet} from "react-helmet-async";
 
 function UserDashboard() {
     const currentLanguage = i18n.language;
@@ -330,6 +331,13 @@ function UserDashboard() {
 
     return (
         <>
+
+         <Helmet>
+            <title>Figmafolio: User Dashboard</title>
+            <meta name="description" content="Choose to create a new project!" />
+            <link rel="canonical" href="https://www.figmafolio.com" />
+            </Helmet>
+
             {upgradeClick ? (
                 <div className='transfering-to-payment'>
                     <h1 className='transfering-to-payment-text'> {t('taking-you-to-the-payment-page')} </h1>

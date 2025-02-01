@@ -163,9 +163,8 @@ const LandingPage = () => {
     <>
     <Helmet>
     <title>Figmafolio: Showcase Your Figma Designs as Websites</title>
-    <meta name="description" content="Showcase your Figma designs with FigmaFolio. Convert your Figma files into live websites and share your creative portfolio with the world" />
+    <meta name="description" content="Showcase your Figma designs online with Figmafolio. Convert Figma to a website and share your portfolio with the world. Perfect for designers and creatives." />
     <link rel="canonical" href="https://www.figmafolio.com" />
-
     </Helmet>
     <div className="landing-page">
       <div className="container-fluid main-landing-page p-0">
