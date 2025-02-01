@@ -7,6 +7,8 @@ import { BrowserRouter } from "react-router-dom";
 import { Analytics } from '@vercel/analytics/react';
 import i18n from './i18n';
 import { I18nextProvider } from "react-i18next";
+import {HelmetProvider} from "react-helmet-async";
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
@@ -14,7 +16,9 @@ root.render(
     <I18nextProvider i18n={i18n}>
       <BrowserRouter>
         <Analytics />
-        <App />
+        <HelmetProvider>
+         <App />
+        </HelmetProvider>
       </BrowserRouter>
     </I18nextProvider>
   </React.StrictMode>

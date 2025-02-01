@@ -30,6 +30,7 @@ import ButtonStartForFree from '../../components/ButtonStartForFree/ButtonStrart
 import ButtonGuide from '../../components/ButtonGuide/ButtonGuide';
 import { useTranslation } from 'react-i18next';
 import Footer from '../../components/Footer/Footer';
+import {Helmet} from "react-helmet-async";
 
 
 const LandingPage = () => {
@@ -159,6 +160,13 @@ const LandingPage = () => {
 
 
   return (
+    <>
+    <Helmet>
+    <title>Figmafolio: Convert Figma Designs to Websites Instantly</title>
+    <meta name="description" content="Showcase your Figma designs online with Figmafolio. Convert Figma to a website and share your portfolio with the world. Perfect for designers and creatives." />
+    <link rel="canonical" href="https://www.figmafolio.com" />
+
+    </Helmet>
     <div className="landing-page">
       <div className="container-fluid main-landing-page p-0">
         {/* Navbar */}
@@ -561,6 +569,7 @@ const LandingPage = () => {
         <Footer />
       </div>
     </div>
+    </>
   );
 };
 
