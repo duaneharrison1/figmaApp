@@ -3,10 +3,15 @@ import { useState, useEffect, useRef } from 'react';
 import './LandingPage.css';
 import i18n from '../../i18n';
 import main_header_image_webp from './../../assets/images/main-header-image-v2.webp';
-import main_header_image_png from './../../assets/images/main-header-image-v2.png';import stepOne from './../../assets/images/stepOne.png';
-import guideOne from './../../assets/images/guide_one_image_v2.png';
+import main_header_image_png from './../../assets/images/main-header-image-v2.png';
+import stepOne from './../../assets/images/stepOne.png';
+import guideOne_png from './../../assets/images/guide_one_image_v2.png';
+import guideOne_webp from './../../assets/images/guide_one_image_v2.webp';
 import guideTwo from './../../assets/images/guide_two_imag_v2.png';
+import guideTwo_webp from './../../assets/images/guide_two_imag_v2.webp';
 import guideThree from './../../assets/images/guide_three_image_v2.png';
+import guideThree_webp from './../../assets/images/guide_three_image_v2.webp';
+
 import one from './../../assets/images/one.png';
 import two from './../../assets/images/two.png';
 import three from './../../assets/images/three.png';
@@ -329,8 +334,13 @@ const LandingPage = () => {
           {/* Guide Steps */}
           <div className="row guide-container-version-two">
             <div className="col-md-6 landing-page-container col-md-push-6 order-2">
-              <img src={guideOne} alt="Step 1" className="step-one-img" />
-            </div>
+            <img
+            src={guideOne_webp}
+            alt="Step 1"
+            className="step-one-img"
+            loading="lazy" 
+           />           
+        </div>
             <div className="col-md-6 landing-page-container col-md-pull-6 order-1">
               <div className="guide-content" ref={divGuide}>
                 <div className="guide-number">
@@ -362,15 +372,22 @@ const LandingPage = () => {
               </div>
             </div>
             <div className="col-md-6 landing-page-container">
-              <img src={guideTwo} alt="Step 2" className="step-one-img" />
+            <img
+            src={guideTwo_webp}
+            alt="Step 2"
+            className="step-one-img"
+            loading="lazy" 
+           />            
             </div>
           </div>
-
-
           <div className="row guide-container-version-two">
             <div className="col-md-6 landing-page-container col-md-push-6 order-2">
-              <img src={guideThree} alt="Step 3" className="step-one-img" />
-            </div>
+            <img
+            src={guideTwo_webp}
+            alt="Step 3"
+            className="step-one-img"
+            loading="lazy" 
+           />               </div>
             <div className="col-md-6 landing-page-container order-1">
               <div className="guide-content">
                 <div className="guide-number">
