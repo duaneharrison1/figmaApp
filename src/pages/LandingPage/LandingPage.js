@@ -383,11 +383,12 @@ const LandingPage = () => {
           <div className="row guide-container-version-two">
             <div className="col-md-6 landing-page-container col-md-push-6 order-2">
             <img
-            src={guideTwo_webp}
+            src={guideThree_webp}
             alt="Step 3"
             className="step-one-img"
             loading="lazy" 
-           />               </div>
+           />               
+           </div>
             <div className="col-md-6 landing-page-container order-1">
               <div className="guide-content">
                 <div className="guide-number">
