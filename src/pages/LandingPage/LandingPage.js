@@ -421,7 +421,7 @@ const LandingPage = () => {
             {/* Free Tier */}
             <div className="landing-page-tier">
               <div className="landing-page-tier-content">
-                <img className="plan-icon" src={freeImage} alt="Free Plan" />
+                <img className="plan-icon" src={freeImage} alt="Free Plan" loading="lazy"  />
                 <h1 className="landing-page-payment-selection-title">Free</h1>
                 <div className="amount-per-month">
                   <span className="landing-page-amount">$0</span>
@@ -436,19 +436,19 @@ const LandingPage = () => {
                     </p>
                   </div>
                   <div className="payment-feature">
-                    <img className="check-icon" src={Check} alt="Check" />
+                    <img className="check-icon" src={Check} alt="Check" loading="lazy"  />
                     <p className="landing-page-payment-feature-text">
                       Free Figmafolio domain
                     </p>
                   </div>
                   <div className="payment-feature">
-                    <img className="check-icon" src={Cross} alt="Cross" />
+                    <img className="check-icon" src={Cross} alt="Cross" loading="lazy" />
                     <p className="landing-page-payment-feature-text">
                       Removes 'Made with Figmafolio' label
                     </p>
                   </div>
                   <div className="payment-feature">
-                    <img className="check-icon" src={Cross} alt="Cross" />
+                    <img className="check-icon" src={Cross} alt="Cross" loading="lazy"  />
                     <p className="landing-page-payment-feature-text">
                       Customize Favicon
                     </p>
@@ -466,7 +466,7 @@ const LandingPage = () => {
             {/* Basic Tier */}
             <div className="landing-page-tier">
               <div className="landing-page-tier-content">
-                <img className="plan-icon" src={BasicImage} alt="Basic Plan" />
+                <img className="plan-icon" src={BasicImage} alt="Basic Plan" loading="lazy" />
                 <h1 className="landing-page-payment-selection-title">Basic</h1>
                 <div className="amount-per-month">
                   <span className="landing-page-amount">{priceTier.amountMonthly}</span>
@@ -475,19 +475,19 @@ const LandingPage = () => {
                 <p className="landing-page-bill-desc">{priceTier.descriptionMonthly}</p>
                 <div className="landing-payment-feature-container">
                   <div className="payment-feature">
-                    <img className="check-icon" src={Check} alt="Check" />
+                    <img className="check-icon" src={Check} alt="Check" loading="lazy" />
                     <p className="landing-page-payment-feature-text">
                       5 projects/websites
                     </p>
                   </div>
                   <div className="payment-feature">
-                    <img className="check-icon" src={Check} alt="Check" />
+                    <img className="check-icon" src={Check} alt="Check" loading="lazy" />
                     <p className="landing-page-payment-feature-text">
                       Connect your existing custom domains
                     </p>
                   </div>
                   <div className="payment-feature">
-                    <img className="check-icon" src={Check} alt="Check" />
+                    <img className="check-icon" src={Check} alt="Check" loading="lazy" />
                     <p className="landing-page-payment-feature-text">
                       Removes 'Made with Figmafolio' label
                     </p>
