@@ -250,7 +250,7 @@ const LandingPage = () => {
               </div>
               <div className="col-md-6">
                 <div className="custom-domain-image-container">
-                  <img src={CustomDomainImage} alt="Custom Domain" />
+                  <img src={CustomDomainImage} alt="Custom Domain" loading="lazy"  />
                 </div>
               </div>
             </div>
@@ -281,6 +281,7 @@ const LandingPage = () => {
                   src={CustomFaviconImage}
                   alt="Custom Favicon"
                   className="landing-feature-image"
+                  loading="lazy" 
                 />
                 <h3 className="landing-feature-header">Custom Favicon</h3>
                 <p className="landing-feature-subheader">
@@ -300,6 +301,7 @@ const LandingPage = () => {
                   src={PasswordProtectionImage}
                   alt="Password Protection"
                   className="landing-feature-image"
+                  loading="lazy" 
                 />
                 <h3 className="landing-feature-header">Password Protection</h3>
                 <p className="landing-feature-subheader">
@@ -313,6 +315,7 @@ const LandingPage = () => {
                   src={MultipleProjectImage}
                   alt="Multiple Projects"
                   className="landing-feature-image"
+                  loading="lazy" 
                 />
                 <h3 className="landing-feature-header">Project Showcase</h3>
                 <p className="landing-feature-subheader">
@@ -344,7 +347,7 @@ const LandingPage = () => {
             <div className="col-md-6 landing-page-container col-md-pull-6 order-1">
               <div className="guide-content" ref={divGuide}>
                 <div className="guide-number">
-                  <img src={one} alt="Number 1" className="step-one" />
+                  <img src={one} alt="Number 1" className="step-one" loading="lazy" />
                 </div>
                 <h2 className="guide-one-header">Design in Figma</h2>
                 <h3 className="guide-one-subheader">
@@ -361,7 +364,7 @@ const LandingPage = () => {
             <div className="col-md-6 landing-page-container col-md-push-6">
               <div className="guide-content">
                 <div className="guide-number">
-                  <img src={two} alt="Number 2" className="step-one" />
+                  <img src={two} alt="Number 2" className="step-one" loading="lazy"  />
                 </div>
                 <h2 className="guide-one-header">Simple Setup</h2>
                 <h3 className="guide-one-subheader">
@@ -490,13 +493,13 @@ const LandingPage = () => {
                     </p>
                   </div>
                   <div className="payment-feature">
-                    <img className="check-icon" src={Check} alt="Check" />
+                    <img className="check-icon" src={Check} alt="Check" loading="lazy" />
                     <p className="landing-page-payment-feature-text">
                       Password protection
                     </p>
                   </div>
                   <div className="payment-feature">
-                    <img className="check-icon" src={Check} alt="Check" />
+                    <img className="check-icon" src={Check} alt="Check" loading="lazy" />
                     <p className="landing-page-payment-feature-text">
                       Customize Favicon
                     </p>
@@ -529,31 +532,31 @@ const LandingPage = () => {
                     </p>
                   </div>
                   <div className="payment-feature">
-                    <img className="check-icon" src={WhiteCheck} alt="Check" />
+                    <img className="check-icon" src={WhiteCheck} alt="Check" loading="lazy" />
                     <p className="landing-page-payment-feature-text">
                       Connect your existing custom domains
                     </p>
                   </div>
                   <div className="payment-feature">
-                    <img className="check-icon" src={WhiteCheck} alt="Check" />
+                    <img className="check-icon" src={WhiteCheck} alt="Check" loading="lazy" />
                     <p className="landing-page-payment-feature-text">
                       Removes 'Made with Figmafolio' label
                     </p>
                   </div>
                   <div className="payment-feature">
-                    <img className="check-icon" src={WhiteCheck} alt="Check" />
+                    <img className="check-icon" src={WhiteCheck} alt="Check" loading="lazy"  />
                     <p className="landing-page-payment-feature-text">
                       Password protection
                     </p>
                   </div>
                   <div className="payment-feature">
-                    <img className="check-icon" src={WhiteCheck} alt="Check" />
+                    <img className="check-icon" src={WhiteCheck} alt="Check" loading="lazy"  />
                     <p className="landing-page-payment-feature-text">
                       Customize Favicon
                     </p>
                   </div>
                   <div className="payment-feature">
-                    <img className="check-icon" src={WhiteCheck} alt="Check" />
+                    <img className="check-icon" src={WhiteCheck} alt="Check" loading="lazy"  />
                     <p className="landing-page-payment-feature-text">
                       Priority technical and product support
                     </p>
