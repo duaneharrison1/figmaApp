@@ -209,7 +209,7 @@ const LandingPage = () => {
               </div>
             </div>
             <div className="col-md-6 landing-page-container">
-            <picture>
+            {/* <picture>
               <source srcSet={main_header_image_webp} type="image/webp" />
               <img
                 className="landing-page-img"
@@ -219,7 +219,7 @@ const LandingPage = () => {
                 height="800"
                 loading="eager"
               />
-            </picture>
+            </picture> */}
           </div>
 
           </div>
