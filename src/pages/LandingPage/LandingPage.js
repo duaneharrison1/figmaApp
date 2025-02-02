@@ -2,8 +2,8 @@ import React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import './LandingPage.css';
 import i18n from '../../i18n';
-import main_header_image from './../../assets/images/main-header-image-v2.png';
-import stepOne from './../../assets/images/stepOne.png';
+import main_header_image_webp from './../../assets/images/main-header-image-v2.webp';
+import main_header_image_png from './../../assets/images/main-header-image-v2.png';import stepOne from './../../assets/images/stepOne.png';
 import guideOne from './../../assets/images/guide_one_image_v2.png';
 import guideTwo from './../../assets/images/guide_two_imag_v2.png';
 import guideThree from './../../assets/images/guide_three_image_v2.png';
@@ -226,7 +226,12 @@ const LandingPage = () => {
               </div>
             </div>
             <div className="col-md-6 landing-page-container">
-              <img className="landing-page-img" src={main_header_image} alt="Main Header" />
+              <picture>
+                <source srcSet={main_header_image_webp} type="image/webp" />
+                <img className="landing-page-img" 
+                src={main_header_image_png}
+                alt="Main Header" />
+              </picture>
             </div>
           </div>
         </div>
