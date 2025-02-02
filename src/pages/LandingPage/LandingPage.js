@@ -190,6 +190,7 @@ const LandingPage = () => {
               <h1 className="landing-header">{t('landing-header')}</h1>
               <p className="landing-sec-subheader">{t('landing-subheader')}</p>
               <div className="btn_column">
+
                 <ButtonStartForFree
                   onClick={goToAuthPage}
                   className="start-for-free-btn"
@@ -203,13 +204,19 @@ const LandingPage = () => {
               </div>
             </div>
             <div className="col-md-6 landing-page-container">
-              <picture>
-                <source srcSet={main_header_image_webp} type="image/webp"/>
-                <img className="landing-page-img" 
+            <picture>
+              <source srcSet={main_header_image_webp} type="image/webp" />
+              <img
+                className="landing-page-img"
                 src={main_header_image_png}
-                alt="Main Header" />
-              </picture>
-            </div>
+                alt="Main Header"
+                width="1200"
+                height="800"
+                loading="eager"
+              />
+            </picture>
+          </div>
+
           </div>
         </div>
         {/* Features Section */}
