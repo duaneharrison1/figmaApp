@@ -118,10 +118,6 @@ function UserDashboard() {
 
         console.log('Dynamic Price IDs:', dynamicPriceId);
 
-    
-
-
-    
 
     useEffect(() => {
         let link = document.querySelector("link[rel~='icon']");
