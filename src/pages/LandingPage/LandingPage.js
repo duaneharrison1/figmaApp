@@ -67,10 +67,7 @@ const LandingPage = () => {
   }, []);
 
 
-  const scrollToDiv = () => {
-    divGuide.current.scrollIntoView({ behavior: 'smooth' });
-  };
-
+  const scrollToDiv = () => {divGuide.current.scrollIntoView({ behavior: 'smooth' });};
 
   const navigateToHome = () => {
     if (user) {
@@ -99,22 +96,7 @@ const LandingPage = () => {
                       try {
                           const res = await fetch('https://ipinfo.io?token=b259d22dc84b2e');  // Replace with your API token
                           const data = await res.json();
-                          const userCountry = data.country;
-              
-                          /**
-                           * REACT_APP_MONTHLY_FIVE=price_1ONTZXJyvkMmBNuRWbYtaMwL
-                              REACT_APP_MONTHLY_FOUR=price_1QmvdcJyvkMmBNuRZOGrSpsA
-                              REACT_APP_MONTHLY_THREE=price_1QmvfaJyvkMmBNuRElK3XZi5
-                              REACT_APP_MONTHLY_TWO=price_1QmvhMJyvkMmBNuRYc1fOenx
-              
-                              REACT_APP_YEARLY_FIVE=price_1ONTZvJyvkMmBNuRn0a8XUNq
-                              REACT_APP_YEARLY_FOUR=price_1QmvecJyvkMmBNuRKYHIvIGc
-                              REACT_APP_YEARLY_THREE=price_1QmvgMJyvkMmBNuR1BQgIkJO
-                              REACT_APP_YEARLY_TWO=price_1QmviAJyvkMmBNuRVyuTidKP
-                           */
-                              
-                              console.log('Country:', userCountry);
-              
+                          const userCountry = data.country;              
               
                           const countryGroups = {
                               "highestPricedCountries":["US"],
@@ -148,8 +130,6 @@ const LandingPage = () => {
                             } else {
                                 setPriceTier(pricingTiers.highest); // Default to highest if country not found
                             }
-                  
-                          
                       } catch (error) {
                           console.error('Error fetching location:', error);
                       }
@@ -157,14 +137,13 @@ const LandingPage = () => {
                   useEffect(() => {
                           getUserLocationAndSetPrice(); // Fetch location and set price IDs on component mount
                       }, []);
-
-
   return (
     <>
     <Helmet>
     <title>Figmafolio: Showcase Your Figma Designs as Websites</title>
     <meta name="description" content="Showcase your Figma designs online with Figmafolio. Convert Figma to a website and share your portfolio with the world. Perfect for designers and creatives." />
     <link rel="canonical" href="https://www.figmafolio.com" />
+    <link rel="preload" as="image" href={main_header_image_webp} type="image/webp" />
     </Helmet>
     <div className="landing-page">
       <div className="container-fluid main-landing-page p-0">
@@ -204,8 +183,6 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-
-
         {/* Main Content */}
         <div className="page-content-container">
           <div className="row">
@@ -227,7 +204,7 @@ const LandingPage = () => {
             </div>
             <div className="col-md-6 landing-page-container">
               <picture>
-                <source srcSet={main_header_image_webp} type="image/webp" />
+                <source srcSet={main_header_image_webp} type="image/webp"/>
                 <img className="landing-page-img" 
                 src={main_header_image_png}
                 alt="Main Header" />
@@ -235,8 +212,6 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-
-
         {/* Features Section */}
         <div className="landing-page-guide-container">
           <div className="make-it-yours-container">
@@ -245,8 +220,6 @@ const LandingPage = () => {
               Customize and publish your Figmafolio page
             </h2>
           </div>
-
-
           {/* Custom Domain Feature */}
           <div className="custom-domain-container">
             <div className="row">
