@@ -28,7 +28,6 @@ import ProImage from '../../assets/images/pro-img@2x.png';
 import freeImage from '../../assets/images/free-img@2x.png';
 import { NavLink, useNavigate, Link } from 'react-router-dom';
 import { auth } from '../../firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import ButtonStartForFree from '../../components/ButtonStartForFree/ButtonStrartForFree';
 import ButtonGuide from '../../components/ButtonGuide/ButtonGuide';
@@ -42,7 +41,6 @@ const LandingPage = () => {
   const { t } = useTranslation();
   const divGuide = useRef(null);
   const navigate = useNavigate();
-  const [userId] = useAuthState(auth);
   const [user, setUser] = useState(null);
   const [priceTier, setPriceTier] = useState({
     amount: "$58",
