@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import arrow_down from './../../assets/images/arrow-down.png';
+import '../ButtonClear/ButtonClear.css'
 
 
 export default function ButtonGuide(props) {

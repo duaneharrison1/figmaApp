@@ -34,6 +34,7 @@ import ButtonStartForFree from '../../components/ButtonStartForFree/ButtonStrart
 import ButtonGuide from '../../components/ButtonGuide/ButtonGuide';
 import { useTranslation } from 'react-i18next';
 import Footer from '../../components/Footer/Footer';
+
 import {Helmet} from "react-helmet-async";
 
 

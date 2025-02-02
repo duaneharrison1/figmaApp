@@ -5,13 +5,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import firebase from './firebase';
 import i18n from './i18n';
-import { app } from './firebase';
 import 'firebase/analytics';
 import { getAnalytics, logEvent } from "firebase/analytics";
 
 // Lazy load components
-const UrlForm = lazy(() => import('./pages/UlrForm/UrlForm'));
-const EditForm = lazy(() => import('./pages/EditForm/EditForm'));
+
 const DynamicPage = lazy(() => import('./pages/DynamicPage/DynamicPage'));
 const DynamicPage2 = lazy(() => import('./pages/DynamicPage2.js'));
 const LandingPage = lazy(() => import('./pages/LandingPage/LandingPage'));
