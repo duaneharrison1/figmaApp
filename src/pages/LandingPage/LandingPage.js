@@ -11,7 +11,6 @@ import guideTwo from './../../assets/images/guide_two_imag_v2.png';
 import guideTwo_webp from './../../assets/images/guide_two_imag_v2.webp';
 import guideThree from './../../assets/images/guide_three_image_v2.png';
 import guideThree_webp from './../../assets/images/guide_three_image_v2.webp';
-
 import one from './../../assets/images/one.png';
 import two from './../../assets/images/two.png';
 import three from './../../assets/images/three.png';
