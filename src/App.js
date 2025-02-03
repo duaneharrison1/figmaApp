@@ -5,8 +5,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import firebase from './firebase';
 import i18n from './i18n';
-import 'firebase/analytics';
-import { getAnalytics, logEvent } from "firebase/analytics";
+// import 'firebase/analytics';
+// import { getAnalytics, logEvent } from "firebase/analytics";
 
 // Lazy load components
 
@@ -40,15 +40,15 @@ function App() {
   const [data, setData] = useState([]);
   const [isMainDomain, setIsMainDomain] = useState("false");
   const [isDynamicPage, setIsDynamicPage] = useState("false");
-  const analytics = getAnalytics();
+  // const analytics = getAnalytics();
   const location = useLocation();
 
-  useEffect(() => {
-    logEvent(analytics, 'page_view', {
-      page_location: location.pathname,
-      page_path: window.location.pathname,
-    });
-  }, [location]);
+  // useEffect(() => {
+  //   logEvent(analytics, 'page_view', {
+  //     page_location: location.pathname,
+  //     page_path: window.location.pathname,
+  //   });
+  // }, [location]);
 
   useEffect(() => {
     const fetchData = async () => {
