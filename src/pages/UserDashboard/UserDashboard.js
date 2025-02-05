@@ -4,7 +4,6 @@ import { db, auth } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
 import firebase from '../../firebase';
 import CardView from '../../components/CardView/CardView';
-import ButtonColored from '../../components/ButtonColored/ButtonColored';
 import DeleteModal from '../../components/DeleteModal/DeleteModal';
 import './UserDashboard.css';
 import Navbar from '../../components/NavBar/Navbar';
@@ -342,7 +341,6 @@ function UserDashboard() {
                 <div>
                     {
                         loading === true ? (
-                            // Show loading screen or spinner
                             <div> Loading...</div >
                         ) : (
                             <div>

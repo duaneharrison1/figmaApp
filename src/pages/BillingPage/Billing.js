@@ -3,12 +3,12 @@ import Navbar from '../../components/NavBar/Navbar';
 import ButtonClear from '../../components/ButtonClear/ButtonClear';
 import firebase from '../../firebase';
 import { auth, db } from '../../firebase';
-import { collection, getDocs, doc, Timestamp, deleteDoc, updateDoc } from 'firebase/firestore'
 import './Billing.css';
 import { loadStripe } from '@stripe/stripe-js';
 import PaymentSelectionModal from '../../components/PaymentSelection/PaymentSelection';
 import { useTranslation } from 'react-i18next';
-import i18n from '../../i18n';
+import '../../components/ButtonClear/ButtonClear.css';
+
 
 export default function Billing() {
     const { t } = useTranslation();

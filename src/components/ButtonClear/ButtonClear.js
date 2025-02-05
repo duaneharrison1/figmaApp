@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import './ButtonClear.css';
+import '../../pages/FolioForm/FolioForm.css'
 
 
 export default function ButtonClear(props) {

@@ -15,6 +15,8 @@ import UploadImage from '../../components/UploadImage/UploadImage';
 import ProfileIcon from '../../assets/images/profileicon.png'
 import { useTranslation } from 'react-i18next';
 import UpdateEmailAdressModal from '../../components/UpdateEmailAddressModal/UpdateEmailAddressModal';
+import '../FolioForm/FolioForm.css'
+
 export default function ProfilePage() {
     const { t } = useTranslation();
     const dbFirestore = firebase.firestore();
