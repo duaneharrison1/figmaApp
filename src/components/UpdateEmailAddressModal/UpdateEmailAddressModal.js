@@ -14,7 +14,8 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 import { auth } from '../../firebase';
 import firebase from '../../firebase';
-import './UpdateEmailAddressModal.css'
+import './UpdateEmailAddressModal.css';
+import '../DeleteModal/DeleteModal.css';
 
 const UpdateEmailAdressModal = (props) => {
 

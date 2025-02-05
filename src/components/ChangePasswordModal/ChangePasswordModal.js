@@ -14,6 +14,7 @@ import { NavLink, useNavigate, Link } from 'react-router-dom';
 import PasswordTextField from '../PasswordTextfield/PasswordTextfield.js';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
+import '../DeleteModal/DeleteModal.css';
 
 const ChangePasswordModal = (props) => {
     const { show, handleClose } = props;
