@@ -11,19 +11,16 @@
 
 .btn-start {
     white-space: nowrap; /* Prevents text from wrapping */
-    overflow: hidden; /* Hides any overflow */
     display: inline-block; /* Ensures proper sizing */
-    width: 100%; /* Ensures responsiveness */
-    margin-right: 10px;
-    border: solid;
     padding: 12px 24px;
-    border-radius: 40px;
     font-weight: 600;
-    border-style: solid;
-    border-color: #4D9F70;
+    border-radius: 40px;
+    border: solid 2px #4D9F70;
     color: white;
     background-color: #4D9F70;
     font-size: clamp(12px, 4vw, 20px); /* Dynamically resizes text */
+    margin-right: 10px;
+
 
 }
 
@@ -36,7 +33,6 @@
     border: solid 2px #4D9F70;
     background-color: transparent;
     color: #4D9F70;
-    
     font-size: clamp(12px, 4vw, 20px); /* Dynamically resizes text */
 }
 
