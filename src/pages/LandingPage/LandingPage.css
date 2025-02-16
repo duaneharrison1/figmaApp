@@ -59,8 +59,14 @@
 }
 
 
-.landing-page-container {
+.landing-page-container-head {
+	padding-top: 90px;
+	
+}
+
+.landing-page-container{
 	align-self: center;
+	
 }
 
 
@@ -523,4 +529,7 @@
 	.tier-header {
 		font-size: 32px;
 	}
+
+	
+	
 }

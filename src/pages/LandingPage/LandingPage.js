@@ -33,6 +33,7 @@ import ButtonStartForFree from '../../components/ButtonStartForFree/ButtonStrart
 import ButtonGuide from '../../components/ButtonGuide/ButtonGuide';
 import { useTranslation } from 'react-i18next';
 import Footer from '../../components/Footer/Footer';
+import TikTokEmbed from '../../components/InstagramEmbed/InstagramEmbed';
 
 import {Helmet} from "react-helmet-async";
 
@@ -189,14 +190,14 @@ const LandingPage = () => {
         {/* Main Content */}
         <div className="page-content-container">
           <div className="row">
-            <div className="col-md-6 landing-page-container">
+            <div className="col-md-6 landing-page-container-head">
               <h1 className="landing-header">{t('landing-header')}</h1>
               <p className="landing-sec-subheader">{t('landing-subheader')}</p>
               <div className="btn_column">
 
                 <ButtonStartForFree
                   onClick={goToAuthPage}
-                  className="start-for-free-btn"
+                  className="btn-start"
                   label={t('start-for-free')}
                 />
                 <ButtonGuide
@@ -207,17 +208,7 @@ const LandingPage = () => {
               </div>
             </div>
             <div className="col-md-6 landing-page-container">
-            <picture>
-              <source srcSet={main_header_image_webp} type="image/webp" />
-              <img
-                className="landing-page-img"
-                src={main_header_image_png}
-                alt="Main Header"
-                width="1200"
-                height="800"
-                loading="eager"
-              />
-            </picture>
+              <TikTokEmbed></TikTokEmbed>
           </div>
 
           </div>
