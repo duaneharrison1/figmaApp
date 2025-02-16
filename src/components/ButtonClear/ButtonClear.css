@@ -10,7 +10,12 @@
 }
 
 .btn-start {
-    margin: 10px;
+    white-space: nowrap; /* Prevents text from wrapping */
+    overflow: hidden; /* Hides any overflow */
+    text-overflow: ellipsis; /* Adds "..." if text is too long */
+    display: inline-block; /* Ensures proper sizing */
+    max-width: 100%; /* Ensures responsiveness */
+    margin-right: 10px;
     font-size: 20px;
     border: solid;
     padding: 12px 24px;
@@ -23,16 +28,18 @@
 }
 
 .guide-btn {
-    margin: 10px;
+    white-space: nowrap; /* Prevents text from wrapping */
+    overflow: hidden; /* Hides any overflow */
+    text-overflow: ellipsis; /* Adds "..." if text is too long */
+    display: inline-block; /* Ensures proper sizing */
+    max-width: 100%; /* Ensures responsiveness */
+    padding: 12px 24px;
     font-size: 20px;
-    border: solid;
-    padding: 12px 24px 12px 24px;
-    border-radius: 40px;
     font-weight: 600;
-    border-style: solid;
-    border-color: #4D9F70;
-    color: #4D9F70;
+    border-radius: 40px;
+    border: solid 2px #4D9F70;
     background-color: transparent;
+    color: #4D9F70;
 }
 
 .btn-clear {
