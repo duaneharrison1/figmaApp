@@ -7,13 +7,11 @@
 	padding: 0;
 }
 
-
 .main-landing-page {
 	margin: 0;
 	padding: 0;
 	background-color: #FFFFFF;
 }
-
 
 /* Navigation */
 .navbar-container {
@@ -24,7 +22,6 @@
 	align-items: center;
 }
 
-
 .logo {
 	font-size: 29px;
 	font-weight: 700;
@@ -32,17 +29,14 @@
 	padding-top: 12px;
 }
 
-
 .green-text {
 	color: #4D9F70;
 }
-
 
 .landing-button-container {
 	display: flex;
 	align-items: center;
 }
-
 
 /* Header and Content Containers */
 .page-content-container {
@@ -51,24 +45,19 @@
     padding: 48px 120px 0;
 }
 
-
 .main-container {
 	padding: 0 150px;
 	font-family: 'Poppins', sans-serif;
 	background-color: #F8F6F0;
 }
 
-
 .landing-page-container-head {
 	padding-top: 90px;
-	
 }
 
 .landing-page-container{
 	align-self: center;
-	
 }
-
 
 /* Hero Section */
 .landing-header {
@@ -78,7 +67,6 @@
 	margin-bottom: 24px;
 }
 
-
 .landing-sec-subheader {
 	font-size: 25px;
 	font-weight: 400;
@@ -87,13 +75,11 @@
 	margin-bottom: 32px;
 }
 
-
 .landing-page-img {
 	width: 100%;
 	max-width: 600px;
 	height: auto;
 }
-
 
 /* Buttons */
 .btn-go-to-app {
@@ -107,7 +93,6 @@
 	transition: background-color 0.3s ease;
 }
 
-
 .login-link {
 	color: #4D9F70;
 	text-decoration: none;
@@ -116,13 +101,11 @@
 	margin-right: 24px;
 }
 
-
 .btn_column {
 	padding: 56px 0 0;
 	display: flex;
 	gap: 16px;
 }
-
 
 /* Features Section */
 .landing-page-guide-container {
@@ -131,28 +114,23 @@
 	padding: 120px 120px 0;
 }
 
-
 .make-it-yours-container {
 	text-align: center;
 	margin-bottom: 80px;
 	margin-top: 64px;
 }
 
-
 .make-it-yours {
 	font-size: 40px;
 	font-weight: bold;
 	margin-bottom: 24px;
-
 }
-
 
 .make-it-yours-subheader {
 	font-size: 18px;
 	font-weight: 400;
 	color: #666;
 }
-
 
 /* Feature Boxes */
 .custom-domain-container {
@@ -163,7 +141,6 @@
 	border: 1px solid #EDEDED;
 }
 
-
 .custom-domain-text-container {
 	display: flex;
     justify-content: center; /* Centers horizontally */
@@ -172,17 +149,14 @@
     background: #f9f9f9; 
 }
 
-
 .custom-domain-image-container {
 	text-align: center;
 }
-
 
 .custom-domain-image-container img {
 	max-width: 100%;
 	height: auto;
 }
-
 
 .publish-as-responsive-container {
 	background-color: #FAFAFA;
@@ -195,14 +169,12 @@
 	margin: 0 auto;
 }
 
-
 .landing-feature-header {
 	font-size: 28px;
 	font-weight: bold;
 	margin-bottom: 24px;
 	color: #2D2B29;
 }
-
 
 .landing-feature-subheader {
 	font-size: 18px;
@@ -212,7 +184,6 @@
 	line-height: 1.6;
 }
 
-
 .landing-feature-image {
 	width: 100%;
 	max-width: 400px;
@@ -221,13 +192,9 @@
 	object-fit: contain;
 }
 
-
 .first-row-feature-container {
 	margin-bottom: 50px;
-	/* display: flex;
-	gap: 24px; */
 }
-
 
 /* Guide Section */
 .guide-container-version-two {
@@ -240,16 +207,13 @@
 	margin-right: auto;
 }
 
-
 .guide-content {
 	padding: 74px;
 }
 
-
 .guide-number {
 	margin-bottom: 24px;
 }
-
 
 .guide-one-header {
 	font-size: 28px;
@@ -257,7 +221,6 @@
 	margin-bottom: 24px;
 	color: #2D2B29;
 }
-
 
 .guide-one-subheader {
 	font-size: 18px;
@@ -267,12 +230,10 @@
 	line-height: 1.6;
 }
 
-
 .step-one {
 	width: 62px;
 	height: 62px;
 }
-
 
 .step-one-img {
 	max-width: 100%;
@@ -281,13 +242,11 @@
 	padding: 74px;
 }
 
-
 /* Pricing Section */
 .tier-container {
 	text-align: center;
 	margin: 120px 0 60px;
 }
-
 
 .tier-header {
 	font-size: 40px;
@@ -295,7 +254,6 @@
 	margin-bottom: 24px;
 	color: #2D2B29;
 }
-
 
 .tier-subheader {
 	font-size: 18px;
@@ -305,7 +263,6 @@
 	margin: 0 auto 56px;
 }
 
-
 .landing-page-tier-div {
 	display: flex;
 	justify-content: center;
@@ -314,7 +271,6 @@
 	max-width: 1440px;
 	margin: 0 auto;
 }
-
 
 .landing-page-tier {
 	flex: 1;
@@ -327,11 +283,9 @@
 	flex-direction: column;
 }
 
-
 .landing-page-tier.pro {
 	background: #4D9F70;
 }
-
 
 .plan-icon {
 	width: 48px;
@@ -339,11 +293,9 @@
 	margin-bottom: 24px;
 }
 
-
 .landing-page-tier.pro .plan-icon {
 	filter: brightness(0) invert(1);
 }
-
 
 .landing-page-payment-selection-title {
 	font-size: 30px;
@@ -352,7 +304,6 @@
 	color: #2D2B29;
 }
 
-
 .landing-page-amount {
 	font-size: 48px;
 	font-weight: 600;
@@ -360,13 +311,11 @@
 	display: inline-block;
 }
 
-
 .landing-page-month {
 	font-size: 16px;
 	font-weight: 600;
 	color: #2D2B29;
 }
-
 
 .landing-page-bill-desc {
 	font-size: 14px;
@@ -374,12 +323,10 @@
 	margin: 8px 0 24px;
 }
 
-
 .landing-payment-feature-container {
 	margin-top: 24px;
 	min-height: 270px;
 }
-
 
 .payment-feature {
 	display: flex;
@@ -387,13 +334,11 @@
 	margin-bottom: 16px;
 }
 
-
 .check-icon {
 	width: 20px;
 	height: 20px;
 	margin-right: 12px;
 }
-
 
 .landing-page-payment-feature-text {
 	font-size: 14px;
@@ -401,7 +346,6 @@
 	color: #2D2B29;
 	margin: 0;
 }
-
 
 /* Pro tier specific styles */
 .landing-page-tier.pro .landing-page-payment-selection-title,
@@ -412,11 +356,9 @@
 	color: white;
 }
 
-
 .landing-page-tier.pro .check-icon {
 	filter: brightness(0) invert(1);
 }
-
 
 /* Button styles */
 .btn-get-started {
@@ -430,23 +372,19 @@
 	transition: background-color 0.3s ease;
 }
 
-
 .landing-page-tier:not(.pro) .btn-get-started {
 	background: #F2F2F2;
 	color: #4D9F70;
 }
-
 
 .landing-page-tier.pro .btn-get-started {
 	background: white;
 	color: #4D9F70;
 }
 
-
 .landing-page-button-upgrade-container {
 	margin-top: 32px;
 }
-
 
 /* Responsive Design */
 @media only screen and (max-width: 1280px) {
@@ -454,32 +392,26 @@
 		padding: 25px 24px;
 	}
 
-
 	.page-content-container {
 		padding: 48px 24px;
 	}
-
 
 	.landing-page-guide-container {
 		padding: 60px 24px;
 	}
 
-
 	.first-row-feature-container {
 		flex-direction: column;
 	}
-
 
 	.publish-as-responsive-container {
 		max-width: 100%;
 	}
 
-
 	.landing-page-tier-div {
 		flex-direction: column;
 		align-items: center;
 	}
-
 
 	.landing-page-tier {
 		width: 100%;
@@ -488,48 +420,122 @@
 	}
 }
 
-
 @media only screen and (max-width: 768px) {
 	.landing-header {
 		font-size: 32px;
 	}
 
-
 	.landing-sec-subheader {
 		font-size: 18px;
 	}
-
 
 	.guide-content {
 		padding: 40px;
 	}
 
-
 	.step-one-img {
 		padding: 40px;
 	}
-
 
 	.custom-domain-container,
 	.publish-as-responsive-container {
 		padding: 40px;
 	}
 
-
 	.landing-feature-header {
 		font-size: 24px;
 	}
-
 
 	.make-it-yours {
 		font-size: 32px;
 	}
 
-
 	.tier-header {
 		font-size: 32px;
 	}
 
-	
-	
+	.landing-page-tier-div {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.landing-page-tier {
+		width: 100%;
+		max-width: 100%;
+		margin-bottom: 24px;
+	}
+}
+
+@media only screen and (max-width: 480px) {
+	.landing-header {
+		font-size: 24px;
+	}
+
+	.landing-sec-subheader {
+		font-size: 16px;
+	}
+
+	.btn-go-to-app {
+		font-size: 14px;
+		padding: 10px 20px;
+	}
+
+	.login-link {
+		font-size: 14px;
+		margin-right: 16px;
+	}
+
+	.btn_column {
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.make-it-yours {
+		font-size: 28px;
+	}
+
+	.make-it-yours-subheader {
+		font-size: 16px;
+	}
+
+	.landing-feature-header {
+		font-size: 20px;
+	}
+
+	.landing-feature-subheader {
+		font-size: 16px;
+	}
+
+	.tier-header {
+		font-size: 28px;
+	}
+
+	.tier-subheader {
+		font-size: 16px;
+	}
+
+	.landing-page-payment-selection-title {
+		font-size: 24px;
+	}
+
+	.landing-page-amount {
+		font-size: 36px;
+	}
+
+	.landing-page-month {
+		font-size: 14px;
+	}
+
+	.landing-page-bill-desc {
+		font-size: 12px;
+	}
+
+	.landing-page-payment-feature-text {
+		font-size: 12px;
+	}
+
+	.btn-get-started {
+		font-size: 14px;
+		padding: 10px 20px;
+	}
 }
